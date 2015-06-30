@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated AnnotationLayerStack -->
+      <package
+            uri="file:/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/AnnotationLayerStack/AnnotationLayerStack.ecore"
+            class="AnnotationLayerStack.AnnotationLayerStackPackage"
+            genModel="AnnotationLayerStack.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated AnnotationLayerStack -->
+      <package
+            uri="file:/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/SearchLayer/SearchLayerPSMMetamodel.ecore"
+            class="SearchLayerPSM.SearchLayerPSMPackage"
+            genModel="AnnotationLayerStack.genmodel"/>
+   </extension>
+
+</plugin>
