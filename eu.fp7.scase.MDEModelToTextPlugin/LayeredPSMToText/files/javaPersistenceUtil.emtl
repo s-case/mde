@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mtl="http://www.eclipse.org/acceleo/mtl/3.0" xmlns:ocl.ecore="http://www.eclipse.org/ocl/1.1.0/Ecore">
+  <mtl:Module name="javaPersistenceUtil" nsURI="LayeredPSMToText::files::javaPersistenceUtil" startHeaderPosition="29" endHeaderPosition="991">
+    <input>
+      <takesTypesFrom href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#/"/>
+    </input>
+    <input>
+      <takesTypesFrom href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AuthenticationPSMMetamodel.ecore#/"/>
+    </input>
+    <input>
+      <takesTypesFrom href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#/"/>
+    </input>
+    <input>
+      <takesTypesFrom href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#/"/>
+    </input>
+    <ownedModuleElement xsi:type="mtl:Template" name="javaPersistenceUtil" visibility="Public">
+      <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+      <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/*&#xA; * ARISTOSTLE UNIVERSITY OF THESSALONIKI&#xA; * Copyright (C) 2015&#xA; * Aristotle University of Thessaloniki&#xA; * Department of Electrical &amp; Computer Engineering&#xA; * Division of Electronics &amp; Computer Engineering&#xA; * Intelligent Systems &amp; Software Engineering Lab&#xA; *&#xA; * Project             : "/>
+        <body xsi:type="ocl.ecore:PropertyCallExp">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          <source xsi:type="ocl.ecore:PropertyCallExp">
+            <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+            <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaPersistenceUtil/anAnnotationStack">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+            </source>
+            <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+          </source>
+          <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/name"/>
+        </body>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA; * WorkFile            : &#xA; * Compiler            : &#xA; * File Description    : &#xA; * Document Description: &#xA;* Related Documents&#x9;   : &#xA;* Note&#x9;&#x9;&#x9;&#x9;   : &#xA;* Programmer&#x9;&#x9;   : RESTful MDE Engine created by Christoforos Zolotas&#xA;* Contact&#x9;&#x9;&#x9;   : christopherzolotas@issel.ee.auth.gr&#xA;*/&#xA;package eu.fp7.scase."/>
+        <body xsi:type="ocl.ecore:OperationCallExp">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          <source xsi:type="ocl.ecore:PropertyCallExp">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:PropertyCallExp">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+              <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaPersistenceUtil/anAnnotationStack">
+                <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+              </source>
+              <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+            </source>
+            <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/name"/>
+          </source>
+          <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String_Class/toLowerCase"/>
+        </body>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=".utilities;&#xA;&#xA;import javax.persistence.EntityManager;&#xA;import javax.persistence.Persistence;&#xA;&#xA;import org.hibernate.search.jpa.FullTextEntityManager;&#xA;import org.hibernate.search.jpa.Search;&#xA;&#xA;&#xA;&#xA;public class PersistenceUtil &#xA;{&#xA;&#xA;&#x9;private static final EntityManager oEntityManager = buildEntityManager();&#xA;    private static final FullTextEntityManager oFullTextEntityManager = buildFullTextEntityManager();&#xA;    &#xA;    private static EntityManager buildEntityManager() &#xA;    {&#xA;        try &#xA;        {&#xA;           return (Persistence.createEntityManagerFactory(&quot;search&quot;)).createEntityManager();&#xA;        }&#xA;        catch (Throwable ex) &#xA;        {&#xA;            // Make sure you log the exception, as it might be swallowed&#xA;            System.err.println(&quot;Initial entity manager factory creation failed.&quot; + ex);&#xA;            throw new ExceptionInInitializerError(ex);&#xA;        }&#xA;    }&#xA;    &#xA;    private static FullTextEntityManager buildFullTextEntityManager() &#xA;    {&#xA;        try &#xA;        {  &#xA;        &#x9;return Search.getFullTextEntityManager(oEntityManager);&#xA;        }&#xA;        catch (Throwable ex) &#xA;        {&#xA;            // Make sure you log the exception, as it might be swallowed&#xA;            System.err.println(&quot;Initial entity manager factory creation failed.&quot; + ex);&#xA;            throw new ExceptionInInitializerError(ex);&#xA;        }&#xA;    }&#xA;&#xA;    public static FullTextEntityManager getFullTextEntityManager()&#xA;    {&#xA;    &#x9;return oFullTextEntityManager;&#xA;    }&#xA;    &#xA;    public static void beginEntityManagerTransaction() &#xA;    {&#xA;        oEntityManager.getTransaction().begin();&#xA;    }&#xA;    &#xA;    public static void endEntityManagerTransaction()&#xA;    {&#xA;    &#x9;oEntityManager.getTransaction().commit();&#xA;    }&#xA;&#xA;}&#xA;"/>
+        <fileUrl xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/String_Class/+">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/String_Class/+">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/String_Class/+">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <source xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaPersistenceUtil/anAnnotationStack">
+                    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/name"/>
+              </source>
+              <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/java/eu/fp7/scase/">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </argument>
+            </source>
+            <argument xsi:type="ocl.ecore:OperationCallExp">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <source xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaPersistenceUtil/anAnnotationStack">
+                    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/name"/>
+              </source>
+              <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String_Class/toLowerCase"/>
+            </argument>
+          </source>
+          <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/utilities/PersistenceUtil.java">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          </argument>
+        </fileUrl>
+        <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </charset>
+      </body>
+      <parameter name="anAnnotationStack">
+        <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+      </parameter>
+    </ownedModuleElement>
+  </mtl:Module>
+  <ecore:EPackage name="additions">
+    <eClassifiers xsi:type="ecore:EClass" name="String_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+      </eAnnotations>
+      <eOperations name="+">
+        <eAnnotations source="MTL non-standard"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="other">
+          <eType xsi:type="ocl.ecore:AnyType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Integer_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Real_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Real"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="EObject_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eAnnotations>
+      <eOperations name="javaPersistenceUtil">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL" references="/0/javaPersistenceUtil"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="anAnnotationStack">
+          <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OclAny_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Collection(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Collection(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Sequence(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Sequence(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OrderedSet(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AnnotationStack_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+      </eAnnotations>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ecore:EAnnotation source="positions">
+    <eAnnotations source="positions.0" references="/0/javaPersistenceUtil">
+      <details key="start" value="417"/>
+      <details key="end" value="3031"/>
+      <details key="line" value="5"/>
+    </eAnnotations>
+    <eAnnotations source="positions.1" references="/0/javaPersistenceUtil/%">
+      <details key="start" value="492"/>
+      <details key="end" value="493"/>
+      <details key="line" value="6"/>
+    </eAnnotations>
+    <eAnnotations source="positions.2" references="/0/javaPersistenceUtil/%.1">
+      <details key="start" value="493"/>
+      <details key="end" value="3019"/>
+      <details key="line" value="7"/>
+    </eAnnotations>
+    <eAnnotations source="positions.3" references="/0/javaPersistenceUtil/%.1/%">
+      <details key="start" value="672"/>
+      <details key="end" value="957"/>
+      <details key="line" value="8"/>
+    </eAnnotations>
+    <eAnnotations source="positions.4" references="/0/javaPersistenceUtil/%.1/%.1">
+      <details key="start" value="958"/>
+      <details key="end" value="991"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.5" references="/0/javaPersistenceUtil/%.1/%.1/%">
+      <details key="start" value="958"/>
+      <details key="end" value="986"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.6" references="/0/javaPersistenceUtil/%.1/%.1/%/anAnnotationStack">
+      <details key="start" value="958"/>
+      <details key="end" value="975"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.7" references="/0/javaPersistenceUtil/%.1/%.2">
+      <details key="start" value="993"/>
+      <details key="end" value="1287"/>
+      <details key="line" value="17"/>
+    </eAnnotations>
+    <eAnnotations source="positions.8" references="/0/javaPersistenceUtil/%.1/%.3">
+      <details key="start" value="1288"/>
+      <details key="end" value="1335"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.9" references="/0/javaPersistenceUtil/%.1/%.3/%">
+      <details key="start" value="1288"/>
+      <details key="end" value="1321"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.10" references="/0/javaPersistenceUtil/%.1/%.3/%/%">
+      <details key="start" value="1288"/>
+      <details key="end" value="1316"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.11" references="/0/javaPersistenceUtil/%.1/%.3/%/%/anAnnotationStack">
+      <details key="start" value="1288"/>
+      <details key="end" value="1305"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.12" references="/0/javaPersistenceUtil/%.1/%.4">
+      <details key="start" value="1337"/>
+      <details key="end" value="3012"/>
+      <details key="line" value="26"/>
+    </eAnnotations>
+    <eAnnotations source="positions.13" references="/0/javaPersistenceUtil/%.1/%.5">
+      <details key="start" value="500"/>
+      <details key="end" value="653"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.14" references="/0/javaPersistenceUtil/%.1/%.5/%">
+      <details key="start" value="500"/>
+      <details key="end" value="617"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.15" references="/0/javaPersistenceUtil/%.1/%.5/%/%">
+      <details key="start" value="500"/>
+      <details key="end" value="567"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.16" references="/0/javaPersistenceUtil/%.1/%.5/%/%/%">
+      <details key="start" value="500"/>
+      <details key="end" value="533"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.17" references="/0/javaPersistenceUtil/%.1/%.5/%/%/%/%">
+      <details key="start" value="500"/>
+      <details key="end" value="528"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.18" references="/0/javaPersistenceUtil/%.1/%.5/%/%/%/%/anAnnotationStack">
+      <details key="start" value="500"/>
+      <details key="end" value="517"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.19" references="/0/javaPersistenceUtil/%.1/%.5/%/%/%.1">
+      <details key="start" value="537"/>
+      <details key="end" value="567"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.20" references="/0/javaPersistenceUtil/%.1/%.5/%/%.1">
+      <details key="start" value="570"/>
+      <details key="end" value="617"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.21" references="/0/javaPersistenceUtil/%.1/%.5/%/%.1/%">
+      <details key="start" value="570"/>
+      <details key="end" value="603"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.22" references="/0/javaPersistenceUtil/%.1/%.5/%/%.1/%/%">
+      <details key="start" value="570"/>
+      <details key="end" value="598"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.23" references="/0/javaPersistenceUtil/%.1/%.5/%/%.1/%/%/anAnnotationStack">
+      <details key="start" value="570"/>
+      <details key="end" value="587"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.24" references="/0/javaPersistenceUtil/%.1/%.5/%.1">
+      <details key="start" value="620"/>
+      <details key="end" value="653"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.25" references="/0/javaPersistenceUtil/%.1/%.6">
+      <details key="start" value="662"/>
+      <details key="end" value="669"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.26" references="/0/javaPersistenceUtil/anAnnotationStack">
+      <details key="start" value="454"/>
+      <details key="end" value="489"/>
+      <details key="line" value="5"/>
+    </eAnnotations>
+  </ecore:EAnnotation>
+</xmi:XMI>

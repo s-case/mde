@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mtl="http://www.eclipse.org/acceleo/mtl/3.0" xmlns:ocl.ecore="http://www.eclipse.org/ocl/1.1.0/Ecore">
+  <mtl:Module name="javaLuceneStringSetBridge" nsURI="LayeredPSMToText::files::javaLuceneStringSetBridge" startHeaderPosition="29" endHeaderPosition="1008">
+    <input>
+      <takesTypesFrom href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#/"/>
+    </input>
+    <input>
+      <takesTypesFrom href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AuthenticationPSMMetamodel.ecore#/"/>
+    </input>
+    <input>
+      <takesTypesFrom href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#/"/>
+    </input>
+    <input>
+      <takesTypesFrom href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#/"/>
+    </input>
+    <ownedModuleElement xsi:type="mtl:Template" name="javaLuceneStringSetBridge" visibility="Public">
+      <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+      <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/*&#xA; * ARISTOSTLE UNIVERSITY OF THESSALONIKI&#xA; * Copyright (C) 2015&#xA; * Aristotle University of Thessaloniki&#xA; * Department of Electrical &amp; Computer Engineering&#xA; * Division of Electronics &amp; Computer Engineering&#xA; * Intelligent Systems &amp; Software Engineering Lab&#xA; *&#xA; * Project             : "/>
+        <body xsi:type="ocl.ecore:PropertyCallExp">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          <source xsi:type="ocl.ecore:PropertyCallExp">
+            <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+            <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaLuceneStringSetBridge/anAnnotationStack">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+            </source>
+            <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+          </source>
+          <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/name"/>
+        </body>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA; * WorkFile            : &#xA; * Compiler            : &#xA; * File Description    : &#xA; * Document Description: &#xA;* Related Documents&#x9;   : &#xA;* Note&#x9;&#x9;&#x9;&#x9;   : &#xA;* Programmer&#x9;&#x9;   : RESTful MDE Engine created by Christoforos Zolotas&#xA;* Contact&#x9;&#x9;&#x9;   : christopherzolotas@issel.ee.auth.gr&#xA;*/&#xA;&#xA;&#xA;package eu.fp7.scase."/>
+        <body xsi:type="ocl.ecore:OperationCallExp">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          <source xsi:type="ocl.ecore:PropertyCallExp">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:PropertyCallExp">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+              <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaLuceneStringSetBridge/anAnnotationStack">
+                <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+              </source>
+              <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+            </source>
+            <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/name"/>
+          </source>
+          <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String_Class/toLowerCase"/>
+        </body>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=".utilities;&#xA;&#xA;import java.util.HashSet;&#xA;import java.util.Set;&#xA;&#xA;import org.apache.lucene.document.Document;&#xA;import org.apache.lucene.document.Field;&#xA;import org.hibernate.search.bridge.LuceneOptions;&#xA;import org.hibernate.search.bridge.TwoWayFieldBridge;&#xA;&#xA;public class SetStringFieldBridge implements TwoWayFieldBridge {&#xA;   &#xA;   @Override&#xA;   public void set(String name, Object value, Document document, LuceneOptions luceneOptions) {&#xA;      &#xA;      if ( value == null ) {&#xA;         return;&#xA;      }&#xA;      &#xA;      // we expect a Set&lt;String> here. checking for Set for simplicity&#xA;      if ( ! (value instanceof Set )) {&#xA;         throw new IllegalArgumentException(&quot;support limited to Set&lt;String>&quot;);&#xA;      }&#xA;      &#xA;      @SuppressWarnings(&quot;unchecked&quot;)&#xA;      Set&lt;String> set = (Set&lt;String>)value;&#xA;      &#xA;      for (String string : set) {&#xA;         Field field = new Field(name, string, luceneOptions.getStore(), luceneOptions.getIndex(), luceneOptions.getTermVector());&#xA;         field.setBoost(luceneOptions.getBoost());&#xA;         document.add(field);&#xA;      }&#xA;      &#xA;   }&#xA;&#xA;   @Override&#xA;   public Object get(String name, Document document) {&#xA;      Field"/>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="[">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </body>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="]">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </body>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=" fields = document.getFields(name);&#xA;      Set&lt;String> set = new HashSet&lt;String>();&#xA;      for (Field field : fields) {&#xA;         set.add(field.stringValue());&#xA;      }&#xA;      return set;&#xA;   }&#xA;&#xA;   @Override&#xA;   public String objectToString(Object value) {&#xA;      if ( value == null ) {&#xA;         return &quot;&quot;;&#xA;      } else if ( value instanceof String ) {&#xA;         return (String) value;&#xA;      } else {&#xA;         return String.valueOf(value);&#xA;      }&#xA;   }&#xA;}&#xA;"/>
+        <fileUrl xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/String_Class/+">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/String_Class/+">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/String_Class/+">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <source xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaLuceneStringSetBridge/anAnnotationStack">
+                    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/name"/>
+              </source>
+              <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/java/eu/fp7/scase/">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </argument>
+            </source>
+            <argument xsi:type="ocl.ecore:OperationCallExp">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <source xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaLuceneStringSetBridge/anAnnotationStack">
+                    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/name"/>
+              </source>
+              <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String_Class/toLowerCase"/>
+            </argument>
+          </source>
+          <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/utilities/SetStringFieldBridge.java">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          </argument>
+        </fileUrl>
+        <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </charset>
+      </body>
+      <parameter name="anAnnotationStack">
+        <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+      </parameter>
+    </ownedModuleElement>
+  </mtl:Module>
+  <ecore:EPackage name="additions">
+    <eClassifiers xsi:type="ecore:EClass" name="String_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+      </eAnnotations>
+      <eOperations name="+">
+        <eAnnotations source="MTL non-standard"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="other">
+          <eType xsi:type="ocl.ecore:AnyType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Integer_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Real_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Real"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="EObject_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eAnnotations>
+      <eOperations name="javaLuceneStringSetBridge">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL" references="/0/javaLuceneStringSetBridge"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="anAnnotationStack">
+          <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OclAny_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Collection(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Collection(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Sequence(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Sequence(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OrderedSet(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AnnotationStack_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+      </eAnnotations>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ecore:EAnnotation source="positions">
+    <eAnnotations source="positions.0" references="/0/javaLuceneStringSetBridge">
+      <details key="start" value="423"/>
+      <details key="end" value="2970"/>
+      <details key="line" value="5"/>
+    </eAnnotations>
+    <eAnnotations source="positions.1" references="/0/javaLuceneStringSetBridge/%">
+      <details key="start" value="504"/>
+      <details key="end" value="505"/>
+      <details key="line" value="6"/>
+    </eAnnotations>
+    <eAnnotations source="positions.2" references="/0/javaLuceneStringSetBridge/%.1">
+      <details key="start" value="505"/>
+      <details key="end" value="2958"/>
+      <details key="line" value="7"/>
+    </eAnnotations>
+    <eAnnotations source="positions.3" references="/0/javaLuceneStringSetBridge/%.1/%">
+      <details key="start" value="689"/>
+      <details key="end" value="974"/>
+      <details key="line" value="8"/>
+    </eAnnotations>
+    <eAnnotations source="positions.4" references="/0/javaLuceneStringSetBridge/%.1/%.1">
+      <details key="start" value="975"/>
+      <details key="end" value="1008"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.5" references="/0/javaLuceneStringSetBridge/%.1/%.1/%">
+      <details key="start" value="975"/>
+      <details key="end" value="1003"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.6" references="/0/javaLuceneStringSetBridge/%.1/%.1/%/anAnnotationStack">
+      <details key="start" value="975"/>
+      <details key="end" value="992"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.7" references="/0/javaLuceneStringSetBridge/%.1/%.2">
+      <details key="start" value="1010"/>
+      <details key="end" value="1306"/>
+      <details key="line" value="17"/>
+    </eAnnotations>
+    <eAnnotations source="positions.8" references="/0/javaLuceneStringSetBridge/%.1/%.3">
+      <details key="start" value="1307"/>
+      <details key="end" value="1354"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.9" references="/0/javaLuceneStringSetBridge/%.1/%.3/%">
+      <details key="start" value="1307"/>
+      <details key="end" value="1340"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.10" references="/0/javaLuceneStringSetBridge/%.1/%.3/%/%">
+      <details key="start" value="1307"/>
+      <details key="end" value="1335"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.11" references="/0/javaLuceneStringSetBridge/%.1/%.3/%/%/anAnnotationStack">
+      <details key="start" value="1307"/>
+      <details key="end" value="1324"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.12" references="/0/javaLuceneStringSetBridge/%.1/%.4">
+      <details key="start" value="1356"/>
+      <details key="end" value="2493"/>
+      <details key="line" value="28"/>
+    </eAnnotations>
+    <eAnnotations source="positions.13" references="/0/javaLuceneStringSetBridge/%.1/%.5">
+      <details key="start" value="2494"/>
+      <details key="end" value="2497"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.14" references="/0/javaLuceneStringSetBridge/%.1/%.6">
+      <details key="start" value="2500"/>
+      <details key="end" value="2503"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.15" references="/0/javaLuceneStringSetBridge/%.1/%.7">
+      <details key="start" value="2505"/>
+      <details key="end" value="2951"/>
+      <details key="line" value="65"/>
+    </eAnnotations>
+    <eAnnotations source="positions.16" references="/0/javaLuceneStringSetBridge/%.1/%.8">
+      <details key="start" value="512"/>
+      <details key="end" value="670"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.17" references="/0/javaLuceneStringSetBridge/%.1/%.8/%">
+      <details key="start" value="512"/>
+      <details key="end" value="629"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.18" references="/0/javaLuceneStringSetBridge/%.1/%.8/%/%">
+      <details key="start" value="512"/>
+      <details key="end" value="579"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.19" references="/0/javaLuceneStringSetBridge/%.1/%.8/%/%/%">
+      <details key="start" value="512"/>
+      <details key="end" value="545"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.20" references="/0/javaLuceneStringSetBridge/%.1/%.8/%/%/%/%">
+      <details key="start" value="512"/>
+      <details key="end" value="540"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.21" references="/0/javaLuceneStringSetBridge/%.1/%.8/%/%/%/%/anAnnotationStack">
+      <details key="start" value="512"/>
+      <details key="end" value="529"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.22" references="/0/javaLuceneStringSetBridge/%.1/%.8/%/%/%.1">
+      <details key="start" value="549"/>
+      <details key="end" value="579"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.23" references="/0/javaLuceneStringSetBridge/%.1/%.8/%/%.1">
+      <details key="start" value="582"/>
+      <details key="end" value="629"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.24" references="/0/javaLuceneStringSetBridge/%.1/%.8/%/%.1/%">
+      <details key="start" value="582"/>
+      <details key="end" value="615"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.25" references="/0/javaLuceneStringSetBridge/%.1/%.8/%/%.1/%/%">
+      <details key="start" value="582"/>
+      <details key="end" value="610"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.26" references="/0/javaLuceneStringSetBridge/%.1/%.8/%/%.1/%/%/anAnnotationStack">
+      <details key="start" value="582"/>
+      <details key="end" value="599"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.27" references="/0/javaLuceneStringSetBridge/%.1/%.8/%.1">
+      <details key="start" value="632"/>
+      <details key="end" value="670"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.28" references="/0/javaLuceneStringSetBridge/%.1/%.9">
+      <details key="start" value="679"/>
+      <details key="end" value="686"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.29" references="/0/javaLuceneStringSetBridge/anAnnotationStack">
+      <details key="start" value="466"/>
+      <details key="end" value="501"/>
+      <details key="line" value="5"/>
+    </eAnnotations>
+  </ecore:EAnnotation>
+</xmi:XMI>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Eu.fp7.scase:AnnotationStack xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:Eu.fp7.scase="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore" bHasAuthenticationAnnotation="true" bHasSearchLayer="true">
+  <hasAuthenticationLayer href="../PSMModels/testServiceAuthenticationPSM.xmi#/"/>
+  <hasCorePSM href="../PSMModels/testServicePSM.xmi#/"/>
+  <hasSearchLayer href="../PSMModels/testServiceSearchLayerPSM.xmi#/"/>
+</Eu.fp7.scase:AnnotationStack>

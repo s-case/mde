@@ -1,0 +1,2067 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mtl="http://www.eclipse.org/acceleo/mtl/3.0" xmlns:ocl.ecore="http://www.eclipse.org/ocl/1.1.0/Ecore">
+  <mtl:Module name="javaAlgoResourceModel" nsURI="LayeredPSMToText::files::javaAlgoResourceModel" startHeaderPosition="29" endHeaderPosition="1103">
+    <input>
+      <takesTypesFrom href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#/"/>
+    </input>
+    <input>
+      <takesTypesFrom href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AuthenticationPSMMetamodel.ecore#/"/>
+    </input>
+    <input>
+      <takesTypesFrom href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#/"/>
+    </input>
+    <input>
+      <takesTypesFrom href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#/"/>
+    </input>
+    <ownedModuleElement xsi:type="mtl:Template" name="javaAlgoResourceModel" visibility="Public">
+      <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+      <body xsi:type="mtl:ForBlock">
+        <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/*&#xA; * ARISTOSTLE UNIVERSITY OF THESSALONIKI&#xA; * Copyright (C) 2015&#xA; * Aristotle University of Thessaloniki&#xA; * Department of Electrical &amp; Computer Engineering&#xA; * Division of Electronics &amp; Computer Engineering&#xA; * Intelligent Systems &amp; Software Engineering Lab&#xA; *&#xA; * Project             : "/>
+          <body xsi:type="ocl.ecore:PropertyCallExp">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:PropertyCallExp">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+              <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaAlgoResourceModel/anAnnotationStack">
+                <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+              </source>
+              <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+            </source>
+            <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/name"/>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA; * WorkFile            : &#xA; * Compiler            : &#xA; * File Description    : &#xA; * Document Description: &#xA;* Related Documents&#x9;   : &#xA;* Note&#x9;&#x9;&#x9;&#x9;   : &#xA;* Programmer&#x9;&#x9;   : RESTful MDE Engine created by Christoforos Zolotas&#xA;* Contact&#x9;&#x9;&#x9;   : christopherzolotas@issel.ee.auth.gr&#xA;*/&#xA;&#xA;&#xA;package eu.fp7.scase."/>
+          <body xsi:type="ocl.ecore:OperationCallExp">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:PropertyCallExp">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <source xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaAlgoResourceModel/anAnnotationStack">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+                </source>
+                <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+              </source>
+              <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/name"/>
+            </source>
+            <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String_Class/toLowerCase"/>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="."/>
+          <body xsi:type="ocl.ecore:PropertyCallExp">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:VariableExp" name="jAlgoRM" referredVariable="/0/javaAlgoResourceModel/%.1/jAlgoRM">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+            </source>
+            <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel/parentName"/>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=";&#xA;&#xA;import java.util.ArrayList;&#xA;import java.util.List;&#xA;import javax.persistence.Transient;&#xA;"/>
+          <body xsi:type="mtl:IfBlock">
+            <body xsi:type="mtl:IfBlock">
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="import javax.xml.bind.annotation.XmlRootElement;&#xA;"/>
+              <ifExpr xsi:type="mtl:QueryInvocation" definition="/0/isSearchResource">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                <argument xsi:type="ocl.ecore:VariableExp" name="jAlgoRM" referredVariable="/0/javaAlgoResourceModel/%.1/jAlgoRM">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+                </argument>
+                <argument xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaAlgoResourceModel/anAnnotationStack">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+                </argument>
+              </ifExpr>
+            </body>
+            <ifExpr xsi:type="ocl.ecore:PropertyCallExp">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+              <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaAlgoResourceModel/anAnnotationStack">
+                <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+              </source>
+              <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/bHasSearchLayer"/>
+            </ifExpr>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="import eu.fp7.scase."/>
+          <body xsi:type="ocl.ecore:OperationCallExp">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:PropertyCallExp">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <source xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaAlgoResourceModel/anAnnotationStack">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+                </source>
+                <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+              </source>
+              <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/name"/>
+            </source>
+            <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String_Class/toLowerCase"/>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=".utilities.HypermediaLink;&#xA;&#xA;//Please add any needed imports here.&#xA;&#xA;&#xA;/* "/>
+          <body xsi:type="ocl.ecore:PropertyCallExp">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:VariableExp" name="jAlgoRM" referredVariable="/0/javaAlgoResourceModel/%.1/jAlgoRM">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+            </source>
+            <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel/name"/>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=" class is responsible to model any data the "/>
+          <body xsi:type="ocl.ecore:PropertyCallExp">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:VariableExp" name="jAlgoRM" referredVariable="/0/javaAlgoResourceModel/%.1/jAlgoRM">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+            </source>
+            <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel/parentName"/>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=" resource handles. Since this one &#xA; is not automatable, the developer has to manually define it by providing its properties and setter/getter functions.*/&#xA;"/>
+          <body xsi:type="mtl:IfBlock">
+            <body xsi:type="mtl:IfBlock">
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="@XmlRootElement&#xA;"/>
+              <ifExpr xsi:type="mtl:QueryInvocation" definition="/0/isSearchResource">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                <argument xsi:type="ocl.ecore:VariableExp" name="jAlgoRM" referredVariable="/0/javaAlgoResourceModel/%.1/jAlgoRM">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+                </argument>
+                <argument xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaAlgoResourceModel/anAnnotationStack">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+                </argument>
+              </ifExpr>
+            </body>
+            <ifExpr xsi:type="ocl.ecore:PropertyCallExp">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+              <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaAlgoResourceModel/anAnnotationStack">
+                <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+              </source>
+              <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/bHasSearchLayer"/>
+            </ifExpr>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="public class "/>
+          <body xsi:type="ocl.ecore:PropertyCallExp">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:VariableExp" name="jAlgoRM" referredVariable="/0/javaAlgoResourceModel/%.1/jAlgoRM">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+            </source>
+            <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel/name"/>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="{&#xA;&#xA;    /* There follows a list with the properties that model the "/>
+          <body xsi:type="ocl.ecore:PropertyCallExp">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:VariableExp" name="jAlgoRM" referredVariable="/0/javaAlgoResourceModel/%.1/jAlgoRM">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+            </source>
+            <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel/parentName"/>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=" resource, as prescribed in the service CIM*/&#xA;"/>
+          <body xsi:type="mtl:ForBlock">
+            <body xsi:type="mtl:IfBlock">
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#x9;// The Linklist property holds all the hypermedia links to be sent back to the client&#xA;"/>
+              <body xsi:type="mtl:ForBlock">
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#x9;"/>
+                <body xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="propertyHibernateAnnotation" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.1/propertyHibernateAnnotation">
+                    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//HibernateAnnotation"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//HibernateAnnotation/HibernateAnnotationText"/>
+                </body>
+                <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+                <loopVariable name="propertyHibernateAnnotation">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//HibernateAnnotation"/>
+                </loopVariable>
+                <iterSet xsi:type="ocl.ecore:PropertyCallExp" eType="/3/OrderedSet(HibernateAnnotation)">
+                  <source xsi:type="ocl.ecore:VariableExp" name="jRMProperty" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.21/jRMProperty">
+                    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty/PropertyHasHibernateAnnotation"/>
+                </iterSet>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#x9;private List&lt;"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="jRMProperty" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.21/jRMProperty">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty/type"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="> "/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="jRMProperty" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.21/jRMProperty">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty/name"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=" = new ArrayList&lt;"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="jRMProperty" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.21/jRMProperty">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty/type"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=">();&#xA;"/>
+              <ifExpr xsi:type="ocl.ecore:OperationCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                <source xsi:type="ocl.ecore:IteratorExp" name="collect" eType="/3/Sequence(String)">
+                  <source xsi:type="ocl.ecore:PropertyCallExp" eType="/3/OrderedSet(HibernateAnnotation)">
+                    <source xsi:type="ocl.ecore:VariableExp" name="jRMProperty" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.21/jRMProperty">
+                      <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty/PropertyHasHibernateAnnotation"/>
+                  </source>
+                  <body xsi:type="ocl.ecore:PropertyCallExp">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                    <source xsi:type="ocl.ecore:VariableExp" name="temp1" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.9/collect/temp1">
+                      <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//HibernateAnnotation"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//HibernateAnnotation/HibernateAnnotationText"/>
+                  </body>
+                  <iterator xsi:type="ocl.ecore:Variable" name="temp1">
+                    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//HibernateAnnotation"/>
+                  </iterator>
+                </source>
+                <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="@Transient">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </argument>
+                <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Sequence(T)_Class/includes"/>
+              </ifExpr>
+            </body>
+            <loopVariable name="jRMProperty">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+            </loopVariable>
+            <iterSet xsi:type="ocl.ecore:PropertyCallExp">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+              <source xsi:type="ocl.ecore:VariableExp" name="jAlgoRM" referredVariable="/0/javaAlgoResourceModel/%.1/jAlgoRM">
+                <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+              </source>
+              <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel/JavaAlgoModelHasProperty"/>
+            </iterSet>
+            <each xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            </each>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="    //Please add any properties of this model here.&#xA;&#xA;    /* There follows a list of setter and getter functions.*/&#xA;"/>
+          <body xsi:type="mtl:ForBlock">
+            <body xsi:type="mtl:IfBlock">
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#x9;&#x9;"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JAXBAnnotation"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="javaSetterFunction" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.23/javaSetterFunction">
+                    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction/SetterFunctionHasJAXBAnnotation"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JAXBAnnotation/JAXBAnnotationText"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+              <ifExpr xsi:type="ocl.ecore:OperationCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                <source xsi:type="ocl.ecore:OperationCallExp">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                  <source xsi:type="ocl.ecore:PropertyCallExp">
+                    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JAXBAnnotation"/>
+                    <source xsi:type="ocl.ecore:VariableExp" name="javaSetterFunction" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.23/javaSetterFunction">
+                      <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction/SetterFunctionHasJAXBAnnotation"/>
+                  </source>
+                  <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny_Class/oclIsUndefined"/>
+                </source>
+                <argument xsi:type="ocl.ecore:BooleanLiteralExp" booleanSymbol="false">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                </argument>
+                <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean_Class/="/>
+              </ifExpr>
+            </body>
+            <body xsi:type="mtl:IfBlock">
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#x9;public void "/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="javaSetterFunction" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.23/javaSetterFunction">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaFunction/name"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="(List&lt;"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:OperationCallExp">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter"/>
+                  <source xsi:type="ocl.ecore:PropertyCallExp" eType="/3/OrderedSet(FunctionParameter)">
+                    <source xsi:type="ocl.ecore:VariableExp" name="javaSetterFunction" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.23/javaSetterFunction">
+                      <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaFunction/hasFunctionParameter"/>
+                  </source>
+                  <argument xsi:type="ocl.ecore:IntegerLiteralExp" integerSymbol="1">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+                  </argument>
+                  <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)_Class/at"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter/type"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="> "/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:OperationCallExp">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter"/>
+                  <source xsi:type="ocl.ecore:PropertyCallExp" eType="/3/OrderedSet(FunctionParameter)">
+                    <source xsi:type="ocl.ecore:VariableExp" name="javaSetterFunction" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.23/javaSetterFunction">
+                      <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaFunction/hasFunctionParameter"/>
+                  </source>
+                  <argument xsi:type="ocl.ecore:IntegerLiteralExp" integerSymbol="1">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+                  </argument>
+                  <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)_Class/at"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter/name"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="){&#xA;        this."/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:OperationCallExp">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter"/>
+                  <source xsi:type="ocl.ecore:PropertyCallExp" eType="/3/OrderedSet(FunctionParameter)">
+                    <source xsi:type="ocl.ecore:VariableExp" name="javaSetterFunction" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.23/javaSetterFunction">
+                      <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaFunction/hasFunctionParameter"/>
+                  </source>
+                  <argument xsi:type="ocl.ecore:IntegerLiteralExp" integerSymbol="1">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+                  </argument>
+                  <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)_Class/at"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter/name"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=" = "/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:OperationCallExp">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter"/>
+                  <source xsi:type="ocl.ecore:PropertyCallExp" eType="/3/OrderedSet(FunctionParameter)">
+                    <source xsi:type="ocl.ecore:VariableExp" name="javaSetterFunction" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.23/javaSetterFunction">
+                      <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaFunction/hasFunctionParameter"/>
+                  </source>
+                  <argument xsi:type="ocl.ecore:IntegerLiteralExp" integerSymbol="1">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+                  </argument>
+                  <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)_Class/at"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter/name"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=";&#xA;    }&#xA;"/>
+              <ifExpr xsi:type="ocl.ecore:OperationCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                <source xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:OperationCallExp">
+                    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter"/>
+                    <source xsi:type="ocl.ecore:PropertyCallExp" eType="/3/OrderedSet(FunctionParameter)">
+                      <source xsi:type="ocl.ecore:VariableExp" name="javaSetterFunction" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.23/javaSetterFunction">
+                        <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+                      </source>
+                      <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaFunction/hasFunctionParameter"/>
+                    </source>
+                    <argument xsi:type="ocl.ecore:IntegerLiteralExp" integerSymbol="1">
+                      <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+                    </argument>
+                    <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)_Class/at"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter/name"/>
+                </source>
+                <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="linklist">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </argument>
+                <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String_Class/="/>
+              </ifExpr>
+            </body>
+            <loopVariable name="javaSetterFunction">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+            </loopVariable>
+            <iterSet xsi:type="ocl.ecore:PropertyCallExp">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+              <source xsi:type="ocl.ecore:VariableExp" name="jAlgoRM" referredVariable="/0/javaAlgoResourceModel/%.1/jAlgoRM">
+                <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+              </source>
+              <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel/JavaAlgoModelHasSetterFunction"/>
+            </iterSet>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+          <body xsi:type="mtl:ForBlock">
+            <body xsi:type="mtl:IfBlock">
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#x9;public List&lt;"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:OperationCallExp">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter"/>
+                  <source xsi:type="ocl.ecore:PropertyCallExp" eType="/3/OrderedSet(FunctionParameter)">
+                    <source xsi:type="ocl.ecore:VariableExp" name="javaGetterFunction" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.25/javaGetterFunction">
+                      <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaGetterFunction"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaFunction/hasFunctionParameter"/>
+                  </source>
+                  <argument xsi:type="ocl.ecore:IntegerLiteralExp" integerSymbol="1">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+                  </argument>
+                  <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)_Class/at"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter/type"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="> "/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="javaGetterFunction" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.25/javaGetterFunction">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaGetterFunction"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaFunction/name"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="(){&#xA;        return this."/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:OperationCallExp">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter"/>
+                  <source xsi:type="ocl.ecore:PropertyCallExp" eType="/3/OrderedSet(FunctionParameter)">
+                    <source xsi:type="ocl.ecore:VariableExp" name="javaGetterFunction" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.25/javaGetterFunction">
+                      <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaGetterFunction"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaFunction/hasFunctionParameter"/>
+                  </source>
+                  <argument xsi:type="ocl.ecore:IntegerLiteralExp" integerSymbol="1">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+                  </argument>
+                  <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)_Class/at"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter/name"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=";&#xA;    }&#xA;"/>
+              <ifExpr xsi:type="ocl.ecore:OperationCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                <source xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:OperationCallExp">
+                    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter"/>
+                    <source xsi:type="ocl.ecore:PropertyCallExp" eType="/3/OrderedSet(FunctionParameter)">
+                      <source xsi:type="ocl.ecore:VariableExp" name="javaGetterFunction" referredVariable="/0/javaAlgoResourceModel/%.1/%/%.25/javaGetterFunction">
+                        <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaGetterFunction"/>
+                      </source>
+                      <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaFunction/hasFunctionParameter"/>
+                    </source>
+                    <argument xsi:type="ocl.ecore:IntegerLiteralExp" integerSymbol="1">
+                      <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+                    </argument>
+                    <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)_Class/at"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter/name"/>
+                </source>
+                <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="linklist">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </argument>
+                <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String_Class/="/>
+              </ifExpr>
+            </body>
+            <loopVariable name="javaGetterFunction">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaGetterFunction"/>
+            </loopVariable>
+            <iterSet xsi:type="ocl.ecore:PropertyCallExp">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaGetterFunction"/>
+              <source xsi:type="ocl.ecore:VariableExp" name="jAlgoRM" referredVariable="/0/javaAlgoResourceModel/%.1/jAlgoRM">
+                <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+              </source>
+              <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel/JavaAlgoModelHasGetterFunction"/>
+            </iterSet>
+          </body>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="    //Please add the constructors and any functions of this model here.&#xA;&#xA;}&#xA;"/>
+          <fileUrl xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/String_Class/+">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/String_Class/+">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/String_Class/+">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/String_Class/+">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                  <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/String_Class/+">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                    <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/String_Class/+">
+                      <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                      <source xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/String_Class/+">
+                        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                        <source xsi:type="ocl.ecore:PropertyCallExp">
+                          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                          <source xsi:type="ocl.ecore:PropertyCallExp">
+                            <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+                            <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaAlgoResourceModel/anAnnotationStack">
+                              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+                            </source>
+                            <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+                          </source>
+                          <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/name"/>
+                        </source>
+                        <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/src/main/java/eu/fp7/scase/">
+                          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                        </argument>
+                      </source>
+                      <argument xsi:type="ocl.ecore:OperationCallExp">
+                        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                        <source xsi:type="ocl.ecore:PropertyCallExp">
+                          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                          <source xsi:type="ocl.ecore:PropertyCallExp">
+                            <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+                            <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaAlgoResourceModel/anAnnotationStack">
+                              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+                            </source>
+                            <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+                          </source>
+                          <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/name"/>
+                        </source>
+                        <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String_Class/toLowerCase"/>
+                      </argument>
+                    </source>
+                    <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/">
+                      <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                    </argument>
+                  </source>
+                  <argument xsi:type="ocl.ecore:PropertyCallExp">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                    <source xsi:type="ocl.ecore:VariableExp" name="jAlgoRM" referredVariable="/0/javaAlgoResourceModel/%.1/jAlgoRM">
+                      <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel/parentName"/>
+                  </argument>
+                </source>
+                <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="/">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </argument>
+              </source>
+              <argument xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="jAlgoRM" referredVariable="/0/javaAlgoResourceModel/%.1/jAlgoRM">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel/name"/>
+              </argument>
+            </source>
+            <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=".java">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            </argument>
+          </fileUrl>
+          <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          </charset>
+        </body>
+        <loopVariable name="jAlgoRM">
+          <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+        </loopVariable>
+        <iterSet xsi:type="ocl.ecore:PropertyCallExp" eType="/3/OrderedSet(JavaAlgoResourceModel)">
+          <source xsi:type="ocl.ecore:PropertyCallExp">
+            <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM"/>
+            <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/javaAlgoResourceModel/anAnnotationStack">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+            </source>
+            <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasCorePSM"/>
+          </source>
+          <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//RESTfulServicePSM/hasJavaAlgoModel"/>
+        </iterSet>
+      </body>
+      <parameter name="anAnnotationStack">
+        <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+      </parameter>
+    </ownedModuleElement>
+    <ownedModuleElement xsi:type="mtl:Query" name="isSearchResource">
+      <parameter name="jAlgoRM">
+        <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+      </parameter>
+      <parameter name="anAnnotationStack">
+        <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+      </parameter>
+      <expression xsi:type="ocl.ecore:IteratorExp" name="exists">
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+        <source xsi:type="mtl:QueryInvocation" eType="/3/Sequence(SearchController)" definition="/0/getSearchControllerAnnotations">
+          <argument xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/isSearchResource/anAnnotationStack">
+            <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+          </argument>
+        </source>
+        <body xsi:type="ocl.ecore:OperationCallExp">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+          <source xsi:type="ocl.ecore:CollectionLiteralExp" eType="/3/Set(JavaAlgoResourceModel)">
+            <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL/Annotations">
+              <details key="IMPLICIT_SET_CONVERSION" value="true"/>
+            </eAnnotations>
+            <part xsi:type="ocl.ecore:CollectionItem">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+              <item xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+                <source xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceController"/>
+                  <source xsi:type="ocl.ecore:PropertyCallExp">
+                    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//AnnJavaAlgoController"/>
+                    <source xsi:type="ocl.ecore:VariableExp" name="searchControllerAnnotation" referredVariable="/0/isSearchResource/exists/searchControllerAnnotation">
+                      <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//SearchController"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//SearchController/isSearchController"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//AnnJavaAlgoController/annotatesJavaAlgoController"/>
+                </source>
+                <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceController/hasAssociatedAlgoModel"/>
+              </item>
+            </part>
+          </source>
+          <argument xsi:type="ocl.ecore:VariableExp" name="jAlgoRM" referredVariable="/0/isSearchResource/jAlgoRM">
+            <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+          </argument>
+          <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Set(T)_Class/includes"/>
+        </body>
+        <iterator xsi:type="ocl.ecore:Variable" name="searchControllerAnnotation">
+          <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//SearchController"/>
+        </iterator>
+      </expression>
+      <type xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+    </ownedModuleElement>
+    <ownedModuleElement xsi:type="mtl:Query" name="getSearchControllerAnnotations" type="/3/Sequence(SearchController)">
+      <parameter name="anAnnotationStack">
+        <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+      </parameter>
+      <expression xsi:type="ocl.ecore:OperationCallExp" eType="/3/Sequence(Annotation)">
+        <source xsi:type="ocl.ecore:IteratorExp" name="select" eType="/3/OrderedSet(Annotation)">
+          <source xsi:type="ocl.ecore:PropertyCallExp" eType="/3/OrderedSet(Annotation)">
+            <source xsi:type="ocl.ecore:PropertyCallExp">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//AnnotationModel"/>
+              <source xsi:type="ocl.ecore:VariableExp" name="anAnnotationStack" referredVariable="/0/getSearchControllerAnnotations/anAnnotationStack">
+                <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+              </source>
+              <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack/hasSearchLayer"/>
+            </source>
+            <referredProperty xsi:type="ecore:EReference" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//AnnotationModel/hasAnnotation"/>
+          </source>
+          <body xsi:type="ocl.ecore:OperationCallExp">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+            <source xsi:type="ocl.ecore:VariableExp" name="annotation" referredVariable="/0/getSearchControllerAnnotations/%/select/annotation">
+              <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//Annotation"/>
+            </source>
+            <argument xsi:type="ocl.ecore:TypeExp" eType="/64/SearchController">
+              <referredType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//SearchController"/>
+            </argument>
+            <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny_Class/oclIsTypeOf"/>
+          </body>
+          <iterator xsi:type="ocl.ecore:Variable" name="annotation">
+            <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//Annotation"/>
+          </iterator>
+        </source>
+        <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)_Class/asSequence"/>
+      </expression>
+    </ownedModuleElement>
+  </mtl:Module>
+  <ecore:EPackage name="additions">
+    <eClassifiers xsi:type="ecore:EClass" name="String_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+      </eAnnotations>
+      <eOperations name="+">
+        <eAnnotations source="MTL non-standard"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="other">
+          <eType xsi:type="ocl.ecore:AnyType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Integer_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Real_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Real"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="EObject_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eAnnotations>
+      <eOperations name="javaAlgoResourceModel">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL" references="/0/javaAlgoResourceModel"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="anAnnotationStack">
+          <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+        </eParameters>
+      </eOperations>
+      <eOperations name="isSearchResource">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL" references="/0/isSearchResource"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+        <eParameters name="jAlgoRM">
+          <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+        </eParameters>
+        <eParameters name="anAnnotationStack">
+          <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+        </eParameters>
+      </eOperations>
+      <eOperations name="getSearchControllerAnnotations" eType="/3/Sequence(SearchController)">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL" references="/0/getSearchControllerAnnotations"/>
+        <eParameters name="anAnnotationStack">
+          <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OclAny_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Collection(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Collection(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Sequence(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Sequence(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="OrderedSet(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AnnotationStack_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="JavaAlgoResourceModel_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+      </eAnnotations>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ecore:EPackage name="collections">
+    <eClassifiers xsi:type="ocl.ecore:SequenceType" name="Sequence(SearchController)" instanceClassName="java.util.List">
+      <elementType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//SearchController"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:OrderedSetType" name="OrderedSet(JavaAlgoResourceModel)" instanceClassName="java.util.LinkedHashSet">
+      <elementType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:OrderedSetType" name="OrderedSet(HibernateAnnotation)" instanceClassName="java.util.LinkedHashSet">
+      <elementType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//HibernateAnnotation"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:SequenceType" name="Sequence(String)" instanceClassName="java.util.List">
+      <elementType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:OrderedSetType" name="OrderedSet(FunctionParameter)" instanceClassName="java.util.LinkedHashSet">
+      <elementType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//FunctionParameter"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:SetType" name="Set(JavaAlgoResourceModel)" instanceClassName="java.util.Set">
+      <elementType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:OrderedSetType" name="OrderedSet(Annotation)" instanceClassName="java.util.LinkedHashSet">
+      <elementType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//Annotation"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:SequenceType" name="Sequence(Annotation)" instanceClassName="java.util.List">
+      <elementType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//Annotation"/>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//HibernateAnnotation"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//HibernateAnnotation"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//PSMComponentProperty"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaSetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaGetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaGetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaGetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaGetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaGetterFunction"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/PSMMetamodel.ecore#//JavaAlgoResourceModel"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ecore:EPackage name="types">
+    <eClassifiers xsi:type="ocl.ecore:TypeType" name="SearchController">
+      <referredType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerPSMMetamodel.ecore#//SearchController"/>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="platform:/plugin/MDEModelToModelTransformations/Metamodels/AnnotationLayerStack.ecore#//AnnotationStack"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ecore:EAnnotation source="positions">
+    <eAnnotations source="positions.0" references="/0/javaAlgoResourceModel">
+      <details key="start" value="418"/>
+      <details key="end" value="4138"/>
+      <details key="line" value="5"/>
+    </eAnnotations>
+    <eAnnotations source="positions.1" references="/0/javaAlgoResourceModel/%">
+      <details key="start" value="495"/>
+      <details key="end" value="496"/>
+      <details key="line" value="6"/>
+    </eAnnotations>
+    <eAnnotations source="positions.2" references="/0/javaAlgoResourceModel/%.1">
+      <details key="start" value="496"/>
+      <details key="end" value="4126"/>
+      <details key="line" value="7"/>
+    </eAnnotations>
+    <eAnnotations source="positions.3" references="/0/javaAlgoResourceModel/%.1/%">
+      <details key="start" value="584"/>
+      <details key="end" value="4119"/>
+      <details key="line" value="8"/>
+    </eAnnotations>
+    <eAnnotations source="positions.4" references="/0/javaAlgoResourceModel/%.1/%/%">
+      <details key="start" value="784"/>
+      <details key="end" value="1069"/>
+      <details key="line" value="9"/>
+    </eAnnotations>
+    <eAnnotations source="positions.5" references="/0/javaAlgoResourceModel/%.1/%/%.1">
+      <details key="start" value="1070"/>
+      <details key="end" value="1103"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.6" references="/0/javaAlgoResourceModel/%.1/%/%.1/%">
+      <details key="start" value="1070"/>
+      <details key="end" value="1098"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.7" references="/0/javaAlgoResourceModel/%.1/%/%.1/%/anAnnotationStack">
+      <details key="start" value="1070"/>
+      <details key="end" value="1087"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.8" references="/0/javaAlgoResourceModel/%.1/%/%.2">
+      <details key="start" value="1105"/>
+      <details key="end" value="1401"/>
+      <details key="line" value="18"/>
+    </eAnnotations>
+    <eAnnotations source="positions.9" references="/0/javaAlgoResourceModel/%.1/%/%.3">
+      <details key="start" value="1402"/>
+      <details key="end" value="1449"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.10" references="/0/javaAlgoResourceModel/%.1/%/%.3/%">
+      <details key="start" value="1402"/>
+      <details key="end" value="1435"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.11" references="/0/javaAlgoResourceModel/%.1/%/%.3/%/%">
+      <details key="start" value="1402"/>
+      <details key="end" value="1430"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.12" references="/0/javaAlgoResourceModel/%.1/%/%.3/%/%/anAnnotationStack">
+      <details key="start" value="1402"/>
+      <details key="end" value="1419"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.13" references="/0/javaAlgoResourceModel/%.1/%/%.4">
+      <details key="start" value="1451"/>
+      <details key="end" value="1452"/>
+      <details key="line" value="29"/>
+    </eAnnotations>
+    <eAnnotations source="positions.14" references="/0/javaAlgoResourceModel/%.1/%/%.5">
+      <details key="start" value="1453"/>
+      <details key="end" value="1471"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.15" references="/0/javaAlgoResourceModel/%.1/%/%.5/jAlgoRM">
+      <details key="start" value="1453"/>
+      <details key="end" value="1460"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.16" references="/0/javaAlgoResourceModel/%.1/%/%.6">
+      <details key="start" value="1473"/>
+      <details key="end" value="1563"/>
+      <details key="line" value="29"/>
+    </eAnnotations>
+    <eAnnotations source="positions.17" references="/0/javaAlgoResourceModel/%.1/%/%.7">
+      <details key="start" value="1563"/>
+      <details key="end" value="1715"/>
+      <details key="line" value="34"/>
+    </eAnnotations>
+    <eAnnotations source="positions.18" references="/0/javaAlgoResourceModel/%.1/%/%.7/%">
+      <details key="start" value="1604"/>
+      <details key="end" value="1709"/>
+      <details key="line" value="35"/>
+    </eAnnotations>
+    <eAnnotations source="positions.19" references="/0/javaAlgoResourceModel/%.1/%/%.7/%/%">
+      <details key="start" value="1655"/>
+      <details key="end" value="1704"/>
+      <details key="line" value="36"/>
+    </eAnnotations>
+    <eAnnotations source="positions.20" references="/0/javaAlgoResourceModel/%.1/%/%.7/%/%.1">
+      <details key="start" value="1608"/>
+      <details key="end" value="1653"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.21" references="/0/javaAlgoResourceModel/%.1/%/%.7/%/%.1/jAlgoRM">
+      <details key="start" value="1609"/>
+      <details key="end" value="1616"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.22" references="/0/javaAlgoResourceModel/%.1/%/%.7/%/%.1/anAnnotationStack">
+      <details key="start" value="1634"/>
+      <details key="end" value="1651"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.23" references="/0/javaAlgoResourceModel/%.1/%/%.7/%.1">
+      <details key="start" value="1567"/>
+      <details key="end" value="1602"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.24" references="/0/javaAlgoResourceModel/%.1/%/%.7/%.1/anAnnotationStack">
+      <details key="start" value="1568"/>
+      <details key="end" value="1585"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.25" references="/0/javaAlgoResourceModel/%.1/%/%.8">
+      <details key="start" value="1716"/>
+      <details key="end" value="1736"/>
+      <details key="line" value="39"/>
+    </eAnnotations>
+    <eAnnotations source="positions.26" references="/0/javaAlgoResourceModel/%.1/%/%.9">
+      <details key="start" value="1737"/>
+      <details key="end" value="1784"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.27" references="/0/javaAlgoResourceModel/%.1/%/%.9/%">
+      <details key="start" value="1737"/>
+      <details key="end" value="1770"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.28" references="/0/javaAlgoResourceModel/%.1/%/%.9/%/%">
+      <details key="start" value="1737"/>
+      <details key="end" value="1765"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.29" references="/0/javaAlgoResourceModel/%.1/%/%.9/%/%/anAnnotationStack">
+      <details key="start" value="1737"/>
+      <details key="end" value="1754"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.30" references="/0/javaAlgoResourceModel/%.1/%/%.10">
+      <details key="start" value="1786"/>
+      <details key="end" value="1857"/>
+      <details key="line" value="39"/>
+    </eAnnotations>
+    <eAnnotations source="positions.31" references="/0/javaAlgoResourceModel/%.1/%/%.11">
+      <details key="start" value="1858"/>
+      <details key="end" value="1870"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.32" references="/0/javaAlgoResourceModel/%.1/%/%.11/jAlgoRM">
+      <details key="start" value="1858"/>
+      <details key="end" value="1865"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.33" references="/0/javaAlgoResourceModel/%.1/%/%.12">
+      <details key="start" value="1872"/>
+      <details key="end" value="1916"/>
+      <details key="line" value="44"/>
+    </eAnnotations>
+    <eAnnotations source="positions.34" references="/0/javaAlgoResourceModel/%.1/%/%.13">
+      <details key="start" value="1917"/>
+      <details key="end" value="1935"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.35" references="/0/javaAlgoResourceModel/%.1/%/%.13/jAlgoRM">
+      <details key="start" value="1917"/>
+      <details key="end" value="1924"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.36" references="/0/javaAlgoResourceModel/%.1/%/%.14">
+      <details key="start" value="1937"/>
+      <details key="end" value="2092"/>
+      <details key="line" value="44"/>
+    </eAnnotations>
+    <eAnnotations source="positions.37" references="/0/javaAlgoResourceModel/%.1/%/%.15">
+      <details key="start" value="2092"/>
+      <details key="end" value="2211"/>
+      <details key="line" value="46"/>
+    </eAnnotations>
+    <eAnnotations source="positions.38" references="/0/javaAlgoResourceModel/%.1/%/%.15/%">
+      <details key="start" value="2133"/>
+      <details key="end" value="2205"/>
+      <details key="line" value="47"/>
+    </eAnnotations>
+    <eAnnotations source="positions.39" references="/0/javaAlgoResourceModel/%.1/%/%.15/%/%">
+      <details key="start" value="2184"/>
+      <details key="end" value="2200"/>
+      <details key="line" value="48"/>
+    </eAnnotations>
+    <eAnnotations source="positions.40" references="/0/javaAlgoResourceModel/%.1/%/%.15/%/%.1">
+      <details key="start" value="2137"/>
+      <details key="end" value="2182"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.41" references="/0/javaAlgoResourceModel/%.1/%/%.15/%/%.1/jAlgoRM">
+      <details key="start" value="2138"/>
+      <details key="end" value="2145"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.42" references="/0/javaAlgoResourceModel/%.1/%/%.15/%/%.1/anAnnotationStack">
+      <details key="start" value="2163"/>
+      <details key="end" value="2180"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.43" references="/0/javaAlgoResourceModel/%.1/%/%.15/%.1">
+      <details key="start" value="2096"/>
+      <details key="end" value="2131"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.44" references="/0/javaAlgoResourceModel/%.1/%/%.15/%.1/anAnnotationStack">
+      <details key="start" value="2097"/>
+      <details key="end" value="2114"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.45" references="/0/javaAlgoResourceModel/%.1/%/%.16">
+      <details key="start" value="2212"/>
+      <details key="end" value="2225"/>
+      <details key="line" value="51"/>
+    </eAnnotations>
+    <eAnnotations source="positions.46" references="/0/javaAlgoResourceModel/%.1/%/%.17">
+      <details key="start" value="2226"/>
+      <details key="end" value="2238"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.47" references="/0/javaAlgoResourceModel/%.1/%/%.17/jAlgoRM">
+      <details key="start" value="2226"/>
+      <details key="end" value="2233"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.48" references="/0/javaAlgoResourceModel/%.1/%/%.18">
+      <details key="start" value="2240"/>
+      <details key="end" value="2306"/>
+      <details key="line" value="51"/>
+    </eAnnotations>
+    <eAnnotations source="positions.49" references="/0/javaAlgoResourceModel/%.1/%/%.19">
+      <details key="start" value="2307"/>
+      <details key="end" value="2325"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.50" references="/0/javaAlgoResourceModel/%.1/%/%.19/jAlgoRM">
+      <details key="start" value="2307"/>
+      <details key="end" value="2314"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.51" references="/0/javaAlgoResourceModel/%.1/%/%.20">
+      <details key="start" value="2327"/>
+      <details key="end" value="2373"/>
+      <details key="line" value="53"/>
+    </eAnnotations>
+    <eAnnotations source="positions.52" references="/0/javaAlgoResourceModel/%.1/%/%.21">
+      <details key="start" value="2373"/>
+      <details key="end" value="2931"/>
+      <details key="line" value="54"/>
+    </eAnnotations>
+    <eAnnotations source="positions.53" references="/0/javaAlgoResourceModel/%.1/%/%.21/%">
+      <details key="start" value="2468"/>
+      <details key="end" value="2924"/>
+      <details key="line" value="55"/>
+    </eAnnotations>
+    <eAnnotations source="positions.54" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%">
+      <details key="start" value="2566"/>
+      <details key="end" value="2653"/>
+      <details key="line" value="56"/>
+    </eAnnotations>
+    <eAnnotations source="positions.55" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.1">
+      <details key="start" value="2655"/>
+      <details key="end" value="2822"/>
+      <details key="line" value="57"/>
+    </eAnnotations>
+    <eAnnotations source="positions.56" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.1/%">
+      <details key="start" value="2758"/>
+      <details key="end" value="2759"/>
+      <details key="line" value="58"/>
+    </eAnnotations>
+    <eAnnotations source="positions.57" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.1/%.1">
+      <details key="start" value="2760"/>
+      <details key="end" value="2811"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.58" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.1/%.1/propertyHibernateAnnotation">
+      <details key="start" value="2760"/>
+      <details key="end" value="2787"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.59" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.1/%.2">
+      <details key="start" value="2813"/>
+      <details key="end" value="2814"/>
+      <details key="line" value="59"/>
+    </eAnnotations>
+    <eAnnotations source="positions.60" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.1/propertyHibernateAnnotation">
+      <details key="start" value="2661"/>
+      <details key="end" value="2710"/>
+      <details key="line" value="57"/>
+    </eAnnotations>
+    <eAnnotations source="positions.61" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.1/%.3">
+      <details key="start" value="2713"/>
+      <details key="end" value="2755"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.62" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.1/%.3/jRMProperty">
+      <details key="start" value="2713"/>
+      <details key="end" value="2724"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.63" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.2">
+      <details key="start" value="2823"/>
+      <details key="end" value="2837"/>
+      <details key="line" value="60"/>
+    </eAnnotations>
+    <eAnnotations source="positions.64" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.3">
+      <details key="start" value="2838"/>
+      <details key="end" value="2854"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.65" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.3/jRMProperty">
+      <details key="start" value="2838"/>
+      <details key="end" value="2849"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.66" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.4">
+      <details key="start" value="2856"/>
+      <details key="end" value="2858"/>
+      <details key="line" value="60"/>
+    </eAnnotations>
+    <eAnnotations source="positions.67" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.5">
+      <details key="start" value="2859"/>
+      <details key="end" value="2875"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.68" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.5/jRMProperty">
+      <details key="start" value="2859"/>
+      <details key="end" value="2870"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.69" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.6">
+      <details key="start" value="2877"/>
+      <details key="end" value="2894"/>
+      <details key="line" value="60"/>
+    </eAnnotations>
+    <eAnnotations source="positions.70" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.7">
+      <details key="start" value="2895"/>
+      <details key="end" value="2911"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.71" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.7/jRMProperty">
+      <details key="start" value="2895"/>
+      <details key="end" value="2906"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.72" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.8">
+      <details key="start" value="2913"/>
+      <details key="end" value="2918"/>
+      <details key="line" value="60"/>
+    </eAnnotations>
+    <eAnnotations source="positions.73" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.9">
+      <details key="start" value="2472"/>
+      <details key="end" value="2564"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.74" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.9/collect">
+      <details key="start" value="2473"/>
+      <details key="end" value="2539"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.75" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.9/collect/%">
+      <details key="start" value="2473"/>
+      <details key="end" value="2515"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.76" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.9/collect/%/jRMProperty">
+      <details key="start" value="2473"/>
+      <details key="end" value="2484"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.77" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.9/collect/%.1">
+      <details key="start" value="2516"/>
+      <details key="end" value="2539"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.78" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.9/collect/%.1/temp1">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.79" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.9/collect/temp1">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.80" references="/0/javaAlgoResourceModel/%.1/%/%.21/%/%.9/%">
+      <details key="start" value="2550"/>
+      <details key="end" value="2562"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.81" references="/0/javaAlgoResourceModel/%.1/%/%.21/jRMProperty">
+      <details key="start" value="2379"/>
+      <details key="end" value="2413"/>
+      <details key="line" value="54"/>
+    </eAnnotations>
+    <eAnnotations source="positions.82" references="/0/javaAlgoResourceModel/%.1/%/%.21/%.1">
+      <details key="start" value="2416"/>
+      <details key="end" value="2448"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.83" references="/0/javaAlgoResourceModel/%.1/%/%.21/%.1/jAlgoRM">
+      <details key="start" value="2416"/>
+      <details key="end" value="2423"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.84" references="/0/javaAlgoResourceModel/%.1/%/%.21/%.2">
+      <details key="start" value="2460"/>
+      <details key="end" value="2464"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.85" references="/0/javaAlgoResourceModel/%.1/%/%.22">
+      <details key="start" value="2932"/>
+      <details key="end" value="3047"/>
+      <details key="line" value="63"/>
+    </eAnnotations>
+    <eAnnotations source="positions.86" references="/0/javaAlgoResourceModel/%.1/%/%.23">
+      <details key="start" value="3047"/>
+      <details key="end" value="3678"/>
+      <details key="line" value="66"/>
+    </eAnnotations>
+    <eAnnotations source="positions.87" references="/0/javaAlgoResourceModel/%.1/%/%.23/%">
+      <details key="start" value="3137"/>
+      <details key="end" value="3301"/>
+      <details key="line" value="67"/>
+    </eAnnotations>
+    <eAnnotations source="positions.88" references="/0/javaAlgoResourceModel/%.1/%/%.23/%/%">
+      <details key="start" value="3220"/>
+      <details key="end" value="3222"/>
+      <details key="line" value="68"/>
+    </eAnnotations>
+    <eAnnotations source="positions.89" references="/0/javaAlgoResourceModel/%.1/%/%.23/%/%.1">
+      <details key="start" value="3223"/>
+      <details key="end" value="3292"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.90" references="/0/javaAlgoResourceModel/%.1/%/%.23/%/%.1/%">
+      <details key="start" value="3223"/>
+      <details key="end" value="3273"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.91" references="/0/javaAlgoResourceModel/%.1/%/%.23/%/%.1/%/javaSetterFunction">
+      <details key="start" value="3223"/>
+      <details key="end" value="3241"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.92" references="/0/javaAlgoResourceModel/%.1/%/%.23/%/%.2">
+      <details key="start" value="3294"/>
+      <details key="end" value="3295"/>
+      <details key="line" value="69"/>
+    </eAnnotations>
+    <eAnnotations source="positions.93" references="/0/javaAlgoResourceModel/%.1/%/%.23/%/%.3">
+      <details key="start" value="3141"/>
+      <details key="end" value="3218"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.94" references="/0/javaAlgoResourceModel/%.1/%/%.23/%/%.3/%">
+      <details key="start" value="3142"/>
+      <details key="end" value="3209"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.95" references="/0/javaAlgoResourceModel/%.1/%/%.23/%/%.3/%/%">
+      <details key="start" value="3142"/>
+      <details key="end" value="3192"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.96" references="/0/javaAlgoResourceModel/%.1/%/%.23/%/%.3/%/%/javaSetterFunction">
+      <details key="start" value="3142"/>
+      <details key="end" value="3160"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.97" references="/0/javaAlgoResourceModel/%.1/%/%.23/%/%.3/%.1">
+      <details key="start" value="3212"/>
+      <details key="end" value="3217"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.98" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1">
+      <details key="start" value="3303"/>
+      <details key="end" value="3671"/>
+      <details key="line" value="70"/>
+    </eAnnotations>
+    <eAnnotations source="positions.99" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%">
+      <details key="start" value="3375"/>
+      <details key="end" value="3388"/>
+      <details key="line" value="71"/>
+    </eAnnotations>
+    <eAnnotations source="positions.100" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.1">
+      <details key="start" value="3389"/>
+      <details key="end" value="3412"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.101" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.1/javaSetterFunction">
+      <details key="start" value="3389"/>
+      <details key="end" value="3407"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.102" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.2">
+      <details key="start" value="3414"/>
+      <details key="end" value="3420"/>
+      <details key="line" value="71"/>
+    </eAnnotations>
+    <eAnnotations source="positions.103" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.3">
+      <details key="start" value="3421"/>
+      <details key="end" value="3472"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.104" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.3/%">
+      <details key="start" value="3421"/>
+      <details key="end" value="3467"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.105" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.3/%/%">
+      <details key="start" value="3421"/>
+      <details key="end" value="3460"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.106" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.3/%/%/javaSetterFunction">
+      <details key="start" value="3421"/>
+      <details key="end" value="3439"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.107" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.3/%/%.1">
+      <details key="start" value="3465"/>
+      <details key="end" value="3466"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.108" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.4">
+      <details key="start" value="3474"/>
+      <details key="end" value="3476"/>
+      <details key="line" value="71"/>
+    </eAnnotations>
+    <eAnnotations source="positions.109" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.5">
+      <details key="start" value="3477"/>
+      <details key="end" value="3528"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.110" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.5/%">
+      <details key="start" value="3477"/>
+      <details key="end" value="3523"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.111" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.5/%/%">
+      <details key="start" value="3477"/>
+      <details key="end" value="3516"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.112" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.5/%/%/javaSetterFunction">
+      <details key="start" value="3477"/>
+      <details key="end" value="3495"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.113" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.5/%/%.1">
+      <details key="start" value="3521"/>
+      <details key="end" value="3522"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.114" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.6">
+      <details key="start" value="3530"/>
+      <details key="end" value="3546"/>
+      <details key="line" value="71"/>
+    </eAnnotations>
+    <eAnnotations source="positions.115" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.7">
+      <details key="start" value="3547"/>
+      <details key="end" value="3598"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.116" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.7/%">
+      <details key="start" value="3547"/>
+      <details key="end" value="3593"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.117" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.7/%/%">
+      <details key="start" value="3547"/>
+      <details key="end" value="3586"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.118" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.7/%/%/javaSetterFunction">
+      <details key="start" value="3547"/>
+      <details key="end" value="3565"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.119" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.7/%/%.1">
+      <details key="start" value="3591"/>
+      <details key="end" value="3592"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.120" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.8">
+      <details key="start" value="3600"/>
+      <details key="end" value="3603"/>
+      <details key="line" value="72"/>
+    </eAnnotations>
+    <eAnnotations source="positions.121" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.9">
+      <details key="start" value="3604"/>
+      <details key="end" value="3655"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.122" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.9/%">
+      <details key="start" value="3604"/>
+      <details key="end" value="3650"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.123" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.9/%/%">
+      <details key="start" value="3604"/>
+      <details key="end" value="3643"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.124" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.9/%/%/javaSetterFunction">
+      <details key="start" value="3604"/>
+      <details key="end" value="3622"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.125" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.9/%/%.1">
+      <details key="start" value="3648"/>
+      <details key="end" value="3649"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.126" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.10">
+      <details key="start" value="3657"/>
+      <details key="end" value="3665"/>
+      <details key="line" value="72"/>
+    </eAnnotations>
+    <eAnnotations source="positions.127" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.11">
+      <details key="start" value="3307"/>
+      <details key="end" value="3373"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.128" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.11/%">
+      <details key="start" value="3308"/>
+      <details key="end" value="3359"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.129" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.11/%/%">
+      <details key="start" value="3308"/>
+      <details key="end" value="3354"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.130" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.11/%/%/%">
+      <details key="start" value="3308"/>
+      <details key="end" value="3347"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.131" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.11/%/%/%/javaSetterFunction">
+      <details key="start" value="3308"/>
+      <details key="end" value="3326"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.132" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.11/%/%/%.1">
+      <details key="start" value="3352"/>
+      <details key="end" value="3353"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.133" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.1/%.11/%.1">
+      <details key="start" value="3362"/>
+      <details key="end" value="3372"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.134" references="/0/javaAlgoResourceModel/%.1/%/%.23/javaSetterFunction">
+      <details key="start" value="3053"/>
+      <details key="end" value="3092"/>
+      <details key="line" value="66"/>
+    </eAnnotations>
+    <eAnnotations source="positions.135" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.2">
+      <details key="start" value="3095"/>
+      <details key="end" value="3133"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.136" references="/0/javaAlgoResourceModel/%.1/%/%.23/%.2/jAlgoRM">
+      <details key="start" value="3095"/>
+      <details key="end" value="3102"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.137" references="/0/javaAlgoResourceModel/%.1/%/%.24">
+      <details key="start" value="3679"/>
+      <details key="end" value="3680"/>
+      <details key="line" value="76"/>
+    </eAnnotations>
+    <eAnnotations source="positions.138" references="/0/javaAlgoResourceModel/%.1/%/%.25">
+      <details key="start" value="3680"/>
+      <details key="end" value="4036"/>
+      <details key="line" value="77"/>
+    </eAnnotations>
+    <eAnnotations source="positions.139" references="/0/javaAlgoResourceModel/%.1/%/%.25/%">
+      <details key="start" value="3770"/>
+      <details key="end" value="4029"/>
+      <details key="line" value="78"/>
+    </eAnnotations>
+    <eAnnotations source="positions.140" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%">
+      <details key="start" value="3842"/>
+      <details key="end" value="3855"/>
+      <details key="line" value="79"/>
+    </eAnnotations>
+    <eAnnotations source="positions.141" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.1">
+      <details key="start" value="3856"/>
+      <details key="end" value="3907"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.142" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.1/%">
+      <details key="start" value="3856"/>
+      <details key="end" value="3902"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.143" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.1/%/%">
+      <details key="start" value="3856"/>
+      <details key="end" value="3895"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.144" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.1/%/%/javaGetterFunction">
+      <details key="start" value="3856"/>
+      <details key="end" value="3874"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.145" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.1/%/%.1">
+      <details key="start" value="3900"/>
+      <details key="end" value="3901"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.146" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.2">
+      <details key="start" value="3909"/>
+      <details key="end" value="3911"/>
+      <details key="line" value="79"/>
+    </eAnnotations>
+    <eAnnotations source="positions.147" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.3">
+      <details key="start" value="3912"/>
+      <details key="end" value="3935"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.148" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.3/javaGetterFunction">
+      <details key="start" value="3912"/>
+      <details key="end" value="3930"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.149" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.4">
+      <details key="start" value="3937"/>
+      <details key="end" value="3961"/>
+      <details key="line" value="79"/>
+    </eAnnotations>
+    <eAnnotations source="positions.150" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.5">
+      <details key="start" value="3962"/>
+      <details key="end" value="4013"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.151" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.5/%">
+      <details key="start" value="3962"/>
+      <details key="end" value="4008"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.152" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.5/%/%">
+      <details key="start" value="3962"/>
+      <details key="end" value="4001"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.153" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.5/%/%/javaGetterFunction">
+      <details key="start" value="3962"/>
+      <details key="end" value="3980"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.154" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.5/%/%.1">
+      <details key="start" value="4006"/>
+      <details key="end" value="4007"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.155" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.6">
+      <details key="start" value="4015"/>
+      <details key="end" value="4023"/>
+      <details key="line" value="80"/>
+    </eAnnotations>
+    <eAnnotations source="positions.156" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.7">
+      <details key="start" value="3774"/>
+      <details key="end" value="3840"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.157" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.7/%">
+      <details key="start" value="3775"/>
+      <details key="end" value="3826"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.158" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.7/%/%">
+      <details key="start" value="3775"/>
+      <details key="end" value="3821"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.159" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.7/%/%/%">
+      <details key="start" value="3775"/>
+      <details key="end" value="3814"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.160" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.7/%/%/%/javaGetterFunction">
+      <details key="start" value="3775"/>
+      <details key="end" value="3793"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.161" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.7/%/%/%.1">
+      <details key="start" value="3819"/>
+      <details key="end" value="3820"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.162" references="/0/javaAlgoResourceModel/%.1/%/%.25/%/%.7/%.1">
+      <details key="start" value="3829"/>
+      <details key="end" value="3839"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.163" references="/0/javaAlgoResourceModel/%.1/%/%.25/javaGetterFunction">
+      <details key="start" value="3686"/>
+      <details key="end" value="3725"/>
+      <details key="line" value="77"/>
+    </eAnnotations>
+    <eAnnotations source="positions.164" references="/0/javaAlgoResourceModel/%.1/%/%.25/%.1">
+      <details key="start" value="3728"/>
+      <details key="end" value="3766"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.165" references="/0/javaAlgoResourceModel/%.1/%/%.25/%.1/jAlgoRM">
+      <details key="start" value="3728"/>
+      <details key="end" value="3735"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.166" references="/0/javaAlgoResourceModel/%.1/%/%.26">
+      <details key="start" value="4037"/>
+      <details key="end" value="4112"/>
+      <details key="line" value="84"/>
+    </eAnnotations>
+    <eAnnotations source="positions.167" references="/0/javaAlgoResourceModel/%.1/%/%.27">
+      <details key="start" value="591"/>
+      <details key="end" value="765"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.168" references="/0/javaAlgoResourceModel/%.1/%/%.27/%">
+      <details key="start" value="591"/>
+      <details key="end" value="755"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.169" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%">
+      <details key="start" value="591"/>
+      <details key="end" value="740"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.170" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%">
+      <details key="start" value="591"/>
+      <details key="end" value="734"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.171" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%">
+      <details key="start" value="591"/>
+      <details key="end" value="713"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.172" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%/%">
+      <details key="start" value="591"/>
+      <details key="end" value="707"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.173" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%/%/%">
+      <details key="start" value="591"/>
+      <details key="end" value="657"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.174" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%/%/%/%">
+      <details key="start" value="591"/>
+      <details key="end" value="624"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.175" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%/%/%/%/%">
+      <details key="start" value="591"/>
+      <details key="end" value="619"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.176" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%/%/%/%/%/anAnnotationStack">
+      <details key="start" value="591"/>
+      <details key="end" value="608"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.177" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%/%/%/%.1">
+      <details key="start" value="627"/>
+      <details key="end" value="657"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.178" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%/%/%.1">
+      <details key="start" value="660"/>
+      <details key="end" value="707"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.179" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%/%/%.1/%">
+      <details key="start" value="660"/>
+      <details key="end" value="693"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.180" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%/%/%.1/%/%">
+      <details key="start" value="660"/>
+      <details key="end" value="688"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.181" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%/%/%.1/%/%/anAnnotationStack">
+      <details key="start" value="660"/>
+      <details key="end" value="677"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.182" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%/%.1">
+      <details key="start" value="710"/>
+      <details key="end" value="713"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.183" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%.1">
+      <details key="start" value="716"/>
+      <details key="end" value="734"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.184" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%/%.1/jAlgoRM">
+      <details key="start" value="716"/>
+      <details key="end" value="723"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.185" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%/%.1">
+      <details key="start" value="737"/>
+      <details key="end" value="740"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.186" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%.1">
+      <details key="start" value="743"/>
+      <details key="end" value="755"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.187" references="/0/javaAlgoResourceModel/%.1/%/%.27/%/%.1/jAlgoRM">
+      <details key="start" value="743"/>
+      <details key="end" value="750"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.188" references="/0/javaAlgoResourceModel/%.1/%/%.27/%.1">
+      <details key="start" value="758"/>
+      <details key="end" value="765"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.189" references="/0/javaAlgoResourceModel/%.1/%/%.28">
+      <details key="start" value="774"/>
+      <details key="end" value="781"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.190" references="/0/javaAlgoResourceModel/%.1/jAlgoRM">
+      <details key="start" value="502"/>
+      <details key="end" value="533"/>
+      <details key="line" value="7"/>
+    </eAnnotations>
+    <eAnnotations source="positions.191" references="/0/javaAlgoResourceModel/%.1/%.1">
+      <details key="start" value="536"/>
+      <details key="end" value="581"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.192" references="/0/javaAlgoResourceModel/%.1/%.1/%">
+      <details key="start" value="536"/>
+      <details key="end" value="564"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.193" references="/0/javaAlgoResourceModel/%.1/%.1/%/anAnnotationStack">
+      <details key="start" value="536"/>
+      <details key="end" value="553"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.194" references="/0/javaAlgoResourceModel/anAnnotationStack">
+      <details key="start" value="457"/>
+      <details key="end" value="492"/>
+      <details key="line" value="5"/>
+    </eAnnotations>
+    <eAnnotations source="positions.195" references="/0/isSearchResource">
+      <details key="start" value="4140"/>
+      <details key="end" value="4480"/>
+      <details key="line" value="91"/>
+    </eAnnotations>
+    <eAnnotations source="positions.196" references="/0/isSearchResource/jAlgoRM">
+      <details key="start" value="4172"/>
+      <details key="end" value="4203"/>
+      <details key="line" value="91"/>
+    </eAnnotations>
+    <eAnnotations source="positions.197" references="/0/isSearchResource/anAnnotationStack">
+      <details key="start" value="4205"/>
+      <details key="end" value="4240"/>
+      <details key="line" value="91"/>
+    </eAnnotations>
+    <eAnnotations source="positions.198" references="/0/isSearchResource/exists">
+      <details key="start" value="4255"/>
+      <details key="end" value="4476"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.199" references="/0/isSearchResource/exists/%">
+      <details key="start" value="4255"/>
+      <details key="end" value="4322"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.200" references="/0/isSearchResource/exists/%/anAnnotationStack">
+      <details key="start" value="4304"/>
+      <details key="end" value="4321"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.201" references="/0/isSearchResource/exists/%.1">
+      <details key="start" value="4360"/>
+      <details key="end" value="4475"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.202" references="/0/isSearchResource/exists/%.1/%">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.203" references="/0/isSearchResource/exists/%.1/%/%/%">
+      <details key="start" value="4360"/>
+      <details key="end" value="4456"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.204" references="/0/isSearchResource/exists/%.1/%/%/%/%">
+      <details key="start" value="4360"/>
+      <details key="end" value="4433"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.205" references="/0/isSearchResource/exists/%.1/%/%/%/%/%">
+      <details key="start" value="4360"/>
+      <details key="end" value="4405"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.206" references="/0/isSearchResource/exists/%.1/%/%/%/%/%/searchControllerAnnotation">
+      <details key="start" value="4360"/>
+      <details key="end" value="4386"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.207" references="/0/isSearchResource/exists/%.1/jAlgoRM">
+      <details key="start" value="4467"/>
+      <details key="end" value="4474"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.208" references="/0/isSearchResource/exists/searchControllerAnnotation">
+      <details key="start" value="4331"/>
+      <details key="end" value="4357"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.209" references="/0/getSearchControllerAnnotations">
+      <details key="start" value="4482"/>
+      <details key="end" value="4723"/>
+      <details key="line" value="95"/>
+    </eAnnotations>
+    <eAnnotations source="positions.210" references="/0/getSearchControllerAnnotations/anAnnotationStack">
+      <details key="start" value="4528"/>
+      <details key="end" value="4563"/>
+      <details key="line" value="95"/>
+    </eAnnotations>
+    <eAnnotations source="positions.211" references="/0/getSearchControllerAnnotations/%">
+      <details key="start" value="4597"/>
+      <details key="end" value="4720"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.212" references="/0/getSearchControllerAnnotations/%/select">
+      <details key="start" value="4597"/>
+      <details key="end" value="4706"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.213" references="/0/getSearchControllerAnnotations/%/select/%">
+      <details key="start" value="4597"/>
+      <details key="end" value="4643"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.214" references="/0/getSearchControllerAnnotations/%/select/%/%">
+      <details key="start" value="4597"/>
+      <details key="end" value="4629"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.215" references="/0/getSearchControllerAnnotations/%/select/%/%/anAnnotationStack">
+      <details key="start" value="4597"/>
+      <details key="end" value="4614"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.216" references="/0/getSearchControllerAnnotations/%/select/%.1">
+      <details key="start" value="4665"/>
+      <details key="end" value="4705"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.217" references="/0/getSearchControllerAnnotations/%/select/%.1/annotation">
+      <details key="start" value="4665"/>
+      <details key="end" value="4675"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.218" references="/0/getSearchControllerAnnotations/%/select/%.1/%">
+      <details key="start" value="4688"/>
+      <details key="end" value="4704"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.219" references="/0/getSearchControllerAnnotations/%/select/annotation">
+      <details key="start" value="4652"/>
+      <details key="end" value="4662"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+  </ecore:EAnnotation>
+</xmi:XMI>

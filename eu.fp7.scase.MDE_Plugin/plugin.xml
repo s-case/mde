@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="MDE Category"
+            id="MDEPluginWrapper">
+      </category>
+      <view
+            name="MDE GUI"
+            icon="icons/sample.gif"
+            category="MDEPluginWrapper"
+            class="eu.fp7.scase.mdepluginwrapper.views.MDETopLevelUIInvoker"
+            id="mdepluginwrapper.views.MDETopLevelUIInvoker">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.ProblemView"
+               relationship="right"
+               id="mdepluginwrapper.views.MDETopLevelUIInvoker">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+
+</plugin>

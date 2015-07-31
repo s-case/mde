@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="MDE Input Parser"
+            id="CIMGenerator.commands.category">
+      </category>
+      <command
+            name="CIM Generator"
+            categoryId="CIMGenerator.commands.category"
+            id="CIMGenerator.commands.CIMGeneratorCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="CIMGenerator.commands.CIMGeneratorCommand"
+            class="eu.fp7.scase.launcher.cimgenerator.handlers.CIMGenerator">
+      </handler>
+   </extension>
+
+</plugin>

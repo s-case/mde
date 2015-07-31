@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Eu.fp7.scase:AnnotationModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Eu.fp7.scase="platform:/plugin/MDEModelToModelTransformations/Metamodels/SearchLayerCIMMetamodel.ecore" name="testServiceSearchLayer">
+  <hasAnnotatedElement xsi:type="Eu.fp7.scase:AnnCRUDResource">
+    <annotatesResource href="testServiceCIM.xmi#//@hasResources.2"/>
+  </hasAnnotatedElement>
+  <hasAnnotatedElement xsi:type="Eu.fp7.scase:AnnProperty">
+    <annotatesProperty href="testServiceCIM.xmi#//@hasResources.2/@hasProperty.0"/>
+  </hasAnnotatedElement>
+  <hasAnnotatedElement xsi:type="Eu.fp7.scase:AnnAlgoResource">
+    <annotatesAlgoResource href="testServiceCIM.xmi#//@hasResources.1"/>
+  </hasAnnotatedElement>
+  <hasAnnotation xsi:type="Eu.fp7.scase:SearchResource" AlgoResourceIsSearchResource="//@hasAnnotatedElement.2">
+    <searchesResource ResourceIsSearchable="//@hasAnnotatedElement.0">
+      <hasSearchableProperty PropertyIsSearchable="//@hasAnnotatedElement.1"/>
+    </searchesResource>
+  </hasAnnotation>
+</Eu.fp7.scase:AnnotationModel>
