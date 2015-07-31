@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="Annotation Stack"
+            id="AnnotationStackPopulator.commands.category">
+      </category>
+      <command
+            name="Annotation Stack Populator"
+            categoryId="AnnotationStackPopulator.commands.category"
+            id="AnnotationStackPopulator.commands.PopulateAnnotationStack">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="AnnotationStackPopulator.commands.PopulateAnnotationStack"
+            class="annotationstackpopulator.handlers.AnnotationStackPopulator">
+      </handler>
+   </extension>
+
+</plugin>

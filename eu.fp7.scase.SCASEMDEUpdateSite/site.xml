@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/SCASEMDEModule_1.0.0.201507311349.jar" id="SCASEMDEModule" version="1.0.0.201507311349">
+      <category name="MDE-SCASEMDERESTfulEngine"/>
+   </feature>
+   <category-def name="MDE-SCASEMDERESTfulEngine" label="SCASE MDE RESTful Engine"/>
+</site>
