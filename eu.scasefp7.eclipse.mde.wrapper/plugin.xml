@@ -22,4 +22,30 @@
       </handler>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated AnnotationLayerStack -->
+      <package
+            uri="platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore"
+            class="AnnotationLayerStack.AnnotationLayerStackPackage"/>
+      <!--  genModel="Metamodels/AnnotationLayerStack.genmodel" -->
+ 
+      <!-- @generated AuthenticationLayerPSM -->
+      <package
+            uri="platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore"
+            class="AuthenticationLayerPSM.AuthenticationLayerPSMPackage"/>
+      <!--  genModel="Metamodels/AuthenticationLayerPSM.genmodel" -->
+ 
+      <!-- @generated SearchLayerPSM -->
+      <package
+            uri="platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore"
+            class="SearchLayerPSM.SearchLayerPSMPackage"/>
+      <!--  genModel="Metamodels/SearchLayerPSM.genmodel" -->
+ 
+      <!-- @generated PSMMetamodel -->
+      <package
+            uri="platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore"
+            class="ServicePSM.ServicePSMPackage"/>
+      <!--  genModel="Metamodels/PSMMetamodel.genmodel" -->
+    </extension>
+
 </plugin>
