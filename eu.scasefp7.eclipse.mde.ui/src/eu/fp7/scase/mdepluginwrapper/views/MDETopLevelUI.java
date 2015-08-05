@@ -116,6 +116,8 @@ public class MDETopLevelUI extends ScrolledComposite {
 //		this.oDatabaseUsernameText.setText("postgres");
 //		this.oDatabasePasswordText.setText("fp7s-case");
 //		this.oDatabaseSearchingCheckBoxButton.setSelection(true);
+		this.oAuthorizationCheckBoxButton.setEnabled(false);
+		this.oExternalCompositionCheckBoxButton.setEnabled(false);
 	}
 
 	private void initializeUILayout() {

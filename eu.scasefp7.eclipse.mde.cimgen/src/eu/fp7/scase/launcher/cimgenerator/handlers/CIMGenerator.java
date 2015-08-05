@@ -1,23 +1,24 @@
 package eu.fp7.scase.launcher.cimgenerator.handlers;
 
-import java.util.ArrayList;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 
+import java.util.ArrayList;
+
 import AuthenticationLayerCIM.AuthenticationLayerCIMFactory;
 import SearchLayerCIM.SearchLayerCIMFactory;
 import ServiceCIM.RESTfulServiceCIM;
+import eu.fp7.scase.inputParser.YamlInputParser;
+import eu.fp7.scase.inputParser.YamlResource;
+import eu.fp7.scase.searchWizard.SearchCIMWizard;
 import eu.fp7.scase.authenticationWizard.AuthenticationCIMWizard;
 import eu.fp7.scase.cimGenerator.ACIMProducer;
 import eu.fp7.scase.cimGenerator.CoreCIMProducer;
 import eu.fp7.scase.cimGenerator.EcoreXMIExtractor;
-import eu.fp7.scase.inputParser.YamlInputParser;
-import eu.fp7.scase.inputParser.YamlResource;
-import eu.fp7.scase.searchWizard.SearchCIMWizard;
+import eu.fp7.scase.cimeditor.CoreCIMEditorWizard;
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
@@ -53,6 +54,11 @@ public class CIMGenerator extends AbstractHandler {
 		//initiate CIM generator to create the envisioned system's CIM
 		oACIMProducer = new CoreCIMProducer(listOfYamlResources, event.getParameter("WebServiceName"), event.getParameter("MDEOutputFolder"), event.getParameter("DatabaseIP"), event.getParameter("DatabasePort"), event.getParameter("DatabaseUsername"), event.getParameter("DatabasePassword"));
 		oRESTfulServiceCIM = oACIMProducer.produceCIM();
+		CoreCIMEditorWizard oCoreCIMEditorWizard = new CoreCIMEditorWizard(event.getParameter("MDEOutputFolder"), oRESTfulServiceCIM);
+		WizardDialog oCoreCIMEditorWizardDialog = new WizardDialog(null, oCoreCIMEditorWizard);
+		if(oCoreCIMEditorWizardDialog.open() == Window.OK){
+			oRESTfulServiceCIM = oCoreCIMEditorWizard.updateCIM();
+		}
 		EcoreXMIExtractor oEcoreXMIExtractor = new EcoreXMIExtractor(event.getParameter("MDEOutputFolder"), event.getParameter("WebServiceName"));
 		oEcoreXMIExtractor.exportEcoreXMI(oRESTfulServiceCIM);
 		

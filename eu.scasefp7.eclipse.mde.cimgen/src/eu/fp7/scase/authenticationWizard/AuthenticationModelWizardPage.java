@@ -82,20 +82,20 @@ public class AuthenticationModelWizardPage extends WizardPage {
 		  
 		  //initialize authentication model selection composite container
 		  this.oAuthenticationModelGrid = new Composite(this.oWizardPageGrid, SWT.NONE);
-		  this.oAuthenticationModelGrid.setLayoutData(new GridData(GridData.FILL_BOTH));
+		  this.oAuthenticationModelGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		  this.oAuthenticationModelGrid.setLayout(new GridLayout(1, false));
 			
 		  //initialize username token composite container
 		  this.oUsernameTokenGrid = new Composite(this.oWizardPageGrid, SWT.NONE);
-		  this.oUsernameTokenGrid.setLayoutData(new GridData(GridData.FILL_BOTH));
+		  this.oUsernameTokenGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		  this.oUsernameTokenGrid.setLayout(new GridLayout(1, false));
 			
 		  //initialize password token composite container
 		  this.oPasswordTokenGrid = new Composite(this.oWizardPageGrid, SWT.NONE);
-		  this.oPasswordTokenGrid.setLayoutData(new GridData(GridData.FILL_BOTH));
+		  this.oPasswordTokenGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		  this.oPasswordTokenGrid.setLayout(new GridLayout(1, false));
 		  
-		  this.oWizardPageGrid.setLayoutData(new GridData(GridData.FILL_BOTH));
+		  this.oWizardPageGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		  this.oWizardPageGrid.setLayout(new GridLayout(1, false));
 	  }
 	  
@@ -109,9 +109,7 @@ public class AuthenticationModelWizardPage extends WizardPage {
 			
 		  //initialize Password token SWTs
 		  initializePasswordTokenWidgets();
-		  
-		  this.oParentComposite.layout();
-		  
+		  		  
 		  this.setPageComplete(false);
 	  }
 	  
@@ -120,16 +118,14 @@ public class AuthenticationModelWizardPage extends WizardPage {
 		  //initialize Authentication Model SWTs
 		  this.oAuthenticationModelGroup = new Group(this.oAuthenticationModelGrid, SWT.NONE);
 		  this.oAuthenticationModelGroup.setText("Authentication Model: ");
+		  this.oAuthenticationModelGroup.setLayout(new GridLayout(1, false));
+		  this.oAuthenticationModelGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		  this.oAuthenticationModelPromtLabel = new Label(this.oAuthenticationModelGroup, SWT.NULL);
 		  this.oAuthenticationModelPromtLabel.setText("Choose your web service Authentication Model from the available resources below: ");
-		  this.oAuthenticationModelPromtLabel.setLocation(20, 10);
-		  this.oAuthenticationModelPromtLabel.pack();
 		  this.oAuthenticationModelResourceList = new List(this.oAuthenticationModelGroup, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
 		  populateAuthenticationModelResourceList();
-		  this.oAuthenticationModelResourceList.setLocation(20, 35);
-		  this.oAuthenticationModelResourceList.setSize(this.oAuthenticationModelPromtLabel.getSize().x - 10, 50);
+		  this.oAuthenticationModelResourceList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 3));
 		  addAuthenticationModelListListener();
-		  this.oAuthenticationModelGroup.pack();
 	  }
 	  
 	  private void initializeUsernameTokenWidgets(){
@@ -137,17 +133,15 @@ public class AuthenticationModelWizardPage extends WizardPage {
 		  //initialize Authentication Model SWTs
 		  this.oUsernameTokenPromtGroup = new Group(this.oUsernameTokenGrid, SWT.NONE);
 		  this.oUsernameTokenPromtGroup.setText("Username Token: ");
+		  this.oUsernameTokenPromtGroup.setLayout(new GridLayout(1, false));
+		  this.oUsernameTokenPromtGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		  this.oUsernameTokenPromtLabel = new Label(this.oUsernameTokenPromtGroup, SWT.NULL);
 		  this.oUsernameTokenPromtLabel.setText("Choose the property that will be the username authentication token: ");
-		  this.oUsernameTokenPromtLabel.setLocation(20, 10);
-		  this.oUsernameTokenPromtLabel.pack();
 		  this.oUsernameTokenPromtList = new List(this.oUsernameTokenPromtGroup, SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER_SOLID);
 		  this.oUsernameTokenPromtList.setEnabled(false);
-		  this.oUsernameTokenPromtList.setLocation(20, 35);
 		  this.oUsernameTokenPromtList.add("First you need to select an authentication model!");
-		  this.oUsernameTokenPromtList.setSize(this.oUsernameTokenPromtLabel.getSize().x - 10, 50);
+		  this.oUsernameTokenPromtList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 3));
 		  addUsernameTokenListListener();
-		  this.oUsernameTokenPromtGroup.pack();
 	  }
 	  
 	  private void initializePasswordTokenWidgets(){
@@ -155,17 +149,15 @@ public class AuthenticationModelWizardPage extends WizardPage {
 		  //initialize Authentication Model SWTs
 		  this.oPasswordTokenGroup = new Group(this.oPasswordTokenGrid, SWT.NONE);
 		  this.oPasswordTokenGroup.setText("Password Token: ");
+		  this.oPasswordTokenGroup.setLayout(new GridLayout(1, false));
+		  this.oPasswordTokenGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		  this.oPasswordTokenPromtLabel = new Label(this.oPasswordTokenGroup, SWT.NULL);
 		  this.oPasswordTokenPromtLabel.setText("Choose the property that will be the password authentication token: ");
-		  this.oPasswordTokenPromtLabel.setLocation(20, 10);
-		  this.oPasswordTokenPromtLabel.pack();
 		  this.oPasswordTokenPromtList = new List(this.oPasswordTokenGroup, SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER_SOLID);
 		  this.oPasswordTokenPromtList.setEnabled(false);
-		  this.oPasswordTokenPromtList.setLocation(20, 35);
 		  this.oPasswordTokenPromtList.add("First you need to select a username token!");
-		  this.oPasswordTokenPromtList.setSize(this.oPasswordTokenPromtLabel.getSize().x - 10, 50);
+		  this.oPasswordTokenPromtList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 3));
 		  addPasswordTokenListListener();
-		  this.oPasswordTokenGroup.pack();
 	  }
 	  
 	  private void populateAuthenticationModelResourceList(){

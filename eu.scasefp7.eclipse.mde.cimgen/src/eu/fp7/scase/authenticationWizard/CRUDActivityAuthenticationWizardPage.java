@@ -82,6 +82,9 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 	public void createControl(Composite parent) {
 		  this.oParentComposite = parent;
 		  this.oWizardPageGrid = new Composite(oParentComposite, SWT.NONE);
+		  this.oWizardPageGrid.setLayout(new GridLayout(1, false));
+		  this.oWizardPageGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		  this.oWizardPageGrid.pack();
 		  
 		  initializeWizardPagesGrids(parent);
 		  initializeWizardPageWidgets(parent);
@@ -94,42 +97,40 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 		  
 		  //Resource selection composite initializaton
 		  this.oResourcePromtGrid = new Composite(this.oWizardPageGrid, SWT.NONE);
-		  this.oResourcePromtGrid.setLayoutData(new GridData());
 		  this.oResourcePromtGrid.setLayout(new GridLayout(1, false));
+		  this.oResourcePromtGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 			
 		  //CRUDActivity authentication mode composite initialization
 		  this.oCRUDActivityAuthModeGrid = new Composite(this.oWizardPageGrid, SWT.NONE);
-		  this.oCRUDActivityAuthModeGrid.setLayoutData(new GridData());
 		  this.oCRUDActivityAuthModeGrid.setLayout(new GridLayout(1, false));
+		  this.oCRUDActivityAuthModeGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		  this.oCRUDActivityAuthModeLabel = new Label(this.oCRUDActivityAuthModeGrid, SWT.NULL);
 			
 		  //Create activity authentication mode composite initialization
 		  this.oCreateActivityGrid = new Composite(this.oCRUDActivityAuthModeGrid, SWT.NONE);
-		  this.oCreateActivityGrid.setLayoutData(new GridData());
 		  this.oCreateActivityGrid.setLayout(new GridLayout(3, false));
+		  this.oCreateActivityGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 			
 		  //Read activity authentication mode composite initialization
 		  this.oReadActivityGrid = new Composite(this.oCRUDActivityAuthModeGrid, SWT.NONE);
-		  this.oReadActivityGrid.setLayoutData(new GridData());
 		  this.oReadActivityGrid.setLayout(new GridLayout(3, false));
+		  this.oReadActivityGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 			
 		  //Update activity authentication mode composite initialization
 		  this.oUpdateActivityGrid = new Composite(this.oCRUDActivityAuthModeGrid, SWT.NONE);
-		  this.oUpdateActivityGrid.setLayoutData(new GridData());
 		  this.oUpdateActivityGrid.setLayout(new GridLayout(3, false));
+		  this.oUpdateActivityGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 			
 		  //Delete activity authentication mode composite initialization
 		  this.oDeleteActivityGrid = new Composite(this.oCRUDActivityAuthModeGrid, SWT.NONE);
-		  this.oDeleteActivityGrid.setLayoutData(new GridData());
 		  this.oDeleteActivityGrid.setLayout(new GridLayout(3, false));
+		  this.oDeleteActivityGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 			
 		  //Apply defaults to all composite initialization
 		  this.oApplyDefaultGrid = new Composite(this.oWizardPageGrid, SWT.NONE);
-		  this.oApplyDefaultGrid.setLayoutData(new GridData());
-		  this.oApplyDefaultGrid.setLayout(new GridLayout(1, false));
+		  this.oApplyDefaultGrid.setLayout(new GridLayout(2, false));
+		  this.oApplyDefaultGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		  
-		  this.oWizardPageGrid.setLayoutData(new GridData(GridData.FILL_BOTH));
-		  this.oWizardPageGrid.setLayout(new GridLayout(1, false));
 	}
 	
 	private void initializeWizardPageWidgets(Composite oParentComposite) {
@@ -142,9 +143,7 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 
 		//initialize defaults applicaiton widgets
 		initializeApplyDefaultWidgets();
-		  
-		this.oParentComposite.layout();
-		  
+		  		  
 		this.setPageComplete(false);
 	}
 	
@@ -152,15 +151,17 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 		  
 		//initialize Authentication Model SWTs
 		this.oResourcePromtGroup = new Group(this.oResourcePromtGrid, SWT.NONE);
+		this.oResourcePromtGroup.setLayout(new GridLayout(1, false));
+		this.oResourcePromtGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		this.oResourcePromtGroup.setText("Web Service Resources: ");
 		this.oResourcePromtLabel = new Label(this.oResourcePromtGroup, SWT.NULL);
 		this.oResourcePromtLabel.setText("Pick any resource from the list below to apply change the default authentication mode: ");
 		this.oResourcePromtLabel.setLocation(20, 10);
 		this.oResourcePromtLabel.pack();
 		this.oResourcePromtList = new List(this.oResourcePromtGroup, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
+		this.oResourcePromtList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		populateResourcePromtList();
 		this.oResourcePromtList.setLocation(20, 35);
-		this.oResourcePromtList.setSize(this.oResourcePromtList.computeSize(this.oResourcePromtLabel.getSize().x - 20, 100));
 		addResourcePromtlListListener();
 		this.oResourcePromtGroup.pack();
 	}
@@ -231,18 +232,17 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 
 		this.oApplayDefaultLabel = new Label(this.oApplyDefaultGrid, SWT.NULL);
 		this.oApplayDefaultLabel.setText("Choose one authentication mode to apply to all CRUD activities: ");
-		this.oApplayDefaultLabel.setLocation(20, 10);
-		this.oApplayDefaultLabel.pack();
+		this.oApplayDefaultLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 2, 1));
 		
 		this.oApplyDefaultAuthenticationModeList = new List(this.oApplyDefaultGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
 		this.oApplyDefaultAuthenticationModeList.add("All");
 		this.oApplyDefaultAuthenticationModeList.add("Authenticated");
-		this.oApplyDefaultAuthenticationModeList.setLocation(20, 35);
-		this.oApplyDefaultAuthenticationModeList.setSize(this.oApplyDefaultAuthenticationModeList.computeSize(this.oApplayDefaultLabel.getSize().x - 10, SWT.DEFAULT));
 		this.oApplyDefaultAuthenticationModeList.setSelection(0);
+		this.oApplyDefaultAuthenticationModeList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 3));
 		
 		this.oApplyDefaultButton = new Button(this.oApplyDefaultGrid, SWT.NONE);
 		this.oApplyDefaultButton.setText("Apply to all");
+		this.oApplyDefaultButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
 		addApplyDefaultButtonListener();		
 	}
 	
