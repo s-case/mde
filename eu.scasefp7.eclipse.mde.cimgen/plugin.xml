@@ -21,5 +21,26 @@
             class="eu.fp7.scase.launcher.cimgenerator.handlers.CIMGenerator">
       </handler>
    </extension>
+   
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated CIMMetamodel -->
+      <package
+            uri="platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/CIMMetamodel.ecore"
+            class="ServiceCIM.ServiceCIMPackage"/>
+      <!--  genModel="Metamodels/CIMMetamodel.genmodel" -->
+ 
+      <!-- @generated AuthenticationLayerCIMMetamodel -->
+      <package
+            uri="platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationCIMMetamodel.ecore"
+            class="AuthenticationLayerCIM.AuthenticationLayerCIMPackage"/>
+      <!--  genModel="Metamodels/AuthenticationLayerCIMMetamodel.genmodel" -->
+ 
+      <!-- @generated SearchLayerCIMMetamodel -->
+      <package
+            uri="platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerCIMMetamodel.ecore"
+            class="SearchLayerCIM.SearchLayerCIMPackage"/>
+      <!--  genModel="Metamodels/SearchLayerCIMMetamodel.genmodel" -->
+ 
+   </extension>
 
 </plugin>
