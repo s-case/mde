@@ -132,10 +132,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                             }
                             return Status.OK_STATUS;
                         }  
-                    };
-                    jCim.setRule(project);
-                    jCim.setProgressGroup(monitor, 1);
-                    jCim.schedule();                        
+                    };                        
                                             
                     // Setup M2M job
                     Job jM2M = new WorkspaceJob("Generating models") {                            
@@ -158,9 +155,6 @@ public class GenerateCodeHandler extends AbstractHandler {
                             return Status.OK_STATUS;
                         }  
                     };
-                    jM2M.setRule(project);
-                    jM2M.setProgressGroup(monitor, 1);
-                    jM2M.schedule();                        
                     
                     // Setup annotations job
                     Job jAnn = new WorkspaceJob("Generating annotations") {                            
@@ -183,9 +177,6 @@ public class GenerateCodeHandler extends AbstractHandler {
                             return Status.OK_STATUS;
                         }  
                     };
-                    jAnn.setRule(project);
-                    jAnn.setProgressGroup(monitor, 1);
-                    jAnn.schedule();                        
                                             
                     // Setup annotations job
                     Job jM2T = new WorkspaceJob("Generating code") {                            
@@ -208,12 +199,28 @@ public class GenerateCodeHandler extends AbstractHandler {
                             return Status.OK_STATUS;
                         }  
                     };
-                    jM2T.setRule(project);
-                    jM2T.setProgressGroup(monitor, 1);
-                    jM2T.schedule();                        
 
-                    // Wait
+                    IProgressMonitor pm = Job.getJobManager().createProgressGroup();
                     try {
+                        pm.beginTask("Generating code for " + mdePreferences.get("WebServiceName"), 402);
+                        pm.worked(1);
+                        
+                        jCim.setRule(project);
+                        jCim.setProgressGroup(pm, 100);
+                        jCim.schedule();                        
+
+                        jM2M.setRule(project);
+                        jM2M.setProgressGroup(pm, 100);
+                        jM2M.schedule();                        
+
+                        jAnn.setRule(project);
+                        jAnn.setProgressGroup(pm, 100);
+                        jAnn.schedule();                        
+
+                        jM2T.setRule(project);
+                        jM2T.setProgressGroup(pm, 100);
+                        jM2T.schedule();                        
+
                         jCim.join();
                         monitor.worked(1);
                         jM2M.join();
@@ -222,8 +229,12 @@ public class GenerateCodeHandler extends AbstractHandler {
                         monitor.worked(1);
                         jM2T.join();
                         monitor.worked(1);
+                        
+                        pm.worked(1);
                     } catch(InterruptedException e) {
                         return Status.CANCEL_STATUS;
+                    } finally {
+                        pm.done();
                     }
                     
                     monitor.done();
