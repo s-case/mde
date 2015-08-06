@@ -1,4 +1,4 @@
-package eu.fp7.scase.mdepluginwrapper.views;
+package eu.scasefp7.eclipse.mde.ui.views;
 
 
 import java.util.HashMap;

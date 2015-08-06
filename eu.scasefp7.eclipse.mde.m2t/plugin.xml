@@ -12,6 +12,17 @@
             name="Sample Command"
             categoryId="eu.scasefp7.eclipse.mde.m2t.commands.category"
             id="eu.scasefp7.eclipse.mde.m2t.commands.executeModelToTextTransformation">
+         <commandParameter id="YamlFilePath" name="YAML file path"/>
+         <commandParameter id="WebServiceName" name="Web service name"/>
+         <commandParameter id="MDEOutputFolder" name="Output folder"/>
+         <commandParameter id="DatabaseIP" name="Database IP"/>
+         <commandParameter id="DatabasePort" name="Database port"/>
+         <commandParameter id="DatabaseUsername" name="Database username"/>
+         <commandParameter id="DatabasePassword" name="Database password"/>
+         <commandParameter id="Authentication" name="Generate authentication"/>
+         <commandParameter id="Authorization" name="Generate authorization"/>
+         <commandParameter id="DatabaseSearching" name="Generate searching"/>
+         <commandParameter id="ExternalComposition" name="Include external composition"/>            
       </command>
    </extension>
    <extension

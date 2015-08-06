@@ -1,4 +1,4 @@
-package eu.fp7.scase.mdepluginwrapper;
+package eu.scasefp7.eclipse.mde.ui;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;

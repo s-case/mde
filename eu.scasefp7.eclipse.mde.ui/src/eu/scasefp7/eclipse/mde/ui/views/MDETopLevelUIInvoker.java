@@ -1,4 +1,4 @@
-package eu.fp7.scase.mdepluginwrapper.views;
+package eu.scasefp7.eclipse.mde.ui.views;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
