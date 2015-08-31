@@ -400,6 +400,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 
 			@Override
 			public void handleEvent(Event event) {
+				deleteResourceRelationTo(getResourceIndexByName(oResourceList.getSelection()[0]));
 				oRESTfulServiceCIM.getHasResources().remove(getResourceIndexByName(oResourceList.getSelection()[0]));
 				oResourceList.remove(oResourceList.indexOf(oResourceList.getSelection()[0]));
 				setPageComplete(isPageCompleted());
@@ -838,7 +839,12 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				Property oProperty = getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]);
 				oUniquePropertyButton.setSelection((oProperty.isIsUnique() == true ? true : false));
 				oNamingPropertyButton.setSelection((oProperty.isIsNamingProperty() == true ? true : false));
-				oTypeList.setSelection(oTypeList.indexOf((oProperty.getType().equalsIgnoreCase("String") ? "String" : (oProperty.getType().equalsIgnoreCase("int") ? "Integer" : "Double"))));
+				if(oProperty.getType() != null){
+					oTypeList.setSelection(oTypeList.indexOf((oProperty.getType().equalsIgnoreCase("String") ? "String" : (oProperty.getType().equalsIgnoreCase("int") ? "Integer" : "Double"))));
+				}
+				else{
+					oTypeList.deselectAll();
+				}
 				setPageComplete(isPageCompleted());
 				updateWidgetStatus();
 			}
@@ -898,6 +904,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 	}
 
 	private void populateResourceList(){
+		this.oResourceList.removeAll();
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			this.oResourceList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 		}
@@ -924,6 +931,17 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		this.oRelationsList.removeAll();
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(this.oResourceList.getSelection()[0])).getHasRelatedResource().size(); n++){
 			this.oRelationsList.add(this.oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(this.oResourceList.getSelection()[0])).getHasRelatedResource().get(n).getName());
+		}
+	}
+	
+	private void deleteResourceRelationTo(int resourceIndexByName) {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().size(); i++){
+				if(this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().get(i).getName().equalsIgnoreCase(
+						this.oRESTfulServiceCIM.getHasResources().get(resourceIndexByName).getName())){
+					this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().remove(i);
+				}
+			}
 		}
 	}
 	
