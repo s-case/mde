@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="eu.scasefp7.eclipse.mde.feature"
-      label="SCASEMDEModule"
+      label="MDE Code generation"
       version="1.0.0.qualifier">
 
    <description url="http://www.example.com/description">
