@@ -300,7 +300,7 @@ public class GenerateCodeHandler extends AbstractHandler {
         String searching = (store.getBoolean(PreferenceConstants.P_FACET_SEARCH) ? "yes" : "no");
         String extComposition = (store.getBoolean(PreferenceConstants.P_FACET_EXT_COMPOSITIONS) ? "yes" : "no");
         
-        mapMDEPreferences.put("YamlFilePath", yamlFilePath); // TODO replace with parameters read from commands
+        mapMDEPreferences.put("YamlFilePath", yamlFilePath); 
         mapMDEPreferences.put("WebServiceName", wsName);
         mapMDEPreferences.put("MDEOutputFolder", outputFolder);
         mapMDEPreferences.put("DatabaseIP", dbAddress);

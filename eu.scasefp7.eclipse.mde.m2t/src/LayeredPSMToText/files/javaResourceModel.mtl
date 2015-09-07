@@ -216,10 +216,17 @@ public class [jRModel.name/]{
 
      	[if (jRModel.hasRelatedJavaRMManager->size() > 0)]
      		[for (jRRModel : JavaResourceModel | jRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel) separator('\n')]
+     			[if (jRModel.JavaRModelHasProperty->select( property : PSMComponentProperty | property.bIsUnique = false)->
+					select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->excludes('@Transient')
+						and
+				   property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') = -1
+						and
+				   property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') = -1)->size() > 0)]
         Iterator<[jRRModel.name/]> [jRRModel.name/]Iterator = SetOf[jRRModel.name/].iterator();
         while([jRRModel.name/]Iterator.hasNext()){
             [jRRModel.name/]Iterator.next().deleteAllCollections(hibernateSession);
         }
+        		[/if]
 			[/for]
 		[/if]
     }
