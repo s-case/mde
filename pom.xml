@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>eu.scasefp7</groupId>
 		<artifactId>scase-parent</artifactId>
-                <version>1.0.21</version>
+                <version>1.0.20</version>
 	</parent>
 
 	<developers>
@@ -71,13 +71,11 @@
 	       <id>Eclipse - Acceleo Release</id>
     	   <url>https://repo.eclipse.org/content/repositories/acceleo-releases</url>
      	</repository>
-		<!--
 		<repository>
 			<id>s-case-dev</id>
 			<layout>p2</layout>
 			<url>http://s-case.github.io/s-case_dev_site/</url>
 		</repository>
-		-->
 	</repositories>
 
 	<pluginRepositories>
