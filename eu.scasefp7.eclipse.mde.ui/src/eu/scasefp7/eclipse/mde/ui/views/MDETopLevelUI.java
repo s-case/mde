@@ -108,16 +108,17 @@ public class MDETopLevelUI extends ScrolledComposite {
 		initializeUILayout();
 		
 		//TODO remove the following lines in production code
-//		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDE_Plugin/MDEInput/webMarks.yml");
-//		this.oWSNameText.setText("WebMarks");
+//		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDE_Plugin/MDEInput/WSATCIM.yml");
+//		this.oWSNameText.setText("WSAT");
 //		this.oMDEOutputText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts");
 //		this.oDatabaseIPText.setText("localhost");
 //		this.oDatabasePortText.setText("3127");
 //		this.oDatabaseUsernameText.setText("postgres");
 //		this.oDatabasePasswordText.setText("fp7s-case");
-//		this.oDatabaseSearchingCheckBoxButton.setSelection(true);
+//		this.oDatabaseSearchingCheckBoxButton.setSelection(false);
 		this.oAuthorizationCheckBoxButton.setEnabled(false);
-		this.oExternalCompositionCheckBoxButton.setEnabled(false);
+//		this.oExternalCompositionCheckBoxButton.setEnabled(false);
+//		this.oExternalCompositionCheckBoxButton.setSelection(true);
 	}
 
 	private void initializeUILayout() {

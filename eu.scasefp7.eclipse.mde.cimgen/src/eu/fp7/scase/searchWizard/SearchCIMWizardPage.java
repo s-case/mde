@@ -70,7 +70,7 @@ public class SearchCIMWizardPage extends WizardPage{
 
 	
 	public SearchCIMWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, SearchLayerCIM.AnnotationModel oSearchLayerCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM) {
-		  super("Select Authentication Model");
+		  super("External Service Editor");
 		  this.strOutputFolder = strOutputFolder;
 		  this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		  this.oAuthenticationCIM = oAuthenticationCIM;
