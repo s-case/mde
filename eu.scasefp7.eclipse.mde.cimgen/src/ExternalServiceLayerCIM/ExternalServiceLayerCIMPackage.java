@@ -38,7 +38,7 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/ExternalServiceLayerCIMMetamodel.ecore";
+	String eNS_URI = "file:/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/ExternalServiceLayer/ExternalServiceLayerCIMMetamodel.ecore";
 
 	/**
 	 * The package namespace name.
@@ -536,14 +536,14 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	int REPRESENTATION_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link ExternalServiceLayerCIM.impl.PropertyImpl <em>Property</em>}' class.
+	 * The meta object id for the '{@link ExternalServiceLayerCIM.impl.ModelPropertyImpl <em>Model Property</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see ExternalServiceLayerCIM.impl.PropertyImpl
-	 * @see ExternalServiceLayerCIM.impl.ExternalServiceLayerCIMPackageImpl#getProperty()
+	 * @see ExternalServiceLayerCIM.impl.ModelPropertyImpl
+	 * @see ExternalServiceLayerCIM.impl.ExternalServiceLayerCIMPackageImpl#getModelProperty()
 	 * @generated
 	 */
-	int PROPERTY = 11;
+	int MODEL_PROPERTY = 11;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -552,7 +552,7 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__TYPE = 0;
+	int MODEL_PROPERTY__TYPE = 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -561,7 +561,7 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__NAME = 1;
+	int MODEL_PROPERTY__NAME = 1;
 
 	/**
 	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
@@ -570,25 +570,25 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY__IS_UNIQUE = 2;
+	int MODEL_PROPERTY__IS_UNIQUE = 2;
 
 	/**
-	 * The number of structural features of the '<em>Property</em>' class.
+	 * The number of structural features of the '<em>Model Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_FEATURE_COUNT = 3;
+	int MODEL_PROPERTY_FEATURE_COUNT = 3;
 
 	/**
-	 * The number of operations of the '<em>Property</em>' class.
+	 * The number of operations of the '<em>Model Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_OPERATION_COUNT = 0;
+	int MODEL_PROPERTY_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link ExternalServiceLayerCIM.impl.NonPersistentOutputImpl <em>Non Persistent Output</em>}' class.
@@ -1058,47 +1058,47 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	EAttribute getRepresentation_Name();
 
 	/**
-	 * Returns the meta object for class '{@link ExternalServiceLayerCIM.Property <em>Property</em>}'.
+	 * Returns the meta object for class '{@link ExternalServiceLayerCIM.ModelProperty <em>Model Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Property</em>'.
-	 * @see ExternalServiceLayerCIM.Property
+	 * @return the meta object for class '<em>Model Property</em>'.
+	 * @see ExternalServiceLayerCIM.ModelProperty
 	 * @generated
 	 */
-	EClass getProperty();
+	EClass getModelProperty();
 
 	/**
-	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.Property#getType <em>Type</em>}'.
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.ModelProperty#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see ExternalServiceLayerCIM.Property#getType()
-	 * @see #getProperty()
+	 * @see ExternalServiceLayerCIM.ModelProperty#getType()
+	 * @see #getModelProperty()
 	 * @generated
 	 */
-	EAttribute getProperty_Type();
+	EAttribute getModelProperty_Type();
 
 	/**
-	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.Property#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.ModelProperty#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see ExternalServiceLayerCIM.Property#getName()
-	 * @see #getProperty()
+	 * @see ExternalServiceLayerCIM.ModelProperty#getName()
+	 * @see #getModelProperty()
 	 * @generated
 	 */
-	EAttribute getProperty_Name();
+	EAttribute getModelProperty_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.Property#isIsUnique <em>Is Unique</em>}'.
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.ModelProperty#isIsUnique <em>Is Unique</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Is Unique</em>'.
-	 * @see ExternalServiceLayerCIM.Property#isIsUnique()
-	 * @see #getProperty()
+	 * @see ExternalServiceLayerCIM.ModelProperty#isIsUnique()
+	 * @see #getModelProperty()
 	 * @generated
 	 */
-	EAttribute getProperty_IsUnique();
+	EAttribute getModelProperty_IsUnique();
 
 	/**
 	 * Returns the meta object for class '{@link ExternalServiceLayerCIM.NonPersistentOutput <em>Non Persistent Output</em>}'.
@@ -1427,14 +1427,14 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 		EAttribute REPRESENTATION__NAME = eINSTANCE.getRepresentation_Name();
 
 		/**
-		 * The meta object literal for the '{@link ExternalServiceLayerCIM.impl.PropertyImpl <em>Property</em>}' class.
+		 * The meta object literal for the '{@link ExternalServiceLayerCIM.impl.ModelPropertyImpl <em>Model Property</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see ExternalServiceLayerCIM.impl.PropertyImpl
-		 * @see ExternalServiceLayerCIM.impl.ExternalServiceLayerCIMPackageImpl#getProperty()
+		 * @see ExternalServiceLayerCIM.impl.ModelPropertyImpl
+		 * @see ExternalServiceLayerCIM.impl.ExternalServiceLayerCIMPackageImpl#getModelProperty()
 		 * @generated
 		 */
-		EClass PROPERTY = eINSTANCE.getProperty();
+		EClass MODEL_PROPERTY = eINSTANCE.getModelProperty();
 
 		/**
 		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
@@ -1442,7 +1442,7 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute PROPERTY__TYPE = eINSTANCE.getProperty_Type();
+		EAttribute MODEL_PROPERTY__TYPE = eINSTANCE.getModelProperty_Type();
 
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -1450,7 +1450,7 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute PROPERTY__NAME = eINSTANCE.getProperty_Name();
+		EAttribute MODEL_PROPERTY__NAME = eINSTANCE.getModelProperty_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Is Unique</b></em>' attribute feature.
@@ -1458,7 +1458,7 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute PROPERTY__IS_UNIQUE = eINSTANCE.getProperty_IsUnique();
+		EAttribute MODEL_PROPERTY__IS_UNIQUE = eINSTANCE.getModelProperty_IsUnique();
 
 		/**
 		 * The meta object literal for the '{@link ExternalServiceLayerCIM.impl.NonPersistentOutputImpl <em>Non Persistent Output</em>}' class.

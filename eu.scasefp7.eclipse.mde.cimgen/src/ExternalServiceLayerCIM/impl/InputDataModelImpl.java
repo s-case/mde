@@ -4,7 +4,7 @@ package ExternalServiceLayerCIM.impl;
 
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage;
 import ExternalServiceLayerCIM.InputDataModel;
-import ExternalServiceLayerCIM.Property;
+import ExternalServiceLayerCIM.ModelProperty;
 import ExternalServiceLayerCIM.Representation;
 
 import java.util.Collection;
@@ -56,7 +56,7 @@ public class InputDataModelImpl extends MinimalEObjectImpl.Container implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Property> hasInputProperties;
+	protected EList<ModelProperty> hasInputProperties;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -125,9 +125,9 @@ public class InputDataModelImpl extends MinimalEObjectImpl.Container implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Property> getHasInputProperties() {
+	public EList<ModelProperty> getHasInputProperties() {
 		if (hasInputProperties == null) {
-			hasInputProperties = new EObjectContainmentEList<Property>(Property.class, this, ExternalServiceLayerCIMPackage.INPUT_DATA_MODEL__HAS_INPUT_PROPERTIES);
+			hasInputProperties = new EObjectContainmentEList<ModelProperty>(ModelProperty.class, this, ExternalServiceLayerCIMPackage.INPUT_DATA_MODEL__HAS_INPUT_PROPERTIES);
 		}
 		return hasInputProperties;
 	}
@@ -178,7 +178,7 @@ public class InputDataModelImpl extends MinimalEObjectImpl.Container implements 
 				return;
 			case ExternalServiceLayerCIMPackage.INPUT_DATA_MODEL__HAS_INPUT_PROPERTIES:
 				getHasInputProperties().clear();
-				getHasInputProperties().addAll((Collection<? extends Property>)newValue);
+				getHasInputProperties().addAll((Collection<? extends ModelProperty>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

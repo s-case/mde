@@ -112,8 +112,8 @@ public class ExternalServiceLayerCIMAdapterFactory extends AdapterFactoryImpl {
 				return createRepresentationAdapter();
 			}
 			@Override
-			public Adapter caseProperty(Property object) {
-				return createPropertyAdapter();
+			public Adapter caseModelProperty(ModelProperty object) {
+				return createModelPropertyAdapter();
 			}
 			@Override
 			public Adapter caseNonPersistentOutput(NonPersistentOutput object) {
@@ -302,16 +302,16 @@ public class ExternalServiceLayerCIMAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link ExternalServiceLayerCIM.Property <em>Property</em>}'.
+	 * Creates a new adapter for an object of class '{@link ExternalServiceLayerCIM.ModelProperty <em>Model Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see ExternalServiceLayerCIM.Property
+	 * @see ExternalServiceLayerCIM.ModelProperty
 	 * @generated
 	 */
-	public Adapter createPropertyAdapter() {
+	public Adapter createModelPropertyAdapter() {
 		return null;
 	}
 

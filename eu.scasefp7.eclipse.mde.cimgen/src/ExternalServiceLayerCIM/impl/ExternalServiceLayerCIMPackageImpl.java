@@ -12,9 +12,9 @@ import ExternalServiceLayerCIM.ExistentCRUDPersistentOutput;
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMFactory;
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage;
 import ExternalServiceLayerCIM.InputDataModel;
+import ExternalServiceLayerCIM.ModelProperty;
 import ExternalServiceLayerCIM.NonPersistentOutput;
 import ExternalServiceLayerCIM.OutputDataModel;
-import ExternalServiceLayerCIM.Property;
 import ExternalServiceLayerCIM.QueryParam;
 import ExternalServiceLayerCIM.RESTClientResource;
 import ExternalServiceLayerCIM.Representation;
@@ -120,7 +120,7 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass propertyEClass = null;
+	private EClass modelPropertyEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -484,8 +484,8 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getProperty() {
-		return propertyEClass;
+	public EClass getModelProperty() {
+		return modelPropertyEClass;
 	}
 
 	/**
@@ -493,8 +493,8 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProperty_Type() {
-		return (EAttribute)propertyEClass.getEStructuralFeatures().get(0);
+	public EAttribute getModelProperty_Type() {
+		return (EAttribute)modelPropertyEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -502,8 +502,8 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProperty_Name() {
-		return (EAttribute)propertyEClass.getEStructuralFeatures().get(1);
+	public EAttribute getModelProperty_Name() {
+		return (EAttribute)modelPropertyEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -511,8 +511,8 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProperty_IsUnique() {
-		return (EAttribute)propertyEClass.getEStructuralFeatures().get(2);
+	public EAttribute getModelProperty_IsUnique() {
+		return (EAttribute)modelPropertyEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -620,10 +620,10 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 		representationEClass = createEClass(REPRESENTATION);
 		createEAttribute(representationEClass, REPRESENTATION__NAME);
 
-		propertyEClass = createEClass(PROPERTY);
-		createEAttribute(propertyEClass, PROPERTY__TYPE);
-		createEAttribute(propertyEClass, PROPERTY__NAME);
-		createEAttribute(propertyEClass, PROPERTY__IS_UNIQUE);
+		modelPropertyEClass = createEClass(MODEL_PROPERTY);
+		createEAttribute(modelPropertyEClass, MODEL_PROPERTY__TYPE);
+		createEAttribute(modelPropertyEClass, MODEL_PROPERTY__NAME);
+		createEAttribute(modelPropertyEClass, MODEL_PROPERTY__IS_UNIQUE);
 
 		nonPersistentOutputEClass = createEClass(NON_PERSISTENT_OUTPUT);
 
@@ -704,19 +704,19 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 
 		initEClass(inputDataModelEClass, InputDataModel.class, "InputDataModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getInputDataModel_HasInputRepresentation(), this.getRepresentation(), null, "hasInputRepresentation", null, 1, 1, InputDataModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getInputDataModel_HasInputProperties(), this.getProperty(), null, "hasInputProperties", null, 1, -1, InputDataModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInputDataModel_HasInputProperties(), this.getModelProperty(), null, "hasInputProperties", null, 1, -1, InputDataModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(outputDataModelEClass, OutputDataModel.class, "OutputDataModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOutputDataModel_HasOutputRepresentation(), this.getRepresentation(), null, "hasOutputRepresentation", null, 1, 1, OutputDataModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOutputDataModel_HasOutputProperties(), this.getProperty(), null, "hasOutputProperties", null, 1, -1, OutputDataModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOutputDataModel_HasOutputProperties(), this.getModelProperty(), null, "hasOutputProperties", null, 1, -1, OutputDataModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(representationEClass, Representation.class, "Representation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRepresentation_Name(), ecorePackage.getEString(), "name", null, 1, 1, Representation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getProperty_Type(), ecorePackage.getEString(), "type", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProperty_Name(), ecorePackage.getEString(), "name", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProperty_IsUnique(), ecorePackage.getEBoolean(), "isUnique", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(modelPropertyEClass, ModelProperty.class, "ModelProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getModelProperty_Type(), ecorePackage.getEString(), "type", null, 1, 1, ModelProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getModelProperty_Name(), ecorePackage.getEString(), "name", null, 1, 1, ModelProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getModelProperty_IsUnique(), ecorePackage.getEBoolean(), "isUnique", null, 1, 1, ModelProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nonPersistentOutputEClass, NonPersistentOutput.class, "NonPersistentOutput", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

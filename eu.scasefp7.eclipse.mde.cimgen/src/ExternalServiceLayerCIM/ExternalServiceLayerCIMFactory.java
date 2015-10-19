@@ -121,13 +121,13 @@ public interface ExternalServiceLayerCIMFactory extends EFactory {
 	Representation createRepresentation();
 
 	/**
-	 * Returns a new object of class '<em>Property</em>'.
+	 * Returns a new object of class '<em>Model Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Property</em>'.
+	 * @return a new object of class '<em>Model Property</em>'.
 	 * @generated
 	 */
-	Property createProperty();
+	ModelProperty createModelProperty();
 
 	/**
 	 * Returns a new object of class '<em>Non Persistent Output</em>'.

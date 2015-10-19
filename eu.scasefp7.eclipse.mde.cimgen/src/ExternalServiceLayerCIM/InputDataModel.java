@@ -52,7 +52,7 @@ public interface InputDataModel extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Has Input Properties</b></em>' containment reference list.
-	 * The list contents are of type {@link ExternalServiceLayerCIM.Property}.
+	 * The list contents are of type {@link ExternalServiceLayerCIM.ModelProperty}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Has Input Properties</em>' containment reference list isn't clear,
@@ -64,6 +64,6 @@ public interface InputDataModel extends EObject {
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	EList<Property> getHasInputProperties();
+	EList<ModelProperty> getHasInputProperties();
 
 } // InputDataModel

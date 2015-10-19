@@ -135,9 +135,9 @@ public class ExternalServiceLayerCIMSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ExternalServiceLayerCIMPackage.PROPERTY: {
-				Property property = (Property)theEObject;
-				T result = caseProperty(property);
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY: {
+				ModelProperty modelProperty = (ModelProperty)theEObject;
+				T result = caseModelProperty(modelProperty);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -332,17 +332,17 @@ public class ExternalServiceLayerCIMSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Property</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Model Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Property</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Model Property</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseProperty(Property object) {
+	public T caseModelProperty(ModelProperty object) {
 		return null;
 	}
 

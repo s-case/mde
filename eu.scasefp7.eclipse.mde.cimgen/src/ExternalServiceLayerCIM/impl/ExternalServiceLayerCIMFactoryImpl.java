@@ -67,7 +67,7 @@ public class ExternalServiceLayerCIMFactoryImpl extends EFactoryImpl implements 
 			case ExternalServiceLayerCIMPackage.INPUT_DATA_MODEL: return createInputDataModel();
 			case ExternalServiceLayerCIMPackage.OUTPUT_DATA_MODEL: return createOutputDataModel();
 			case ExternalServiceLayerCIMPackage.REPRESENTATION: return createRepresentation();
-			case ExternalServiceLayerCIMPackage.PROPERTY: return createProperty();
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY: return createModelProperty();
 			case ExternalServiceLayerCIMPackage.NON_PERSISTENT_OUTPUT: return createNonPersistentOutput();
 			case ExternalServiceLayerCIMPackage.AUTO_PERSISTENT_OUTPUT: return createAutoPersistentOutput();
 			case ExternalServiceLayerCIMPackage.EXISTENT_CRUD_PERSISTENT_OUTPUT: return createExistentCRUDPersistentOutput();
@@ -191,9 +191,9 @@ public class ExternalServiceLayerCIMFactoryImpl extends EFactoryImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Property createProperty() {
-		PropertyImpl property = new PropertyImpl();
-		return property;
+	public ModelProperty createModelProperty() {
+		ModelPropertyImpl modelProperty = new ModelPropertyImpl();
+		return modelProperty;
 	}
 
 	/**

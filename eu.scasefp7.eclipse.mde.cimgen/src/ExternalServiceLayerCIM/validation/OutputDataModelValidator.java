@@ -4,7 +4,7 @@
  */
 package ExternalServiceLayerCIM.validation;
 
-import ExternalServiceLayerCIM.Property;
+import ExternalServiceLayerCIM.ModelProperty;
 import ExternalServiceLayerCIM.Representation;
 
 import org.eclipse.emf.common.util.EList;
@@ -19,5 +19,5 @@ public interface OutputDataModelValidator {
 	boolean validate();
 
 	boolean validateHasOutputRepresentation(Representation value);
-	boolean validateHasOutputProperties(EList<Property> value);
+	boolean validateHasOutputProperties(EList<ModelProperty> value);
 }

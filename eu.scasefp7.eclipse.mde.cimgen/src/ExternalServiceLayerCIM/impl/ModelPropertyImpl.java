@@ -3,7 +3,7 @@
 package ExternalServiceLayerCIM.impl;
 
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage;
-import ExternalServiceLayerCIM.Property;
+import ExternalServiceLayerCIM.ModelProperty;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -14,20 +14,20 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Property</b></em>'.
+ * An implementation of the model object '<em><b>Model Property</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ExternalServiceLayerCIM.impl.PropertyImpl#getType <em>Type</em>}</li>
- *   <li>{@link ExternalServiceLayerCIM.impl.PropertyImpl#getName <em>Name</em>}</li>
- *   <li>{@link ExternalServiceLayerCIM.impl.PropertyImpl#isIsUnique <em>Is Unique</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.impl.ModelPropertyImpl#getType <em>Type</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.impl.ModelPropertyImpl#getName <em>Name</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.impl.ModelPropertyImpl#isIsUnique <em>Is Unique</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class PropertyImpl extends MinimalEObjectImpl.Container implements Property {
+public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements ModelProperty {
 	/**
 	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -93,7 +93,7 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PropertyImpl() {
+	protected ModelPropertyImpl() {
 		super();
 	}
 
@@ -104,7 +104,7 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ExternalServiceLayerCIMPackage.Literals.PROPERTY;
+		return ExternalServiceLayerCIMPackage.Literals.MODEL_PROPERTY;
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 		String oldType = type;
 		type = newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.PROPERTY__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.MODEL_PROPERTY__TYPE, oldType, type));
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.PROPERTY__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.MODEL_PROPERTY__NAME, oldName, name));
 	}
 
 	/**
@@ -167,7 +167,7 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 		boolean oldIsUnique = isUnique;
 		isUnique = newIsUnique;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.PROPERTY__IS_UNIQUE, oldIsUnique, isUnique));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.MODEL_PROPERTY__IS_UNIQUE, oldIsUnique, isUnique));
 	}
 
 	/**
@@ -178,11 +178,11 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ExternalServiceLayerCIMPackage.PROPERTY__TYPE:
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__TYPE:
 				return getType();
-			case ExternalServiceLayerCIMPackage.PROPERTY__NAME:
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__NAME:
 				return getName();
-			case ExternalServiceLayerCIMPackage.PROPERTY__IS_UNIQUE:
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__IS_UNIQUE:
 				return isIsUnique();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -196,13 +196,13 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ExternalServiceLayerCIMPackage.PROPERTY__TYPE:
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__TYPE:
 				setType((String)newValue);
 				return;
-			case ExternalServiceLayerCIMPackage.PROPERTY__NAME:
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__NAME:
 				setName((String)newValue);
 				return;
-			case ExternalServiceLayerCIMPackage.PROPERTY__IS_UNIQUE:
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__IS_UNIQUE:
 				setIsUnique((Boolean)newValue);
 				return;
 		}
@@ -217,13 +217,13 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ExternalServiceLayerCIMPackage.PROPERTY__TYPE:
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
-			case ExternalServiceLayerCIMPackage.PROPERTY__NAME:
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case ExternalServiceLayerCIMPackage.PROPERTY__IS_UNIQUE:
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__IS_UNIQUE:
 				setIsUnique(IS_UNIQUE_EDEFAULT);
 				return;
 		}
@@ -238,11 +238,11 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ExternalServiceLayerCIMPackage.PROPERTY__TYPE:
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-			case ExternalServiceLayerCIMPackage.PROPERTY__NAME:
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ExternalServiceLayerCIMPackage.PROPERTY__IS_UNIQUE:
+			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__IS_UNIQUE:
 				return isUnique != IS_UNIQUE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
@@ -268,4 +268,4 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 		return result.toString();
 	}
 
-} //PropertyImpl
+} //ModelPropertyImpl

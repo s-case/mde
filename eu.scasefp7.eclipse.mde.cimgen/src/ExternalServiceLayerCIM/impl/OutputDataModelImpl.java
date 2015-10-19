@@ -3,8 +3,8 @@
 package ExternalServiceLayerCIM.impl;
 
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage;
+import ExternalServiceLayerCIM.ModelProperty;
 import ExternalServiceLayerCIM.OutputDataModel;
-import ExternalServiceLayerCIM.Property;
 import ExternalServiceLayerCIM.Representation;
 
 import java.util.Collection;
@@ -56,7 +56,7 @@ public class OutputDataModelImpl extends MinimalEObjectImpl.Container implements
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Property> hasOutputProperties;
+	protected EList<ModelProperty> hasOutputProperties;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -125,9 +125,9 @@ public class OutputDataModelImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Property> getHasOutputProperties() {
+	public EList<ModelProperty> getHasOutputProperties() {
 		if (hasOutputProperties == null) {
-			hasOutputProperties = new EObjectContainmentEList<Property>(Property.class, this, ExternalServiceLayerCIMPackage.OUTPUT_DATA_MODEL__HAS_OUTPUT_PROPERTIES);
+			hasOutputProperties = new EObjectContainmentEList<ModelProperty>(ModelProperty.class, this, ExternalServiceLayerCIMPackage.OUTPUT_DATA_MODEL__HAS_OUTPUT_PROPERTIES);
 		}
 		return hasOutputProperties;
 	}
@@ -178,7 +178,7 @@ public class OutputDataModelImpl extends MinimalEObjectImpl.Container implements
 				return;
 			case ExternalServiceLayerCIMPackage.OUTPUT_DATA_MODEL__HAS_OUTPUT_PROPERTIES:
 				getHasOutputProperties().clear();
-				getHasOutputProperties().addAll((Collection<? extends Property>)newValue);
+				getHasOutputProperties().addAll((Collection<? extends ModelProperty>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

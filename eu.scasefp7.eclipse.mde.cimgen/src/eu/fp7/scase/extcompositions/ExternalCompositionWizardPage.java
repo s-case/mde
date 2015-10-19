@@ -26,8 +26,8 @@ import ExternalServiceLayerCIM.AutoPersistentOutput;
 import ExternalServiceLayerCIM.ExistentCRUDPersistentOutput;
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMFactory;
 import ExternalServiceLayerCIM.InputDataModel;
+import ExternalServiceLayerCIM.ModelProperty;
 import ExternalServiceLayerCIM.NonPersistentOutput;
-import ExternalServiceLayerCIM.Property;
 import ExternalServiceLayerCIM.QueryParam;
 import ExternalServiceLayerCIM.RESTClientResource;
 import ExternalServiceLayerCIM.Representation;
@@ -517,7 +517,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				Shell oShell = new Shell();
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "output model property");
 				if(oSimpleDialogBox.open() == Window.OK){
-					Property oOutputProperty = oExternalServiceLayerCIMFactory.createProperty();
+					ModelProperty oOutputProperty = oExternalServiceLayerCIMFactory.createModelProperty();
 					oOutputProperty.setName(oSimpleDialogBox.getArtefactName());
 					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputProperties().add(oOutputProperty);
 					listOutputProperties.add(oOutputProperty.getName());
@@ -720,7 +720,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				Shell oShell = new Shell();
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "input model property");
 				if(oSimpleDialogBox.open() == Window.OK){
-					Property oInputProperty = oExternalServiceLayerCIMFactory.createProperty();
+					ModelProperty oInputProperty = oExternalServiceLayerCIMFactory.createModelProperty();
 					oInputProperty.setName(oSimpleDialogBox.getArtefactName());
 					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().add(oInputProperty);
 					listInputProperties.add(oInputProperty.getName());
