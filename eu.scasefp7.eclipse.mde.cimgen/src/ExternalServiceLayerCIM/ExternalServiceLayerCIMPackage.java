@@ -38,7 +38,7 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "file:/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/ExternalServiceLayer/ExternalServiceLayerCIMMetamodel.ecore";
+	String eNS_URI = "platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/ExternalServiceLayerCIMMetamodel.ecore";
 
 	/**
 	 * The package namespace name.
