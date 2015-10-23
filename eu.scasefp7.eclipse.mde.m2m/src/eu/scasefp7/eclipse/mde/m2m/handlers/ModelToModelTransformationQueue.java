@@ -11,6 +11,8 @@ import org.eclipse.m2m.atl.CoreCIMToPIM.files.CIMToPIMTransformation;
 import org.eclipse.m2m.atl.CorePIMToPSM.files.PIMToPSMTransformation;
 import org.eclipse.m2m.atl.DatabaseSearchingCIMToPIM.files.SearchLayerCIMToPIMTransformation;
 import org.eclipse.m2m.atl.DatabaseSearchingPIMToPSM.files.SearchLayerPIMToPSMTransformation;
+import org.eclipse.m2m.atl.ExternalServiceLayerCIMToPIM.files.ExternalServiceLayerCIMToPIM;
+import org.eclipse.m2m.atl.ExternalServiceLayerPIMToPSM.files.ExternalServiceLayerPIMToPSM;
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
@@ -42,6 +44,11 @@ public class ModelToModelTransformationQueue extends AbstractHandler {
 				//execute Database Searching Layer M2M transformations
 				if(event.getParameter("DatabaseSearching").equalsIgnoreCase("yes")){
 					executeDatabaseSearchingModelToModelTransformations(event);
+				}
+				
+				//execute External Service Composition Layer M2M transformations
+				if(event.getParameter("ExternalComposition").equalsIgnoreCase("yes")){
+					executeExternalServiceLayerModelToModelTransformations(event);
 				}
 			
 			} catch (IOException e) {
@@ -117,5 +124,28 @@ public class ModelToModelTransformationQueue extends AbstractHandler {
 		strInputArguments[2] = "file:/" + event.getParameter("MDEOutputFolder") + "/PIMModels/" + event.getParameter("WebServiceName") + "SearchLayerPIM.xmi";
 		strInputArguments[3] = "file:/" + event.getParameter("MDEOutputFolder") + "/PSMModels/" + event.getParameter("WebServiceName") + "SearchLayerPSM.xmi";
 		SearchLayerPIMToPSMTransformation.main(strInputArguments);
+	}
+	
+	private void executeExternalServiceLayerModelToModelTransformations(ExecutionEvent event){
+		executeExternalServiceLayerCIMToPIMTransformation(event);
+		executeExternalServiceLayerPIMToPSMTransformation(event);
+	}
+	
+	private void executeExternalServiceLayerCIMToPIMTransformation(ExecutionEvent event){
+		String[] strInputArguments = new String[4];
+		strInputArguments[0] = "file:/" + event.getParameter("MDEOutputFolder") + "/CIMModels/" + event.getParameter("WebServiceName") + "CIM.xmi";
+		strInputArguments[1] = "file:/" + event.getParameter("MDEOutputFolder") + "/PIMModels/" + event.getParameter("WebServiceName") + "PIM.xmi";
+		strInputArguments[2] = "file:/" + event.getParameter("MDEOutputFolder") + "/CIMModels/" + event.getParameter("WebServiceName") + "ExternalServiceLayerCIM.xmi";
+		strInputArguments[3] = "file:/" + event.getParameter("MDEOutputFolder") + "/PIMModels/" + event.getParameter("WebServiceName") + "ExternalServiceLayerPIM.xmi";
+		ExternalServiceLayerCIMToPIM.main(strInputArguments);
+	}
+	
+	private void executeExternalServiceLayerPIMToPSMTransformation(ExecutionEvent event){
+		String[] strInputArguments = new String[4];
+		strInputArguments[0] = "file:/" + event.getParameter("MDEOutputFolder") + "/PIMModels/" + event.getParameter("WebServiceName") + "PIM.xmi";
+		strInputArguments[1] = "file:/" + event.getParameter("MDEOutputFolder") + "/PSMModels/" + event.getParameter("WebServiceName") + "PSM.xmi";
+		strInputArguments[2] = "file:/" + event.getParameter("MDEOutputFolder") + "/PIMModels/" + event.getParameter("WebServiceName") + "ExternalServiceLayerPIM.xmi";
+		strInputArguments[3] = "file:/" + event.getParameter("MDEOutputFolder") + "/PSMModels/" + event.getParameter("WebServiceName") + "ExternalServiceLayerPSM.xmi";
+		ExternalServiceLayerPIMToPSM.main(strInputArguments);
 	}
 }

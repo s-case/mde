@@ -119,6 +119,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 		this.oAuthorizationCheckBoxButton.setEnabled(false);
 //		this.oExternalCompositionCheckBoxButton.setEnabled(false);
 //		this.oExternalCompositionCheckBoxButton.setSelection(true);
+//		this.oExternalCompositionCheckBoxButton.setSelection(true);
 	}
 
 	private void initializeUILayout() {

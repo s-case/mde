@@ -43,12 +43,12 @@
         lowerBound="1" eType="#//RESTClientModel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RESTClientModel" eSuperTypes="#//Annotation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="isRESTClientModel" lowerBound="1"
+        eType="#//AnnAlgoResourceModel"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasInputDataModel" eType="#//InputDataModel"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasOutputDataModel" eType="#//OutputDataModel"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="isRESTClientModel" lowerBound="1"
-        eType="#//AnnAlgoResourceModel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Representation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
