@@ -295,7 +295,7 @@ rule PIMToPSMService{
 	from
 		PIMService: PIM!RESTfulServicePIM
 	to
-		PSMService: PSM!RESTfulServicePSM(
+		PSMService: PSM!ServicePSM(
 			name <- PIMService.name,
 			serviceOutputPath <- PIMService.serviceOutputPath,
 			serviceDatabaseIP <- PIMService.serviceDatabaseIP,

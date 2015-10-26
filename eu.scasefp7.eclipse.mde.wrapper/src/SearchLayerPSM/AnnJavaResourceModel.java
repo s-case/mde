@@ -2,7 +2,7 @@
  */
 package SearchLayerPSM;
 
-import ServicePSM.JavaResourceModel;
+import RESTfulServicePSM.JavaResourceModel;
 
 /**
  * <!-- begin-user-doc -->

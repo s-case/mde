@@ -2,7 +2,7 @@
  */
 package SearchLayerPSM;
 
-import ServicePSM.HTTPActivityHandler;
+import RESTfulServicePSM.HTTPActivityHandler;
 
 /**
  * <!-- begin-user-doc -->

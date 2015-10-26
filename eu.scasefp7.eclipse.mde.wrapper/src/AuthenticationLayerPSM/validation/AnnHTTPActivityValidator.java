@@ -4,7 +4,7 @@
  */
 package AuthenticationLayerPSM.validation;
 
-import ServicePSM.HTTPActivity;
+import RESTfulServicePSM.HTTPActivity;
 
 /**
  * A sample validator interface for {@link AuthenticationLayerPSM.AnnHTTPActivity}.

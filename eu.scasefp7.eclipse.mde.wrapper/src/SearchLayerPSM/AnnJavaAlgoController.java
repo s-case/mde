@@ -2,7 +2,7 @@
  */
 package SearchLayerPSM;
 
-import ServicePSM.JavaAlgoResourceController;
+import RESTfulServicePSM.JavaAlgoResourceController;
 
 /**
  * <!-- begin-user-doc -->

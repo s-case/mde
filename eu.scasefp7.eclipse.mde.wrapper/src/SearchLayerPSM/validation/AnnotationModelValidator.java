@@ -4,10 +4,10 @@
  */
 package SearchLayerPSM.validation;
 
+import RESTfulServicePSM.ServicePSM;
+
 import SearchLayerPSM.AnnotatedElement;
 import SearchLayerPSM.Annotation;
-
-import ServicePSM.RESTfulServicePSM;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -23,5 +23,5 @@ public interface AnnotationModelValidator {
 	boolean validateHasAnnotatedElement(EList<AnnotatedElement> value);
 	boolean validateHasAnnotation(EList<Annotation> value);
 	boolean validateName(String value);
-	boolean validateAnnotatesRESTfulServicePSM(RESTfulServicePSM value);
+	boolean validateAnnotatesRESTfulServicePSM(ServicePSM value);
 }

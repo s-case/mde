@@ -2,7 +2,7 @@
  */
 package SearchLayerPSM;
 
-import ServicePSM.PSMComponentProperty;
+import RESTfulServicePSM.PSMComponentProperty;
 
 /**
  * <!-- begin-user-doc -->

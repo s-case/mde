@@ -3,6 +3,7 @@ package annotationstackpopulator.handlers;
 import AnnotationLayerStack.AnnotationStack;
 import AnnotationLayerStack.AnnotationLayerStackFactory;
 import AuthenticationLayerPSM.AuthenticationLayerPSMPackage;
+import ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,9 +23,10 @@ import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 
+import RESTfulServicePSM.ServicePSM;
+import RESTfulServicePSM.RESTfulServicePSMPackage;
 import SearchLayerPSM.SearchLayerPSMPackage;
-import ServicePSM.RESTfulServicePSM;
-import ServicePSM.ServicePSMPackage;
+
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
@@ -33,9 +35,10 @@ import ServicePSM.ServicePSMPackage;
  */
 public class AnnotationStackPopulator extends AbstractHandler {
 	
-	private RESTfulServicePSM oRESTfulServicePSM;
+	private ServicePSM oRESTfulServicePSM;
 	private AuthenticationLayerPSM.AnnotationModel oAuthenticationLayerPSM;
 	private SearchLayerPSM.AnnotationModel oSearchLayerPSM;
+	private ExternalServiceLayerPSM.AnnotationModel oExternalServiceLayerPSM;
 	private AnnotationStack oAnnotationStack;
 	private String strOutputFolder;
 	private String strProjectName;
@@ -77,6 +80,7 @@ public class AnnotationStackPopulator extends AbstractHandler {
 			oAnnotationStack.setBHasAuthenticationAnnotation(false);
 		}
 		
+		//if there is a Search Layer to load, load it
 		if(event.getParameter("DatabaseSearching").equalsIgnoreCase("yes")){
 			oSearchLayerPSM = loadSearchLayerPSM(event.getParameter("MDEOutputFolder") + "/PSMModels/" + event.getParameter("WebServiceName") + "SearchLayerPSM.xmi");
 			oAnnotationStack.setBHasSearchLayer(true);
@@ -86,17 +90,27 @@ public class AnnotationStackPopulator extends AbstractHandler {
 			oAnnotationStack.setBHasSearchLayer(false);
 		}
 		
+		//if there is an External Service layer to load, load it
+		if(event.getParameter("ExternalComposition").equalsIgnoreCase("yes")){
+			this.oExternalServiceLayerPSM = loadExternalServiceLayerPSM(event.getParameter("MDEOutputFolder") + "/PSMModels/" + event.getParameter("WebServiceName") + "ExternalServiceLayerPSM.xmi");
+			oAnnotationStack.setBHasExternalServiceLayer(true);
+			oAnnotationStack.setHasExternalServiceLayer(oExternalServiceLayerPSM);
+		}
+		else{
+			oAnnotationStack.setBHasExternalServiceLayer(false);
+		}
+		
 		//export annotation layer stack
 		exportAnnotationLayerStack();
 		return null;
 	}
 	
-	private RESTfulServicePSM loadCorePSM(String strPathToCOREPSM){
+	private ServicePSM loadCorePSM(String strPathToCOREPSM){
 		
 		ResourceSet oResourceSet;
 		URI oURI;
 		
-		ServicePSMPackage.eINSTANCE.getClass();
+		RESTfulServicePSMPackage.eINSTANCE.getClass();
 		
 		// Create a resource set.
 		oResourceSet = new ResourceSetImpl();
@@ -120,7 +134,7 @@ public class AnnotationStackPopulator extends AbstractHandler {
 	    
 	    // Get the first model element and cast it to the right type, in my
 	    // example everything is hierarchical included in this first node
-	    RESTfulServicePSM oRESTfulServicePSM = (RESTfulServicePSM) resource.getContents().get(0);
+	    ServicePSM oRESTfulServicePSM = (ServicePSM) resource.getContents().get(0);
 	    return oRESTfulServicePSM;
 
 	}
@@ -188,6 +202,39 @@ public class AnnotationStackPopulator extends AbstractHandler {
 	    // Get the first model element and cast it to the right type, in my
 	    // example everything is hierarchical included in this first node
 	    SearchLayerPSM.AnnotationModel oAnnotationModel = (SearchLayerPSM.AnnotationModel) resource.getContents().get(0);
+	    return oAnnotationModel;
+	}
+	
+	private ExternalServiceLayerPSM.AnnotationModel loadExternalServiceLayerPSM(String strExternalServiceLayerPath){
+		
+		ResourceSet oResourceSet;
+		URI oURI;
+		
+		ExternalServiceLayerPSMPackage.eINSTANCE.getClass();
+		
+		// Create a resource set.
+		oResourceSet = new ResourceSetImpl();
+
+		// Register the default resource factory -- only needed for stand-alone!
+		oResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(org.eclipse.emf.ecore.resource.Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+		
+		// Get the URI of the model file.
+		oURI = URI.createFileURI(new File(strExternalServiceLayerPath).getAbsolutePath());
+		out.println(oURI.devicePath());
+
+	    // Get the resource
+	    Resource resource = oResourceSet.getResource(oURI, true);
+	    
+	    try {
+			resource.load(null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    // Get the first model element and cast it to the right type, in my
+	    // example everything is hierarchical included in this first node
+	    ExternalServiceLayerPSM.AnnotationModel oAnnotationModel = (ExternalServiceLayerPSM.AnnotationModel) resource.getContents().get(0);
 	    return oAnnotationModel;
 	}
 

@@ -2,7 +2,7 @@
  */
 package AuthenticationLayerPSM;
 
-import ServicePSM.HTTPActivity;
+import RESTfulServicePSM.HTTPActivity;
 
 /**
  * <!-- begin-user-doc -->

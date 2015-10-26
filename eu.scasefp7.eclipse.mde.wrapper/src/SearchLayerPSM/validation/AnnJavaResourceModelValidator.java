@@ -4,7 +4,7 @@
  */
 package SearchLayerPSM.validation;
 
-import ServicePSM.JavaResourceModel;
+import RESTfulServicePSM.JavaResourceModel;
 
 /**
  * A sample validator interface for {@link SearchLayerPSM.AnnJavaResourceModel}.

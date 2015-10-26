@@ -4,7 +4,7 @@
  */
 package SearchLayerPSM.validation;
 
-import ServicePSM.HTTPActivity;
+import RESTfulServicePSM.HTTPActivity;
 
 /**
  * A sample validator interface for {@link SearchLayerPSM.AnnHTTPActivity}.

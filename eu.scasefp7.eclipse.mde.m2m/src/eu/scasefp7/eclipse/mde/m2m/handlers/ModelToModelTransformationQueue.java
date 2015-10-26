@@ -6,11 +6,11 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.m2m.atl.AuthenticationCIMToPIM.files.AuthenticationCIMToPIMTransformation;
-import org.eclipse.m2m.atl.AuthenticationPIMToPSM.files.AuthenticationPIMToPSMTransformation;
+import org.eclipse.m2m.atl.AuthenticationPIMToPSMTransformation.files.AuthenticationPIMToPSMTransformation;
 import org.eclipse.m2m.atl.CoreCIMToPIM.files.CIMToPIMTransformation;
 import org.eclipse.m2m.atl.CorePIMToPSM.files.PIMToPSMTransformation;
 import org.eclipse.m2m.atl.DatabaseSearchingCIMToPIM.files.SearchLayerCIMToPIMTransformation;
-import org.eclipse.m2m.atl.DatabaseSearchingPIMToPSM.files.SearchLayerPIMToPSMTransformation;
+import org.eclipse.m2m.atl.DatabaseSearchingPIMToPSMTransformation.files.SearchLayerPIMToPSMTransformation;
 import org.eclipse.m2m.atl.ExternalServiceLayerCIMToPIM.files.ExternalServiceLayerCIMToPIM;
 import org.eclipse.m2m.atl.ExternalServiceLayerPIMToPSM.files.ExternalServiceLayerPIMToPSM;
 

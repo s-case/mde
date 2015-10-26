@@ -138,7 +138,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JavaResourceControllerManager">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="controllerURIPathAnnotation RCManagerNotAllowedHTTPActivityVerbs RCManagerActivitiesHaveJAXRSAnnotations JRCManagerPostActivityAddsPostHypermediaLinkToSelf JRCManagerGetActivityAddsPostHypermediaLinkToSelf JRCManagerPostActivityAddsGetHypermediaLinkToSelf JRCManagerGetActivityAddsPostHypermediaLinkToSelf"/>
+      <details key="constraints" value="controllerURIPathAnnotation RCManagerNotAllowedHTTPActivityVerbs RCManagerActivitiesHaveJAXRSAnnotations JRCManagerPostActivityAddsPostHypermediaLinkToSelf JRCManagerGetActivityAddsPostHypermediaLinkToSelf JRCManagerPostActivityAddsGetHypermediaLinkToSelf"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
       <details key="controllerURIPathAnnotation" value="self.JavaRCManagerHasJAXRSAnnotation->one(JAXRSAnnotationText = '@Path(&quot;' + self.controllerURI + '&quot;)')"/>
@@ -259,7 +259,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="LinkType" lowerBound="1"
         eType="#//LinkType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RESTfulServicePSM">
+  <eClassifiers xsi:type="ecore:EClass" name="ServicePSM">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
       <details key="constraints" value="allModelsHaveRResourcePropertiesWithProperHibernateAnnotations allModelsHavePResourcePropertiesWithProperHibernateAnnotations rMPropertiesSettersHaveProperXMLTransientAnnotation rMPropertiesHaveColumnAnnotation RControllerUniqueHTTPVerbsPerParent RCManagerHasUniqueHTTPActivityVerbsPerParent rCManagerPostActivityAddsGetHypermediaLinkToRRController rCManagerPostActivityAddsPutHypermediaLinkToRRController rCManagerPostActivityAddsDeleteHypermediaLinkToRRController rCManagerGetActivityAddsGetHypermediaLinkToRRController rCManagerGetActivityAddsPutHypermediaLinkToRRController rCManagerGetActivityAddsDeleteHypermediaLinkToRRController rCManagerPostActivityAddsGetHypermediaLinkToParentRController rCManagerPostActivityAddsPutHypermediaLinkToParentRController rCManagerPostActivityAddsDeleteHypermediaLinkToParentRController rCManagerGetActivityAddsGetHypermediaLinkToParentRController rCManagerGetActivityAddsPutHypermediaLinkToParentRController rCManagerGetActivityAddsDeleteHypermediaLinkToParentRController rControllerGetActivityAddsPostHypermediaLinkToRCManager rControllerGetActivityAddsGetHypermediaLinkToRCManager rControllerPutActivityAddsPostHypermediaLinkToRCManager rControllerPutActivityAddsGetHypermediaLinkToRCManager rControllerGetActivityAddsPostHypermediaLinkToParentRCManager rControllerGetActivityAddsGetHypermediaLinkToParentRCManager rControllerPutActivityAddsPostHypermediaLinkToParentRCManager rControllerPutActivityAddsGetHypermediaLinkToParentRCManager rControllerDeleteActivityAddsPostHypermediaLinkToParentRCManager rControllerDeleteActivityAddsGetHypermediaLinkToParentRCManager algoControllerActivityAddsHypermediaLinkToRAlgoController algoControllerAddsHypermediaLinkToParentAlgoController rControllerGetAddsHypermediaLinkToRAlgoController rControllerPutAddsHypermediaLinkToRAlgoController algoControllerAddsGetHypermediaLinkToParentRController algoControllerAddsPutHypermediaLinkToParentRController algoControllerAddsDeleteHypermediaLinkToParentRController"/>
     </eAnnotations>

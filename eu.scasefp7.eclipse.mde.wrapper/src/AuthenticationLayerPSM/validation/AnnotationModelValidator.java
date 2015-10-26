@@ -7,7 +7,7 @@ package AuthenticationLayerPSM.validation;
 import AuthenticationLayerPSM.AnnotatedElement;
 import AuthenticationLayerPSM.Annotation;
 
-import ServicePSM.RESTfulServicePSM;
+import RESTfulServicePSM.ServicePSM;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -23,6 +23,6 @@ public interface AnnotationModelValidator {
 	boolean validateName(String value);
 	boolean validateHasAnnotatedElement(EList<AnnotatedElement> value);
 	boolean validateHasAnnotation(EList<Annotation> value);
-	boolean validateAnnotatesRESTfulServicePSM(RESTfulServicePSM value);
+	boolean validateAnnotatesRESTfulServicePSM(ServicePSM value);
 	boolean validateAnnotationType(String value);
 }

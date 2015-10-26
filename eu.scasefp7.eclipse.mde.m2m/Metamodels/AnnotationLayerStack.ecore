@@ -8,9 +8,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bHasAuthenticationAnnotation"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasCorePSM" lowerBound="1"
-        eType="ecore:EClass PSMMetamodel.ecore#//RESTfulServicePSM"/>
+        eType="ecore:EClass PSMMetamodel.ecore#//ServicePSM"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasSearchLayer" eType="ecore:EClass SearchLayerPSMMetamodel.ecore#//AnnotationModel"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bHasSearchLayer" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bHasExternalServiceLayer"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasExternalServiceLayer"
+        eType="ecore:EClass ExternalServiceLayerPSMMetamodel.ecore#//AnnotationModel"/>
   </eClassifiers>
 </ecore:EPackage>

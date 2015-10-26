@@ -4,7 +4,7 @@ package AnnotationLayerStack;
 
 import AuthenticationLayerPSM.AnnotationModel;
 
-import ServicePSM.RESTfulServicePSM;
+import RESTfulServicePSM.ServicePSM;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link AnnotationLayerStack.AnnotationStack#getHasCorePSM <em>Has Core PSM</em>}</li>
  *   <li>{@link AnnotationLayerStack.AnnotationStack#getHasSearchLayer <em>Has Search Layer</em>}</li>
  *   <li>{@link AnnotationLayerStack.AnnotationStack#isBHasSearchLayer <em>BHas Search Layer</em>}</li>
+ *   <li>{@link AnnotationLayerStack.AnnotationStack#isBHasExternalServiceLayer <em>BHas External Service Layer</em>}</li>
+ *   <li>{@link AnnotationLayerStack.AnnotationStack#getHasExternalServiceLayer <em>Has External Service Layer</em>}</li>
  * </ul>
  * </p>
  *
@@ -90,12 +92,12 @@ public interface AnnotationStack extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Has Core PSM</em>' reference.
-	 * @see #setHasCorePSM(RESTfulServicePSM)
+	 * @see #setHasCorePSM(ServicePSM)
 	 * @see AnnotationLayerStack.AnnotationLayerStackPackage#getAnnotationStack_HasCorePSM()
 	 * @model required="true"
 	 * @generated
 	 */
-	RESTfulServicePSM getHasCorePSM();
+	ServicePSM getHasCorePSM();
 
 	/**
 	 * Sets the value of the '{@link AnnotationLayerStack.AnnotationStack#getHasCorePSM <em>Has Core PSM</em>}' reference.
@@ -105,7 +107,7 @@ public interface AnnotationStack extends EObject {
 	 * @see #getHasCorePSM()
 	 * @generated
 	 */
-	void setHasCorePSM(RESTfulServicePSM value);
+	void setHasCorePSM(ServicePSM value);
 
 	/**
 	 * Returns the value of the '<em><b>Has Search Layer</b></em>' reference.
@@ -158,5 +160,57 @@ public interface AnnotationStack extends EObject {
 	 * @generated
 	 */
 	void setBHasSearchLayer(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>BHas External Service Layer</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>BHas External Service Layer</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>BHas External Service Layer</em>' attribute.
+	 * @see #setBHasExternalServiceLayer(boolean)
+	 * @see AnnotationLayerStack.AnnotationLayerStackPackage#getAnnotationStack_BHasExternalServiceLayer()
+	 * @model required="true"
+	 * @generated
+	 */
+	boolean isBHasExternalServiceLayer();
+
+	/**
+	 * Sets the value of the '{@link AnnotationLayerStack.AnnotationStack#isBHasExternalServiceLayer <em>BHas External Service Layer</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>BHas External Service Layer</em>' attribute.
+	 * @see #isBHasExternalServiceLayer()
+	 * @generated
+	 */
+	void setBHasExternalServiceLayer(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Has External Service Layer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Has External Service Layer</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Has External Service Layer</em>' reference.
+	 * @see #setHasExternalServiceLayer(ExternalServiceLayerPSM.AnnotationModel)
+	 * @see AnnotationLayerStack.AnnotationLayerStackPackage#getAnnotationStack_HasExternalServiceLayer()
+	 * @model
+	 * @generated
+	 */
+	ExternalServiceLayerPSM.AnnotationModel getHasExternalServiceLayer();
+
+	/**
+	 * Sets the value of the '{@link AnnotationLayerStack.AnnotationStack#getHasExternalServiceLayer <em>Has External Service Layer</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Has External Service Layer</em>' reference.
+	 * @see #getHasExternalServiceLayer()
+	 * @generated
+	 */
+	void setHasExternalServiceLayer(ExternalServiceLayerPSM.AnnotationModel value);
 
 } // AnnotationStack

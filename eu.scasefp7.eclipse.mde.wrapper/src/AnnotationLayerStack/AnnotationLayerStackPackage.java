@@ -112,13 +112,31 @@ public interface AnnotationLayerStackPackage extends EPackage {
 	int ANNOTATION_STACK__BHAS_SEARCH_LAYER = 4;
 
 	/**
+	 * The feature id for the '<em><b>BHas External Service Layer</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_STACK__BHAS_EXTERNAL_SERVICE_LAYER = 5;
+
+	/**
+	 * The feature id for the '<em><b>Has External Service Layer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_STACK__HAS_EXTERNAL_SERVICE_LAYER = 6;
+
+	/**
 	 * The number of structural features of the '<em>Annotation Stack</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ANNOTATION_STACK_FEATURE_COUNT = 5;
+	int ANNOTATION_STACK_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Annotation Stack</em>' class.
@@ -196,6 +214,28 @@ public interface AnnotationLayerStackPackage extends EPackage {
 	EAttribute getAnnotationStack_BHasSearchLayer();
 
 	/**
+	 * Returns the meta object for the attribute '{@link AnnotationLayerStack.AnnotationStack#isBHasExternalServiceLayer <em>BHas External Service Layer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>BHas External Service Layer</em>'.
+	 * @see AnnotationLayerStack.AnnotationStack#isBHasExternalServiceLayer()
+	 * @see #getAnnotationStack()
+	 * @generated
+	 */
+	EAttribute getAnnotationStack_BHasExternalServiceLayer();
+
+	/**
+	 * Returns the meta object for the reference '{@link AnnotationLayerStack.AnnotationStack#getHasExternalServiceLayer <em>Has External Service Layer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Has External Service Layer</em>'.
+	 * @see AnnotationLayerStack.AnnotationStack#getHasExternalServiceLayer()
+	 * @see #getAnnotationStack()
+	 * @generated
+	 */
+	EReference getAnnotationStack_HasExternalServiceLayer();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -267,6 +307,22 @@ public interface AnnotationLayerStackPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ANNOTATION_STACK__BHAS_SEARCH_LAYER = eINSTANCE.getAnnotationStack_BHasSearchLayer();
+
+		/**
+		 * The meta object literal for the '<em><b>BHas External Service Layer</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ANNOTATION_STACK__BHAS_EXTERNAL_SERVICE_LAYER = eINSTANCE.getAnnotationStack_BHasExternalServiceLayer();
+
+		/**
+		 * The meta object literal for the '<em><b>Has External Service Layer</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ANNOTATION_STACK__HAS_EXTERNAL_SERVICE_LAYER = eINSTANCE.getAnnotationStack_HasExternalServiceLayer();
 
 	}
 

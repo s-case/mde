@@ -55,7 +55,7 @@
       <!-- @generated PSMMetamodel -->
       <package
             uri="platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore"
-            class="ServicePSM.ServicePSMPackage"/>
+            class="RESTfulServicePSM.RESTfulServicePSMPackage"/>
       <!--  genModel="Metamodels/PSMMetamodel.genmodel" -->
     </extension>
 

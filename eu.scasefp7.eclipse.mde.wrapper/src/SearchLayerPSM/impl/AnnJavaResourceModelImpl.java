@@ -2,10 +2,10 @@
  */
 package SearchLayerPSM.impl;
 
+import RESTfulServicePSM.JavaResourceModel;
+
 import SearchLayerPSM.AnnJavaResourceModel;
 import SearchLayerPSM.SearchLayerPSMPackage;
-
-import ServicePSM.JavaResourceModel;
 
 import org.eclipse.emf.common.notify.Notification;
 

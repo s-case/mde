@@ -2,10 +2,10 @@
  */
 package SearchLayerPSM.impl;
 
+import RESTfulServicePSM.JavaAlgoResourceController;
+
 import SearchLayerPSM.AnnJavaAlgoController;
 import SearchLayerPSM.SearchLayerPSMPackage;
-
-import ServicePSM.JavaAlgoResourceController;
 
 import org.eclipse.emf.common.notify.Notification;
 

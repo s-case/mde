@@ -1017,7 +1017,7 @@
 		<constant value="PIMService"/>
 		<constant value="NTransientLink;.addSourceElement(SJ):V"/>
 		<constant value="PSMService"/>
-		<constant value="RESTfulServicePSM"/>
+		<constant value="ServicePSM"/>
 		<constant value="PSM"/>
 		<constant value="NTransientLink;.addTargetElement(SJ):V"/>
 		<constant value="NTransientLinkSet;.addLink2(NTransientLink;B):V"/>

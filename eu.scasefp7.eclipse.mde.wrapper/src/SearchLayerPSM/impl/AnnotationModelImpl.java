@@ -2,12 +2,12 @@
  */
 package SearchLayerPSM.impl;
 
+import RESTfulServicePSM.ServicePSM;
+
 import SearchLayerPSM.AnnotatedElement;
 import SearchLayerPSM.Annotation;
 import SearchLayerPSM.AnnotationModel;
 import SearchLayerPSM.SearchLayerPSMPackage;
-
-import ServicePSM.RESTfulServicePSM;
 
 import java.util.Collection;
 
@@ -90,7 +90,7 @@ public class AnnotationModelImpl extends MinimalEObjectImpl.Container implements
 	 * @generated
 	 * @ordered
 	 */
-	protected RESTfulServicePSM annotatesRESTfulServicePSM;
+	protected ServicePSM annotatesRESTfulServicePSM;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -161,10 +161,10 @@ public class AnnotationModelImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RESTfulServicePSM getAnnotatesRESTfulServicePSM() {
+	public ServicePSM getAnnotatesRESTfulServicePSM() {
 		if (annotatesRESTfulServicePSM != null && annotatesRESTfulServicePSM.eIsProxy()) {
 			InternalEObject oldAnnotatesRESTfulServicePSM = (InternalEObject)annotatesRESTfulServicePSM;
-			annotatesRESTfulServicePSM = (RESTfulServicePSM)eResolveProxy(oldAnnotatesRESTfulServicePSM);
+			annotatesRESTfulServicePSM = (ServicePSM)eResolveProxy(oldAnnotatesRESTfulServicePSM);
 			if (annotatesRESTfulServicePSM != oldAnnotatesRESTfulServicePSM) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SearchLayerPSMPackage.ANNOTATION_MODEL__ANNOTATES_RES_TFUL_SERVICE_PSM, oldAnnotatesRESTfulServicePSM, annotatesRESTfulServicePSM));
@@ -178,7 +178,7 @@ public class AnnotationModelImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RESTfulServicePSM basicGetAnnotatesRESTfulServicePSM() {
+	public ServicePSM basicGetAnnotatesRESTfulServicePSM() {
 		return annotatesRESTfulServicePSM;
 	}
 
@@ -187,8 +187,8 @@ public class AnnotationModelImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAnnotatesRESTfulServicePSM(RESTfulServicePSM newAnnotatesRESTfulServicePSM) {
-		RESTfulServicePSM oldAnnotatesRESTfulServicePSM = annotatesRESTfulServicePSM;
+	public void setAnnotatesRESTfulServicePSM(ServicePSM newAnnotatesRESTfulServicePSM) {
+		ServicePSM oldAnnotatesRESTfulServicePSM = annotatesRESTfulServicePSM;
 		annotatesRESTfulServicePSM = newAnnotatesRESTfulServicePSM;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, SearchLayerPSMPackage.ANNOTATION_MODEL__ANNOTATES_RES_TFUL_SERVICE_PSM, oldAnnotatesRESTfulServicePSM, annotatesRESTfulServicePSM));
@@ -252,7 +252,7 @@ public class AnnotationModelImpl extends MinimalEObjectImpl.Container implements
 				setName((String)newValue);
 				return;
 			case SearchLayerPSMPackage.ANNOTATION_MODEL__ANNOTATES_RES_TFUL_SERVICE_PSM:
-				setAnnotatesRESTfulServicePSM((RESTfulServicePSM)newValue);
+				setAnnotatesRESTfulServicePSM((ServicePSM)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -276,7 +276,7 @@ public class AnnotationModelImpl extends MinimalEObjectImpl.Container implements
 				setName(NAME_EDEFAULT);
 				return;
 			case SearchLayerPSMPackage.ANNOTATION_MODEL__ANNOTATES_RES_TFUL_SERVICE_PSM:
-				setAnnotatesRESTfulServicePSM((RESTfulServicePSM)null);
+				setAnnotatesRESTfulServicePSM((ServicePSM)null);
 				return;
 		}
 		super.eUnset(featureID);

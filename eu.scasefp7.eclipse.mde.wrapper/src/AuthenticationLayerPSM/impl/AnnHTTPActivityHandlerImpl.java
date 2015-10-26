@@ -5,7 +5,7 @@ package AuthenticationLayerPSM.impl;
 import AuthenticationLayerPSM.AnnHTTPActivityHandler;
 import AuthenticationLayerPSM.AuthenticationLayerPSMPackage;
 
-import ServicePSM.HTTPActivityHandler;
+import RESTfulServicePSM.HTTPActivityHandler;
 
 import org.eclipse.emf.common.notify.Notification;
 

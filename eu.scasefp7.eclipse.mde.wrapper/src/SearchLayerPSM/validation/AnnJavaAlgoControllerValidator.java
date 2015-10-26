@@ -4,7 +4,7 @@
  */
 package SearchLayerPSM.validation;
 
-import ServicePSM.JavaAlgoResourceController;
+import RESTfulServicePSM.JavaAlgoResourceController;
 
 /**
  * A sample validator interface for {@link SearchLayerPSM.AnnJavaAlgoController}.

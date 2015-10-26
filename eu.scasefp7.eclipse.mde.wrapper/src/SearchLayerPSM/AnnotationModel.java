@@ -2,7 +2,7 @@
  */
 package SearchLayerPSM;
 
-import ServicePSM.RESTfulServicePSM;
+import RESTfulServicePSM.ServicePSM;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -95,12 +95,12 @@ public interface AnnotationModel extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Annotates RES Tful Service PSM</em>' reference.
-	 * @see #setAnnotatesRESTfulServicePSM(RESTfulServicePSM)
+	 * @see #setAnnotatesRESTfulServicePSM(ServicePSM)
 	 * @see SearchLayerPSM.SearchLayerPSMPackage#getAnnotationModel_AnnotatesRESTfulServicePSM()
 	 * @model required="true"
 	 * @generated
 	 */
-	RESTfulServicePSM getAnnotatesRESTfulServicePSM();
+	ServicePSM getAnnotatesRESTfulServicePSM();
 
 	/**
 	 * Sets the value of the '{@link SearchLayerPSM.AnnotationModel#getAnnotatesRESTfulServicePSM <em>Annotates RES Tful Service PSM</em>}' reference.
@@ -110,6 +110,6 @@ public interface AnnotationModel extends EObject {
 	 * @see #getAnnotatesRESTfulServicePSM()
 	 * @generated
 	 */
-	void setAnnotatesRESTfulServicePSM(RESTfulServicePSM value);
+	void setAnnotatesRESTfulServicePSM(ServicePSM value);
 
 } // AnnotationModel

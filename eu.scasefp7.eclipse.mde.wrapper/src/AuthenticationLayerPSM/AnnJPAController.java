@@ -2,7 +2,7 @@
  */
 package AuthenticationLayerPSM;
 
-import ServicePSM.HibernateController;
+import RESTfulServicePSM.HibernateController;
 
 /**
  * <!-- begin-user-doc -->

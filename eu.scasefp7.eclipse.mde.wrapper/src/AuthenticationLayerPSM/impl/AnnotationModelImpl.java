@@ -7,7 +7,7 @@ import AuthenticationLayerPSM.Annotation;
 import AuthenticationLayerPSM.AnnotationModel;
 import AuthenticationLayerPSM.AuthenticationLayerPSMPackage;
 
-import ServicePSM.RESTfulServicePSM;
+import RESTfulServicePSM.ServicePSM;
 
 import java.util.Collection;
 
@@ -91,7 +91,7 @@ public class AnnotationModelImpl extends MinimalEObjectImpl.Container implements
 	 * @generated
 	 * @ordered
 	 */
-	protected RESTfulServicePSM annotatesRESTfulServicePSM;
+	protected ServicePSM annotatesRESTfulServicePSM;
 
 	/**
 	 * The default value of the '{@link #getAnnotationType() <em>Annotation Type</em>}' attribute.
@@ -182,10 +182,10 @@ public class AnnotationModelImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RESTfulServicePSM getAnnotatesRESTfulServicePSM() {
+	public ServicePSM getAnnotatesRESTfulServicePSM() {
 		if (annotatesRESTfulServicePSM != null && annotatesRESTfulServicePSM.eIsProxy()) {
 			InternalEObject oldAnnotatesRESTfulServicePSM = (InternalEObject)annotatesRESTfulServicePSM;
-			annotatesRESTfulServicePSM = (RESTfulServicePSM)eResolveProxy(oldAnnotatesRESTfulServicePSM);
+			annotatesRESTfulServicePSM = (ServicePSM)eResolveProxy(oldAnnotatesRESTfulServicePSM);
 			if (annotatesRESTfulServicePSM != oldAnnotatesRESTfulServicePSM) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AuthenticationLayerPSMPackage.ANNOTATION_MODEL__ANNOTATES_RES_TFUL_SERVICE_PSM, oldAnnotatesRESTfulServicePSM, annotatesRESTfulServicePSM));
@@ -199,7 +199,7 @@ public class AnnotationModelImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RESTfulServicePSM basicGetAnnotatesRESTfulServicePSM() {
+	public ServicePSM basicGetAnnotatesRESTfulServicePSM() {
 		return annotatesRESTfulServicePSM;
 	}
 
@@ -208,8 +208,8 @@ public class AnnotationModelImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAnnotatesRESTfulServicePSM(RESTfulServicePSM newAnnotatesRESTfulServicePSM) {
-		RESTfulServicePSM oldAnnotatesRESTfulServicePSM = annotatesRESTfulServicePSM;
+	public void setAnnotatesRESTfulServicePSM(ServicePSM newAnnotatesRESTfulServicePSM) {
+		ServicePSM oldAnnotatesRESTfulServicePSM = annotatesRESTfulServicePSM;
 		annotatesRESTfulServicePSM = newAnnotatesRESTfulServicePSM;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AuthenticationLayerPSMPackage.ANNOTATION_MODEL__ANNOTATES_RES_TFUL_SERVICE_PSM, oldAnnotatesRESTfulServicePSM, annotatesRESTfulServicePSM));
@@ -296,7 +296,7 @@ public class AnnotationModelImpl extends MinimalEObjectImpl.Container implements
 				getHasAnnotation().addAll((Collection<? extends Annotation>)newValue);
 				return;
 			case AuthenticationLayerPSMPackage.ANNOTATION_MODEL__ANNOTATES_RES_TFUL_SERVICE_PSM:
-				setAnnotatesRESTfulServicePSM((RESTfulServicePSM)newValue);
+				setAnnotatesRESTfulServicePSM((ServicePSM)newValue);
 				return;
 			case AuthenticationLayerPSMPackage.ANNOTATION_MODEL__ANNOTATION_TYPE:
 				setAnnotationType((String)newValue);
@@ -323,7 +323,7 @@ public class AnnotationModelImpl extends MinimalEObjectImpl.Container implements
 				getHasAnnotation().clear();
 				return;
 			case AuthenticationLayerPSMPackage.ANNOTATION_MODEL__ANNOTATES_RES_TFUL_SERVICE_PSM:
-				setAnnotatesRESTfulServicePSM((RESTfulServicePSM)null);
+				setAnnotatesRESTfulServicePSM((ServicePSM)null);
 				return;
 			case AuthenticationLayerPSMPackage.ANNOTATION_MODEL__ANNOTATION_TYPE:
 				setAnnotationType(ANNOTATION_TYPE_EDEFAULT);

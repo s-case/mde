@@ -8,7 +8,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.ui.console;bundle-version="3.5.300"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.emf.common.util,
  org.eclipse.emf.ecore.xmi.impl
@@ -20,13 +20,17 @@ Export-Package: AnnotationLayerStack,
  AuthenticationLayerPSM.impl,
  AuthenticationLayerPSM.util,
  AuthenticationLayerPSM.validation,
+ ExternalServiceLayerPSM,
+ ExternalServiceLayerPSM.impl,
+ ExternalServiceLayerPSM.util,
+ ExternalServiceLayerPSM.validation,
+ RESTfulServicePSM,
+ RESTfulServicePSM.impl,
+ RESTfulServicePSM.util,
+ RESTfulServicePSM.validation,
  SearchLayerPSM,
  SearchLayerPSM.impl,
  SearchLayerPSM.util,
  SearchLayerPSM.validation,
- ServicePSM,
- ServicePSM.impl,
- ServicePSM.util,
- ServicePSM.validation,
  annotationstackpopulator,
  annotationstackpopulator.handlers

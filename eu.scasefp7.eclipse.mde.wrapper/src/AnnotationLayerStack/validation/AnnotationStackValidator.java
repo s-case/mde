@@ -6,7 +6,7 @@ package AnnotationLayerStack.validation;
 
 import AuthenticationLayerPSM.AnnotationModel;
 
-import ServicePSM.RESTfulServicePSM;
+import RESTfulServicePSM.ServicePSM;
 
 /**
  * A sample validator interface for {@link AnnotationLayerStack.AnnotationStack}.
@@ -19,7 +19,9 @@ public interface AnnotationStackValidator {
 
 	boolean validateHasAuthenticationLayer(AnnotationModel value);
 	boolean validateBHasAuthenticationAnnotation(boolean value);
-	boolean validateHasCorePSM(RESTfulServicePSM value);
+	boolean validateHasCorePSM(ServicePSM value);
 	boolean validateHasSearchLayer(SearchLayerPSM.AnnotationModel value);
 	boolean validateBHasSearchLayer(boolean value);
+	boolean validateBHasExternalServiceLayer(boolean value);
+	boolean validateHasExternalServiceLayer(ExternalServiceLayerPSM.AnnotationModel value);
 }

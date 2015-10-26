@@ -4,7 +4,7 @@
  */
 package AuthenticationLayerPSM.validation;
 
-import ServicePSM.HibernateController;
+import RESTfulServicePSM.HibernateController;
 
 /**
  * A sample validator interface for {@link AuthenticationLayerPSM.AnnJPAController}.

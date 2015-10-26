@@ -2,10 +2,10 @@
  */
 package SearchLayerPSM.impl;
 
+import RESTfulServicePSM.HTTPActivityHandler;
+
 import SearchLayerPSM.AnnHTTPActivityHandler;
 import SearchLayerPSM.SearchLayerPSMPackage;
-
-import ServicePSM.HTTPActivityHandler;
 
 import org.eclipse.emf.common.notify.Notification;
 

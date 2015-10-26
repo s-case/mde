@@ -45,7 +45,8 @@
 	           <packageToRegister>AnnotationLayerStack.AnnotationLayerStackPackage</packageToRegister>
 	           <packageToRegister>AuthenticationLayerPSM.AuthenticationLayerPSMPackage</packageToRegister>
 	           <packageToRegister>SearchLayerPSM.SearchLayerPSMPackage</packageToRegister>
-	           <packageToRegister>ServicePSM.ServicePSMPackage</packageToRegister>
+	           <packageToRegister>ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage</packageToRegister>
+	           <packageToRegister>RESTfulServicePSM.RESTfulServicePSMPackage</packageToRegister>
 	         </packagesToRegister>
 	       </configuration>
 	     </plugin>

@@ -9,7 +9,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasAnnotation" lowerBound="1"
         upperBound="-1" eType="#//Annotation" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotatesRESTfulServicePSM"
-        lowerBound="1" eType="ecore:EClass PSMMetamodel.ecore#//RESTfulServicePSM"/>
+        lowerBound="1" eType="ecore:EClass PSMMetamodel.ecore#//ServicePSM"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="annotationType" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>

@@ -2,10 +2,10 @@
  */
 package SearchLayerPSM.impl;
 
+import RESTfulServicePSM.PSMComponentProperty;
+
 import SearchLayerPSM.AnnPSMComponentProperty;
 import SearchLayerPSM.SearchLayerPSMPackage;
-
-import ServicePSM.PSMComponentProperty;
 
 import org.eclipse.emf.common.notify.Notification;
 

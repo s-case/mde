@@ -22,13 +22,17 @@ import AuthenticationLayerPSM.BothMode;
 import AuthenticationLayerPSM.GuestMode;
 import AuthenticationLayerPSM.Password;
 
+import ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage;
+
+import ExternalServiceLayerPSM.impl.ExternalServiceLayerPSMPackageImpl;
+
+import RESTfulServicePSM.RESTfulServicePSMPackage;
+
+import RESTfulServicePSM.impl.RESTfulServicePSMPackageImpl;
+
 import SearchLayerPSM.SearchLayerPSMPackage;
 
 import SearchLayerPSM.impl.SearchLayerPSMPackageImpl;
-
-import ServicePSM.ServicePSMPackage;
-
-import ServicePSM.impl.ServicePSMPackageImpl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -183,20 +187,23 @@ public class AuthenticationLayerPSMPackageImpl extends EPackageImpl implements A
 
 		// Obtain or create and register interdependencies
 		AnnotationLayerStackPackageImpl theAnnotationLayerStackPackage = (AnnotationLayerStackPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnnotationLayerStackPackage.eNS_URI) instanceof AnnotationLayerStackPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnnotationLayerStackPackage.eNS_URI) : AnnotationLayerStackPackage.eINSTANCE);
-		ServicePSMPackageImpl theServicePSMPackage = (ServicePSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ServicePSMPackage.eNS_URI) instanceof ServicePSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ServicePSMPackage.eNS_URI) : ServicePSMPackage.eINSTANCE);
+		RESTfulServicePSMPackageImpl theRESTfulServicePSMPackage = (RESTfulServicePSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RESTfulServicePSMPackage.eNS_URI) instanceof RESTfulServicePSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RESTfulServicePSMPackage.eNS_URI) : RESTfulServicePSMPackage.eINSTANCE);
 		SearchLayerPSMPackageImpl theSearchLayerPSMPackage = (SearchLayerPSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SearchLayerPSMPackage.eNS_URI) instanceof SearchLayerPSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SearchLayerPSMPackage.eNS_URI) : SearchLayerPSMPackage.eINSTANCE);
+		ExternalServiceLayerPSMPackageImpl theExternalServiceLayerPSMPackage = (ExternalServiceLayerPSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExternalServiceLayerPSMPackage.eNS_URI) instanceof ExternalServiceLayerPSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExternalServiceLayerPSMPackage.eNS_URI) : ExternalServiceLayerPSMPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theAuthenticationLayerPSMPackage.createPackageContents();
 		theAnnotationLayerStackPackage.createPackageContents();
-		theServicePSMPackage.createPackageContents();
+		theRESTfulServicePSMPackage.createPackageContents();
 		theSearchLayerPSMPackage.createPackageContents();
+		theExternalServiceLayerPSMPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theAuthenticationLayerPSMPackage.initializePackageContents();
 		theAnnotationLayerStackPackage.initializePackageContents();
-		theServicePSMPackage.initializePackageContents();
+		theRESTfulServicePSMPackage.initializePackageContents();
 		theSearchLayerPSMPackage.initializePackageContents();
+		theExternalServiceLayerPSMPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theAuthenticationLayerPSMPackage.freeze();
@@ -583,7 +590,7 @@ public class AuthenticationLayerPSMPackageImpl extends EPackageImpl implements A
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		ServicePSMPackage theServicePSMPackage = (ServicePSMPackage)EPackage.Registry.INSTANCE.getEPackage(ServicePSMPackage.eNS_URI);
+		RESTfulServicePSMPackage theRESTfulServicePSMPackage = (RESTfulServicePSMPackage)EPackage.Registry.INSTANCE.getEPackage(RESTfulServicePSMPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -605,7 +612,7 @@ public class AuthenticationLayerPSMPackageImpl extends EPackageImpl implements A
 		initEAttribute(getAnnotationModel_Name(), ecorePackage.getEString(), "name", null, 1, 1, AnnotationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnnotationModel_HasAnnotatedElement(), this.getAnnotatedElement(), null, "hasAnnotatedElement", null, 1, -1, AnnotationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnnotationModel_HasAnnotation(), this.getAnnotation(), null, "hasAnnotation", null, 1, -1, AnnotationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAnnotationModel_AnnotatesRESTfulServicePSM(), theServicePSMPackage.getRESTfulServicePSM(), null, "annotatesRESTfulServicePSM", null, 1, 1, AnnotationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnnotationModel_AnnotatesRESTfulServicePSM(), theRESTfulServicePSMPackage.getServicePSM(), null, "annotatesRESTfulServicePSM", null, 1, 1, AnnotationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAnnotationModel_AnnotationType(), ecorePackage.getEString(), "annotationType", null, 1, 1, AnnotationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(annotationEClass, Annotation.class, "Annotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -631,13 +638,13 @@ public class AuthenticationLayerPSMPackageImpl extends EPackageImpl implements A
 		initEClass(passwordEClass, Password.class, "Password", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(annHTTPActivityEClass, AnnHTTPActivity.class, "AnnHTTPActivity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAnnHTTPActivity_AnnotatesHTTPActivity(), theServicePSMPackage.getHTTPActivity(), null, "annotatesHTTPActivity", null, 1, 1, AnnHTTPActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnnHTTPActivity_AnnotatesHTTPActivity(), theRESTfulServicePSMPackage.getHTTPActivity(), null, "annotatesHTTPActivity", null, 1, 1, AnnHTTPActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(annHTTPActivityHandlerEClass, AnnHTTPActivityHandler.class, "AnnHTTPActivityHandler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAnnHTTPActivityHandler_AnnotatesHTTPActivityHandler(), theServicePSMPackage.getHTTPActivityHandler(), null, "annotatesHTTPActivityHandler", null, 1, 1, AnnHTTPActivityHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnnHTTPActivityHandler_AnnotatesHTTPActivityHandler(), theRESTfulServicePSMPackage.getHTTPActivityHandler(), null, "annotatesHTTPActivityHandler", null, 1, 1, AnnHTTPActivityHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(annJPAControllerEClass, AnnJPAController.class, "AnnJPAController", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAnnJPAController_AnnotatesJPAController(), theServicePSMPackage.getHibernateController(), null, "annotatesJPAController", null, 1, 1, AnnJPAController.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnnJPAController_AnnotatesJPAController(), theRESTfulServicePSMPackage.getHibernateController(), null, "annotatesJPAController", null, 1, 1, AnnJPAController.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(guestModeEClass, GuestMode.class, "GuestMode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -10,6 +10,14 @@ import AuthenticationLayerPSM.AuthenticationLayerPSMPackage;
 
 import AuthenticationLayerPSM.impl.AuthenticationLayerPSMPackageImpl;
 
+import ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage;
+
+import ExternalServiceLayerPSM.impl.ExternalServiceLayerPSMPackageImpl;
+
+import RESTfulServicePSM.RESTfulServicePSMPackage;
+
+import RESTfulServicePSM.impl.RESTfulServicePSMPackageImpl;
+
 import SearchLayerPSM.AnnHTTPActivity;
 import SearchLayerPSM.AnnHTTPActivityHandler;
 import SearchLayerPSM.AnnJavaAlgoController;
@@ -25,10 +33,6 @@ import SearchLayerPSM.SearchLayerPSMFactory;
 import SearchLayerPSM.SearchLayerPSMPackage;
 import SearchLayerPSM.SearchableJavaResourceModel;
 import SearchLayerPSM.SearchableProperty;
-
-import ServicePSM.ServicePSMPackage;
-
-import ServicePSM.impl.ServicePSMPackageImpl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -184,19 +188,22 @@ public class SearchLayerPSMPackageImpl extends EPackageImpl implements SearchLay
 		// Obtain or create and register interdependencies
 		AnnotationLayerStackPackageImpl theAnnotationLayerStackPackage = (AnnotationLayerStackPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnnotationLayerStackPackage.eNS_URI) instanceof AnnotationLayerStackPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnnotationLayerStackPackage.eNS_URI) : AnnotationLayerStackPackage.eINSTANCE);
 		AuthenticationLayerPSMPackageImpl theAuthenticationLayerPSMPackage = (AuthenticationLayerPSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AuthenticationLayerPSMPackage.eNS_URI) instanceof AuthenticationLayerPSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AuthenticationLayerPSMPackage.eNS_URI) : AuthenticationLayerPSMPackage.eINSTANCE);
-		ServicePSMPackageImpl theServicePSMPackage = (ServicePSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ServicePSMPackage.eNS_URI) instanceof ServicePSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ServicePSMPackage.eNS_URI) : ServicePSMPackage.eINSTANCE);
+		RESTfulServicePSMPackageImpl theRESTfulServicePSMPackage = (RESTfulServicePSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RESTfulServicePSMPackage.eNS_URI) instanceof RESTfulServicePSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RESTfulServicePSMPackage.eNS_URI) : RESTfulServicePSMPackage.eINSTANCE);
+		ExternalServiceLayerPSMPackageImpl theExternalServiceLayerPSMPackage = (ExternalServiceLayerPSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExternalServiceLayerPSMPackage.eNS_URI) instanceof ExternalServiceLayerPSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExternalServiceLayerPSMPackage.eNS_URI) : ExternalServiceLayerPSMPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theSearchLayerPSMPackage.createPackageContents();
 		theAnnotationLayerStackPackage.createPackageContents();
 		theAuthenticationLayerPSMPackage.createPackageContents();
-		theServicePSMPackage.createPackageContents();
+		theRESTfulServicePSMPackage.createPackageContents();
+		theExternalServiceLayerPSMPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theSearchLayerPSMPackage.initializePackageContents();
 		theAnnotationLayerStackPackage.initializePackageContents();
 		theAuthenticationLayerPSMPackage.initializePackageContents();
-		theServicePSMPackage.initializePackageContents();
+		theRESTfulServicePSMPackage.initializePackageContents();
+		theExternalServiceLayerPSMPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theSearchLayerPSMPackage.freeze();
@@ -563,7 +570,7 @@ public class SearchLayerPSMPackageImpl extends EPackageImpl implements SearchLay
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		ServicePSMPackage theServicePSMPackage = (ServicePSMPackage)EPackage.Registry.INSTANCE.getEPackage(ServicePSMPackage.eNS_URI);
+		RESTfulServicePSMPackage theRESTfulServicePSMPackage = (RESTfulServicePSMPackage)EPackage.Registry.INSTANCE.getEPackage(RESTfulServicePSMPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -586,23 +593,23 @@ public class SearchLayerPSMPackageImpl extends EPackageImpl implements SearchLay
 		initEReference(getAnnotationModel_HasAnnotatedElement(), this.getAnnotatedElement(), null, "hasAnnotatedElement", null, 1, -1, AnnotationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnnotationModel_HasAnnotation(), this.getAnnotation(), null, "hasAnnotation", null, 1, -1, AnnotationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAnnotationModel_Name(), ecorePackage.getEString(), "name", null, 1, 1, AnnotationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAnnotationModel_AnnotatesRESTfulServicePSM(), theServicePSMPackage.getRESTfulServicePSM(), null, "annotatesRESTfulServicePSM", null, 1, 1, AnnotationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnnotationModel_AnnotatesRESTfulServicePSM(), theRESTfulServicePSMPackage.getServicePSM(), null, "annotatesRESTfulServicePSM", null, 1, 1, AnnotationModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(annotatedElementEClass, AnnotatedElement.class, "AnnotatedElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(annotationEClass, Annotation.class, "Annotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(annPSMComponentPropertyEClass, AnnPSMComponentProperty.class, "AnnPSMComponentProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAnnPSMComponentProperty_AnnotatesPSMComponentProperty(), theServicePSMPackage.getPSMComponentProperty(), null, "annotatesPSMComponentProperty", null, 1, 1, AnnPSMComponentProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnnPSMComponentProperty_AnnotatesPSMComponentProperty(), theRESTfulServicePSMPackage.getPSMComponentProperty(), null, "annotatesPSMComponentProperty", null, 1, 1, AnnPSMComponentProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(annJavaAlgoControllerEClass, AnnJavaAlgoController.class, "AnnJavaAlgoController", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAnnJavaAlgoController_AnnotatesJavaAlgoController(), theServicePSMPackage.getJavaAlgoResourceController(), null, "annotatesJavaAlgoController", null, 1, 1, AnnJavaAlgoController.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnnJavaAlgoController_AnnotatesJavaAlgoController(), theRESTfulServicePSMPackage.getJavaAlgoResourceController(), null, "annotatesJavaAlgoController", null, 1, 1, AnnJavaAlgoController.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(annHTTPActivityEClass, AnnHTTPActivity.class, "AnnHTTPActivity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAnnHTTPActivity_AnnotatesHTTPActivity(), theServicePSMPackage.getHTTPActivity(), null, "annotatesHTTPActivity", null, 1, 1, AnnHTTPActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnnHTTPActivity_AnnotatesHTTPActivity(), theRESTfulServicePSMPackage.getHTTPActivity(), null, "annotatesHTTPActivity", null, 1, 1, AnnHTTPActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(annHTTPActivityHandlerEClass, AnnHTTPActivityHandler.class, "AnnHTTPActivityHandler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAnnHTTPActivityHandler_AnnotatesHTTPActivityHandler(), theServicePSMPackage.getHTTPActivityHandler(), null, "annotatesHTTPActivityHandler", null, 1, 1, AnnHTTPActivityHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnnHTTPActivityHandler_AnnotatesHTTPActivityHandler(), theRESTfulServicePSMPackage.getHTTPActivityHandler(), null, "annotatesHTTPActivityHandler", null, 1, 1, AnnHTTPActivityHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(searchControllerEClass, SearchController.class, "SearchController", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSearchController_IsSearchController(), this.getAnnJavaAlgoController(), null, "isSearchController", null, 1, 1, SearchController.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -622,7 +629,7 @@ public class SearchLayerPSMPackageImpl extends EPackageImpl implements SearchLay
 		initEReference(getSearchableJavaResourceModel_IsSearchableJavaResourceModel(), this.getAnnJavaResourceModel(), null, "isSearchableJavaResourceModel", null, 1, 1, SearchableJavaResourceModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(annJavaResourceModelEClass, AnnJavaResourceModel.class, "AnnJavaResourceModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAnnJavaResourceModel_AnnotatesJavaResourceModel(), theServicePSMPackage.getJavaResourceModel(), null, "annotatesJavaResourceModel", null, 1, 1, AnnJavaResourceModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnnJavaResourceModel_AnnotatesJavaResourceModel(), theRESTfulServicePSMPackage.getJavaResourceModel(), null, "annotatesJavaResourceModel", null, 1, 1, AnnJavaResourceModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

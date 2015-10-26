@@ -4,7 +4,7 @@
  */
 package SearchLayerPSM.validation;
 
-import ServicePSM.PSMComponentProperty;
+import RESTfulServicePSM.PSMComponentProperty;
 
 /**
  * A sample validator interface for {@link SearchLayerPSM.AnnPSMComponentProperty}.

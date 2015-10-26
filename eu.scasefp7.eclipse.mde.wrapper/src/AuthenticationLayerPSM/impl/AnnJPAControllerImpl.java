@@ -5,7 +5,7 @@ package AuthenticationLayerPSM.impl;
 import AuthenticationLayerPSM.AnnJPAController;
 import AuthenticationLayerPSM.AuthenticationLayerPSMPackage;
 
-import ServicePSM.HibernateController;
+import RESTfulServicePSM.HibernateController;
 
 import org.eclipse.emf.common.notify.Notification;
 
