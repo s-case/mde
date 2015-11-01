@@ -51,22 +51,22 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/luna</url>
 		</repository>
-<!-- 		<repository> -->
-<!-- 			<id>OSSRH snapshots</id> -->
-<!-- 			<url>https://oss.sonatype.org/content/repositories/snapshots</url> -->
-<!-- 			<snapshots> -->
-<!-- 				<enabled>true</enabled> -->
-<!-- 				<updatePolicy>always</updatePolicy> -->
-<!-- 			</snapshots> -->
-<!-- 		</repository> -->
-<!-- 		<repository> -->
-<!-- 			<id>OSSRH releases</id> -->
-<!-- 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url> -->
-<!-- 			<releases> -->
-<!-- 				<enabled>true</enabled> -->
-<!-- 				<updatePolicy>never</updatePolicy> -->
-<!-- 			</releases> -->
-<!-- 		</repository> -->
+ 		<repository>
+ 			<id>OSSRH snapshots</id>
+ 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+ 			<snapshots>
+ 				<enabled>true</enabled>
+ 				<updatePolicy>always</updatePolicy>
+ 			</snapshots>
+ 		</repository>
+ 		<repository>
+ 			<id>OSSRH releases</id>
+ 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+ 			<releases>
+ 				<enabled>true</enabled>
+ 				<updatePolicy>never</updatePolicy>
+ 			</releases>
+ 		</repository>
 		<repository>
 	       <id>Eclipse - Acceleo Release</id>
     	   <url>https://repo.eclipse.org/content/repositories/acceleo-releases</url>
