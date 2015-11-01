@@ -98,6 +98,11 @@
 			<artifactId>org.eclipse.acceleo.maven</artifactId>
 			<version>3.5.2</version>
 		</dependency>
+            <dependency>
+                <groupId>eu.scasefp7.eclipse</groupId>
+                <artifactId>eu.scasefp7.eclipse.core</artifactId>
+                <version>1.1.1-SNAPSHOT</version>
+            </dependency>
 	</dependencies>
 	
 	<properties>
@@ -119,6 +124,7 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
+                                        <pomDependencies>consider</pomDependencies>
 					<environments>
 						<environment>
 							<os>linux</os>
