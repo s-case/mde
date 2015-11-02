@@ -1,11 +1,39 @@
 [comment encoding = UTF-8 /]
-[module javaAlgoResourceModel('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore','platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore')]
+[module javaAlgoResourceModel('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore','platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/ExternalServiceLayerPSMMetamodel.ecore')]
+
+[import LayeredPSMToText::files::javaRESTClientModel /]
+[import LayeredPSMToText::files::javaRESTClientOutputModel /]
 
 
 [template public javaAlgoResourceModel(anAnnotationStack : AnnotationStack)]
 
 [for (jAlgoRM : JavaAlgoResourceModel | anAnnotationStack.hasCorePSM.hasJavaAlgoModel)]
 [file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jAlgoRM.parentName + '/' + jAlgoRM.name + '.java', false, 'UTF-8')]
+[if(anAnnotationStack.bHasExternalServiceLayer)]
+[if(jAlgoRM.isJavaRESTClientModel(anAnnotationStack))]
+[if(jAlgoRM.hasNoOutputModel(anAnnotationStack) = false)]
+[if(jAlgoRM.hasExistentCRUDResourceOutputModel(anAnnotationStack) = false)]
+[javaRESTClientOutputModel(anAnnotationStack, jAlgoRM)/]
+[/if]
+[else]
+[javaRESTClientOutputModel(anAnnotationStack, jAlgoRM)/]
+[/if]
+[if(jAlgoRM.hasNoInputModel(anAnnotationStack) = false)]
+[javaRESTClientModel(anAnnotationStack, jAlgoRM)/]
+[else]
+[javaPlainOrSearchAlgoResourceModel(anAnnotationStack, jAlgoRM)/]
+[/if]
+[else]
+[javaPlainOrSearchAlgoResourceModel(anAnnotationStack, jAlgoRM)/]
+[/if]
+[else]
+[javaPlainOrSearchAlgoResourceModel(anAnnotationStack, jAlgoRM)/]
+[/if]
+[/file]
+[/for]
+[/template]
+
+[template public javaPlainOrSearchAlgoResourceModel(anAnnotationStack : AnnotationStack, jAlgoRM : JavaAlgoResourceModel)]
 /*
  * ARISTOSTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015
@@ -84,8 +112,6 @@ public class [jAlgoRM.name/]{
     //Please add the constructors and any functions of this model here.
 
 }
-[/file]
-[/for]
 [/template]
 
 [query private isSearchResource(jAlgoRM : JavaAlgoResourceModel, anAnnotationStack : AnnotationStack) : Boolean =
@@ -94,4 +120,28 @@ public class [jAlgoRM.name/]{
 
 [query private getSearchControllerAnnotations(anAnnotationStack : AnnotationStack) : Sequence(SearchController) =
 	anAnnotationStack.hasSearchLayer.hasAnnotation->select(annotation | annotation.oclIsTypeOf(SearchController))->asSequence()
+/]
+
+[query private isJavaRESTClientModel(jAlgoRM : JavaAlgoResourceModel, anAnnotationStack : AnnotationStack) : Boolean =
+	anAnnotationStack.getJavaRESTClientModelAnnotations(anAnnotationStack)->exists(javaRESTClientModelAnnotation | javaRESTClientModelAnnotation.isJavaRESTClientModel.annotatesJavaAlgoModel.name = jAlgoRM.name)
+/]
+
+[query private getJavaRESTClientModelAnnotations(anAnnotationStack : AnnotationStack) : Sequence(JavaRESTClientModel) =
+	anAnnotationStack.hasExternalServiceLayer.hasAnnotation->select(annotation | annotation.oclIsTypeOf(JavaRESTClientModel))->asSequence()
+/]
+
+[query private hasNoInputModel(jAlgoResourceModel : JavaAlgoResourceModel, anAnnotationStack : AnnotationStack) : Boolean =
+	anAnnotationStack.getJavaRESTClientModelAnnotation(anAnnotationStack, jAlgoResourceModel).hasJavaInputModel.oclIsUndefined()
+/]
+
+[query private getJavaRESTClientModelAnnotation(anAnnotationStack : AnnotationStack, jAlgoResourceModel : JavaAlgoResourceModel) : JavaRESTClientModel =
+	jAlgoResourceModel.getJavaRESTClientModelAnnotations(anAnnotationStack)->select(javaRESTClientModel | javaRESTClientModel.isJavaRESTClientModel.annotatesJavaAlgoModel->includes(jAlgoResourceModel))->at(1)
+/]
+
+[query private hasNoOutputModel(jAlgoResourceModel : JavaAlgoResourceModel, anAnnotationStack : AnnotationStack) : Boolean =
+	anAnnotationStack.getJavaRESTClientModelAnnotation(anAnnotationStack, jAlgoResourceModel).hasJavaOutputModel.oclIsUndefined()
+/]
+
+[query private hasExistentCRUDResourceOutputModel(jAlgoResourceModel : JavaAlgoResourceModel, anAnnotationStack : AnnotationStack) : Boolean =
+	anAnnotationStack.getJavaRESTClientModelAnnotation(anAnnotationStack, jAlgoResourceModel).hasJavaOutputModel.oclIsTypeOf(ExistentJavaModelPersistentOutput)
 /]

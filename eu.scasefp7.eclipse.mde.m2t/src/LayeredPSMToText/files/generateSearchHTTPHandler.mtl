@@ -192,12 +192,14 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
     		[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/] o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/] = iteratorOf[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/]List.next();
 			[if (aSearchableResource.hasSingleParent(anAnnotationStack))]
     		o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getUniqueParentName(anAnnotationStack)/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].get[aSearchableResource.getUniqueParentName(anAnnotationStack)/]().get[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
-			[else]
-			[for (jPRModel : JavaResourceModel | aSearchableResource.getNumberOfParents(anAnnotationStack))]
+			[elseif(aSearchableResource.getNumberOfParents(anAnnotationStack) > 0)]
+			[for (jPRModel : JavaResourceModel | aSearchableResource.getMultipleParents(anAnnotationStack))]
 			if(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].get[jPRModel.parentName/]() != null){
 				o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRModel.parentName/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].get[jPRModel.parentName/]().get[jPRModel.parentName/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
 			}
 			[/for]
+			[else]
+			o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
 			[/if]
     	}
     	
@@ -273,6 +275,10 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
 	aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name
 /]
 
-[query private getNumberOfParents(aSearchableResource : SearchableJavaResourceModel, anAnnotationStack : AnnotationStack) : Sequence(JavaResourceModel) =
+[query private getNumberOfParents(aSearchableResource : SearchableJavaResourceModel, anAnnotationStack : AnnotationStack) : Integer =
+	anAnnotationStack.hasCorePSM.hasJavaRModel->select(jPRModel | jPRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel))->size()
+/]
+
+[query private getMultipleParents(aSearchableResource : SearchableJavaResourceModel, anAnnotationStack : AnnotationStack) : Sequence(JavaResourceModel) =
 	anAnnotationStack.hasCorePSM.hasJavaRModel->select(jPRModel | jPRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel))->asSequence()
 /]

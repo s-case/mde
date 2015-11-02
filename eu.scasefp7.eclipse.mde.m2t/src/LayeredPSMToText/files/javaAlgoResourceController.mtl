@@ -1,11 +1,26 @@
 [comment encoding = UTF-8 /]
-[module javaAlgoResourceController('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore')]
+[module javaAlgoResourceController('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/ExternalServiceLayerPSMMetamodel.ecore')]
 
+[import LayeredPSMToText::files::javaRESTClientController /]
 
 [template public javaAlgoResourceController(anAnnotationStack : AnnotationStack)]
 
 [for (jAlgoRController : JavaAlgoResourceController | anAnnotationStack.hasCorePSM.hasJavaAlgoController)]
 [file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jAlgoRController.parentName + '/' + jAlgoRController.name + '.java', false, 'UTF-8')]
+[if(anAnnotationStack.bHasExternalServiceLayer)]
+[if(jAlgoRController.isJavaRESTClientController(anAnnotationStack))]
+[javaRESTClientController(anAnnotationStack, jAlgoRController)/]
+[else]
+[javaAlgoResourceController(anAnnotationStack, jAlgoRController)/]
+[/if]
+[else]
+[javaAlgoResourceController(anAnnotationStack, jAlgoRController)/]
+[/if]
+[/file]
+[/for]
+[/template]
+
+[template public javaAlgoResourceController(anAnnotationStack : AnnotationStack, jAlgoRController : JavaAlgoResourceController)]
 /*
  * ARISTOSTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015
@@ -105,10 +120,7 @@ public class [jAlgoRController.name/]{
 	[/if]
 	[/if]
 }
-[/file]
-[/for]
 [/template]
-
 
 [query private hasBothModeAuthentication(anHttpActivity : HTTPActivity, anAnnotationStack : AnnotationStack) : Boolean =
 	getAuthenticationLayerBothModeAnnotations(anAnnotationStack)->exists(bothModeAnnotation | bothModeAnnotation.HTTPActivityHasAuthenticationMode->exists(annHTTPActivity | annHTTPActivity.annotatesHTTPActivity.name = anHttpActivity.name))
@@ -151,3 +163,10 @@ public class [jAlgoRController.name/]{
 	anAnnotationStack.hasSearchLayer.hasAnnotation->select(annotation | annotation.oclIsTypeOf(SearchHTTPHandler))->asSequence()
 /]
 
+[query private isJavaRESTClientController(jAlgoResourceController : JavaAlgoResourceController, anAnnotationStack : AnnotationStack) : Boolean =
+	anAnnotationStack.getJavaRESTClientControllerAnnotations(anAnnotationStack)->exists(javaRESTClientControllerAnnotation | javaRESTClientControllerAnnotation.isJavaRESTClientController.annotatesJavaAlgoController.name = jAlgoResourceController.name)
+/]
+
+[query private getJavaRESTClientControllerAnnotations(anAnnotationStack : AnnotationStack) : Sequence(JavaRESTClientController) =
+	anAnnotationStack.hasExternalServiceLayer.hasAnnotation->select(annotation | annotation.oclIsTypeOf(JavaRESTClientController))->asSequence()
+/]

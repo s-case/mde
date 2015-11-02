@@ -108,8 +108,8 @@ public class MDETopLevelUI extends ScrolledComposite {
 		initializeUILayout();
 		
 		//TODO remove the following lines in production code
-//		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDE_Plugin/MDEInput/WSATCIM.yml");
-//		this.oWSNameText.setText("WSAT");
+//		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts/RESTMarks.yml");
+//		this.oWSNameText.setText("RESTTest");
 //		this.oMDEOutputText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts");
 //		this.oDatabaseIPText.setText("localhost");
 //		this.oDatabasePortText.setText("3127");
@@ -117,8 +117,8 @@ public class MDETopLevelUI extends ScrolledComposite {
 //		this.oDatabasePasswordText.setText("fp7s-case");
 //		this.oDatabaseSearchingCheckBoxButton.setSelection(false);
 		this.oAuthorizationCheckBoxButton.setEnabled(false);
-//		this.oExternalCompositionCheckBoxButton.setEnabled(false);
-//		this.oExternalCompositionCheckBoxButton.setSelection(true);
+//		this.oAuthenticationCheckBoxButton.setSelection(true);
+//		this.oExternalCompositionCheckBoxButton.setEnabled(true);
 //		this.oExternalCompositionCheckBoxButton.setSelection(true);
 	}
 

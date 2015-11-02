@@ -579,7 +579,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 
 		@Override
 		public void handleEvent(Event event) {
-			oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputRepresentation().setName("application/XML");
+			oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputRepresentation().setName("APPLICATION_XML");
 			updateWidgetStatus();
 			setPageComplete(isPageCompleted());
 		}});
@@ -591,7 +591,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 
 		@Override
 		public void handleEvent(Event event) {
-			oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputRepresentation().setName("application/JSON");
+			oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputRepresentation().setName("APPLICATION_JSON");
 			updateWidgetStatus();
 			setPageComplete(isPageCompleted());
 		}});
@@ -750,7 +750,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 
 		@Override
 		public void handleEvent(Event event) {
-			oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputRepresentation().setName("application/XML");
+			oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputRepresentation().setName("APPLICATION_XML");
 			updateWidgetStatus();
 			setPageComplete(isPageCompleted());
 		}});
@@ -762,7 +762,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 
 		@Override
 		public void handleEvent(Event event) {
-			oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputRepresentation().setName("application/JSON");
+			oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputRepresentation().setName("APPLICATION_JSON");
 			updateWidgetStatus();
 			setPageComplete(isPageCompleted());
 		}});

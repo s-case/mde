@@ -1,5 +1,5 @@
 [comment encoding = UTF-8 /]
-[module mavenConfigurationFile('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore')]
+[module mavenConfigurationFile('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/ExternalServiceLayerPSMMetamodel.ecore')]
 
 
 [template public mavenConfigurationFile(anAnnotationStack : AnnotationStack)]
@@ -24,7 +24,7 @@
     <dependency>
         <groupId>com.sun.jersey</groupId>
         <artifactId>jersey-core</artifactId>
-        <version>1.18</version>
+        <version>1.18.1</version>
         <scope>compile</scope>
     </dependency>
     <dependency>
@@ -36,13 +36,13 @@
     <dependency>
         <groupId>com.sun.jersey</groupId>
         <artifactId>jersey-servlet</artifactId>
-        <version>1.18</version>
+        <version>1.18.1</version>
         <scope>compile</scope>
     </dependency>
     <dependency>
         <groupId>com.sun.jersey.samples</groupId>
         <artifactId>json-from-jaxb</artifactId>
-        <version>1.18</version>
+        <version>1.18.1</version>
         <scope>compile</scope>
     </dependency>
     <dependency>
@@ -66,6 +66,18 @@
 		<groupId>org.hibernate</groupId>
 		<artifactId>hibernate-entitymanager</artifactId>
 		<version>4.2.13.Final</version>
+	</dependency>
+	[/if]
+	[if (anAnnotationStack.bHasExternalServiceLayer)]
+	<dependency>
+   		<groupId>com.sun.jersey</groupId>
+    	<artifactId>jersey-client</artifactId>
+    	<version>1.18.1</version>
+	</dependency>
+	<dependency>
+    	<groupId>com.sun.jersey</groupId>
+    	<artifactId>jersey-json</artifactId>
+    	<version>1.18.1</version>
 	</dependency>
 	[/if]
 </dependencies>

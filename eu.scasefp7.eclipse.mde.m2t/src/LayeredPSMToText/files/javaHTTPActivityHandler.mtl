@@ -1,5 +1,5 @@
 [comment encoding = UTF-8 /]
-[module javaHTTPActivityHandler('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore')]
+[module javaHTTPActivityHandler('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/ExternalServiceLayerPSMMetamodel.ecore')]
 
 
 [import LayeredPSMToText::files::getResourceHandlerSingleParent /]
@@ -18,6 +18,7 @@
 [import LayeredPSMToText::files::postResourceHandlerNoParents /]
 [import LayeredPSMToText::files::getResourceListHandlerNoParents /]
 [import LayeredPSMToText::files::generateSearchHTTPHandler /]
+[import LayeredPSMToText::files::javaRESTClientHTTPActivityHandler /]
 
 [template public javaHTTPActivityHandler(anAnnotationStack : AnnotationStack)]
 
@@ -94,6 +95,11 @@
 		[generateSearchHTTPHandler(anAnnotationStack, jAlgoResourceController) /]
 	[/if]
 	[/if]
+	[if (anAnnotationStack.bHasExternalServiceLayer)]
+	[if (jAlgoResourceController.isJavaRESTClientController(anAnnotationStack))]
+		[javaRESTClientHTTPActivityHandler(anAnnotationStack, jAlgoResourceController) /]
+	[/if]
+	[/if]
 [/for]
 
 [/template]
@@ -104,4 +110,12 @@
 
 [query private getSearchControllerAnnotations(anAnnotationStack : AnnotationStack) : Sequence(SearchController) =
 	anAnnotationStack.hasSearchLayer.hasAnnotation->select(annotation | annotation.oclIsTypeOf(SearchController))->asSequence()
+/]
+
+[query private isJavaRESTClientController(jAlgoResourceController : JavaAlgoResourceController, anAnnotationStack : AnnotationStack) : Boolean =
+	anAnnotationStack.getJavaRESTClientControllerAnnotations(anAnnotationStack)->exists(javaRESTClientControllerAnnotation | javaRESTClientControllerAnnotation.isJavaRESTClientController.annotatesJavaAlgoController.name = jAlgoResourceController.name)
+/]
+
+[query private getJavaRESTClientControllerAnnotations(anAnnotationStack : AnnotationStack) : Sequence(JavaRESTClientController) =
+	anAnnotationStack.hasExternalServiceLayer.hasAnnotation->select(annotation | annotation.oclIsTypeOf(JavaRESTClientController))->asSequence()
 /]

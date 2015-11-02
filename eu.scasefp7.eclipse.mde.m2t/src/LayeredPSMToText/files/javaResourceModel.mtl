@@ -210,13 +210,13 @@ public class [jRModel.name/]{
     public void deleteAllCollections(Session hibernateSession){
 
         [for (jRMProperty : PSMComponentProperty | jRModel.JavaRModelHasProperty->select( property : PSMComponentProperty | property.bIsUnique = false)->select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->excludes('@Transient') and property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') = -1 and property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') = -1)) separator('\n')]
-        Query query = hibernateSession.createSQLQuery(String.format("DELETE FROM %s where %sId = %d","[jRModel.parentName/][jRMProperty.name/]".toLowerCase(),"[jRModel.parentName/]",this.get[jRModel.parentName/]Id()));
-        query.executeUpdate();
+        Query [jRModel.parentName/][jRMProperty.name/]Query = hibernateSession.createSQLQuery(String.format("DELETE FROM %s where %sId = %d","[jRModel.parentName/][jRMProperty.name/]".toLowerCase(),"[jRModel.parentName/]",this.get[jRModel.parentName/]Id()));
+        [jRModel.parentName/][jRMProperty.name/]Query.executeUpdate();
 		[/for]
 
      	[if (jRModel.hasRelatedJavaRMManager->size() > 0)]
      		[for (jRRModel : JavaResourceModel | jRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel) separator('\n')]
-     			[if (jRModel.JavaRModelHasProperty->select( property : PSMComponentProperty | property.bIsUnique = false)->
+     			[if (jRRModel.JavaRModelHasProperty->select( property : PSMComponentProperty | property.bIsUnique = false)->
 					select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->excludes('@Transient')
 						and
 				   property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') = -1
