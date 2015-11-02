@@ -22,7 +22,6 @@ package eu.fp7.scase.customUtilities;
 
 
 public class UniqueIdProducer {
-    private static final UniqueIdProducer oUniqueIdProducer = new UniqueIdProducer();
     private static int iIdCounter;
     private UniqueIdProducer() {
     	iIdCounter = 1;

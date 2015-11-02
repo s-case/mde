@@ -6,14 +6,12 @@ import ServiceCIM.RESTfulServiceCIM;
 
 public class CoreCIMEditorWizard extends Wizard{
 	
-	private String strOutputFolder;
 	private RESTfulServiceCIM oRESTfulServiceCIM;
 	private CoreCIMEditorWizardPage oCoreCIMEditorWizardPage;
 
 	public CoreCIMEditorWizard(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM){
 		super();
 		this.oRESTfulServiceCIM = oRESTfulServiceCIM;
-		this.strOutputFolder = strOutputFolder;
 		this.setWindowTitle(this.oRESTfulServiceCIM.getName() + " CIM Editor");
 	}
 	

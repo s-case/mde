@@ -34,7 +34,6 @@ import org.yaml.snakeyaml.Yaml;
 
 public class YamlInputParser {
 
-	private String strYamlFilePath;
 	private Yaml   oYamlHandler;
 	private InputStream oInputStreamHandler;
 	private ArrayList<YamlResource> listOfYamlResources;
@@ -43,7 +42,6 @@ public class YamlInputParser {
 	
 	public YamlInputParser(String strYamlFilePath){
 		
-		this.strYamlFilePath = strYamlFilePath;
 		this.listOfYamlResources = new ArrayList<YamlResource>();
 		oYamlHandler = new Yaml();
 		try {
@@ -53,9 +51,10 @@ public class YamlInputParser {
 		}
 	}
 	
-	public ArrayList<YamlResource> parseYamlInputFile(){
+    @SuppressWarnings("unchecked")
+    public ArrayList<YamlResource> parseYamlInputFile(){
 		
-		this.listOfYamlResources = (ArrayList<YamlResource>) oYamlHandler.load(oInputStreamHandler);
+		this.listOfYamlResources = oYamlHandler.loadAs(oInputStreamHandler, ArrayList.class);
 		for( YamlResource oYamlResource : listOfYamlResources){
 			out.println(oYamlResource + "\n");
 		}

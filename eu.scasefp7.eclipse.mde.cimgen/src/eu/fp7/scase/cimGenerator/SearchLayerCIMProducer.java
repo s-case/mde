@@ -19,7 +19,7 @@
 
 package eu.fp7.scase.cimGenerator;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 import org.eclipse.ui.console.ConsolePlugin;
@@ -56,7 +56,7 @@ public class SearchLayerCIMProducer{
 		this.oSearchLayerCIMFactory = SearchLayerCIMFactory.eINSTANCE;
 		this.oSearchLayerCIM = this.oSearchLayerCIMFactory.createAnnotationModel();
 		this.oSearchLayerCIM.setName(this.oRESTfulServiceCIM.getName() + "SearchLayer");
-		oScanner = new Scanner(System.in, Charset.defaultCharset().name());
+		oScanner = new Scanner(System.in, StandardCharsets.UTF_8.name());
 		this.strOutputFolder = strOutputFolder;
 	}
 	

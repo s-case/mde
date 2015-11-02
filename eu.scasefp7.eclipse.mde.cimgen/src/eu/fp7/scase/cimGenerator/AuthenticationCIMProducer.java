@@ -23,7 +23,7 @@ package eu.fp7.scase.cimGenerator;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 import org.eclipse.ui.console.ConsolePlugin;
@@ -61,7 +61,7 @@ public class AuthenticationCIMProducer{
 		this.oAuthenticationLayerCIMFactory = AuthenticationLayerCIMFactory.eINSTANCE;
 		this.oAuthenticationCIM = this.oAuthenticationLayerCIMFactory.createAnnotationModel();
 		this.oAuthenticationCIM.setName(oRESTfulServiceCIM.getName() + "AuthenticationModel");
-		oScanner = new Scanner(System.in, Charset.defaultCharset().name());
+		oScanner = new Scanner(System.in, StandardCharsets.UTF_8.name());
 		this.strOutputFolder = strOutputFolder;
 	}
 	
@@ -317,7 +317,7 @@ public class AuthenticationCIMProducer{
 	        return System.console().readLine();
 	    }
 	    BufferedReader reader = new BufferedReader(new InputStreamReader(
-	            System.in, Charset.defaultCharset().name()));
+	            System.in, StandardCharsets.UTF_8.name()));
 	    return reader.readLine();
 	}
 	

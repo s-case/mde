@@ -1,7 +1,5 @@
 package eu.fp7.scase.extcompositions;
 
-import java.util.Iterator;
-
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -45,8 +43,6 @@ public class ExternalCompositionWizardPage extends WizardPage{
 	private Composite oWizardPageGrid;
 	private Composite oParentComposite;
 	private ExternalServiceLayerCIMFactory oExternalServiceLayerCIMFactory;
-	
-	private String strText;
 	
 	
 	//widgets
