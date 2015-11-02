@@ -25,7 +25,6 @@ import ServiceCIM.Resource;
 
 public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 
-	private String strOutputFolder;
 	private RESTfulServiceCIM oRESTfulServiceCIM;
 	private AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM;
 	private AuthenticationLayerCIMFactory oAuthenticationLayerCIMFactory;
@@ -71,7 +70,6 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 
 	public CRUDActivityAuthenticationWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM) {
 		  super("Select Authentication Model");
-		  this.strOutputFolder = strOutputFolder;
 		  this.oAuthenticationLayerCIMFactory = AuthenticationLayerCIMFactory.eINSTANCE;
 		  this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		  this.oAuthenticationCIM = oAuthenticationCIM;

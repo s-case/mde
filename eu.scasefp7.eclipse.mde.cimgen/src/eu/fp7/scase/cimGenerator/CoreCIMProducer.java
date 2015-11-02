@@ -20,10 +20,7 @@
 package eu.fp7.scase.cimGenerator;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleManager;
@@ -202,22 +199,6 @@ public class CoreCIMProducer extends ACIMProducer{
 		return oNewCIMResource;
 	}
 
-	
-	private void validateProducedCIM(){
-		
-		Diagnostic diagnostic = Diagnostician.INSTANCE.validate(this.getRESTfulServiceCIM());
-		if( diagnostic.getSeverity() == Diagnostic.OK){
-			out.println("Produced CIM is valid!");
-		}
-		else{
-			out.println("Produced CIM is invalid!");
-			out.println(diagnostic.getMessage());
-			for(Iterator<Diagnostic> iteratorOfDiagnostics = diagnostic.getChildren().iterator(); iteratorOfDiagnostics.hasNext();){
-				Diagnostic childDiagnostic = (Diagnostic) iteratorOfDiagnostics.next();
-				out.println(childDiagnostic.getMessage());
- 			}
-		}
-	}
 	
 	private static MessageConsole findConsole(String name) {
 		ConsolePlugin plugin = ConsolePlugin.getDefault();

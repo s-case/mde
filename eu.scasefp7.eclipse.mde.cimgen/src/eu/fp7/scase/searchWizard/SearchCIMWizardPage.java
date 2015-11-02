@@ -8,13 +8,11 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 
-import AuthenticationLayerCIM.AuthenticationLayerCIMFactory;
 import SearchLayerCIM.AnnAlgoResource;
 import SearchLayerCIM.AnnCRUDResource;
 import SearchLayerCIM.AnnProperty;
@@ -29,9 +27,7 @@ import ServiceCIM.Resource;
 
 public class SearchCIMWizardPage extends WizardPage{
 	
-	private String strOutputFolder;
 	private RESTfulServiceCIM oRESTfulServiceCIM;
-	private AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM;
 	private SearchLayerCIM.AnnotationModel oSearchLayerCIM;
 	private SearchLayerCIMFactory oSearchLayerCIMFactory;
 	private Composite oWizardPageGrid;
@@ -39,8 +35,6 @@ public class SearchCIMWizardPage extends WizardPage{
 	private boolean[] oSelectedResourcesArray;
 	private boolean [][][] oSelectedSearchablePropertiesArray;
 	
-	//Search resource selection SWTs
-	private Label oSearchResourcesLabel;
 	private Label oSearchResourcePromptLabel;
 	private Label oSelectedSearchResourceLabel;
 	private List oSearchResourcePromptList;
@@ -71,9 +65,7 @@ public class SearchCIMWizardPage extends WizardPage{
 	
 	public SearchCIMWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, SearchLayerCIM.AnnotationModel oSearchLayerCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM) {
 		  super("External Service Editor");
-		  this.strOutputFolder = strOutputFolder;
 		  this.oRESTfulServiceCIM = oRESTfulServiceCIM;
-		  this.oAuthenticationCIM = oAuthenticationCIM;
 		  this.oSearchLayerCIM = oSearchLayerCIM;
 		  this.oSearchLayerCIMFactory = SearchLayerCIMFactory.eINSTANCE;
 		  this.oSelectedResourcesArray = new boolean[getNumberOfAlgoResources()];
@@ -664,18 +656,6 @@ public class SearchCIMWizardPage extends WizardPage{
 		else{
 			this.oSelectedPropertiesList.setEnabled(false);
 		}
-	}
-	
-	private void setWidgetSizes(){
-		this.oSearchResourcePromptList.setSize(this.oSearchResourcePromptLabel.getSize().x - 10, 100);
-		this.oSelectedSearchResourceList.setSize(this.oSelectedSearchResourceLabel.getSize().x, 100);
-		this.oSearchableResourcesPromptList.setSize(this.oSearchableResourcesLabel.getSize().x - 10, 100);
-		this.oSearchablePropertiesPromptList.setSize(this.oSearchablePropertiesLabel.getSize().x - 10, 100);
-		this.oSelectedPropertiesList.setSize(this.oSelectedPropertiesLabel.getSize().x - 10, 100);
-	}
-	
-	private void updateLayouts(){
-		this.oWizardPageGrid.layout(true);
 	}
 	
 	private boolean atLeastOneSearchResourceExists(){

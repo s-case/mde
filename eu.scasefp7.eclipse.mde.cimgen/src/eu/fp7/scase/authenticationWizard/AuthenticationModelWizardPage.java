@@ -4,20 +4,12 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Shell;
 
 import AuthenticationLayerCIM.AnnProperty;
 import AuthenticationLayerCIM.AnnResource;
@@ -30,7 +22,6 @@ import AuthenticationLayerCIM.AuthenticationLayerCIMFactory;
 
 public class AuthenticationModelWizardPage extends WizardPage {
 
-	private String strOutputFolder;
 	private RESTfulServiceCIM oRESTfulServiceCIM;
 	private AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM;
 	private AuthenticationLayerCIMFactory oAuthenticationLayerCIMFactory;
@@ -60,7 +51,6 @@ public class AuthenticationModelWizardPage extends WizardPage {
 
 	  public AuthenticationModelWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM) {
 		  super("Select Authentication Model");
-		  this.strOutputFolder = strOutputFolder;
 		  this.oAuthenticationLayerCIMFactory = AuthenticationLayerCIMFactory.eINSTANCE;
 		  this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		  this.oAuthenticationCIM = oAuthenticationCIM;
