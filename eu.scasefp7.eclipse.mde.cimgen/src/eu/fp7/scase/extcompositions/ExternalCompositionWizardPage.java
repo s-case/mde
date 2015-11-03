@@ -237,7 +237,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		
 		buttonInputPropertyMultiplicity = new Button(oExternalServiceCombo, SWT.CHECK);
 		buttonInputPropertyMultiplicity.setBounds(247, 249, 95, 18);
-		buttonInputPropertyMultiplicity.setText("Unique");
+		buttonInputPropertyMultiplicity.setText("Collection");
 		addInputPropertyMultiplicityButtonListener();
 		
 		buttonCreateInputProperty = new Button(oExternalServiceCombo, SWT.NONE);
@@ -297,7 +297,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		addOutputPropertiesListListener();
 		
 		buttonOutputPropertyMultiplicity = new Button(oExternalServiceCombo, SWT.CHECK);
-		buttonOutputPropertyMultiplicity.setText("Unique");
+		buttonOutputPropertyMultiplicity.setText("Collection");
 		buttonOutputPropertyMultiplicity.setBounds(247, 380, 95, 18);
 		addOutputPropertyMultiplicityButtonListener();
 		
@@ -515,6 +515,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				if(oSimpleDialogBox.open() == Window.OK){
 					ModelProperty oOutputProperty = oExternalServiceLayerCIMFactory.createModelProperty();
 					oOutputProperty.setName(oSimpleDialogBox.getArtefactName());
+					oOutputProperty.setIsUnique(true);
 					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputProperties().add(oOutputProperty);
 					listOutputProperties.add(oOutputProperty.getName());
 				}
@@ -531,10 +532,10 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		public void handleEvent(Event event) {
 			if(buttonOutputPropertyMultiplicity.getSelection() == true){//if the developer checked the multiplicity button
 				//change the selected properties multiplicity to array
-				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(getOutputPropertyIndexByName(listRESTClientResources.getSelection()[0], listOutputProperties.getSelection()[0])).setIsUnique(true);
+				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(getOutputPropertyIndexByName(listRESTClientResources.getSelection()[0], listOutputProperties.getSelection()[0])).setIsUnique(false);
 			}
 			else{//otherwirse, the developer deselected it and it takes a single value
-				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(getOutputPropertyIndexByName(listRESTClientResources.getSelection()[0], listOutputProperties.getSelection()[0])).setIsUnique(false);
+				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(getOutputPropertyIndexByName(listRESTClientResources.getSelection()[0], listOutputProperties.getSelection()[0])).setIsUnique(true);
 			}
 			updateWidgetStatus();
 			setPageComplete(isPageCompleted());
@@ -549,10 +550,10 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			public void widgetSelected(SelectionEvent e) {
 				//update the multiplicity SWT of the selected property
 				if(oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(getOutputPropertyIndexByName(listRESTClientResources.getSelection()[0], listOutputProperties.getSelection()[0])).isIsUnique() == true){
-					buttonOutputPropertyMultiplicity.setSelection(true);
+					buttonOutputPropertyMultiplicity.setSelection(false);
 				}
 				else{
-					buttonOutputPropertyMultiplicity.setSelection(false);
+					buttonOutputPropertyMultiplicity.setSelection(true);
 				}
 				
 				//update the datatype multiplicity SWT of the selected property
@@ -626,10 +627,10 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			public void widgetSelected(SelectionEvent e) {
 				//update the multiplicity SWT of the selected property
 				if(oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().get(getInputPropertyIndexByName(listRESTClientResources.getSelection()[0], listInputProperties.getSelection()[0])).isIsUnique() == true){
-					buttonInputPropertyMultiplicity.setSelection(true);
+					buttonInputPropertyMultiplicity.setSelection(false);
 				}
 				else{
-					buttonInputPropertyMultiplicity.setSelection(false);
+					buttonInputPropertyMultiplicity.setSelection(true);
 				}
 				
 				//update the datatype multiplicity SWT of the selected property
@@ -718,6 +719,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				if(oSimpleDialogBox.open() == Window.OK){
 					ModelProperty oInputProperty = oExternalServiceLayerCIMFactory.createModelProperty();
 					oInputProperty.setName(oSimpleDialogBox.getArtefactName());
+					oInputProperty.setIsUnique(true);
 					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().add(oInputProperty);
 					listInputProperties.add(oInputProperty.getName());
 				}
@@ -734,10 +736,10 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		public void handleEvent(Event event) {
 			if(buttonInputPropertyMultiplicity.getSelection() == true){//if the developer checked the multiplicity button
 				//change the selected properties multiplicity to array
-				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().get(getInputPropertyIndexByName(listRESTClientResources.getSelection()[0], listInputProperties.getSelection()[0])).setIsUnique(true);
+				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().get(getInputPropertyIndexByName(listRESTClientResources.getSelection()[0], listInputProperties.getSelection()[0])).setIsUnique(false);
 			}
 			else{//otherwirse, the developer deselected it and it takes a single value
-				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().get(getInputPropertyIndexByName(listRESTClientResources.getSelection()[0], listInputProperties.getSelection()[0])).setIsUnique(false);
+				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().get(getInputPropertyIndexByName(listRESTClientResources.getSelection()[0], listInputProperties.getSelection()[0])).setIsUnique(true);
 			}
 			updateWidgetStatus();
 			setPageComplete(isPageCompleted());

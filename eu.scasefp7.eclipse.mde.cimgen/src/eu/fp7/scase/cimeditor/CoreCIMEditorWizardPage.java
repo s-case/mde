@@ -150,7 +150,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		this.oPropertyConfigurationGroup.setText("Property Configuration: ");
 		
 		this.oUniquePropertyButton = new Button(this.oPropertyConfigurationGroup, SWT.CHECK);
-		this.oUniquePropertyButton.setText("unique");
+		this.oUniquePropertyButton.setText("Collection");
 		addUniquePropertyButtonListener();
 		
 		this.oTypeLabel = new Label(this.oPropertyConfigurationGroup, SWT.NULL);
@@ -175,6 +175,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		
 		this.oPropertiesLabel = new Label(this.oPropertyGrid, SWT.NULL);
 		this.oPropertiesLabel.setText("Selected resource properties: ");
+		new Label(oPropertyGrid, SWT.NONE);
 		
 		this.oPropertiesList = new List(this.oPropertyGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
 		this.oPropertiesList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
@@ -313,6 +314,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				if(oSimpleDialogBox.open() == Window.OK){
 					Property oNewProperty = oRestServiceCIMFactory.createProperty();
 					oNewProperty.setName(oSimpleDialogBox.getArtefactName());
+					oNewProperty.setIsUnique(true);
 					oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])).getHasProperty().add(oNewProperty);
 					oPropertiesList.add(oNewProperty.getName());
 				}
@@ -597,14 +599,14 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setIsUnique(oUniquePropertyButton.getSelection());
+				getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setIsUnique((oUniquePropertyButton.getSelection() == false)? true : false);
 				setPageComplete(isPageCompleted());
 				updateWidgetStatus();
 			}
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setIsUnique(oUniquePropertyButton.getSelection());
+				getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setIsUnique((oUniquePropertyButton.getSelection() == false)? true : false);
 				setPageComplete(isPageCompleted());
 				updateWidgetStatus();
 			}
@@ -822,7 +824,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Property oProperty = getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]);
-				oUniquePropertyButton.setSelection((oProperty.isIsUnique() == true ? true : false));
+				oUniquePropertyButton.setSelection((oProperty.isIsUnique() == true ? false : true));
 				oNamingPropertyButton.setSelection((oProperty.isIsNamingProperty() == true ? true : false));
 				if(oProperty.getType() != null){
 					oTypeList.setSelection(oTypeList.indexOf((oProperty.getType().equalsIgnoreCase("String") ? "String" : (oProperty.getType().equalsIgnoreCase("int") ? "Integer" : "Double"))));
@@ -837,7 +839,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				Property oProperty = getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]);
-				oUniquePropertyButton.setSelection((oProperty.isIsUnique() == true ? true : false));
+				oUniquePropertyButton.setSelection((oProperty.isIsUnique() == true ? false : true));
 				oNamingPropertyButton.setSelection((oProperty.isIsNamingProperty() == true ? true : false));
 				if(oProperty.getType() != null){
 					oTypeList.setSelection(oTypeList.indexOf((oProperty.getType().equalsIgnoreCase("String") ? "String" : (oProperty.getType().equalsIgnoreCase("int") ? "Integer" : "Double"))));
