@@ -59,7 +59,7 @@ public class EcoreXMISearchLayerExtractor{
 		oResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(org.eclipse.emf.ecore.resource.Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
 		
 		// Get the URI of the model file.
-		oURI = URI.createFileURI(new File(this.strOutputFolder + "/CIMModels/" + this.strProjectName + "SearchLayerCIM.xmi").getAbsolutePath());
+		oURI = URI.createFileURI(new File(this.strOutputFolder).getAbsolutePath());
 		out.println(oURI.devicePath());
 
 		// Create a resource for this file.

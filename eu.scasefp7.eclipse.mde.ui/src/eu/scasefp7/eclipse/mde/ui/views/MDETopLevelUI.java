@@ -23,11 +23,14 @@ import org.eclipse.core.commands.NotEnabledException;
 import org.eclipse.core.commands.NotHandledException;
 import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.ui.*;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 
 
 /**
@@ -97,6 +100,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 	//One button 2D-MDE SWTs
 	private Composite oMDEGrid;
 	private Button oGenerateCodeButton;
+	private Button oReloadModelsCheckButton;
 	
 	/**
 	 * The constructor.
@@ -106,6 +110,8 @@ public class MDETopLevelUI extends ScrolledComposite {
 		initializeMDEUIGrids();
 		initializeAllUIWidgets();
 		initializeUILayout();
+	
+		new Label(oYamlFileGrid, SWT.NONE);
 		
 		//TODO remove the following lines in production code
 //		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts/RESTMarks.yml");
@@ -123,7 +129,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 	}
 
 	private void initializeUILayout() {
-		this.oMDEUIGrid.setSize(this.oMDEUIGrid.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		this.oMDEUIGrid.setSize(new Point(365, 438));
 		this.oMDEUIGrid.layout();
 	}
 
@@ -132,11 +138,19 @@ public class MDETopLevelUI extends ScrolledComposite {
 		//initialize yaml file SWTs
 		oYamlFileLabel = new Label(this.oYamlFileGrid, SWT.NULL);
 		oYamlFileLabel.setText("Input YAML file path: ");
-		oYamlFileText = new Text(this.oYamlFileGrid, SWT.SINGLE | SWT.BORDER);
+		oYamlFileText = new Text(this.oYamlFileGrid, SWT.BORDER | SWT.RIGHT);
+		GridData gd_oYamlFileText = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_oYamlFileText.widthHint = 129;
+		oYamlFileText.setLayoutData(gd_oYamlFileText);
 		oYamlFileText.setText("");
 		oBrowseYamlFileButton = new Button(this.oYamlFileGrid, SWT.NONE);
 		oBrowseYamlFileButton.setText("Browse");
 		addBrowseYamlFileButtonListener();
+		
+		oReloadModelsCheckButton = new Button(oYamlFileGrid, SWT.CHECK);
+		oReloadModelsCheckButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+		oReloadModelsCheckButton.setText("Reload previous service models");
+		addReloadCheckBoxButtonListener();
 		
 		//initialize envisioned web service's SWTs
 		oWSNameLabel = new Label(this.oWSNameGrid, SWT.NULL);
@@ -148,6 +162,9 @@ public class MDETopLevelUI extends ScrolledComposite {
 		oMDEOutputLabel = new Label(this.oMDEOutputGrid, SWT.NULL);
 		oMDEOutputLabel.setText("MDE output folder: ");
 		oMDEOutputText = new Text(this.oMDEOutputGrid, SWT.SINGLE | SWT.BORDER);
+		GridData gd_oMDEOutputText = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_oMDEOutputText.widthHint = 153;
+		oMDEOutputText.setLayoutData(gd_oMDEOutputText);
 		oMDEOutputText.setText("");
 		oBrowseMDEOutputButton = new Button(this.oMDEOutputGrid, SWT.NONE);
 		oBrowseMDEOutputButton.setText("Browse");
@@ -215,6 +232,35 @@ public class MDETopLevelUI extends ScrolledComposite {
 		});
 	}
 	
+	private void addReloadCheckBoxButtonListener(){
+		this.oReloadModelsCheckButton.addSelectionListener(new SelectionListener(){
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if(oReloadModelsCheckButton.getSelection() == true){
+					oYamlFileText.setEnabled(false);
+					oBrowseYamlFileButton.setEnabled(false);
+				}
+				else{
+					oYamlFileText.setEnabled(true);
+					oBrowseYamlFileButton.setEnabled(true);
+				}
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				if(oReloadModelsCheckButton.getSelection() == true){
+					oYamlFileText.setEnabled(false);
+					oBrowseYamlFileButton.setEnabled(false);
+				}
+				else{
+					oYamlFileText.setEnabled(true);
+					oBrowseYamlFileButton.setEnabled(true);
+				}
+			}
+		});
+	}
+	
 	private void createCIMModels(Map<String, String> mapMDEPreferences){
 		IServiceLocator serviceLocator = PlatformUI.getWorkbench();
 		ICommandService commandService = (ICommandService) serviceLocator.getService(ICommandService.class);
@@ -272,6 +318,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 		mapMDEPreferences.put("Authorization", (oAuthorizationCheckBoxButton.getSelection() ? "yes" : "no"));
 		mapMDEPreferences.put("DatabaseSearching", (oDatabaseSearchingCheckBoxButton.getSelection() ? "yes" : "no"));
 		mapMDEPreferences.put("ExternalComposition", (oExternalCompositionCheckBoxButton.getSelection() ? "yes" : "no"));
+		mapMDEPreferences.put("ReloadExistingModels", (oReloadModelsCheckButton.getSelection() ? "yes" : "no"));
 		
 		return mapMDEPreferences;
 	}
@@ -316,43 +363,37 @@ public class MDETopLevelUI extends ScrolledComposite {
 
 		//input yaml file SWTs
 		oYamlFileGrid = new Composite(this.oMDEUIGrid, SWT.NONE);
-		oYamlFileGrid.setLayoutData(new GridData());
+		GridData gd_oYamlFileGrid = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_oYamlFileGrid.heightHint = 60;
+		oYamlFileGrid.setLayoutData(gd_oYamlFileGrid);
 		oYamlFileGrid.setLayout(new GridLayout(3, false));
 		
 		//envisioned web service's SWTs
 		oWSNameGrid = new Composite(this.oMDEUIGrid, SWT.NONE);
-		oWSNameGrid.setLayoutData(new GridData());
 		oWSNameGrid.setLayout(new GridLayout(2, false));
 		
 		//MDE output SWTs
 		oMDEOutputGrid = new Composite(this.oMDEUIGrid, SWT.NONE);
-		oMDEOutputGrid.setLayoutData(new GridData());
 		oMDEOutputGrid.setLayout(new GridLayout(3, false));
 
 		
 		//Envisioned web service's database SWTs
 		oDatabaseIPGrid = new Composite(this.oMDEUIGrid, SWT.NONE);
-		oDatabaseIPGrid.setLayoutData(new GridData());
 		oDatabaseIPGrid.setLayout(new GridLayout(2, false));
 
 		oDatabasePortGrid = new Composite(this.oMDEUIGrid, SWT.NONE);
-		oDatabasePortGrid.setLayoutData(new GridData());
 		oDatabasePortGrid.setLayout(new GridLayout(2, false));
 
 		oDatabaseUsernameGrid = new Composite(this.oMDEUIGrid, SWT.NONE);
-		oDatabaseUsernameGrid.setLayoutData(new GridData());
 		oDatabaseUsernameGrid.setLayout(new GridLayout(2, false));
 
 		oDatabasePasswordGrid = new Composite(this.oMDEUIGrid, SWT.NONE);
-		oDatabasePasswordGrid.setLayoutData(new GridData());
 		oDatabasePasswordGrid.setLayout(new GridLayout(2, false));	
 		
 		oExtraFunctionalityGrid = new Composite(this.oMDEUIGrid, SWT.None);
-		oExtraFunctionalityGrid.setLayoutData(new GridData());
 		oExtraFunctionalityGrid.setLayout(new GridLayout(1, false));
 		
 		oMDEGrid = new Composite(this.oMDEUIGrid, SWT.NONE);
-		oMDEGrid.setLayoutData(new GridData());
 		oMDEGrid.setLayout(new GridLayout(1, false));
 		
 		setLayoutData(new GridData(GridData.FILL_BOTH));

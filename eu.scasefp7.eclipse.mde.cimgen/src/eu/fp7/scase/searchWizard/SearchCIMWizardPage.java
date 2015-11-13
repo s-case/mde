@@ -34,6 +34,7 @@ public class SearchCIMWizardPage extends WizardPage{
 	private Composite oParentComposite;
 	private boolean[] oSelectedResourcesArray;
 	private boolean [][][] oSelectedSearchablePropertiesArray;
+	private boolean bReloadExistingModels;
 	
 	private Label oSearchResourcePromptLabel;
 	private Label oSelectedSearchResourceLabel;
@@ -63,13 +64,14 @@ public class SearchCIMWizardPage extends WizardPage{
 	private Composite oSelectedPropertiesGrid;
 
 	
-	public SearchCIMWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, SearchLayerCIM.AnnotationModel oSearchLayerCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM) {
+	public SearchCIMWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, SearchLayerCIM.AnnotationModel oSearchLayerCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM, boolean bReloadExistingModels) {
 		  super("External Service Editor");
 		  this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		  this.oSearchLayerCIM = oSearchLayerCIM;
 		  this.oSearchLayerCIMFactory = SearchLayerCIMFactory.eINSTANCE;
 		  this.oSelectedResourcesArray = new boolean[getNumberOfAlgoResources()];
 		  this.oSelectedSearchablePropertiesArray = new boolean[getNumberOfAlgoResources()][getNumberOfCRUDResources()][];
+		  this.bReloadExistingModels = bReloadExistingModels;
 		  for(int n = 0; n < this.getNumberOfAlgoResources(); n++)
 			  for(int i = 0; i < this.getNumberOfCRUDResources(); i++)
 				  this.oSelectedSearchablePropertiesArray[n][i] = new boolean[getCRUDResourceByIndex(i).getHasProperty().size()];
@@ -85,10 +87,120 @@ public class SearchCIMWizardPage extends WizardPage{
 		  
 		  initializeWizardSWTs();
 		  
+		  if(this.bReloadExistingModels == true){
+			  reloadSearchCIMModel();
+			  if(this.atLeastOneSearchResourceExists()){
+				  this.oSelectedSearchResourceList.setSelection(0);
+				  populateSelectedProperties();
+			  }
+			  updateWidgetStatus();
+		  }
+		  
 		  this.setControl(this.oWizardPageGrid);
-		  this.setPageComplete(false);
+		  setPageComplete(isPageCompleted());
 	}
 	
+	private void reloadSearchCIMModel() {
+		//populate the available resources list with any algorithmic resources that still exist after CIM editor
+		reloadResourcesLists();
+		
+		//reload any parts of the previous Search CIM Model
+		reloadValidSearchCIMModel();
+	}
+
+
+	private void reloadResourcesLists() {
+
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true){
+				//check if this algorithmic resource was a search resource in the loaded Search CIM Model
+				if(!isAlreadySearchResource(this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(n).getName()))){//if it is not
+					//it is an available resource, so it has to be added to that list
+					this.oSearchResourcePromptList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+					this.oSelectedResourcesArray[this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(n).getName())] = false;
+				}
+				else{
+					this.oSelectedSearchResourceList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+					this.oSelectedResourcesArray[this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(n).getName())] = true;
+				}
+			}
+		}
+	}
+
+
+	private boolean isAlreadySearchResource(int iAlgoResourceIndex) {
+		for(int n = 0; n < this.oSearchLayerCIM.getHasAnnotation().size(); n++){
+			if(this.oSearchLayerCIM.getHasAnnotation().get(n) instanceof SearchResource){
+				if(((SearchResource)this.oSearchLayerCIM.getHasAnnotation().get(n)).getAlgoResourceIsSearchResource().getAnnotatesAlgoResource().getName().equalsIgnoreCase(this.getAlgoResourceByIndex(iAlgoResourceIndex).getName())){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+	private void reloadValidSearchCIMModel() {
+		for(int n = 0; n < this.getNumberOfAlgoResources(); n++){
+			if(this.isAlreadySearchResource(n)){//if this algorithmic resource was marked as search resource in loaded model
+				//load its Search CIM model Searchable Resources and properties
+				SearchResource oSearchResource = getExistingSearchResourceByName(this.getAlgoResourceByIndex(n).getName());
+				addValidSearchResourceSearchableProperties(oSearchResource);
+			}
+		}
+	}
+
+	private void addValidSearchResourceSearchableProperties(SearchResource oSearchResource) {
+		for(int n = 0; n < oSearchResource.getSearchesResource().size(); n++){
+			//if this CRUDResource still exists in Core CIM
+			if(this.getCRUDResourceIndexByName(oSearchResource.getSearchesResource().get(n).getResourceIsSearchable().getAnnotatesResource().getName()) != -1){
+				//check if the searchable properties still exist in Core CIM model
+				for(int i = 0; i < oSearchResource.getSearchesResource().get(n).getHasSearchableProperty().size(); i++){
+					if(propertyStillExists(this.getCRUDResourceIndexByName(oSearchResource.getSearchesResource().get(n).getResourceIsSearchable().getAnnotatesResource().getName()), oSearchResource.getSearchesResource().get(n).getHasSearchableProperty().get(i).getPropertyIsSearchable().getAnnotatesProperty().getName())){
+						//load its details to the Search CIM model
+						loadSearchablePropertyToSearchCIMModel(oSearchResource.getAlgoResourceIsSearchResource().getAnnotatesAlgoResource().getName(), this.getCRUDResourceIndexByName(oSearchResource.getSearchesResource().get(n).getResourceIsSearchable().getAnnotatesResource().getName()), oSearchResource.getSearchesResource().get(n).getHasSearchableProperty().get(i).getPropertyIsSearchable().getAnnotatesProperty().getName());
+					}
+				}
+			}
+		}
+		
+	}
+
+
+	private void loadSearchablePropertyToSearchCIMModel(String strSearchResourceName, int CRUDResourceIndex, String strOldPropertyName) {
+		for(int n = 0; n < this.getCRUDResourceByIndex(CRUDResourceIndex).getHasProperty().size(); n++){
+			if(this.getCRUDResourceByIndex(CRUDResourceIndex).getHasProperty().get(n).getName().equalsIgnoreCase(strOldPropertyName)){
+				this.oSelectedSearchablePropertiesArray[this.getAlgoResourceIndexByName(strSearchResourceName)][CRUDResourceIndex][n] = true;
+			}
+		}
+		
+		//throw exception in production code
+	}
+
+
+	private boolean propertyStillExists(int CRUDResourceIndex, String strOldPropertyName) {
+		for(int n = 0; n < this.getCRUDResourceByIndex(CRUDResourceIndex).getHasProperty().size(); n++){
+			if(this.getCRUDResourceByIndex(CRUDResourceIndex).getHasProperty().get(n).getName().equalsIgnoreCase(strOldPropertyName)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+
+	private SearchResource getExistingSearchResourceByName(String strSearchResourceName) {
+		for(int n = 0; n < this.oSearchLayerCIM.getHasAnnotation().size(); n++){
+			if(this.oSearchLayerCIM.getHasAnnotation().get(n) instanceof SearchResource){
+				if(((SearchResource)this.oSearchLayerCIM.getHasAnnotation().get(n)).getAlgoResourceIsSearchResource().getAnnotatesAlgoResource().getName().equalsIgnoreCase(strSearchResourceName)){
+					return (SearchResource)this.oSearchLayerCIM.getHasAnnotation().get(n);
+				}
+			}
+		}
+		return null; // throw exception in production code
+	}
+
+
 	private void initializeWizardSWTs(){
 		//initialize the two main part grids
 		initializeWizardPagesGrids(this.oParentComposite);
@@ -148,7 +260,9 @@ public class SearchCIMWizardPage extends WizardPage{
 		this.oSearchResourcePromptList = new List(this.oSearchResourcePromptGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
 		this.oSearchResourcePromptList.setSize(this.oSearchResourcePromptLabel.getSize().x - 10, 100);
 		this.oSearchResourcePromptList.setLocation(20, 25);
-		populateSearchResourcePromptList();
+		if(this.bReloadExistingModels == false){
+			populateSearchResourcePromptList();
+		}
 		addSearchResourcePromptListListener();
 	}
 	
@@ -701,6 +815,10 @@ public class SearchCIMWizardPage extends WizardPage{
 	}
 	
 	public void createSearchLayerCIM(){
+		
+		//delete any possible existing annotations from loaded models
+		this.oSearchLayerCIM.getHasAnnotation().clear();
+		this.oSearchLayerCIM.getHasAnnotatedElement().clear();
 		
 		//search for search resources
 		for(int n = 0; n < this.getNumberOfAlgoResources(); n++){

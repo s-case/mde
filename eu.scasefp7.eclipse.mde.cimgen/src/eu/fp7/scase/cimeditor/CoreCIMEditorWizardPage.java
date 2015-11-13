@@ -32,6 +32,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 	private RESTfulServiceCIM oRESTfulServiceCIM;
 	private RESTServiceCIMFactory oRestServiceCIMFactory;
 	private Composite oWizardPageGrid;
+	private boolean bExecuteFromScratchYaml;
 	
 	//resource list SWTs
 	private Label oResourceListLabel;
@@ -82,10 +83,11 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 	private List oUnrelatedResourcesList;
 	private Composite oAddRemoveRelationButtonComposite;
 	
-	public CoreCIMEditorWizardPage(RESTfulServiceCIM oRESTfulServiceCIM){
+	public CoreCIMEditorWizardPage(RESTfulServiceCIM oRESTfulServiceCIM, boolean bExecuteFromScratchYaml){
 		super(oRESTfulServiceCIM.getName() + " CIM Editor");
 		this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		this.oRestServiceCIMFactory = RESTServiceCIMFactory.eINSTANCE;
+		this.bExecuteFromScratchYaml = bExecuteFromScratchYaml;
 	}
 
 	@Override
@@ -937,11 +939,22 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 	}
 	
 	private void deleteResourceRelationTo(int resourceIndexByName) {
+		
+		//for loop that deletes any references from CIM Resources that have as related resource the CIM Resource to be deleted
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().size(); i++){
 				if(this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().get(i).getName().equalsIgnoreCase(
 						this.oRESTfulServiceCIM.getHasResources().get(resourceIndexByName).getName())){
 					this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().remove(i);
+				}
+			}
+		}		
+		
+		//for loop that deletes any references from CIM Resources that are related resources of the CIM Resource to be deleted
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().get(resourceIndexByName).getHasRelatedResource().size(); n++){
+			for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(resourceIndexByName).getHasRelatedResource().get(n).getIsRelatedResource().size(); i++){
+				if(this.oRESTfulServiceCIM.getHasResources().get(resourceIndexByName).getHasRelatedResource().get(n).getIsRelatedResource().get(i).getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(resourceIndexByName).getName())){
+					this.oRESTfulServiceCIM.getHasResources().get(resourceIndexByName).getHasRelatedResource().get(n).getIsRelatedResource().remove(i);					
 				}
 			}
 		}
@@ -1026,7 +1039,12 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 			}
 		}
 
-		
+		if(bHasRelationship){
+			System.out.println("DID NOT FIND THE RELATED RESOURCE INDEX");
+		}
+		else{
+			System.out.println("DID NOT FIND THE IS RELATED RESOURCE INDEX");
+		}
 		return -1; //throw exception in production code;
 	}
 

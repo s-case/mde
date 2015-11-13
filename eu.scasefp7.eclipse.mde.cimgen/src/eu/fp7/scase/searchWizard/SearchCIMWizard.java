@@ -12,19 +12,21 @@ public class SearchCIMWizard extends Wizard{
 	private AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM;
 	private SearchLayerCIM.AnnotationModel oSearchLayerCIM;
 	private SearchCIMWizardPage oSearchCIMWizardPage;
+	private boolean bReloadExistingModels;
 	
-	public SearchCIMWizard(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, SearchLayerCIM.AnnotationModel oSearchLayerCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM){
+	public SearchCIMWizard(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, SearchLayerCIM.AnnotationModel oSearchLayerCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM, boolean bReloadExistingModels){
 		super();
 		this.setWindowTitle("Search DB Wizard");
 		this.strOutputFolder = strOutputFolder;
 		this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		this.oAuthenticationCIM = oAuthenticationCIM;
 		this.oSearchLayerCIM = oSearchLayerCIM;
+		this.bReloadExistingModels = bReloadExistingModels;
 	}
 	
 	@Override
 	public void addPages() {
-		this.oSearchCIMWizardPage = new SearchCIMWizardPage(strOutputFolder, oRESTfulServiceCIM, oSearchLayerCIM, oAuthenticationCIM);
+		this.oSearchCIMWizardPage = new SearchCIMWizardPage(strOutputFolder, oRESTfulServiceCIM, oSearchLayerCIM, oAuthenticationCIM, bReloadExistingModels);
 		this.addPage(oSearchCIMWizardPage);
 	}
 	
@@ -44,7 +46,13 @@ public class SearchCIMWizard extends Wizard{
 	}
 	
 	private void exportSearchLayerCIM(){
-		EcoreXMISearchLayerExtractor oEcoreXMISearchLayerExtractor = new EcoreXMISearchLayerExtractor(this.strOutputFolder, this.oRESTfulServiceCIM.getName());
+		EcoreXMISearchLayerExtractor oEcoreXMISearchLayerExtractor = new EcoreXMISearchLayerExtractor(this.strOutputFolder + "/CIMModels/" + this.oRESTfulServiceCIM.getName() + "SearchLayerCIM.xmi", this.oRESTfulServiceCIM.getName());
+		oEcoreXMISearchLayerExtractor.exportEcoreXMI(this.oSearchLayerCIM);
+	}
+	
+	public void exportSearchLayerCIMBackUp(){
+		//export a back up Search Layer CIM To support 2nd run logic
+		EcoreXMISearchLayerExtractor oEcoreXMISearchLayerExtractor = new EcoreXMISearchLayerExtractor(this.strOutputFolder + "/CIMModels/BackUp/" + this.oRESTfulServiceCIM.getName() + "SearchLayerCIMBackUp.xmi", this.oRESTfulServiceCIM.getName());
 		oEcoreXMISearchLayerExtractor.exportEcoreXMI(this.oSearchLayerCIM);
 	}
 	

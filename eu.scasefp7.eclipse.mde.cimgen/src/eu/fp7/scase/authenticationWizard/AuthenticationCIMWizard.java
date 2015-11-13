@@ -12,21 +12,23 @@ public class AuthenticationCIMWizard extends Wizard {
 	private AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM;
 	private String strOutputFolder;
 	private RESTfulServiceCIM oRESTfulServiceCIM;
+	private boolean bReloadExistingModels;
 
-	public AuthenticationCIMWizard(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM) {
+	public AuthenticationCIMWizard(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM, boolean bReloadExistingModels) {
 		super();
 		this.setWindowTitle("Authentication Wizard");
 		this.strOutputFolder = strOutputFolder;
 		this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		this.oAuthenticationCIM = oAuthenticationCIM;
+		this.bReloadExistingModels = bReloadExistingModels;
 	}
 
 
 
 	@Override
 	public void addPages() {
-		this.oAuthenticationModelWizardPage = new AuthenticationModelWizardPage(strOutputFolder, oRESTfulServiceCIM, oAuthenticationCIM);
-		this.oCRUDActivityAuthenticationWizardPage = new CRUDActivityAuthenticationWizardPage(strOutputFolder, oRESTfulServiceCIM, oAuthenticationCIM);
+		this.oAuthenticationModelWizardPage = new AuthenticationModelWizardPage(strOutputFolder, oRESTfulServiceCIM, oAuthenticationCIM, bReloadExistingModels);
+		this.oCRUDActivityAuthenticationWizardPage = new CRUDActivityAuthenticationWizardPage(strOutputFolder, oRESTfulServiceCIM, oAuthenticationCIM, bReloadExistingModels);
 		this.addPage(oAuthenticationModelWizardPage);
 		this.addPage(oCRUDActivityAuthenticationWizardPage);
 	}
@@ -48,7 +50,13 @@ public class AuthenticationCIMWizard extends Wizard {
 	}
 	
 	private void exportAuthenticationModel(){
-		EcoreXMIAuthenticationExtractor oEcoreXMIAuthenticationExtractor = new EcoreXMIAuthenticationExtractor(this.strOutputFolder, this.oRESTfulServiceCIM.getName());
+		EcoreXMIAuthenticationExtractor oEcoreXMIAuthenticationExtractor = new EcoreXMIAuthenticationExtractor(this.strOutputFolder + "/CIMModels/" + this.oRESTfulServiceCIM.getName() + "AuthenticationCIM.xmi", this.oRESTfulServiceCIM.getName());
+		oEcoreXMIAuthenticationExtractor.exportEcoreXMI(oAuthenticationCIM);
+	}
+	
+	public void exportAuthenticationModelBackUp(){
+		//export also to a backup file to support 2nd run logic
+		EcoreXMIAuthenticationExtractor oEcoreXMIAuthenticationExtractor = new EcoreXMIAuthenticationExtractor(this.strOutputFolder + "/CIMModels/BackUp/" + this.oRESTfulServiceCIM.getName() + "AuthenticationCIMBackUp.xmi", this.oRESTfulServiceCIM.getName());
 		oEcoreXMIAuthenticationExtractor.exportEcoreXMI(oAuthenticationCIM);
 	}
 }

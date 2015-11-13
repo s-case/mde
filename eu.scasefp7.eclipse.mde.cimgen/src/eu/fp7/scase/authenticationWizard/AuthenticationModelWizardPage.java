@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.List;
 
 import AuthenticationLayerCIM.AnnProperty;
 import AuthenticationLayerCIM.AnnResource;
+import AuthenticationLayerCIM.Annotation;
 import AuthenticationLayerCIM.AuthenticationModel;
 import AuthenticationLayerCIM.AuthenticationToken;
 import AuthenticationLayerCIM.Password;
@@ -30,6 +31,7 @@ public class AuthenticationModelWizardPage extends WizardPage {
 	private String strSelectedAuthenticationModelName;
 	private String strSelectedUsernameTokenName;
 	private String strSelectedPasswordTokenName;
+	private boolean bReloadExistingModels;
 	
 	//Authentication Model selection SWTs
 	private Label oAuthenticationModelPromtLabel;
@@ -49,11 +51,12 @@ public class AuthenticationModelWizardPage extends WizardPage {
 	private Group oPasswordTokenGroup;
 	private Composite oPasswordTokenGrid;
 
-	  public AuthenticationModelWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM) {
+	  public AuthenticationModelWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM, boolean bReloadExistingModels) {
 		  super("Select Authentication Model");
 		  this.oAuthenticationLayerCIMFactory = AuthenticationLayerCIMFactory.eINSTANCE;
 		  this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		  this.oAuthenticationCIM = oAuthenticationCIM;
+		  this.bReloadExistingModels = bReloadExistingModels;
 	  }
 
 	  @Override
@@ -65,7 +68,9 @@ public class AuthenticationModelWizardPage extends WizardPage {
 		  initializeWizardPageWidgets(parent);
 		  
 		  this.setControl(this.oWizardPageGrid);
-		  this.setPageComplete(false);
+		  if(!this.bReloadExistingModels){
+			  this.setPageComplete(false);
+		  }
 	  }
 	  
 	  private void initializeWizardPagesGrids(Composite oParentComposite) {
@@ -99,11 +104,125 @@ public class AuthenticationModelWizardPage extends WizardPage {
 			
 		  //initialize Password token SWTs
 		  initializePasswordTokenWidgets();
-		  		  
-		  this.setPageComplete(false);
+		  if(this.bReloadExistingModels == true){
+			  if(restoreAuthenticationWizardPage() == false){//if some part of the authentication meta-model is not still valid
+				  //the page is not yet complete and requires developer intervention
+				  this.setPageComplete(false);
+				  this.bReloadExistingModels = false;
+			  }
+			  else{
+				  this.setPageComplete(true);
+			  }
+		  }
 	  }
 	  
-	  private void initializeAuthenticationModelWidgets(){
+	  private boolean restoreAuthenticationWizardPage() {
+		  for(int n = 0; n < this.oAuthenticationCIM.getHasAnnotation().size(); n++){
+			  if(this.oAuthenticationCIM.getHasAnnotation().get(n) instanceof AuthenticationModel){ //find the authentication model annotation
+				  if(!authenticationModelIsStillValid((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n))){
+					  return false;
+				  }
+				  this.strSelectedAuthenticationModelName = ((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n)).getResourceAuthenticationModel().getAnnotatesResource().getName();
+				  this.oAuthenticationModelResourceList.setSelection(this.oAuthenticationModelResourceList.indexOf(this.strSelectedAuthenticationModelName));
+				  
+				  //find the username token
+				  for(int i = 0; i < ((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n)).getHasAuthenticationToken().size(); i++){
+					  if(!(((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n)).getHasAuthenticationToken().get(i) instanceof Password)){ // if it is the username token
+						  if(!usernameTokenIsStillValid((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n))){
+							  this.populateUsernameTokenList(this.strSelectedAuthenticationModelName);
+							  return false;
+						  }
+						  this.strSelectedUsernameTokenName = ((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n)).getHasAuthenticationToken().get(i).getName();
+						  this.populateUsernameTokenList(this.strSelectedAuthenticationModelName);
+						  this.oUsernameTokenPromtList.setSelection(this.oUsernameTokenPromtList.indexOf(this.strSelectedUsernameTokenName));
+					  }
+				  }
+				  //find the password token
+				  for(int i = 0; i < ((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n)).getHasAuthenticationToken().size(); i++){
+					  if(((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n)).getHasAuthenticationToken().get(i) instanceof Password){ // if it is the password token
+						  if(!passwordTokenIsStillValid((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n))){
+							  this.populatePasswordTokenList(this.strSelectedUsernameTokenName);
+							  return false;
+						  }
+						  this.strSelectedPasswordTokenName = ((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n)).getHasAuthenticationToken().get(i).getName();
+						  this.populatePasswordTokenList(this.strSelectedUsernameTokenName);
+						  this.oPasswordTokenPromtList.setSelection(this.oPasswordTokenPromtList.indexOf(this.strSelectedPasswordTokenName));
+						  return true;
+					  }
+				  }
+			  }
+		  }
+		  
+		  return false;
+	  }
+
+	private boolean authenticationModelIsStillValid(AuthenticationModel oAuthenticationModel) {
+		// check if the authentication model resource still exists after CIM Editor
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(oAuthenticationModel.getResourceAuthenticationModel().getAnnotatesResource().getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(n).getName())){
+				System.out.println("Authentication Model is valid!!");
+				return true;
+			}
+		}
+
+		System.out.println("Authentication Model is not valid!");
+		return false;
+	}
+	
+	private boolean usernameTokenIsStillValid(AuthenticationModel oAuthenticationModel){
+		for(int n = 0; n < oAuthenticationModel.getHasAuthenticationToken().size(); n++){
+			//check if the username token still exists after CIM Editor
+			if(!(oAuthenticationModel.getHasAuthenticationToken().get(n) instanceof Password)){
+				//find the authentication model core CIM Resource
+				for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
+					if(oAuthenticationModel.getResourceAuthenticationModel().getAnnotatesResource().getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(i).getName())){
+						//check if the the exact same core CIM property that previously was username token still exists
+						for(int j = 0; j < this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().size(); j++){
+							if(oAuthenticationModel.getHasAuthenticationToken().get(n).getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).getName()) 
+							&& oAuthenticationModel.getHasAuthenticationToken().get(n).getType().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).getType())
+							&& oAuthenticationModel.getHasAuthenticationToken().get(n).isBIsUnique() == this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).isIsUnique()){
+								System.out.println("Username token is still valid!");
+								return true;
+							}
+						}
+						System.out.println("Username token is not valid!!");
+						return false;
+					}
+				}
+			}
+		}
+		
+		return false; //Throw exception in production code
+	}
+
+	private boolean passwordTokenIsStillValid(AuthenticationModel oAuthenticationModel){
+		for(int n = 0; n < oAuthenticationModel.getHasAuthenticationToken().size(); n++){
+			//check if the password token still exists after CIM Editor
+			if((oAuthenticationModel.getHasAuthenticationToken().get(n) instanceof Password)){
+				//find the authentication model core CIM Resource
+				for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
+					if(oAuthenticationModel.getResourceAuthenticationModel().getAnnotatesResource().getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(i).getName())){
+						//check if the the exact same core CIM property that previously was password token still exists
+						for(int j = 0; j < this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().size(); j++){
+							if(oAuthenticationModel.getHasAuthenticationToken().get(n).getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).getName()) 
+							&& oAuthenticationModel.getHasAuthenticationToken().get(n).getType().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).getType())
+							&& oAuthenticationModel.getHasAuthenticationToken().get(n).isBIsUnique() == this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).isIsUnique()){
+								System.out.println("Password token is still valid!");
+								return true;
+							}
+						}
+						System.out.println("Password token is not valid!!");
+						return false;
+					}
+				}
+			}
+		}
+		
+		return false; //Throw exception in production code
+	}
+
+
+	private void initializeAuthenticationModelWidgets(){
 		  
 		  //initialize Authentication Model SWTs
 		  this.oAuthenticationModelGroup = new Group(this.oAuthenticationModelGrid, SWT.NONE);
@@ -167,7 +286,7 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				  strSelectedAuthenticationModelName = oAuthenticationModelResourceList.getSelection()[0];
 				  strSelectedUsernameTokenName = "";
 				  strSelectedPasswordTokenName = "";
-				  populateUsernameTokenList(oAuthenticationModelResourceList.getSelection());
+				  populateUsernameTokenList(oAuthenticationModelResourceList.getSelection()[0]);
 				  oPasswordTokenPromtList.removeAll();
 				  oPasswordTokenPromtList.add("First you need to select a username token!");
 //				  oPasswordTokenPromtList.setSize(oPasswordTokenPromtList.computeSize(oPasswordTokenPromtLabel.getSize().x - 10, 100));
@@ -179,7 +298,7 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				  strSelectedAuthenticationModelName = oAuthenticationModelResourceList.getSelection()[0];
 				  strSelectedUsernameTokenName = "";
 				  strSelectedPasswordTokenName = "";
-				  populateUsernameTokenList(oAuthenticationModelResourceList.getSelection());
+				  populateUsernameTokenList(oAuthenticationModelResourceList.getSelection()[0]);
 				  oPasswordTokenPromtList.removeAll();
 				  oPasswordTokenPromtList.add("First you need to select a username token!");
 //				  oPasswordTokenPromtList.setSize(oPasswordTokenPromtList.computeSize(oPasswordTokenPromtLabel.getSize().x - 10, 100));
@@ -195,13 +314,13 @@ public class AuthenticationModelWizardPage extends WizardPage {
 			  public void widgetSelected(SelectionEvent e) {
 				  strSelectedUsernameTokenName = oUsernameTokenPromtList.getSelection()[0];
 				  strSelectedPasswordTokenName = "";
-				  populatePasswordTokenList(oUsernameTokenPromtList.getSelection());
+				  populatePasswordTokenList(oUsernameTokenPromtList.getSelection()[0]);
 				  setPageComplete(false);
 			  }
 
 			  @Override
 			  public void widgetDefaultSelected(SelectionEvent e) {
-				  populatePasswordTokenList(oUsernameTokenPromtList.getSelection());
+				  populatePasswordTokenList(oUsernameTokenPromtList.getSelection()[0]);
 				  strSelectedUsernameTokenName = oUsernameTokenPromtList.getSelection()[0];
 				  strSelectedPasswordTokenName = "";
 				  setPageComplete(false);
@@ -225,10 +344,10 @@ public class AuthenticationModelWizardPage extends WizardPage {
 			  }});
 	  }
 	  
-	  private void populateUsernameTokenList(String[] strAuthenticationModelName){
+	  private void populateUsernameTokenList(String strAuthenticationModelName){
 		  this.oUsernameTokenPromtList.removeAll();
 		  for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
-				if(this.oRESTfulServiceCIM.getHasResources().get(n).getName().equalsIgnoreCase(strAuthenticationModelName[0])){
+				if(this.oRESTfulServiceCIM.getHasResources().get(n).getName().equalsIgnoreCase(strAuthenticationModelName)){
 					for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().size(); i++){
 						this.oUsernameTokenPromtList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName());
 					}
@@ -247,12 +366,12 @@ public class AuthenticationModelWizardPage extends WizardPage {
 			this.oAuthenticationCIM.getHasAnnotation().add(oAuthenticationModel);
 	  }
 	  
-	  private void populatePasswordTokenList(String[] strUsernameTokenName){
+	  private void populatePasswordTokenList(String strUsernameTokenName){
 		  this.oPasswordTokenPromtList.removeAll();
 		  for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 				if(this.oRESTfulServiceCIM.getHasResources().get(n).getName().equalsIgnoreCase(this.oAuthenticationModelResourceList.getSelection()[0])){
 					for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().size(); i++){
-						if(!this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName().equalsIgnoreCase(strUsernameTokenName[0])){
+						if(!this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName().equalsIgnoreCase(strUsernameTokenName)){
 							this.oPasswordTokenPromtList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName());
 						}
 					}
@@ -327,6 +446,11 @@ public class AuthenticationModelWizardPage extends WizardPage {
 	  }
 	  
 	  public void createAuthenticationCIM(){
+		  
+		  //clean the authenticaitonCIM prior writing anything in it in case it was loaded from xmi.
+		  this.oAuthenticationCIM.getHasAnnotatedElement().clear();
+		  this.oAuthenticationCIM.getHasAnnotation().clear();
+		  
 		  addAuthenticationModelToCIM(this.strSelectedAuthenticationModelName);
 		  addUsernameTokenToCIM(this.strSelectedUsernameTokenName);
 		  addPasswordTokenToCIM(this.strSelectedPasswordTokenName);

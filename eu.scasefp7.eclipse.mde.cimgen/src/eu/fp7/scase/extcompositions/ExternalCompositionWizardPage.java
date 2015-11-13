@@ -26,6 +26,7 @@ import ExternalServiceLayerCIM.ExternalServiceLayerCIMFactory;
 import ExternalServiceLayerCIM.InputDataModel;
 import ExternalServiceLayerCIM.ModelProperty;
 import ExternalServiceLayerCIM.NonPersistentOutput;
+import ExternalServiceLayerCIM.OutputDataModel;
 import ExternalServiceLayerCIM.QueryParam;
 import ExternalServiceLayerCIM.RESTClientResource;
 import ExternalServiceLayerCIM.Representation;
@@ -43,6 +44,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 	private Composite oWizardPageGrid;
 	private Composite oParentComposite;
 	private ExternalServiceLayerCIMFactory oExternalServiceLayerCIMFactory;
+	private boolean bReloadExistingModels;
 	
 	
 	//widgets
@@ -92,13 +94,14 @@ public class ExternalCompositionWizardPage extends WizardPage{
 	private boolean[] oRESTClientResourcesArray;
 	private RESTClientResource[] oRESTClientModelingArray;
 	
-	public ExternalCompositionWizardPage(RESTfulServiceCIM oRESTfulServiceCIM,  ExternalServiceLayerCIM.AnnotationModel oExternalServiceLayerCIM){
+	public ExternalCompositionWizardPage(RESTfulServiceCIM oRESTfulServiceCIM,  ExternalServiceLayerCIM.AnnotationModel oExternalServiceLayerCIM, boolean bReloadExistingModels){
 		super(oRESTfulServiceCIM.getName() + "External Service Editor");
 		this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		this.oExternalServiceLayerCIM = oExternalServiceLayerCIM;
 		this.oExternalServiceLayerCIMFactory = ExternalServiceLayerCIMFactory.eINSTANCE;
 		this.oRESTClientResourcesArray = new boolean[getNumberOfAvailableAlgoResources()];
 		this.oRESTClientModelingArray = new RESTClientResource[getNumberOfAvailableAlgoResources()];
+		this.bReloadExistingModels = bReloadExistingModels;
 	}
 
 
@@ -1031,11 +1034,13 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			
 			//populate the output representation
 			if(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasOutputDataModel().getHasOutputRepresentation() != null){
-				if(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasOutputDataModel().getHasOutputRepresentation().getName().equalsIgnoreCase("application/JSON")){
+				if(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasOutputDataModel().getHasOutputRepresentation().getName().equalsIgnoreCase("APPLICATION_JSON")){
 					this.buttonOutputJSON.setSelection(true);
+					this.buttonOutputXML.setSelection(false);
 				}
-				else if(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasOutputDataModel().getHasOutputRepresentation().getName().equalsIgnoreCase("application/XML")){
+				else if(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasOutputDataModel().getHasOutputRepresentation().getName().equalsIgnoreCase("APPLICATION_XML")){
 					this.buttonOutputXML.setSelection(true);
+					this.buttonOutputJSON.setSelection(false);
 				}
 				else{
 					this.buttonOutputJSON.setSelection(false);
@@ -1117,11 +1122,13 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			
 			//populate the input representation
 			if(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasInputDataModel().getHasInputRepresentation() != null){
-				if(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasInputDataModel().getHasInputRepresentation().getName().equalsIgnoreCase("application/JSON")){
+				if(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasInputDataModel().getHasInputRepresentation().getName().equalsIgnoreCase("APPLICATION_JSON")){
 					this.buttonInputJSON.setSelection(true);
+					this.buttonInputXML.setSelection(false);
 				}
-				else if(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasInputDataModel().getHasInputRepresentation().getName().equalsIgnoreCase("application/XML")){
+				else if(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasInputDataModel().getHasInputRepresentation().getName().equalsIgnoreCase("APPLICATION_XML")){
 					this.buttonInputXML.setSelection(true);
+					this.buttonInputJSON.setSelection(false);
 				}
 				else{
 					this.buttonInputJSON.setSelection(false);
@@ -1272,13 +1279,188 @@ public class ExternalCompositionWizardPage extends WizardPage{
 
 	private void initializeWizardSWTs() {
 		//initialize the values of all the SWT widgets
-		initializeResourcesGridSWTs();
-		initializeTargetServiceSWTs();
+		if(this.bReloadExistingModels == false){
+			initializeResourcesGridSWTs();
+			initializeTargetServiceSWTs();			
+		}//else reload existing valid external composition model
+		else{
+			reloadExternalServiceCIMModel();
+		}
+
 		
 		updateWidgetStatus();
 		
 		this.oParentComposite.layout();
 	}
+
+	private void reloadExternalServiceCIMModel() {
+
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true){
+				//check if it is a valid existing RESTClient resource
+				if(isExistingValidRESTClientResource(this.oRESTfulServiceCIM.getHasResources().get(n).getName())){
+					
+					//then add it to RESTClient Resources list
+					this.oRESTClientResourcesArray[this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(n).getName())] = true;
+					this.listRESTClientResources.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+					this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(n).getName())] = loadRESTClientResource(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+				}
+				else{
+					//else add it to the Available Resources list
+					populateAvailableResourcesList();
+				}
+			}
+		}
+		
+	}
+
+
+	private boolean hasValidCRUDOutputModel(RESTClientResource oRESTClientResource) {
+		if(oRESTClientResource.getTargetsService().getHasOutputDataModel() != null){
+			if(oRESTClientResource.getTargetsService().getHasOutputDataModel() instanceof ExistentCRUDPersistentOutput){
+				//check if the loaded CRUD Resource that is used as output model still exists
+				for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+					if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == false){//if its CRUD
+						if(this.oRESTfulServiceCIM.getHasResources().get(n).getName().equalsIgnoreCase(((ExistentCRUDPersistentOutput)oRESTClientResource.getTargetsService().getHasOutputDataModel()).getIsExistentCRUDPersistentOutput().getAnnotatesCRUDResource().getName())){
+							//and the reloaded OutputModel uses a still valid CRUD Resource
+							System.out.println("Valid Existing CRUD Resource Output Model found!");
+							return true;
+						}						
+					}
+				}
+			}
+			else{
+				return true;
+			}
+		}
+		else{
+			return true;
+		}
+		
+		System.out.println("Valid Existing CRUD Resource Output Model NOT found!");
+		return false;
+	}
+
+
+	private RESTClientResource loadRESTClientResource(String strResourceName) {
+		for(int n = 0; n < this.oExternalServiceLayerCIM.getHasAnnotation().size(); n++){
+			if(this.oExternalServiceLayerCIM.getHasAnnotation().get(n) instanceof RESTClientResource){
+				if(((RESTClientResource)this.oExternalServiceLayerCIM.getHasAnnotation().get(n)).getIsRESTClientResource().getAnnotatesAlgoResource().getName().equalsIgnoreCase(strResourceName)){
+					return deepCopyRESTClientResource((RESTClientResource)this.oExternalServiceLayerCIM.getHasAnnotation().get(n));
+				}
+			}
+		}
+		return null;//throw exception in production code
+	}
+
+	private RESTClientResource deepCopyRESTClientResource(RESTClientResource oBackUpRESTClientResource) {
+		
+		//create an AnnAlgoResource
+		AnnAlgoResource oAnnAlgoResource = this.oExternalServiceLayerCIMFactory.createAnnAlgoResource();
+		
+		//associate it with the core CIM algo Resource
+		oAnnAlgoResource.setAnnotatesAlgoResource(findCoreCIMResourceReference(oBackUpRESTClientResource.getIsRESTClientResource().getAnnotatesAlgoResource().getName()));
+		
+		//create the RESTClientResource
+		RESTClientResource oRESTClientResource = this.oExternalServiceLayerCIMFactory.createRESTClientResource();
+		
+		//associate it with the AnnAlgoResource
+		oRESTClientResource.setIsRESTClientResource(oAnnAlgoResource);
+		
+		//create the Target REST Service annotation
+		TargetRESTService oTargetRESTService = oExternalServiceLayerCIMFactory.createTargetRESTService();
+		oTargetRESTService.setTargetURL(oBackUpRESTClientResource.getTargetsService().getTargetURL());
+		oTargetRESTService.setCRUDVerb(oBackUpRESTClientResource.getTargetsService().getCRUDVerb());
+		
+		//deep copy any query parameters
+		for(int n = 0; n < oBackUpRESTClientResource.getTargetsService().getHasQueryParam().size(); n++){
+			QueryParam oQueryParam = oExternalServiceLayerCIMFactory.createQueryParam();
+			oQueryParam.setName(oBackUpRESTClientResource.getTargetsService().getHasQueryParam().get(n).getName());
+			oQueryParam.setType(oBackUpRESTClientResource.getTargetsService().getHasQueryParam().get(n).getType());
+			oTargetRESTService.getHasQueryParam().add(oQueryParam);
+		}
+		
+		//deep copy the input model
+		InputDataModel oInputDataModel = oExternalServiceLayerCIMFactory.createInputDataModel();
+		if(oBackUpRESTClientResource.getTargetsService().getHasInputDataModel() != null){
+			
+			//deep copy the input representation
+			Representation oRepresentation = oExternalServiceLayerCIMFactory.createRepresentation();
+			oRepresentation.setName(oBackUpRESTClientResource.getTargetsService().getHasInputDataModel().getHasInputRepresentation().getName());
+			oInputDataModel.setHasInputRepresentation(oRepresentation);
+			
+			//deep copy the input properties
+			for(int n = 0; n < oBackUpRESTClientResource.getTargetsService().getHasInputDataModel().getHasInputProperties().size(); n++){
+				ModelProperty oInputProperty = oExternalServiceLayerCIMFactory.createModelProperty();
+				oInputProperty.setName(oBackUpRESTClientResource.getTargetsService().getHasInputDataModel().getHasInputProperties().get(n).getName());
+				oInputProperty.setType(oBackUpRESTClientResource.getTargetsService().getHasInputDataModel().getHasInputProperties().get(n).getType());
+				oInputProperty.setIsUnique(oBackUpRESTClientResource.getTargetsService().getHasInputDataModel().getHasInputProperties().get(n).isIsUnique());
+				oInputDataModel.getHasInputProperties().add(oInputProperty);
+			}
+			oTargetRESTService.setHasInputDataModel(oInputDataModel);
+		}
+		
+		//deep copy the output data model
+		NonPersistentOutput oOutputDataModel = oExternalServiceLayerCIMFactory.createNonPersistentOutput();
+		if(oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel() != null){
+			//deep copy the output representation
+			Representation oRepresentation = oExternalServiceLayerCIMFactory.createRepresentation();
+			oRepresentation.setName(oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel().getHasOutputRepresentation().getName());
+			oOutputDataModel.setHasOutputRepresentation(oRepresentation);
+			
+			//deep copy the output properties
+			for(int n = 0; n < oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel().getHasOutputProperties().size(); n++){
+				ModelProperty oOutputProperty = oExternalServiceLayerCIMFactory.createModelProperty();
+				oOutputProperty.setName(oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(n).getName());
+				oOutputProperty.setType(oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(n).getType());
+				oOutputProperty.setIsUnique(oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(n).isIsUnique());
+				oOutputDataModel.getHasOutputProperties().add(oOutputProperty);
+			}
+			
+			oTargetRESTService.setHasOutputDataModel(oOutputDataModel);			
+
+			//deep copy persistence info
+			if(oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel() instanceof AutoPersistentOutput){
+				AutoPersistentOutput oAutoPersistentOutput = this.oExternalServiceLayerCIMFactory.createAutoPersistentOutput();
+				oAutoPersistentOutput.setHasOutputRepresentation(oRepresentation);
+				oAutoPersistentOutput.getHasOutputProperties().addAll(oOutputDataModel.getHasOutputProperties());	
+				oTargetRESTService.setHasOutputDataModel(oAutoPersistentOutput);			
+			}
+			else if(oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel() instanceof ExistentCRUDPersistentOutput){
+				ExistentCRUDPersistentOutput oExistentCRUDPersistentOutput = this.oExternalServiceLayerCIMFactory.createExistentCRUDPersistentOutput();
+				oExistentCRUDPersistentOutput.setHasOutputRepresentation(oRepresentation);
+				oExistentCRUDPersistentOutput.getHasOutputProperties().addAll(oOutputDataModel.getHasOutputProperties());
+				
+				//check if it still has a valid existing CRUD resource output model
+				if(hasValidCRUDOutputModel(oBackUpRESTClientResource)){
+					AnnCRUDResource oAnnCRUDResource = this.oExternalServiceLayerCIMFactory.createAnnCRUDResource();
+					oAnnCRUDResource.setAnnotatesCRUDResource(this.oRESTfulServiceCIM.getHasResources().get(this.getCRUDResourceIndexByName(((ExistentCRUDPersistentOutput)oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel()).getIsExistentCRUDPersistentOutput().getAnnotatesCRUDResource().getName())));
+					oExistentCRUDPersistentOutput.setIsExistentCRUDPersistentOutput(oAnnCRUDResource);
+				}
+				else{
+					oExistentCRUDPersistentOutput.setIsExistentCRUDPersistentOutput(null);
+				}
+				oTargetRESTService.setHasOutputDataModel(oExistentCRUDPersistentOutput);			
+			}
+		}
+
+		oRESTClientResource.setTargetsService(oTargetRESTService);
+		return oRESTClientResource;
+	}
+
+
+	private boolean isExistingValidRESTClientResource(String strResourceName) {
+		for(int n = 0; n < this.oExternalServiceLayerCIM.getHasAnnotation().size(); n++){
+			if(this.oExternalServiceLayerCIM.getHasAnnotation().get(n) instanceof RESTClientResource){
+				if(((RESTClientResource)this.oExternalServiceLayerCIM.getHasAnnotation().get(n)).getIsRESTClientResource().getAnnotatesAlgoResource().getName().equalsIgnoreCase(strResourceName)){
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+
 
 	private void initializeTargetServiceSWTs() {
 		initializeOutputModelSWTs();
@@ -1537,6 +1719,10 @@ public class ExternalCompositionWizardPage extends WizardPage{
 
 
 	public void createExternalServiceLayerCIM(){
+		//delete any existing Annotations and Annotated elements, in case this model is reloaded from existing XMI files
+		this.oExternalServiceLayerCIM.getHasAnnotation().clear();
+		this.oExternalServiceLayerCIM.getHasAnnotatedElement().clear();
+		
 		for(int n = 0; n < this.oRESTClientResourcesArray.length; n++){
 			if(this.oRESTClientResourcesArray[n] == true){
 				//add the RESTClientResource Annotation

@@ -31,6 +31,7 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 	private Composite oWizardPageGrid;
 	private Composite oParentComposite;
 	private AuthenticationLayerCIM.AuthenticationMode[][] oAuthenticationModes;
+	private boolean bReloadExistingModels;
 	
 	//Resource selection SWTs
 	private Label oResourcePromtLabel;
@@ -68,12 +69,13 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 	private List oApplyDefaultAuthenticationModeList;
 	private Label oApplayDefaultLabel;
 
-	public CRUDActivityAuthenticationWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM) {
+	public CRUDActivityAuthenticationWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM, boolean bReloadExistingModels) {
 		  super("Select Authentication Model");
 		  this.oAuthenticationLayerCIMFactory = AuthenticationLayerCIMFactory.eINSTANCE;
 		  this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		  this.oAuthenticationCIM = oAuthenticationCIM;
 		  this.oAuthenticationModes = new AuthenticationLayerCIM.AuthenticationMode[this.oRESTfulServiceCIM.getHasResources().size()][8];
+		  this.bReloadExistingModels = bReloadExistingModels;
 	}
 
 	@Override
@@ -88,9 +90,148 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 		  initializeWizardPageWidgets(parent);
 		  
 		  this.setControl(this.oWizardPageGrid);
-		  this.setPageComplete(false);
+		  if(this.bReloadExistingModels == false){
+			  this.setPageComplete(false);
+		  }
+		  else{
+			  restoreAllActivitiesAuthenticationMode();
+			  setPageComplete(isPageCompleted());
+		  }
 	}
 	
+	private boolean restoreAllActivitiesAuthenticationMode() {
+		//populate the resource promt list
+		this.populateResourcePromtList();
+		
+		//select the first resource from the prompt list
+		this.oResourcePromtList.setSelection(0);
+		this.activateResourceCRUDActivities(this.oResourcePromtList.getSelection()[0]);
+		
+		//restore authentication modes of the CRUDActivities of every existing resource
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			restoreResourceAuthenticationModes(n);
+		}
+		
+		//update the authentication modes of the selected resource
+		this.setSelectedCRUDActivitiesMode(this.oResourcePromtList.getSelection()[0]);
+		
+		return true;
+	}
+
+	private void restoreResourceAuthenticationModes(int iCoreResourceIndex) {
+		//restore iCoreResourceIndex Resource's authentication Modes in case they existed in loaded models
+		//if iCoreResourceIndex Resource has a CREATE activity
+		if(this.hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(iCoreResourceIndex), CRUDVerb.CREATE)){
+			//check if its authentication mode already exists
+			if(authenticationModeExists(iCoreResourceIndex, CRUDVerb.CREATE)){
+				if(authenticationModeIsBothMode(iCoreResourceIndex, CRUDVerb.CREATE)){
+					this.oAuthenticationModes[iCoreResourceIndex][0] = this.oAuthenticationLayerCIMFactory.createBothMode();
+					this.oAuthenticationModes[iCoreResourceIndex][1] = null;
+				}
+				else{
+					this.oAuthenticationModes[iCoreResourceIndex][0] = null;
+					this.oAuthenticationModes[iCoreResourceIndex][1] = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
+				}
+			}
+			else{
+				this.oAuthenticationModes[iCoreResourceIndex][0] = null;
+				this.oAuthenticationModes[iCoreResourceIndex][1] = null;
+			}
+		}
+		
+		//if iCoreResourceIndex Resource has a READ activity
+		if(this.hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(iCoreResourceIndex), CRUDVerb.READ)){
+			//check if its authentication mode already exists
+			if(authenticationModeExists(iCoreResourceIndex, CRUDVerb.READ)){
+				if(authenticationModeIsBothMode(iCoreResourceIndex, CRUDVerb.READ)){
+					this.oAuthenticationModes[iCoreResourceIndex][2] = this.oAuthenticationLayerCIMFactory.createBothMode();
+					this.oAuthenticationModes[iCoreResourceIndex][3] = null;
+				}
+				else{
+					this.oAuthenticationModes[iCoreResourceIndex][2] = null;
+					this.oAuthenticationModes[iCoreResourceIndex][3] = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
+				}
+			}
+			else{
+				this.oAuthenticationModes[iCoreResourceIndex][2] = null;
+				this.oAuthenticationModes[iCoreResourceIndex][3] = null;
+			}			
+		}
+		
+		//if iCoreResourceIndex Resource has a UPDATE activity
+		if(this.hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(iCoreResourceIndex), CRUDVerb.UPDATE)){
+			//check if its authentication mode already exists
+			if(authenticationModeExists(iCoreResourceIndex, CRUDVerb.UPDATE)){
+				if(authenticationModeIsBothMode(iCoreResourceIndex, CRUDVerb.UPDATE)){
+					this.oAuthenticationModes[iCoreResourceIndex][4] = this.oAuthenticationLayerCIMFactory.createBothMode();
+					this.oAuthenticationModes[iCoreResourceIndex][5] = null;
+				}
+				else{
+					this.oAuthenticationModes[iCoreResourceIndex][4] = null;
+					this.oAuthenticationModes[iCoreResourceIndex][5] = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
+				}
+			}
+			else{
+				this.oAuthenticationModes[iCoreResourceIndex][4] = null;
+				this.oAuthenticationModes[iCoreResourceIndex][5] = null;
+			}			
+		}
+		
+		//if iCoreResourceIndex Resource has a DELETE activity
+		if(this.hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(iCoreResourceIndex), CRUDVerb.DELETE)){
+			//check if its authentication mode already exists
+			if(authenticationModeExists(iCoreResourceIndex, CRUDVerb.DELETE)){
+				if(authenticationModeIsBothMode(iCoreResourceIndex, CRUDVerb.DELETE)){
+					this.oAuthenticationModes[iCoreResourceIndex][6] = this.oAuthenticationLayerCIMFactory.createBothMode();
+					this.oAuthenticationModes[iCoreResourceIndex][7] = null;
+				}
+				else{
+					this.oAuthenticationModes[iCoreResourceIndex][6] = null;
+					this.oAuthenticationModes[iCoreResourceIndex][7] = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
+				}
+			}
+			else{
+				this.oAuthenticationModes[iCoreResourceIndex][6] = null;
+				this.oAuthenticationModes[iCoreResourceIndex][7] = null;
+			}				
+		}
+		
+	}
+
+	private boolean authenticationModeIsBothMode(int iCoreResourceIndex, CRUDVerb oCRUDVerb) {
+		for(int n = 0; n < this.oAuthenticationCIM.getHasAnnotation().size(); n++){
+			if(this.oAuthenticationCIM.getHasAnnotation().get(n) instanceof BothMode){
+				if(((BothMode)this.oAuthenticationCIM.getHasAnnotation().get(n)).getCRUDActivityAuthenticationMode().getBelongsToResource().getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(iCoreResourceIndex).getName())
+				&& ((BothMode)this.oAuthenticationCIM.getHasAnnotation().get(n)).getCRUDActivityAuthenticationMode().getAnnotatesCRUDActivity().getCRUDVerb() == oCRUDVerb){
+					System.out.println("Authentication Mode found to be BothMode");
+					return true;
+				}
+			}
+		}
+		System.out.println("Authentication Mode found to be AuthenticationOnlyMode");
+		return false;
+	}
+
+	private boolean authenticationModeExists(int iCoreResourceIndex, CRUDVerb oCRUDVerb) {
+		for(int n = 0; n < this.oAuthenticationCIM.getHasAnnotation().size(); n++){
+			if(this.oAuthenticationCIM.getHasAnnotation().get(n) instanceof BothMode){
+				if(((BothMode)this.oAuthenticationCIM.getHasAnnotation().get(n)).getCRUDActivityAuthenticationMode().getBelongsToResource().getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(iCoreResourceIndex).getName())
+				&& ((BothMode)this.oAuthenticationCIM.getHasAnnotation().get(n)).getCRUDActivityAuthenticationMode().getAnnotatesCRUDActivity().getCRUDVerb() == oCRUDVerb){
+					System.out.println("Authentication Mode found in loaded models!");
+					return true;
+				}
+			}
+			else if(this.oAuthenticationCIM.getHasAnnotation().get(n) instanceof AuthenticationOnlyMode){
+				if(((AuthenticationOnlyMode)this.oAuthenticationCIM.getHasAnnotation().get(n)).getCRUDActivityAuthenticationMode().getBelongsToResource().getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(iCoreResourceIndex).getName())
+				&& ((AuthenticationOnlyMode)this.oAuthenticationCIM.getHasAnnotation().get(n)).getCRUDActivityAuthenticationMode().getAnnotatesCRUDActivity().getCRUDVerb() == oCRUDVerb){
+					System.out.println("Authentication Mode found in loaded models!");
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	private void initializeWizardPagesGrids(Composite oParentComposite) {
 		  
 		  //Resource selection composite initializaton
@@ -158,7 +299,9 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 		this.oResourcePromtLabel.pack();
 		this.oResourcePromtList = new List(this.oResourcePromtGroup, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
 		this.oResourcePromtList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		populateResourcePromtList();
+		if(this.bReloadExistingModels == false){
+			populateResourcePromtList();
+		}
 		this.oResourcePromtList.setLocation(20, 35);
 		addResourcePromtlListListener();
 		this.oResourcePromtGroup.pack();
