@@ -13,8 +13,9 @@ public class SearchCIMWizard extends Wizard{
 	private SearchLayerCIM.AnnotationModel oSearchLayerCIM;
 	private SearchCIMWizardPage oSearchCIMWizardPage;
 	private boolean bReloadExistingModels;
+	private int iMaxSearchResourcesAllowed;
 	
-	public SearchCIMWizard(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, SearchLayerCIM.AnnotationModel oSearchLayerCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM, boolean bReloadExistingModels){
+	public SearchCIMWizard(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, SearchLayerCIM.AnnotationModel oSearchLayerCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM, int iMaxSearchResourcesAllowed, boolean bReloadExistingModels){
 		super();
 		this.setWindowTitle("Search DB Wizard");
 		this.strOutputFolder = strOutputFolder;
@@ -22,11 +23,12 @@ public class SearchCIMWizard extends Wizard{
 		this.oAuthenticationCIM = oAuthenticationCIM;
 		this.oSearchLayerCIM = oSearchLayerCIM;
 		this.bReloadExistingModels = bReloadExistingModels;
+		this.iMaxSearchResourcesAllowed = iMaxSearchResourcesAllowed;
 	}
 	
 	@Override
 	public void addPages() {
-		this.oSearchCIMWizardPage = new SearchCIMWizardPage(strOutputFolder, oRESTfulServiceCIM, oSearchLayerCIM, oAuthenticationCIM, bReloadExistingModels);
+		this.oSearchCIMWizardPage = new SearchCIMWizardPage(strOutputFolder, oRESTfulServiceCIM, oSearchLayerCIM, oAuthenticationCIM, iMaxSearchResourcesAllowed, bReloadExistingModels);
 		this.addPage(oSearchCIMWizardPage);
 	}
 	
@@ -38,11 +40,13 @@ public class SearchCIMWizard extends Wizard{
 		return false;
 	}
 	
-	public void createSearchLayerCIM(){
-		this.oSearchCIMWizardPage.createSearchLayerCIM();
+	public SearchLayerCIM.AnnotationModel createSearchLayerCIM(){
+		this.oSearchLayerCIM = this.oSearchCIMWizardPage.createSearchLayerCIM();
 		
 		//export the search CIM
 		exportSearchLayerCIM();
+		
+		return this.oSearchLayerCIM;
 	}
 	
 	private void exportSearchLayerCIM(){

@@ -12,19 +12,22 @@ public class ExternalCompositionWizard extends Wizard{
 	private ExternalServiceLayerCIM.AnnotationModel oExternalServiceLayerCIM;
 	private ExternalCompositionWizardPage oExternalCompositionWizardPage;
 	private boolean bReloadExistingModels;
+	private SearchLayerCIM.AnnotationModel oSearchLayerCIM;
 
-	public ExternalCompositionWizard(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, ExternalServiceLayerCIM.AnnotationModel oExternalServiceLayerCIM, boolean bReloadExistingModels){
+	public ExternalCompositionWizard(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, ExternalServiceLayerCIM.AnnotationModel oExternalServiceLayerCIM, SearchLayerCIM.AnnotationModel oParamSearchLayerCIM, boolean bReloadExistingModels){
 		super();
 		this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		this.oExternalServiceLayerCIM = oExternalServiceLayerCIM;
 		this.strOutputFolder = strOutputFolder;
 		this.setWindowTitle("External Service Composition Editor");
 		this.bReloadExistingModels = bReloadExistingModels;
+		this.oSearchLayerCIM = oParamSearchLayerCIM;
 	}
 	
 	@Override
 	public void addPages(){
-		this.oExternalCompositionWizardPage = new ExternalCompositionWizardPage(oRESTfulServiceCIM, this.oExternalServiceLayerCIM, bReloadExistingModels);
+
+		this.oExternalCompositionWizardPage = new ExternalCompositionWizardPage(oRESTfulServiceCIM, this.oExternalServiceLayerCIM, this.oSearchLayerCIM, bReloadExistingModels);
 		this.addPage(this.oExternalCompositionWizardPage);
 	}
 	

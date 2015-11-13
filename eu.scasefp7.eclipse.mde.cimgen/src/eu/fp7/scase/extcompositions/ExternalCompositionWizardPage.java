@@ -31,6 +31,7 @@ import ExternalServiceLayerCIM.QueryParam;
 import ExternalServiceLayerCIM.RESTClientResource;
 import ExternalServiceLayerCIM.Representation;
 import ExternalServiceLayerCIM.TargetRESTService;
+import SearchLayerCIM.SearchResource;
 import ServiceCIM.RESTfulServiceCIM;
 import ServiceCIM.Resource;
 
@@ -45,6 +46,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 	private Composite oParentComposite;
 	private ExternalServiceLayerCIMFactory oExternalServiceLayerCIMFactory;
 	private boolean bReloadExistingModels;
+	private SearchLayerCIM.AnnotationModel oSearchLayerCIM;
 	
 	
 	//widgets
@@ -94,7 +96,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 	private boolean[] oRESTClientResourcesArray;
 	private RESTClientResource[] oRESTClientModelingArray;
 	
-	public ExternalCompositionWizardPage(RESTfulServiceCIM oRESTfulServiceCIM,  ExternalServiceLayerCIM.AnnotationModel oExternalServiceLayerCIM, boolean bReloadExistingModels){
+	public ExternalCompositionWizardPage(RESTfulServiceCIM oRESTfulServiceCIM,  ExternalServiceLayerCIM.AnnotationModel oExternalServiceLayerCIM, SearchLayerCIM.AnnotationModel oParamSearchLayerCIM, boolean bReloadExistingModels){
 		super(oRESTfulServiceCIM.getName() + "External Service Editor");
 		this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		this.oExternalServiceLayerCIM = oExternalServiceLayerCIM;
@@ -102,6 +104,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		this.oRESTClientResourcesArray = new boolean[getNumberOfAvailableAlgoResources()];
 		this.oRESTClientModelingArray = new RESTClientResource[getNumberOfAvailableAlgoResources()];
 		this.bReloadExistingModels = bReloadExistingModels;
+		this.oSearchLayerCIM = oParamSearchLayerCIM;
 	}
 
 
@@ -1246,12 +1249,33 @@ public class ExternalCompositionWizardPage extends WizardPage{
 	private void populateAvailableResourcesList(){
 		this.listAvailableResources.removeAll();
 		for(int n = 0 ; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
-			if((this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true) &&
+			if((this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true) && !isSearchResource(n) &&
 					(!isRESTClientResource(this.oRESTfulServiceCIM.getHasResources().get(n).getName()))){
 				this.listAvailableResources.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 			}
 		}
 	}
+
+	private boolean isSearchResource(int iResourceIndex) {
+		
+		//if the search layer is undefined
+		if(this.oSearchLayerCIM == null){
+			//then there are not search resources
+			return false;
+		}
+
+		
+		for(int n = 0; n < this.oSearchLayerCIM.getHasAnnotation().size(); n++){
+			if(this.oSearchLayerCIM.getHasAnnotation().get(n) instanceof SearchResource){
+				if(((SearchResource)this.oSearchLayerCIM.getHasAnnotation().get(n)).getAlgoResourceIsSearchResource().getAnnotatesAlgoResource().getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(iResourceIndex).getName())){
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+
 
 	private boolean isRESTClientResource(String strResourceName) {
 		if(this.oRESTClientResourcesArray[getAlgoResourceIndexByName(strResourceName)] == true){
@@ -1287,7 +1311,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			reloadExternalServiceCIMModel();
 		}
 
-		
+		populateAvailableResourcesList();
 		updateWidgetStatus();
 		
 		this.oParentComposite.layout();
@@ -1297,15 +1321,15 @@ public class ExternalCompositionWizardPage extends WizardPage{
 
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true){
-				//check if it is a valid existing RESTClient resource
-				if(isExistingValidRESTClientResource(this.oRESTfulServiceCIM.getHasResources().get(n).getName())){
+				//check if it is a valid existing RESTClient resource and is not a search resource
+				if(isExistingValidRESTClientResource(this.oRESTfulServiceCIM.getHasResources().get(n).getName()) && !isSearchResource(n)){
 					
 					//then add it to RESTClient Resources list
 					this.oRESTClientResourcesArray[this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(n).getName())] = true;
 					this.listRESTClientResources.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 					this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(n).getName())] = loadRESTClientResource(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 				}
-				else{
+				else if(!isSearchResource(n)){
 					//else add it to the Available Resources list
 					populateAvailableResourcesList();
 				}
@@ -1688,19 +1712,13 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		int i = 0;
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true){
-				if(!isSearchResource(this.oRESTfulServiceCIM.getHasResources().get(n))){
+				if(!isSearchResource(n)){
 					i++;
 				}
 			}
 		}
 		
 		return i;
-	}
-
-	private boolean isSearchResource(Resource oAlgoResource) {
-		// TODO add check whether an algorithmic resource is a search resource
-		
-		return false;
 	}
 	
 	private int getAlgoResourceIndexByName(String strAlgoResourceName){
@@ -1752,10 +1770,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 	
 	private boolean isValidExternalCompositionCIMModel(){
 		
+		int iNumberOfRESTClientResources = 0;
 		//validate each RESTClientResource
 		for(int n = 0; n < this.oRESTClientResourcesArray.length; n++){
 			if(this.oRESTClientResourcesArray[n] == true)//if it is a RESTClientResource
 			{
+				iNumberOfRESTClientResources++;
 				if(!RESTClientHasTargetURL(n)){
 					return false;
 				}
@@ -1778,6 +1798,11 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			}
 		}
 		
+		//if no resources are modelled as RESTClients
+		if(iNumberOfRESTClientResources == 0){
+			setErrorMessage("At least one resource must be modeled as RESTClient.");
+			return false;
+		}
 		setErrorMessage(null);
 		return true;
 	}

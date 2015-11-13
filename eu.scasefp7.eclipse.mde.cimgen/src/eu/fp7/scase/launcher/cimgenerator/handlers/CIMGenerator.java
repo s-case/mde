@@ -140,12 +140,18 @@ public class CIMGenerator extends AbstractHandler {
 			this.oAuthenticationLayerCIM = this.oAuthenticationLayerCIMFactory.createAnnotationModel();
 			this.oAuthenticationLayerCIM.setName(oRESTfulServiceCIM.getName() + "AuthenticationModel");
 		}
+		else{
+			this.oAuthenticationLayerCIM = null;
+		}
 		
 		//if the searching flag is true
 		if(event.getParameter("DatabaseSearching").equalsIgnoreCase("yes")){//instantiate an empty searching model
 			this.oSearchLayerCIMFactory = SearchLayerCIMFactory.eINSTANCE;
 			this.oSearchLayerCIM = this.oSearchLayerCIMFactory.createAnnotationModel();
 			this.oSearchLayerCIM.setName(this.oRESTfulServiceCIM.getName() + "SearchLayer");	
+		}
+		else{
+			this.oSearchLayerCIM = null;
 		}
 		
 		//if the external Service flag is true
@@ -154,6 +160,9 @@ public class CIMGenerator extends AbstractHandler {
 			this.oExternalServiceLayerCIMFactory = ExternalServiceLayerCIMFactory.eINSTANCE;
 			this.oExternalServiceLayerCIM = this.oExternalServiceLayerCIMFactory.createAnnotationModel();
 			this.oExternalServiceLayerCIM.setName(this.oRESTfulServiceCIM.getName() + "ExternalServiceLayer");	
+		}
+		else{
+			this.oExistingExternalServiceLayerCIM = null;
 		}
 	}
 
@@ -191,6 +200,9 @@ public class CIMGenerator extends AbstractHandler {
 				this.oAuthenticationLayerCIM.setName(oRESTfulServiceCIM.getName() + "AuthenticationModel");			
 			}
 		}
+		else{
+			this.oAuthenticationLayerCIM = null;
+		}
 		
 		//if the searching flag is true
 		if(event.getParameter("DatabaseSearching").equalsIgnoreCase("yes")){
@@ -206,6 +218,9 @@ public class CIMGenerator extends AbstractHandler {
 				this.oSearchLayerCIM = this.oSearchLayerCIMFactory.createAnnotationModel();
 				this.oSearchLayerCIM.setName(this.oRESTfulServiceCIM.getName() + "SearchLayer");					
 			}
+		}
+		else{
+			this.oSearchLayerCIM = null;
 		}
 		
 		//if the external Service flag is true
@@ -223,6 +238,9 @@ public class CIMGenerator extends AbstractHandler {
 				this.oExternalServiceLayerCIM = this.oExternalServiceLayerCIMFactory.createAnnotationModel();
 				this.oExternalServiceLayerCIM.setName(this.oRESTfulServiceCIM.getName() + "ExternalServiceLayer");	
 			}
+		}
+		else{
+			this.oExternalServiceLayerCIM = null;
 		}
 	}
 
@@ -283,7 +301,7 @@ public class CIMGenerator extends AbstractHandler {
 	private boolean createCoreRestCIM(ExecutionEvent event){
 
 		//initialize the core CIM wizard
-		CoreCIMEditorWizard oCoreCIMEditorWizard = new CoreCIMEditorWizard(this.oEvent.getParameter("MDEOutputFolder"), oRESTfulServiceCIM, this.bReloadExistingModels);
+		CoreCIMEditorWizard oCoreCIMEditorWizard = new CoreCIMEditorWizard(this.oEvent.getParameter("MDEOutputFolder"), oRESTfulServiceCIM, calculateMinimumRequiredAlgoResources(), this.bReloadExistingModels);
 		WizardDialog oCoreCIMEditorWizardDialog = new WizardDialog(null, oCoreCIMEditorWizard);
 		if(oCoreCIMEditorWizardDialog.open() == Window.OK){
 			oRESTfulServiceCIM = oCoreCIMEditorWizard.updateCIM();
@@ -298,6 +316,26 @@ public class CIMGenerator extends AbstractHandler {
 		return true;
 	}
 	
+	private int calculateMinimumRequiredAlgoResources() {
+		
+		//if the developer selected to embed both Searching and interoperation with external services
+		if(this.oEvent.getParameter("DatabaseSearching").equalsIgnoreCase("yes")
+		  && this.oEvent.getParameter("ExternalComposition").equalsIgnoreCase("yes")){
+			return 2;
+		}//else if he selected only one of two
+		else if(this.oEvent.getParameter("DatabaseSearching").equalsIgnoreCase("yes")
+				  && this.oEvent.getParameter("ExternalComposition").equalsIgnoreCase("no")){
+			return 1;
+		}
+		else if(this.oEvent.getParameter("DatabaseSearching").equalsIgnoreCase("no")
+				  && this.oEvent.getParameter("ExternalComposition").equalsIgnoreCase("yes")){
+			return 1;
+		}
+		else{//else no algorithmic functionality is desired
+			return 0;
+		}		
+	}
+
 	private boolean createBasicAuthenticationCIM(ExecutionEvent event){
 		
 		//setup the authentication CIM wizard
@@ -316,11 +354,11 @@ public class CIMGenerator extends AbstractHandler {
 	private boolean createDatabaseSearchingCIM(ExecutionEvent event){
 		
 		//setup the search CIM wizard
-		oSearchCIMWizard = new SearchCIMWizard(this.oEvent.getParameter("MDEOutputFolder"), oRESTfulServiceCIM, oSearchLayerCIM, (this.oEvent.getParameter("Authentication").equalsIgnoreCase("yes") ? oAuthenticationLayerCIM : null), this.bReloadExistingModels);
+		oSearchCIMWizard = new SearchCIMWizard(this.oEvent.getParameter("MDEOutputFolder"), oRESTfulServiceCIM, oSearchLayerCIM, (this.oEvent.getParameter("Authentication").equalsIgnoreCase("yes") ? oAuthenticationLayerCIM : null), calculateMaxSearchResources(), this.bReloadExistingModels);
 		WizardDialog oSearchWizardDialog = new WizardDialog(null, oSearchCIMWizard);
 		
 		if(oSearchWizardDialog.open() == Window.OK){
-			oSearchCIMWizard.createSearchLayerCIM();
+			this.oSearchLayerCIM = oSearchCIMWizard.createSearchLayerCIM();
 		}
 		else{
 			return false;
@@ -329,10 +367,34 @@ public class CIMGenerator extends AbstractHandler {
 		return true;
 	}
 	
-	private boolean createExternalServiceLayerCIM(ExecutionEvent event){
+	private int calculateMaxSearchResources() {
+		//if the developer selected to embed both Searching and interoperation with external services
+		if(this.oEvent.getParameter("DatabaseSearching").equalsIgnoreCase("yes")
+		  && this.oEvent.getParameter("ExternalComposition").equalsIgnoreCase("yes")){
+			return getNumberOfAlgoResource() - 1;
+		}//else if he selected only one of two
+		else if(this.oEvent.getParameter("DatabaseSearching").equalsIgnoreCase("yes")
+				  && this.oEvent.getParameter("ExternalComposition").equalsIgnoreCase("no")){
+			return getNumberOfAlgoResource();
+		}
 
+		return -1; //throw exception in production code
+	}
+
+	private int getNumberOfAlgoResource() {
+		int iNumberOfAlgoResources = 0;
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true){
+				iNumberOfAlgoResources++;
+			}
+		}
+		return iNumberOfAlgoResources;
+	}
+
+	private boolean createExternalServiceLayerCIM(ExecutionEvent event){
+		
 		//setup the external service CIM wizard
-		oExternalCompositionWizard = new ExternalCompositionWizard(this.oEvent.getParameter("MDEOutputFolder"), this.oRESTfulServiceCIM, this.oExternalServiceLayerCIM, this.bReloadExistingModels);
+		oExternalCompositionWizard = new ExternalCompositionWizard(this.oEvent.getParameter("MDEOutputFolder"), this.oRESTfulServiceCIM, this.oExternalServiceLayerCIM, this.oSearchLayerCIM, this.bReloadExistingModels);
 		WizardDialog oExternalCompositionWizardDialog = new WizardDialog(null, oExternalCompositionWizard);
 		
 		if(oExternalCompositionWizardDialog.open() == Window.OK){

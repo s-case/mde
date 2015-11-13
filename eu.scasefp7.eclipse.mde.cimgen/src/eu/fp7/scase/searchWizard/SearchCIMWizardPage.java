@@ -35,6 +35,7 @@ public class SearchCIMWizardPage extends WizardPage{
 	private boolean[] oSelectedResourcesArray;
 	private boolean [][][] oSelectedSearchablePropertiesArray;
 	private boolean bReloadExistingModels;
+	private int iMaxSearchResourcesAllowed;
 	
 	private Label oSearchResourcePromptLabel;
 	private Label oSelectedSearchResourceLabel;
@@ -64,7 +65,7 @@ public class SearchCIMWizardPage extends WizardPage{
 	private Composite oSelectedPropertiesGrid;
 
 	
-	public SearchCIMWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, SearchLayerCIM.AnnotationModel oSearchLayerCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM, boolean bReloadExistingModels) {
+	public SearchCIMWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, SearchLayerCIM.AnnotationModel oSearchLayerCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM, int iMaxSearchResourcesAllowed, boolean bReloadExistingModels) {
 		  super("External Service Editor");
 		  this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		  this.oSearchLayerCIM = oSearchLayerCIM;
@@ -72,6 +73,7 @@ public class SearchCIMWizardPage extends WizardPage{
 		  this.oSelectedResourcesArray = new boolean[getNumberOfAlgoResources()];
 		  this.oSelectedSearchablePropertiesArray = new boolean[getNumberOfAlgoResources()][getNumberOfCRUDResources()][];
 		  this.bReloadExistingModels = bReloadExistingModels;
+		  this.iMaxSearchResourcesAllowed = iMaxSearchResourcesAllowed;
 		  for(int n = 0; n < this.getNumberOfAlgoResources(); n++)
 			  for(int i = 0; i < this.getNumberOfCRUDResources(); i++)
 				  this.oSelectedSearchablePropertiesArray[n][i] = new boolean[getCRUDResourceByIndex(i).getHasProperty().size()];
@@ -801,20 +803,35 @@ public class SearchCIMWizardPage extends WizardPage{
 			for(int n = 0; n < this.getNumberOfAlgoResources(); n++){
 				if(this.oSelectedResourcesArray[n] != false){ // AND if every search resource is assigned at least one property to search.
 					if(this.hasAtLeastOneSearchablePropertyAssigned(n) == false){
+						setErrorMessage("Every search resource must search at least one property.");
 						return false;
 					}
 				}
 			}
+			
+			//and if no more than the maximum number of search resources is defined
+			int iNumberOfSearchResourcesDefined = 0;
+			for(int n = 0; n < this.getNumberOfAlgoResources(); n++){
+				if(this.oSelectedResourcesArray[n] != false){
+					iNumberOfSearchResourcesDefined++;
+				}
+			}
+			if(this.iMaxSearchResourcesAllowed < iNumberOfSearchResourcesDefined){
+				setErrorMessage("Based on the desired algorithmic functionality preferences of this project, the maximum number of the definable Search resources is " +
+						this.iMaxSearchResourcesAllowed + ". There are already " + iNumberOfSearchResourcesDefined + " Search resources defined.");
+				return false;
+			}
 		}
 		else{
+			setErrorMessage("At least one Search resource must be defined.");
 			return false;
 		}
 		
-		
+		setErrorMessage(null);
 		return true;
 	}
 	
-	public void createSearchLayerCIM(){
+	public SearchLayerCIM.AnnotationModel createSearchLayerCIM(){
 		
 		//delete any possible existing annotations from loaded models
 		this.oSearchLayerCIM.getHasAnnotation().clear();
@@ -827,6 +844,8 @@ public class SearchCIMWizardPage extends WizardPage{
 				populateSearchResource(this.getAlgoResourceByIndex(n).getName());
 			}
 		}
+		
+		return this.oSearchLayerCIM;
 	}
 	
 	private void populateSearchResource(String strSearchResourceName){

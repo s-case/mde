@@ -33,6 +33,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 	private RESTServiceCIMFactory oRestServiceCIMFactory;
 	private Composite oWizardPageGrid;
 	private boolean bExecuteFromScratchYaml;
+	private int intMinRequiredAlgoResources;
 	
 	//resource list SWTs
 	private Label oResourceListLabel;
@@ -83,11 +84,12 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 	private List oUnrelatedResourcesList;
 	private Composite oAddRemoveRelationButtonComposite;
 	
-	public CoreCIMEditorWizardPage(RESTfulServiceCIM oRESTfulServiceCIM, boolean bExecuteFromScratchYaml){
+	public CoreCIMEditorWizardPage(RESTfulServiceCIM oRESTfulServiceCIM, int intMinRequiredAlgoResources, boolean bExecuteFromScratchYaml){
 		super(oRESTfulServiceCIM.getName() + " CIM Editor");
 		this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		this.oRestServiceCIMFactory = RESTServiceCIMFactory.eINSTANCE;
 		this.bExecuteFromScratchYaml = bExecuteFromScratchYaml;
+		this.intMinRequiredAlgoResources = intMinRequiredAlgoResources;
 	}
 
 	@Override
@@ -1197,7 +1199,30 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 			return false;
 		}
 		
+		//validate minimum required algorithmic resources number is satisfied
+		if(!requiredMinimumAlgoResourcesFound()){
+			return false;
+		}
+		
 		setErrorMessage(null);
+		
+		return true;
+	}
+
+	private boolean requiredMinimumAlgoResourcesFound() {
+		int iNumberOfAlgoResources = 0;
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true){
+				iNumberOfAlgoResources++;
+			}
+		}
+		
+		if(this.intMinRequiredAlgoResources > iNumberOfAlgoResources){
+			setErrorMessage("Based on the desired algorithmic functionality preferences of this project, at least " + this.intMinRequiredAlgoResources
+					+ " algorithmic resources are needed. Only " + iNumberOfAlgoResources +
+					" are already defined.");
+			return false;
+		}
 		
 		return true;
 	}
