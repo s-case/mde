@@ -14,7 +14,7 @@
         <properties>
             <property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml" />
             <property name="hibernate.search.default.directory_provider" value="filesystem"/>
-            <property name="hibernate.search.default.indexBase" value="webapps/[anAnnotationStack.hasCorePSM.name/]/"/>
+            <property name="hibernate.search.default.indexBase" value="webapps/[anAnnotationStack.hasCorePSM.name/]LuceneIndexes/"/>
         </properties>
     </persistence-unit>
 </persistence>
