@@ -20,8 +20,8 @@
         </init-param>
  </servlet>
  <servlet-mapping>
-    <servlet-name>jersey</servlet-name>
-    <url-pattern>/*</url-pattern>
+	<servlet-name>jersey</servlet-name>
+	<url-pattern>/api/*</url-pattern>
  </servlet-mapping>
 </web-app>
 [/file]
