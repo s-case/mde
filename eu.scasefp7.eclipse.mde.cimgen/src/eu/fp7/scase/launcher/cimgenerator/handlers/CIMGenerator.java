@@ -81,6 +81,7 @@ public class CIMGenerator extends AbstractHandler {
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		this.oEvent = event;
 		
+		this.bReloadExistingModels = (event.getParameter("ReloadExistingModels") == null ? false : (event.getParameter("ReloadExistingModels").equalsIgnoreCase("yes") ? true : false));
 		initializeAllCIMModels(event);
 		executeMDE(event);
 		exportBackUpXMIs(event);
@@ -113,13 +114,11 @@ public class CIMGenerator extends AbstractHandler {
 
 	private void initializeAllCIMModels(ExecutionEvent event) {
 		//if this is a 2nd run, reload previously saved models
-		if(event.getParameter("ReloadExistingModels").equalsIgnoreCase("yes")){
-			this.bReloadExistingModels = true;
+		if(this.bReloadExistingModels){
 			System.out.println("Reloading existing CIM Models");
 			loadAllExistingCIMModels(event);
 		}
 		else{//else instantiate new ones to get filled up using YAML and Wizard input.
-			this.bReloadExistingModels = false;
 			System.out.println("Begining from scratch!");
 			instantiateAllCIMModels(event);
 		}
