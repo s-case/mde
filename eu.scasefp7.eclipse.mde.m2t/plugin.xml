@@ -22,7 +22,8 @@
          <commandParameter id="Authentication" name="Generate authentication"/>
          <commandParameter id="Authorization" name="Generate authorization"/>
          <commandParameter id="DatabaseSearching" name="Generate searching"/>
-         <commandParameter id="ExternalComposition" name="Include external composition"/>            
+         <commandParameter id="ExternalComposition" name="Include external composition"/>
+         <commandParameter id="ReloadExistingModels" name="Reload previously configured models" optional="true"/>          
       </command>
    </extension>
    <extension

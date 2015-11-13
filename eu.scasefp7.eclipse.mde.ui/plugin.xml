@@ -69,6 +69,11 @@
       <command
             id="eu.scasefp7.eclipse.mde.ui.generateCode"
             name="Generate code">
+         <commandParameter
+               id="eu.scasefp7.eclipse.mde.ui.generateCode.reload"
+               name="Reload existing models"
+               optional="true">
+         </commandParameter>
       </command>
    </extension>
    <extension

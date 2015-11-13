@@ -67,6 +67,8 @@ public class GenerateCodeHandler extends AbstractHandler {
     public static final String CMD_ANN = "AnnotationStackPopulator.commands.PopulateAnnotationStack";
     public static final String CMD_M2T = "eu.scasefp7.eclipse.mde.m2t.commands.executeModelToTextTransformation";
     
+    public static final String CMD_PAR_RELOAD = "eu.scasefp7.eclipse.mde.ui.generateCode.reload";
+    
     @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
 
@@ -82,7 +84,7 @@ public class GenerateCodeHandler extends AbstractHandler {
         }
         
         // Get the preferences
-        Map<String, String> mdePreferences = getCoreMDEPreferences(project);
+        Map<String, String> mdePreferences = getCoreMDEPreferences(project, event.getParameters());
 
         // Roll the commands
         IServiceLocator serviceLocator = PlatformUI.getWorkbench();
@@ -282,7 +284,7 @@ public class GenerateCodeHandler extends AbstractHandler {
         return scoped;
     }
     
-    private Map<String, String> getCoreMDEPreferences(IProject project) {
+    private Map<String, String> getCoreMDEPreferences(IProject project, Map commandParams) {
 
         IPreferenceStore store = getPreferenceStore(project);
         Map<String, String> mapMDEPreferences = new HashMap<String, String>();
@@ -299,6 +301,8 @@ public class GenerateCodeHandler extends AbstractHandler {
         String authorization = (store.getBoolean(PreferenceConstants.P_FACET_ABAC_AUTHORIZATION) ? "yes" : "no");
         String searching = (store.getBoolean(PreferenceConstants.P_FACET_SEARCH) ? "yes" : "no");
         String extComposition = (store.getBoolean(PreferenceConstants.P_FACET_EXT_COMPOSITIONS) ? "yes" : "no");
+        String reloadModels = (commandParams.get(GenerateCodeHandler.CMD_PAR_RELOAD) == null) ? "no" 
+                : ((String) commandParams.get(GenerateCodeHandler.CMD_PAR_RELOAD)).equalsIgnoreCase("yes") ? "yes" : "no";
         
         mapMDEPreferences.put("YamlFilePath", yamlFilePath); 
         mapMDEPreferences.put("WebServiceName", wsName);
@@ -311,6 +315,7 @@ public class GenerateCodeHandler extends AbstractHandler {
         mapMDEPreferences.put("Authorization", authorization);
         mapMDEPreferences.put("DatabaseSearching", searching);
         mapMDEPreferences.put("ExternalComposition", extComposition);
+        mapMDEPreferences.put("ReloadExistingModels", reloadModels);
         
         return mapMDEPreferences;
     }
