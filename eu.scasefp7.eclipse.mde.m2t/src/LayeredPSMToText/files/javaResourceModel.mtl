@@ -155,7 +155,7 @@ public class [jRModel.name/]{
 		@FieldBridge(impl=SetStringFieldBridge.class)
 		[/if]
 		[/if]
-		private Set<[jRMProperty.type/]> [jRMProperty.name/] = new HashSet<[jRMProperty.type/]>();
+		private Set<[if (jRMProperty.type.equalsIgnoreCase('int'))]Integer[elseif(jRMProperty.type.equalsIgnoreCase('double'))]Double[else][jRMProperty.type/][/if]> [jRMProperty.name/] = new HashSet<[if (jRMProperty.type.equalsIgnoreCase('int'))]Integer[elseif(jRMProperty.type.equalsIgnoreCase('double'))]Double[else][jRMProperty.type/][/if]>();
 		[/if]
 	[/if]
 [/for]
@@ -170,7 +170,7 @@ public class [jRModel.name/]{
         	this.[javaSetterFunction.hasFunctionParameter->at(1).name/] = [javaSetterFunction.hasFunctionParameter->at(1).name/];
     	}
 	[elseif (javaSetterFunction.hasFunctionParameter->at(1).bIsUnique = false)]
-	    public void [javaSetterFunction.name/](Set<[javaSetterFunction.hasFunctionParameter->at(1).type/]> [javaSetterFunction.hasFunctionParameter->at(1).name/]){
+	    public void [javaSetterFunction.name/](Set<[if (javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('int'))]Integer[elseif (javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('double'))]Double[else][javaSetterFunction.hasFunctionParameter->at(1).type/][/if]> [javaSetterFunction.hasFunctionParameter->at(1).name/]){
         	this.[javaSetterFunction.hasFunctionParameter->at(1).name/] = [javaSetterFunction.hasFunctionParameter->at(1).name/];
     	}
 	[else]
@@ -186,7 +186,7 @@ public class [jRModel.name/]{
         	return this.[javaGetterFunction.hasFunctionParameter->at(1).name/];
     	}
 	[elseif (javaGetterFunction.hasFunctionParameter->at(1).bIsUnique = false)]
-	    public Set<[javaGetterFunction.hasFunctionParameter->at(1).type/]> [javaGetterFunction.name/](){
+	    public Set<[if (javaGetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('int'))]Integer[elseif (javaGetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('double'))]Double[else][javaGetterFunction.hasFunctionParameter->at(1).type/][/if]> [javaGetterFunction.name/](){
         	return this.[javaGetterFunction.hasFunctionParameter->at(1).name/];
     	}
 	[else]

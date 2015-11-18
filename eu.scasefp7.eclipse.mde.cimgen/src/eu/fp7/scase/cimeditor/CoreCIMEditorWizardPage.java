@@ -1318,6 +1318,11 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 							setErrorMessage("A CRUD resource must have exactly one naming property. CRUD resource " + this.oRESTfulServiceCIM.getHasResources().get(n).getName() + " has more.");
 							return false;
 						}
+						if(this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).isIsUnique() == false){
+							setErrorMessage("Naming properties cannot be collections. Resource " + this.oRESTfulServiceCIM.getHasResources().get(n).getName() +
+									" has a naming property called " + this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName() + " that is a Collection");
+							return false;
+						}
 					}
 				}
 				if(iNumberOfNamingProperties == 0){
