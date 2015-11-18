@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
+import eu.fp7.scase.extcompositions.SimpleDialogBox;
 import ServiceCIM.CRUDActivity;
 import ServiceCIM.CRUDVerb;
 import ServiceCIM.InputRepresentation;
@@ -83,6 +84,8 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 	private Label oUnrelatedResourcesLabel;
 	private List oUnrelatedResourcesList;
 	private Composite oAddRemoveRelationButtonComposite;
+	private Button btnRenameResource;
+	private Button btnRenameProperty;
 	
 	public CoreCIMEditorWizardPage(RESTfulServiceCIM oRESTfulServiceCIM, int intMinRequiredAlgoResources, boolean bExecuteFromScratchYaml){
 		super(oRESTfulServiceCIM.getName() + " CIM Editor");
@@ -174,23 +177,28 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 
 	private void initializePropertiesGrid() {
 		this.oPropertyGrid = new Composite(this.oWizardPageGrid, SWT.None);
-		this.oPropertyGrid.setLayout(new GridLayout(2, false));
+		this.oPropertyGrid.setLayout(new GridLayout(3, false));
 		this.oPropertyGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
 		this.oPropertiesLabel = new Label(this.oPropertyGrid, SWT.NULL);
 		this.oPropertiesLabel.setText("Selected resource properties: ");
 		new Label(oPropertyGrid, SWT.NONE);
+		new Label(oPropertyGrid, SWT.NONE);
 		
 		this.oPropertiesList = new List(this.oPropertyGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
-		this.oPropertiesList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		this.oPropertiesList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
 		addPropertyListListener();
 		this.oCreatePropertyButton = new Button(this.oPropertyGrid, SWT.NONE);
-		this.oCreatePropertyButton.setText("Create property");
+		this.oCreatePropertyButton.setText("Create");
 		this.oCreatePropertyButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
 		addCreatePropertyButtonListener();
 		
+		btnRenameProperty = new Button(oPropertyGrid, SWT.NONE);
+		btnRenameProperty.setText("Rename");
+		addRenamePropertyButtonListener();
+		
 		this.oDeletePropertyButton = new Button(this.oPropertyGrid, SWT.None);
-		this.oDeletePropertyButton.setText("Delete property");
+		this.oDeletePropertyButton.setText("Delete");
 		this.oDeletePropertyButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
 		addDeletePropertyButtonListener();
 	}
@@ -263,34 +271,88 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 
 	private void initializeResourceGrid() {
 		this.oResourceGrid = new Composite(this.oWizardPageGrid, SWT.NONE);
-		this.oResourceGrid.setLayout(new GridLayout(2, false));
+		this.oResourceGrid.setLayout(new GridLayout(3, false));
 		this.oResourceGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
 		this.oResourceListLabel = new Label(this.oResourceGrid, SWT.NULL);
 		this.oResourceListLabel.setText(this.oRESTfulServiceCIM.getName() + " resources:");
-		this.oResourceListLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 2, 1));
+		this.oResourceListLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 3, 1));
 		
 		this.oResourceList = new List(this.oResourceGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
-		this.oResourceList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		this.oResourceList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
 		populateResourceList();
 		addResourceListListener();
 		
 		this.oResourceIsAlgorithmicButton = new Button(this.oResourceGrid, SWT.CHECK);
 		this.oResourceIsAlgorithmicButton.setText("Algorithmic");
-		this.oResourceIsAlgorithmicButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		this.oResourceIsAlgorithmicButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
 		addIsAlgorithmicButtonListener();
 		
 		this.oCreateResourceButton = new Button(this.oResourceGrid, SWT.NONE);
-		this.oCreateResourceButton.setText("Create resource");
-		this.oCreateResourceButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
+		this.oCreateResourceButton.setText("Create");
+		GridData gd_oCreateResourceButton = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
+		gd_oCreateResourceButton.widthHint = 92;
+		this.oCreateResourceButton.setLayoutData(gd_oCreateResourceButton);
 		addCreateResourceButtonListener();
 		
+		btnRenameResource = new Button(oResourceGrid, SWT.NONE);
+		btnRenameResource.setText("Rename");
+		addRenameResourceButtonListener();
+		
 		this.oDeleteResourceButton = new Button(this.oResourceGrid, SWT.NONE);
-		this.oDeleteResourceButton.setText("Delete resource");
+		this.oDeleteResourceButton.setText("Delete");
 		this.oDeleteResourceButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
 		addDeleteResourceButtonListener();
 	}
 	
+	private void addRenameResourceButtonListener() {
+		this.btnRenameResource.addListener(SWT.Selection, new Listener(){
+
+			@Override
+			public void handleEvent(Event event) {
+				//rename an existing Resource
+				Shell oShell = new Shell();
+				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "Resource");
+				if(oSimpleDialogBox.open() == Window.OK){
+					oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])).setName(oSimpleDialogBox.getArtefactName());
+					oResourceList.remove(oResourceList.getSelectionIndex());
+					oResourceList.add(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oSimpleDialogBox.getArtefactName())).getName());
+					oResourceList.setSelection(oResourceList.indexOf(oSimpleDialogBox.getArtefactName()));
+				}
+				setPageComplete(isPageCompleted());
+				updateWidgetStatus();
+			}});
+	}
+	
+	private void addRenamePropertyButtonListener() {
+		this.btnRenameProperty.addListener(SWT.Selection, new Listener(){
+
+			@Override
+			public void handleEvent(Event event) {
+				//rename an existing Resource
+				Shell oShell = new Shell();
+				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "Property's name");
+				if(oSimpleDialogBox.open() == Window.OK){
+					Resource oResource = oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0]));
+					oResource.getHasProperty().get(getPropertyIndexByName(oResource, oPropertiesList.getSelection()[0])).setName(oSimpleDialogBox.getArtefactName());;
+					oPropertiesList.remove(oPropertiesList.getSelectionIndex());
+					oPropertiesList.add(oSimpleDialogBox.getArtefactName());
+					oPropertiesList.setSelection(oPropertiesList.indexOf(oSimpleDialogBox.getArtefactName()));
+				}
+				setPageComplete(isPageCompleted());
+				updateWidgetStatus();
+			}});
+	}
+	
+	private int getPropertyIndexByName(Resource oResource, String strPropertyName){
+		for(int n = 0; n < oResource.getHasProperty().size(); n++){
+			if(oResource.getHasProperty().get(n).getName().equalsIgnoreCase(strPropertyName)){
+				return n;
+			}
+		}
+		return -1; //throw exception in production code
+	}
+
 	private void addUnrelatedResourceListListener() {
 		this.oUnrelatedResourcesList.addSelectionListener(new SelectionListener(){
 
@@ -971,7 +1033,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		
 		return null; //throw exception in production code
 	}
-	
+		
 	private int getResourceRepresentationIndex(Resource oResource, MediaType oMediaType, boolean bIsInputMediaType){
 		for(int n = 0; n < (bIsInputMediaType == true ? oResource.getHasInputRepresentation().size() : oResource.getHasOutputRepresentation().size()); n++){
 			if(oMediaType == (bIsInputMediaType == true ? 
@@ -1070,10 +1132,12 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		if(this.oResourceList.getSelectionIndex() != -1){
 			this.oResourceIsAlgorithmicButton.setEnabled(true);
 			this.oDeleteResourceButton.setEnabled(true);
+			this.btnRenameResource.setEnabled(true);
 		}
 		else{
 			this.oResourceIsAlgorithmicButton.setEnabled(false);
 			this.oDeleteResourceButton.setEnabled(false);
+			this.btnRenameResource.setEnabled(false);
 		}
 	}
 
@@ -1119,9 +1183,11 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		
 		if(this.oPropertiesList.getSelectionIndex() != -1){
 			this.oDeletePropertyButton.setEnabled(true);
+			this.btnRenameProperty.setEnabled(true);
 		}
 		else{
 			this.oDeletePropertyButton.setEnabled(false);
+			this.btnRenameProperty.setEnabled(false);
 		}
 	}
 
