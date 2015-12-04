@@ -202,6 +202,24 @@ public interface ExternalServiceLayerPSMFactory extends EFactory {
 	ExistentJavaModelPersistentOutput createExistentJavaModelPersistentOutput();
 
 	/**
+	 * Returns a new object of class '<em>Complex Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Complex Type</em>'.
+	 * @generated
+	 */
+	ComplexType createComplexType();
+
+	/**
+	 * Returns a new object of class '<em>Complex Type Property</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Complex Type Property</em>'.
+	 * @generated
+	 */
+	ComplexTypeProperty createComplexTypeProperty();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

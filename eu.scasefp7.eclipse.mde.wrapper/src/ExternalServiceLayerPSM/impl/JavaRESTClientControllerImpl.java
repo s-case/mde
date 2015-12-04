@@ -3,18 +3,26 @@
 package ExternalServiceLayerPSM.impl;
 
 import ExternalServiceLayerPSM.AnnJavaAlgoController;
+import ExternalServiceLayerPSM.ComplexType;
 import ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage;
 import ExternalServiceLayerPSM.JavaRESTClientController;
 import ExternalServiceLayerPSM.JavaRESTClientHTTPActivity;
 import ExternalServiceLayerPSM.JavaRESTClientModel;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,6 +34,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientControllerImpl#getHasJavaRESTClientHTTPActivity <em>Has Java REST Client HTTP Activity</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientControllerImpl#getIsJavaRESTClientController <em>Is Java REST Client Controller</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientControllerImpl#getHasAssociatedModel <em>Has Associated Model</em>}</li>
+ *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientControllerImpl#getHasComplexTypes <em>Has Complex Types</em>}</li>
  * </ul>
  * </p>
  *
@@ -61,6 +70,16 @@ public class JavaRESTClientControllerImpl extends AnnotationImpl implements Java
 	 * @ordered
 	 */
 	protected JavaRESTClientModel hasAssociatedModel;
+
+	/**
+	 * The cached value of the '{@link #getHasComplexTypes() <em>Has Complex Types</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHasComplexTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ComplexType> hasComplexTypes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -205,11 +224,25 @@ public class JavaRESTClientControllerImpl extends AnnotationImpl implements Java
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ComplexType> getHasComplexTypes() {
+		if (hasComplexTypes == null) {
+			hasComplexTypes = new EObjectContainmentEList<ComplexType>(ComplexType.class, this, ExternalServiceLayerPSMPackage.JAVA_REST_CLIENT_CONTROLLER__HAS_COMPLEX_TYPES);
+		}
+		return hasComplexTypes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ExternalServiceLayerPSMPackage.JAVA_REST_CLIENT_CONTROLLER__HAS_JAVA_REST_CLIENT_HTTP_ACTIVITY:
 				return basicSetHasJavaRESTClientHTTPActivity(null, msgs);
+			case ExternalServiceLayerPSMPackage.JAVA_REST_CLIENT_CONTROLLER__HAS_COMPLEX_TYPES:
+				return ((InternalEList<?>)getHasComplexTypes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -230,6 +263,8 @@ public class JavaRESTClientControllerImpl extends AnnotationImpl implements Java
 			case ExternalServiceLayerPSMPackage.JAVA_REST_CLIENT_CONTROLLER__HAS_ASSOCIATED_MODEL:
 				if (resolve) return getHasAssociatedModel();
 				return basicGetHasAssociatedModel();
+			case ExternalServiceLayerPSMPackage.JAVA_REST_CLIENT_CONTROLLER__HAS_COMPLEX_TYPES:
+				return getHasComplexTypes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -239,6 +274,7 @@ public class JavaRESTClientControllerImpl extends AnnotationImpl implements Java
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -250,6 +286,10 @@ public class JavaRESTClientControllerImpl extends AnnotationImpl implements Java
 				return;
 			case ExternalServiceLayerPSMPackage.JAVA_REST_CLIENT_CONTROLLER__HAS_ASSOCIATED_MODEL:
 				setHasAssociatedModel((JavaRESTClientModel)newValue);
+				return;
+			case ExternalServiceLayerPSMPackage.JAVA_REST_CLIENT_CONTROLLER__HAS_COMPLEX_TYPES:
+				getHasComplexTypes().clear();
+				getHasComplexTypes().addAll((Collection<? extends ComplexType>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -272,6 +312,9 @@ public class JavaRESTClientControllerImpl extends AnnotationImpl implements Java
 			case ExternalServiceLayerPSMPackage.JAVA_REST_CLIENT_CONTROLLER__HAS_ASSOCIATED_MODEL:
 				setHasAssociatedModel((JavaRESTClientModel)null);
 				return;
+			case ExternalServiceLayerPSMPackage.JAVA_REST_CLIENT_CONTROLLER__HAS_COMPLEX_TYPES:
+				getHasComplexTypes().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -290,6 +333,8 @@ public class JavaRESTClientControllerImpl extends AnnotationImpl implements Java
 				return isJavaRESTClientController != null;
 			case ExternalServiceLayerPSMPackage.JAVA_REST_CLIENT_CONTROLLER__HAS_ASSOCIATED_MODEL:
 				return hasAssociatedModel != null;
+			case ExternalServiceLayerPSMPackage.JAVA_REST_CLIENT_CONTROLLER__HAS_COMPLEX_TYPES:
+				return hasComplexTypes != null && !hasComplexTypes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

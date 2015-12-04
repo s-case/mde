@@ -76,6 +76,8 @@ public class ExternalServiceLayerPSMFactoryImpl extends EFactoryImpl implements 
 			case ExternalServiceLayerPSMPackage.NON_PERSISTENT_OUTPUT: return createNonPersistentOutput();
 			case ExternalServiceLayerPSMPackage.AUTO_PERSISTENT_OUTPUT: return createAutoPersistentOutput();
 			case ExternalServiceLayerPSMPackage.EXISTENT_JAVA_MODEL_PERSISTENT_OUTPUT: return createExistentJavaModelPersistentOutput();
+			case ExternalServiceLayerPSMPackage.COMPLEX_TYPE: return createComplexType();
+			case ExternalServiceLayerPSMPackage.COMPLEX_TYPE_PROPERTY: return createComplexTypeProperty();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -279,6 +281,26 @@ public class ExternalServiceLayerPSMFactoryImpl extends EFactoryImpl implements 
 	public ExistentJavaModelPersistentOutput createExistentJavaModelPersistentOutput() {
 		ExistentJavaModelPersistentOutputImpl existentJavaModelPersistentOutput = new ExistentJavaModelPersistentOutputImpl();
 		return existentJavaModelPersistentOutput;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComplexType createComplexType() {
+		ComplexTypeImpl complexType = new ComplexTypeImpl();
+		return complexType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComplexTypeProperty createComplexTypeProperty() {
+		ComplexTypePropertyImpl complexTypeProperty = new ComplexTypePropertyImpl();
+		return complexTypeProperty;
 	}
 
 	/**

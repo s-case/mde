@@ -178,11 +178,41 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
         ClientResponse oResponse = oTargetResource[if (jAlgoResourceController.getJavaRESTClientControllerAnnotation(anAnnotationStack, jAlgoResourceController).hasAssociatedModel.hasJavaInputModel.oclIsUndefined() = false)].type(javax.ws.rs.core.MediaType.[jAlgoResourceController.getJavaRESTClientControllerAnnotation(anAnnotationStack, jAlgoResourceController).hasAssociatedModel.hasJavaInputModel.hasInputRepresentation.name/])[/if][if (jAlgoResourceController.getJavaRESTClientControllerAnnotation(anAnnotationStack, jAlgoResourceController).hasAssociatedModel.hasJavaOutputModel.oclIsUndefined() = false)].accept(javax.ws.rs.core.MediaType.[jAlgoResourceController.getJavaRESTClientControllerAnnotation(anAnnotationStack, jAlgoResourceController).hasAssociatedModel.hasJavaOutputModel.hasOutputRepresentation.name/])[/if].[jAlgoResourceController.getJavaRESTClientHTTPActivityHandler(anAnnotationStack).HTTPVerb.toLower()/](ClientResponse.class[if (jAlgoResourceController.getJavaRESTClientControllerAnnotation(anAnnotationStack, jAlgoResourceController).hasAssociatedModel.hasJavaInputModel.oclIsUndefined() = false)], this.o[jAlgoResourceController.hasAssociatedAlgoModel.name/][/if]);
         this.oOutputDataModel = oResponse.getEntity([if (jAlgoResourceController.hasNoOutputModel(anAnnotationStack) = false)][if (jAlgoResourceController.hasExistentCRUDResourceOutputModel(anAnnotationStack))][jAlgoResourceController.getExistentCRUDResourceOutputModelAsString(anAnnotationStack)/][else]Java[jAlgoResourceController.parentName.toUpperFirst()/]OutputModel[/if][else]Java[jAlgoResourceController.parentName.toUpperFirst()/]OutputModel[/if].class);
 
-        if (oResponse.getStatus() != 200) {
+        if (isSuccessfullResponseCode(oResponse) == false) {
             throw new WebApplicationException();
         }	
 
 		return this.oOutputDataModel;
+	}
+
+	/*
+	 * This function checks the response code of the server reply against the known success codes. If the server response HTTP
+     * code is within the success code range, this functions returns true. Otherwise it returns false
+	*/
+	private boolean isSuccessfullResponseCode(ClientResponse oResponse){
+		if(oResponse.getStatus() == 200){ // Status OK
+			return true;
+		}
+		else if(oResponse.getStatus() == 201){ // Status CREATED
+			return true;
+		}
+		else if(oResponse.getStatus() == 202){ // Status Accepted
+			return true;
+		}
+		else if(oResponse.getStatus() == 203){ // Status NON-AUTHORITATIVE INFORMATION
+			return true;
+		}
+		else if(oResponse.getStatus() == 204){ // Status NO CONTENT
+			return true;
+		}
+		else if(oResponse.getStatus() == 205){ // Status RESET CONTENT
+			return true;
+		}
+		else if(oResponse.getStatus() == 206){ // Status PARTIAL CONTENT
+			return true;
+		}
+
+		return false;
 	}
 	
 }

@@ -27,6 +27,10 @@
         eType="#//TargetRESTService" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="isRESTClientResource" lowerBound="1"
         eType="#//AnnAlgoResource"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasPathParam" upperBound="-1"
+        eType="#//PathParam" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="isRESTClientComplexType"
+        upperBound="-1" eType="#//ComplexType" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TargetRESTService">
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasQueryParam" upperBound="-1"
@@ -43,6 +47,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="QueryParam">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isAuthToken" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="authTokenToURL" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InputDataModel">
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasInputRepresentation"
@@ -60,15 +66,34 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelProperty">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isUnique" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasPrimitiveType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasComplexType" eType="#//ComplexType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NonPersistentOutput" eSuperTypes="#//OutputDataModel"/>
   <eClassifiers xsi:type="ecore:EClass" name="AutoPersistentOutput" eSuperTypes="#//OutputDataModel"/>
   <eClassifiers xsi:type="ecore:EClass" name="ExistentCRUDPersistentOutput" eSuperTypes="#//OutputDataModel">
     <eStructuralFeatures xsi:type="ecore:EReference" name="isExistentCRUDPersistentOutput"
         lowerBound="1" eType="#//AnnCRUDResource"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComplexType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="complexTypeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasComplexTypeProperties"
+        lowerBound="1" upperBound="-1" eType="#//ComplexTypeProperty" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComplexTypeProperty">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isUnique" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasPrimitiveType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyHasComplexType"
+        eType="#//ComplexType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PathParam">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

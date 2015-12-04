@@ -8,6 +8,8 @@ import ExternalServiceLayerCIM.AnnotatedElement;
 import ExternalServiceLayerCIM.Annotation;
 import ExternalServiceLayerCIM.AnnotationModel;
 import ExternalServiceLayerCIM.AutoPersistentOutput;
+import ExternalServiceLayerCIM.ComplexType;
+import ExternalServiceLayerCIM.ComplexTypeProperty;
 import ExternalServiceLayerCIM.ExistentCRUDPersistentOutput;
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMFactory;
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage;
@@ -15,6 +17,7 @@ import ExternalServiceLayerCIM.InputDataModel;
 import ExternalServiceLayerCIM.ModelProperty;
 import ExternalServiceLayerCIM.NonPersistentOutput;
 import ExternalServiceLayerCIM.OutputDataModel;
+import ExternalServiceLayerCIM.PathParam;
 import ExternalServiceLayerCIM.QueryParam;
 import ExternalServiceLayerCIM.RESTClientResource;
 import ExternalServiceLayerCIM.Representation;
@@ -142,6 +145,27 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 	 * @generated
 	 */
 	private EClass existentCRUDPersistentOutputEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass complexTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass complexTypePropertyEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pathParamEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -331,6 +355,24 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getRESTClientResource_HasPathParam() {
+		return (EReference)restClientResourceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRESTClientResource_IsRESTClientComplexType() {
+		return (EReference)restClientResourceEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTargetRESTService() {
 		return targetRESTServiceEClass;
 	}
@@ -405,6 +447,24 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 	 */
 	public EAttribute getQueryParam_Type() {
 		return (EAttribute)queryParamEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getQueryParam_IsAuthToken() {
+		return (EAttribute)queryParamEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getQueryParam_AuthTokenToURL() {
+		return (EAttribute)queryParamEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -493,7 +553,7 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getModelProperty_Type() {
+	public EAttribute getModelProperty_Name() {
 		return (EAttribute)modelPropertyEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -502,7 +562,7 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getModelProperty_Name() {
+	public EAttribute getModelProperty_IsUnique() {
 		return (EAttribute)modelPropertyEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -511,8 +571,26 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getModelProperty_IsUnique() {
+	public EAttribute getModelProperty_Type() {
 		return (EAttribute)modelPropertyEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getModelProperty_HasPrimitiveType() {
+		return (EAttribute)modelPropertyEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getModelProperty_HasComplexType() {
+		return (EReference)modelPropertyEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -549,6 +627,114 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 	 */
 	public EReference getExistentCRUDPersistentOutput_IsExistentCRUDPersistentOutput() {
 		return (EReference)existentCRUDPersistentOutputEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getComplexType() {
+		return complexTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComplexType_ComplexTypeName() {
+		return (EAttribute)complexTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getComplexType_HasComplexTypeProperties() {
+		return (EReference)complexTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getComplexTypeProperty() {
+		return complexTypePropertyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComplexTypeProperty_Name() {
+		return (EAttribute)complexTypePropertyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComplexTypeProperty_IsUnique() {
+		return (EAttribute)complexTypePropertyEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComplexTypeProperty_Type() {
+		return (EAttribute)complexTypePropertyEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComplexTypeProperty_HasPrimitiveType() {
+		return (EAttribute)complexTypePropertyEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getComplexTypeProperty_PropertyHasComplexType() {
+		return (EReference)complexTypePropertyEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPathParam() {
+		return pathParamEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPathParam_Name() {
+		return (EAttribute)pathParamEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPathParam_Type() {
+		return (EAttribute)pathParamEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -597,6 +783,8 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 		restClientResourceEClass = createEClass(REST_CLIENT_RESOURCE);
 		createEReference(restClientResourceEClass, REST_CLIENT_RESOURCE__TARGETS_SERVICE);
 		createEReference(restClientResourceEClass, REST_CLIENT_RESOURCE__IS_REST_CLIENT_RESOURCE);
+		createEReference(restClientResourceEClass, REST_CLIENT_RESOURCE__HAS_PATH_PARAM);
+		createEReference(restClientResourceEClass, REST_CLIENT_RESOURCE__IS_REST_CLIENT_COMPLEX_TYPE);
 
 		targetRESTServiceEClass = createEClass(TARGET_REST_SERVICE);
 		createEReference(targetRESTServiceEClass, TARGET_REST_SERVICE__HAS_QUERY_PARAM);
@@ -608,6 +796,8 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 		queryParamEClass = createEClass(QUERY_PARAM);
 		createEAttribute(queryParamEClass, QUERY_PARAM__NAME);
 		createEAttribute(queryParamEClass, QUERY_PARAM__TYPE);
+		createEAttribute(queryParamEClass, QUERY_PARAM__IS_AUTH_TOKEN);
+		createEAttribute(queryParamEClass, QUERY_PARAM__AUTH_TOKEN_TO_URL);
 
 		inputDataModelEClass = createEClass(INPUT_DATA_MODEL);
 		createEReference(inputDataModelEClass, INPUT_DATA_MODEL__HAS_INPUT_REPRESENTATION);
@@ -621,9 +811,11 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 		createEAttribute(representationEClass, REPRESENTATION__NAME);
 
 		modelPropertyEClass = createEClass(MODEL_PROPERTY);
-		createEAttribute(modelPropertyEClass, MODEL_PROPERTY__TYPE);
 		createEAttribute(modelPropertyEClass, MODEL_PROPERTY__NAME);
 		createEAttribute(modelPropertyEClass, MODEL_PROPERTY__IS_UNIQUE);
+		createEAttribute(modelPropertyEClass, MODEL_PROPERTY__TYPE);
+		createEAttribute(modelPropertyEClass, MODEL_PROPERTY__HAS_PRIMITIVE_TYPE);
+		createEReference(modelPropertyEClass, MODEL_PROPERTY__HAS_COMPLEX_TYPE);
 
 		nonPersistentOutputEClass = createEClass(NON_PERSISTENT_OUTPUT);
 
@@ -631,6 +823,21 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 
 		existentCRUDPersistentOutputEClass = createEClass(EXISTENT_CRUD_PERSISTENT_OUTPUT);
 		createEReference(existentCRUDPersistentOutputEClass, EXISTENT_CRUD_PERSISTENT_OUTPUT__IS_EXISTENT_CRUD_PERSISTENT_OUTPUT);
+
+		complexTypeEClass = createEClass(COMPLEX_TYPE);
+		createEAttribute(complexTypeEClass, COMPLEX_TYPE__COMPLEX_TYPE_NAME);
+		createEReference(complexTypeEClass, COMPLEX_TYPE__HAS_COMPLEX_TYPE_PROPERTIES);
+
+		complexTypePropertyEClass = createEClass(COMPLEX_TYPE_PROPERTY);
+		createEAttribute(complexTypePropertyEClass, COMPLEX_TYPE_PROPERTY__NAME);
+		createEAttribute(complexTypePropertyEClass, COMPLEX_TYPE_PROPERTY__IS_UNIQUE);
+		createEAttribute(complexTypePropertyEClass, COMPLEX_TYPE_PROPERTY__TYPE);
+		createEAttribute(complexTypePropertyEClass, COMPLEX_TYPE_PROPERTY__HAS_PRIMITIVE_TYPE);
+		createEReference(complexTypePropertyEClass, COMPLEX_TYPE_PROPERTY__PROPERTY_HAS_COMPLEX_TYPE);
+
+		pathParamEClass = createEClass(PATH_PARAM);
+		createEAttribute(pathParamEClass, PATH_PARAM__NAME);
+		createEAttribute(pathParamEClass, PATH_PARAM__TYPE);
 	}
 
 	/**
@@ -690,6 +897,8 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 		initEClass(restClientResourceEClass, RESTClientResource.class, "RESTClientResource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getRESTClientResource_TargetsService(), this.getTargetRESTService(), null, "targetsService", null, 1, 1, RESTClientResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRESTClientResource_IsRESTClientResource(), this.getAnnAlgoResource(), null, "isRESTClientResource", null, 1, 1, RESTClientResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRESTClientResource_HasPathParam(), this.getPathParam(), null, "hasPathParam", null, 0, -1, RESTClientResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRESTClientResource_IsRESTClientComplexType(), this.getComplexType(), null, "isRESTClientComplexType", null, 0, -1, RESTClientResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(targetRESTServiceEClass, TargetRESTService.class, "TargetRESTService", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTargetRESTService_HasQueryParam(), this.getQueryParam(), null, "hasQueryParam", null, 0, -1, TargetRESTService.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -701,6 +910,8 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 		initEClass(queryParamEClass, QueryParam.class, "QueryParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getQueryParam_Name(), ecorePackage.getEString(), "name", null, 1, 1, QueryParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getQueryParam_Type(), ecorePackage.getEString(), "type", null, 1, 1, QueryParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getQueryParam_IsAuthToken(), ecorePackage.getEBoolean(), "isAuthToken", null, 0, 1, QueryParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getQueryParam_AuthTokenToURL(), ecorePackage.getEString(), "authTokenToURL", null, 0, 1, QueryParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(inputDataModelEClass, InputDataModel.class, "InputDataModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getInputDataModel_HasInputRepresentation(), this.getRepresentation(), null, "hasInputRepresentation", null, 1, 1, InputDataModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -714,9 +925,11 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 		initEAttribute(getRepresentation_Name(), ecorePackage.getEString(), "name", null, 1, 1, Representation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelPropertyEClass, ModelProperty.class, "ModelProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getModelProperty_Type(), ecorePackage.getEString(), "type", null, 1, 1, ModelProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModelProperty_Name(), ecorePackage.getEString(), "name", null, 1, 1, ModelProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModelProperty_IsUnique(), ecorePackage.getEBoolean(), "isUnique", null, 1, 1, ModelProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getModelProperty_Type(), ecorePackage.getEString(), "type", null, 0, 1, ModelProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getModelProperty_HasPrimitiveType(), ecorePackage.getEBoolean(), "hasPrimitiveType", null, 0, 1, ModelProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelProperty_HasComplexType(), this.getComplexType(), null, "hasComplexType", null, 0, 1, ModelProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nonPersistentOutputEClass, NonPersistentOutput.class, "NonPersistentOutput", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -724,6 +937,21 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 
 		initEClass(existentCRUDPersistentOutputEClass, ExistentCRUDPersistentOutput.class, "ExistentCRUDPersistentOutput", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExistentCRUDPersistentOutput_IsExistentCRUDPersistentOutput(), this.getAnnCRUDResource(), null, "isExistentCRUDPersistentOutput", null, 1, 1, ExistentCRUDPersistentOutput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(complexTypeEClass, ComplexType.class, "ComplexType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getComplexType_ComplexTypeName(), ecorePackage.getEString(), "complexTypeName", null, 0, 1, ComplexType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComplexType_HasComplexTypeProperties(), this.getComplexTypeProperty(), null, "hasComplexTypeProperties", null, 1, -1, ComplexType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(complexTypePropertyEClass, ComplexTypeProperty.class, "ComplexTypeProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getComplexTypeProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, ComplexTypeProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComplexTypeProperty_IsUnique(), ecorePackage.getEBoolean(), "isUnique", null, 0, 1, ComplexTypeProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComplexTypeProperty_Type(), ecorePackage.getEString(), "type", null, 0, 1, ComplexTypeProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComplexTypeProperty_HasPrimitiveType(), ecorePackage.getEBoolean(), "hasPrimitiveType", null, 0, 1, ComplexTypeProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComplexTypeProperty_PropertyHasComplexType(), this.getComplexType(), null, "propertyHasComplexType", null, 0, 1, ComplexTypeProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pathParamEClass, PathParam.class, "PathParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPathParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, PathParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPathParam_Type(), ecorePackage.getEString(), "type", null, 0, 1, PathParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

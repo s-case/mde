@@ -114,13 +114,13 @@ public class MDETopLevelUI extends ScrolledComposite {
 		new Label(oYamlFileGrid, SWT.NONE);
 		
 		//TODO remove the following lines in production code
-//		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts/RESTMarks.yml");
-//		this.oWSNameText.setText("RESTTest");
-//		this.oMDEOutputText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts");
-//		this.oDatabaseIPText.setText("localhost");
-//		this.oDatabasePortText.setText("3127");
-//		this.oDatabaseUsernameText.setText("postgres");
-//		this.oDatabasePasswordText.setText("fp7s-case");
+		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts/CompositionAuto.yml");
+		this.oWSNameText.setText("CompositionTest");
+		this.oMDEOutputText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts");
+		this.oDatabaseIPText.setText("localhost");
+		this.oDatabasePortText.setText("3127");
+		this.oDatabaseUsernameText.setText("postgres");
+		this.oDatabasePasswordText.setText("fp7s-case");
 //		this.oDatabaseSearchingCheckBoxButton.setSelection(false);
 		this.oAuthorizationCheckBoxButton.setEnabled(false);
 //		this.oAuthenticationCheckBoxButton.setSelection(true);

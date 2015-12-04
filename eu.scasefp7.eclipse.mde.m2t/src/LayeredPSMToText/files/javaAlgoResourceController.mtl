@@ -2,6 +2,7 @@
 [module javaAlgoResourceController('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/ExternalServiceLayerPSMMetamodel.ecore')]
 
 [import LayeredPSMToText::files::javaRESTClientController /]
+[import LayeredPSMToText::files::javaComplexTypesDefinitions /]
 
 [template public javaAlgoResourceController(anAnnotationStack : AnnotationStack)]
 
@@ -10,6 +11,7 @@
 [if(anAnnotationStack.bHasExternalServiceLayer)]
 [if(jAlgoRController.isJavaRESTClientController(anAnnotationStack))]
 [javaRESTClientController(anAnnotationStack, jAlgoRController)/]
+[javaComplexTypesDefinitions(anAnnotationStack, jAlgoRController)/]
 [else]
 [javaAlgoResourceController(anAnnotationStack, jAlgoRController)/]
 [/if]

@@ -169,8 +169,38 @@ unique lazy rule createJavaRESTClientController{
 		JavaRESTClientController : EXTPSMOUT!JavaRESTClientController(
 			isJavaRESTClientController <- thisModule.createAnnJavaAlgoController(RESTClientController.isRESTClientController),
 			hasAssociatedModel <- thisModule.createJavaRESTClientModel(RESTClientController.hasAssociatedClientModel),
-			hasJavaRESTClientHTTPActivity <- thisModule.createJavaRESTClientHTTPActivity(RESTClientController.hasRESTClientCRUDActivity)
+			hasJavaRESTClientHTTPActivity <- thisModule.createJavaRESTClientHTTPActivity(RESTClientController.hasRESTClientCRUDActivity),
+			hasComplexTypes <- RESTClientController.hasComplexTypes->collect(complexType | thisModule.createComplexType(complexType))
 		)
+}
+
+unique lazy rule createComplexType{
+	from
+		PIMComplexType : EXTPIMIN!ComplexType
+	to
+		ComplexType : EXTPSMOUT!ComplexType(
+			complexTypeName <- PIMComplexType.complexTypeName,
+			hasComplexTypeProperties <- PIMComplexType.hasComplexTypeProperties->collect(complexTypeProperty | thisModule.createComplexTypeProperty(complexTypeProperty))
+		)
+}
+
+unique lazy rule createComplexTypeProperty{
+	from
+		PIMComplexTypeProperty : EXTPIMIN!ComplexTypeProperty
+	to
+		ComplexTypeProperty : EXTPSMOUT!ComplexTypeProperty(
+			name <- PIMComplexTypeProperty.name,
+			isUnique <- PIMComplexTypeProperty.isUnique,
+			type <- PIMComplexTypeProperty.type,
+			hasPrimitiveType <- PIMComplexTypeProperty.hasPrimitiveType
+		)
+	do{
+		if (PIMComplexTypeProperty.propertyHasComplexType.oclIsUndefined() = false){
+			ComplexTypeProperty.propertyHasComplexType <- thisModule.createComplexType(PIMComplexTypeProperty.propertyHasComplexType);
+		}
+
+		ComplexTypeProperty;
+	}
 }
 
 unique lazy rule createJavaRESTClientHTTPActivity{
@@ -201,7 +231,9 @@ unique lazy rule createQueryParam{
 	to
 		PSMQueryParam : EXTPSMOUT!QueryParam(
 			name <- PIMQueryParam.name,
-			type <- PIMQueryParam.type
+			type <- PIMQueryParam.type,
+			isAuthToken <- PIMQueryParam.isAuthToken,
+			authTokenToURL <- PIMQueryParam.authTokenToURL
 		)
 }
 
@@ -277,8 +309,16 @@ unique lazy rule createProperty{
 		PSMProperty : EXTPSMOUT!Property(
 			name <- PIMProperty.name,
 			type <- PIMProperty.type,
-			isUnique <- PIMProperty.isUnique
+			isUnique <- PIMProperty.isUnique,
+			hasPrimitiveType <- PIMProperty.hasPrimitiveType
 		)
+	do{
+		if (PIMProperty.hasComplexType.oclIsUndefined() = false){
+			PSMProperty.hasComplexType <- thisModule.createComplexType(PIMProperty.hasComplexType);
+		}
+
+		PSMProperty;
+	}
 }
 
 unique lazy rule createRepresentation{

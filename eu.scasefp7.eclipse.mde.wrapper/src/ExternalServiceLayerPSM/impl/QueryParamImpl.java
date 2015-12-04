@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.impl.QueryParamImpl#getName <em>Name</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.QueryParamImpl#getType <em>Type</em>}</li>
+ *   <li>{@link ExternalServiceLayerPSM.impl.QueryParamImpl#isIsAuthToken <em>Is Auth Token</em>}</li>
+ *   <li>{@link ExternalServiceLayerPSM.impl.QueryParamImpl#getAuthTokenToURL <em>Auth Token To URL</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,6 +68,46 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 	 * @ordered
 	 */
 	protected String type = TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isIsAuthToken() <em>Is Auth Token</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIsAuthToken()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean IS_AUTH_TOKEN_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isIsAuthToken() <em>Is Auth Token</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIsAuthToken()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean isAuthToken = IS_AUTH_TOKEN_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getAuthTokenToURL() <em>Auth Token To URL</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAuthTokenToURL()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String AUTH_TOKEN_TO_URL_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getAuthTokenToURL() <em>Auth Token To URL</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAuthTokenToURL()
+	 * @generated
+	 * @ordered
+	 */
+	protected String authTokenToURL = AUTH_TOKEN_TO_URL_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -133,6 +175,48 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isIsAuthToken() {
+		return isAuthToken;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIsAuthToken(boolean newIsAuthToken) {
+		boolean oldIsAuthToken = isAuthToken;
+		isAuthToken = newIsAuthToken;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerPSMPackage.QUERY_PARAM__IS_AUTH_TOKEN, oldIsAuthToken, isAuthToken));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getAuthTokenToURL() {
+		return authTokenToURL;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAuthTokenToURL(String newAuthTokenToURL) {
+		String oldAuthTokenToURL = authTokenToURL;
+		authTokenToURL = newAuthTokenToURL;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerPSMPackage.QUERY_PARAM__AUTH_TOKEN_TO_URL, oldAuthTokenToURL, authTokenToURL));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -140,6 +224,10 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 				return getName();
 			case ExternalServiceLayerPSMPackage.QUERY_PARAM__TYPE:
 				return getType();
+			case ExternalServiceLayerPSMPackage.QUERY_PARAM__IS_AUTH_TOKEN:
+				return isIsAuthToken();
+			case ExternalServiceLayerPSMPackage.QUERY_PARAM__AUTH_TOKEN_TO_URL:
+				return getAuthTokenToURL();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -157,6 +245,12 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 				return;
 			case ExternalServiceLayerPSMPackage.QUERY_PARAM__TYPE:
 				setType((String)newValue);
+				return;
+			case ExternalServiceLayerPSMPackage.QUERY_PARAM__IS_AUTH_TOKEN:
+				setIsAuthToken((Boolean)newValue);
+				return;
+			case ExternalServiceLayerPSMPackage.QUERY_PARAM__AUTH_TOKEN_TO_URL:
+				setAuthTokenToURL((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -176,6 +270,12 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 			case ExternalServiceLayerPSMPackage.QUERY_PARAM__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
+			case ExternalServiceLayerPSMPackage.QUERY_PARAM__IS_AUTH_TOKEN:
+				setIsAuthToken(IS_AUTH_TOKEN_EDEFAULT);
+				return;
+			case ExternalServiceLayerPSMPackage.QUERY_PARAM__AUTH_TOKEN_TO_URL:
+				setAuthTokenToURL(AUTH_TOKEN_TO_URL_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -192,6 +292,10 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ExternalServiceLayerPSMPackage.QUERY_PARAM__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+			case ExternalServiceLayerPSMPackage.QUERY_PARAM__IS_AUTH_TOKEN:
+				return isAuthToken != IS_AUTH_TOKEN_EDEFAULT;
+			case ExternalServiceLayerPSMPackage.QUERY_PARAM__AUTH_TOKEN_TO_URL:
+				return AUTH_TOKEN_TO_URL_EDEFAULT == null ? authTokenToURL != null : !AUTH_TOKEN_TO_URL_EDEFAULT.equals(authTokenToURL);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -210,6 +314,10 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 		result.append(name);
 		result.append(", type: ");
 		result.append(type);
+		result.append(", isAuthToken: ");
+		result.append(isAuthToken);
+		result.append(", authTokenToURL: ");
+		result.append(authTokenToURL);
 		result.append(')');
 		return result.toString();
 	}

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Class representing a resource object.
  * 
- * @author themis
+ * @author themis, Christoforos
  */
 public class YamlResource {
 
@@ -18,6 +18,9 @@ public class YamlResource {
 
 	/** A boolean denoting if this resource is algorithmic or not. */
 	public boolean IsAlgorithmic;
+	
+	/** A boolean denoting if this resource is algorithmic or not. */
+	public boolean IsExternalService;
 
 	/** A list of the available crud activities (note that this cannot be a set since sets are not serialized in YAML). */
 	public ArrayList<String> CRUDActivities;
@@ -33,9 +36,30 @@ public class YamlResource {
 
 	/** The output representation of this resource. */
 	public String OutputRepresentation;
+	
+	public String TargetServiceURL;
+	
+	public String TargetServicePath;
+	
+	public String TargetServiceWSType;
+	
+	public String TargetServiceCRUDVerb;
+	
+	public String TargetServiceResponseType;
+	
+	public ArrayList<YamlTargetServiceParameter> TargetServiceURIParameters;
+
+	public ArrayList<YamlTargetServiceParameter> TargetServiceQueryParameters;
+
+	public ArrayList<YamlTargetServiceParameter> TargetServiceInputProperties;
+	
+	public ArrayList<YamlTargetServiceParameter> TargetServiceOutputProperties;
+	
+	public ArrayList<YamlComplexType> TargetServiceComplexTypes;
+	
 
 	/**
-	 * Empty constructor. This is required for instatiating/serializing using {@link org.yaml.snakeyaml.Yaml Yaml}.
+	 * Empty constructor. This is required for instantiating/serializing using {@link org.yaml.snakeyaml.Yaml Yaml}.
 	 */
 	public YamlResource() {
 
@@ -110,9 +134,18 @@ public class YamlResource {
 	@Override
 	public String toString() {
 		String all = "Resource:\n" + "Name: " + Name + "\n" + "IsAlgorithmic: " + IsAlgorithmic + "\n"
+				+ "IsExternalService " + IsExternalService + "\n" 
 				+ "CRUDActivities: " + Arrays.asList(CRUDActivities) + "\n" + "InputRepresentation: "
 				+ InputRepresentation + "\n" + "OutputRepresentation: " + OutputRepresentation + "\n" + "Properties: "
-				+ Arrays.asList(Properties) + "\n" + "RelatedResources: " + Arrays.asList(RelatedResources);
+				+ Arrays.asList(Properties) + "\n" + "RelatedResources: " + Arrays.asList(RelatedResources)
+				+ "TargetServiceURL " + TargetServiceURL + "\n" + "TargetServicePath" + TargetServicePath + "\n"
+				+ "TargetServiceWSType " + TargetServiceWSType + "\n" + "TargetServiceCRUDVerb " + TargetServiceCRUDVerb + "\n" 
+				+ "TargetServiceResponseType " + TargetServiceResponseType + "\n"
+				+ "TargetServiceURIParameters: " + Arrays.asList(TargetServiceURIParameters) + "\n"
+				+ "TargetServiceQueryParameters: " + Arrays.asList(TargetServiceQueryParameters) + "\n"
+				+ "TargetServiceInputProperties: " + Arrays.asList(TargetServiceInputProperties) + "\n"
+				+ "TargetServiceOutputProperties: " + Arrays.asList(TargetServiceOutputProperties) + "\n"
+				+ "TargetServiceComplexTypes: " + Arrays.asList(TargetServiceComplexTypes) + "\n";
 		return all;
 	}
 
@@ -171,6 +204,10 @@ public class YamlResource {
 		return this.IsAlgorithmic;
 	}
 	
+	public boolean getIsExternalService(){
+		return this.IsExternalService;
+	}
+	
 	public ArrayList<String> getCRUDActivities(){
 		return this.CRUDActivities;
 	}
@@ -190,5 +227,46 @@ public class YamlResource {
 	public String getOutputRepresentation(){
 		return this.OutputRepresentation;
 	}
+	
+	public String getTargetServiceURL(){
+		return this.TargetServiceURL;
+	}
+	
+	public String getTargetServicePath(){
+		return this.TargetServicePath;
+	}
+	
+	public String getTargetServiceWSType(){
+		return this.TargetServiceWSType;
+	}
+	
+	public String getTargetServiceCRUDVerb(){
+		return this.TargetServiceCRUDVerb;
+	}
+	
+	public String getTargetServiceResponseType(){
+		return this.TargetServiceResponseType;
+	}
+	
+	public ArrayList<YamlTargetServiceParameter> getTargetServiceURIParameters(){
+		return this.TargetServiceURIParameters;
+	}
+
+	public ArrayList<YamlTargetServiceParameter> getTargetServiceQueryParameters(){
+		return this.TargetServiceQueryParameters;
+	}
+
+	public ArrayList<YamlTargetServiceParameter> getTargetServiceInputProperties(){
+		return this.TargetServiceInputProperties;
+	}
+	
+	public ArrayList<YamlTargetServiceParameter> getTargetServiceOutputProperties(){
+		return this.TargetServiceOutputProperties;
+	}
+	
+	public ArrayList<YamlComplexType> getTargetServiceComplexTypes(){
+		return this.TargetServiceComplexTypes;
+	}
+
 
 }

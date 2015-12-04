@@ -270,13 +270,31 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	int REST_CLIENT_RESOURCE__IS_REST_CLIENT_RESOURCE = ANNOTATION_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Has Path Param</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REST_CLIENT_RESOURCE__HAS_PATH_PARAM = ANNOTATION_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Is REST Client Complex Type</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REST_CLIENT_RESOURCE__IS_REST_CLIENT_COMPLEX_TYPE = ANNOTATION_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>REST Client Resource</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REST_CLIENT_RESOURCE_FEATURE_COUNT = ANNOTATION_FEATURE_COUNT + 2;
+	int REST_CLIENT_RESOURCE_FEATURE_COUNT = ANNOTATION_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>REST Client Resource</em>' class.
@@ -389,13 +407,31 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	int QUERY_PARAM__TYPE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Is Auth Token</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUERY_PARAM__IS_AUTH_TOKEN = 2;
+
+	/**
+	 * The feature id for the '<em><b>Auth Token To URL</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUERY_PARAM__AUTH_TOKEN_TO_URL = 3;
+
+	/**
 	 * The number of structural features of the '<em>Query Param</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int QUERY_PARAM_FEATURE_COUNT = 2;
+	int QUERY_PARAM_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Query Param</em>' class.
@@ -546,22 +582,13 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	int MODEL_PROPERTY = 11;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODEL_PROPERTY__TYPE = 0;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_PROPERTY__NAME = 1;
+	int MODEL_PROPERTY__NAME = 0;
 
 	/**
 	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
@@ -570,7 +597,34 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_PROPERTY__IS_UNIQUE = 2;
+	int MODEL_PROPERTY__IS_UNIQUE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_PROPERTY__TYPE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Has Primitive Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_PROPERTY__HAS_PRIMITIVE_TYPE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Has Complex Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_PROPERTY__HAS_COMPLEX_TYPE = 4;
 
 	/**
 	 * The number of structural features of the '<em>Model Property</em>' class.
@@ -579,7 +633,7 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_PROPERTY_FEATURE_COUNT = 3;
+	int MODEL_PROPERTY_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Model Property</em>' class.
@@ -737,6 +791,171 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	 */
 	int EXISTENT_CRUD_PERSISTENT_OUTPUT_OPERATION_COUNT = OUTPUT_DATA_MODEL_OPERATION_COUNT + 0;
 
+	/**
+	 * The meta object id for the '{@link ExternalServiceLayerCIM.impl.ComplexTypeImpl <em>Complex Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ExternalServiceLayerCIM.impl.ComplexTypeImpl
+	 * @see ExternalServiceLayerCIM.impl.ExternalServiceLayerCIMPackageImpl#getComplexType()
+	 * @generated
+	 */
+	int COMPLEX_TYPE = 15;
+
+	/**
+	 * The feature id for the '<em><b>Complex Type Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE__COMPLEX_TYPE_NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Has Complex Type Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE__HAS_COMPLEX_TYPE_PROPERTIES = 1;
+
+	/**
+	 * The number of structural features of the '<em>Complex Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Complex Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link ExternalServiceLayerCIM.impl.ComplexTypePropertyImpl <em>Complex Type Property</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ExternalServiceLayerCIM.impl.ComplexTypePropertyImpl
+	 * @see ExternalServiceLayerCIM.impl.ExternalServiceLayerCIMPackageImpl#getComplexTypeProperty()
+	 * @generated
+	 */
+	int COMPLEX_TYPE_PROPERTY = 16;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY__IS_UNIQUE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY__TYPE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Has Primitive Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY__HAS_PRIMITIVE_TYPE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Property Has Complex Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY__PROPERTY_HAS_COMPLEX_TYPE = 4;
+
+	/**
+	 * The number of structural features of the '<em>Complex Type Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY_FEATURE_COUNT = 5;
+
+	/**
+	 * The number of operations of the '<em>Complex Type Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link ExternalServiceLayerCIM.impl.PathParamImpl <em>Path Param</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ExternalServiceLayerCIM.impl.PathParamImpl
+	 * @see ExternalServiceLayerCIM.impl.ExternalServiceLayerCIMPackageImpl#getPathParam()
+	 * @generated
+	 */
+	int PATH_PARAM = 17;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PATH_PARAM__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PATH_PARAM__TYPE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Path Param</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PATH_PARAM_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Path Param</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PATH_PARAM_OPERATION_COUNT = 0;
+
 
 	/**
 	 * Returns the meta object for class '{@link ExternalServiceLayerCIM.AnnotationModel <em>Annotation Model</em>}'.
@@ -876,6 +1095,28 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	EReference getRESTClientResource_IsRESTClientResource();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link ExternalServiceLayerCIM.RESTClientResource#getHasPathParam <em>Has Path Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Has Path Param</em>'.
+	 * @see ExternalServiceLayerCIM.RESTClientResource#getHasPathParam()
+	 * @see #getRESTClientResource()
+	 * @generated
+	 */
+	EReference getRESTClientResource_HasPathParam();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link ExternalServiceLayerCIM.RESTClientResource#getIsRESTClientComplexType <em>Is REST Client Complex Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Is REST Client Complex Type</em>'.
+	 * @see ExternalServiceLayerCIM.RESTClientResource#getIsRESTClientComplexType()
+	 * @see #getRESTClientResource()
+	 * @generated
+	 */
+	EReference getRESTClientResource_IsRESTClientComplexType();
+
+	/**
 	 * Returns the meta object for class '{@link ExternalServiceLayerCIM.TargetRESTService <em>Target REST Service</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -973,6 +1214,28 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	EAttribute getQueryParam_Type();
 
 	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.QueryParam#isIsAuthToken <em>Is Auth Token</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Is Auth Token</em>'.
+	 * @see ExternalServiceLayerCIM.QueryParam#isIsAuthToken()
+	 * @see #getQueryParam()
+	 * @generated
+	 */
+	EAttribute getQueryParam_IsAuthToken();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.QueryParam#getAuthTokenToURL <em>Auth Token To URL</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Auth Token To URL</em>'.
+	 * @see ExternalServiceLayerCIM.QueryParam#getAuthTokenToURL()
+	 * @see #getQueryParam()
+	 * @generated
+	 */
+	EAttribute getQueryParam_AuthTokenToURL();
+
+	/**
 	 * Returns the meta object for class '{@link ExternalServiceLayerCIM.InputDataModel <em>Input Data Model</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1068,17 +1331,6 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	EClass getModelProperty();
 
 	/**
-	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.ModelProperty#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see ExternalServiceLayerCIM.ModelProperty#getType()
-	 * @see #getModelProperty()
-	 * @generated
-	 */
-	EAttribute getModelProperty_Type();
-
-	/**
 	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.ModelProperty#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1099,6 +1351,39 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getModelProperty_IsUnique();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.ModelProperty#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see ExternalServiceLayerCIM.ModelProperty#getType()
+	 * @see #getModelProperty()
+	 * @generated
+	 */
+	EAttribute getModelProperty_Type();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.ModelProperty#isHasPrimitiveType <em>Has Primitive Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Has Primitive Type</em>'.
+	 * @see ExternalServiceLayerCIM.ModelProperty#isHasPrimitiveType()
+	 * @see #getModelProperty()
+	 * @generated
+	 */
+	EAttribute getModelProperty_HasPrimitiveType();
+
+	/**
+	 * Returns the meta object for the reference '{@link ExternalServiceLayerCIM.ModelProperty#getHasComplexType <em>Has Complex Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Has Complex Type</em>'.
+	 * @see ExternalServiceLayerCIM.ModelProperty#getHasComplexType()
+	 * @see #getModelProperty()
+	 * @generated
+	 */
+	EReference getModelProperty_HasComplexType();
 
 	/**
 	 * Returns the meta object for class '{@link ExternalServiceLayerCIM.NonPersistentOutput <em>Non Persistent Output</em>}'.
@@ -1140,6 +1425,135 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getExistentCRUDPersistentOutput_IsExistentCRUDPersistentOutput();
+
+	/**
+	 * Returns the meta object for class '{@link ExternalServiceLayerCIM.ComplexType <em>Complex Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Complex Type</em>'.
+	 * @see ExternalServiceLayerCIM.ComplexType
+	 * @generated
+	 */
+	EClass getComplexType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.ComplexType#getComplexTypeName <em>Complex Type Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Complex Type Name</em>'.
+	 * @see ExternalServiceLayerCIM.ComplexType#getComplexTypeName()
+	 * @see #getComplexType()
+	 * @generated
+	 */
+	EAttribute getComplexType_ComplexTypeName();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link ExternalServiceLayerCIM.ComplexType#getHasComplexTypeProperties <em>Has Complex Type Properties</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Has Complex Type Properties</em>'.
+	 * @see ExternalServiceLayerCIM.ComplexType#getHasComplexTypeProperties()
+	 * @see #getComplexType()
+	 * @generated
+	 */
+	EReference getComplexType_HasComplexTypeProperties();
+
+	/**
+	 * Returns the meta object for class '{@link ExternalServiceLayerCIM.ComplexTypeProperty <em>Complex Type Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Complex Type Property</em>'.
+	 * @see ExternalServiceLayerCIM.ComplexTypeProperty
+	 * @generated
+	 */
+	EClass getComplexTypeProperty();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.ComplexTypeProperty#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see ExternalServiceLayerCIM.ComplexTypeProperty#getName()
+	 * @see #getComplexTypeProperty()
+	 * @generated
+	 */
+	EAttribute getComplexTypeProperty_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.ComplexTypeProperty#isIsUnique <em>Is Unique</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Is Unique</em>'.
+	 * @see ExternalServiceLayerCIM.ComplexTypeProperty#isIsUnique()
+	 * @see #getComplexTypeProperty()
+	 * @generated
+	 */
+	EAttribute getComplexTypeProperty_IsUnique();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.ComplexTypeProperty#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see ExternalServiceLayerCIM.ComplexTypeProperty#getType()
+	 * @see #getComplexTypeProperty()
+	 * @generated
+	 */
+	EAttribute getComplexTypeProperty_Type();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.ComplexTypeProperty#isHasPrimitiveType <em>Has Primitive Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Has Primitive Type</em>'.
+	 * @see ExternalServiceLayerCIM.ComplexTypeProperty#isHasPrimitiveType()
+	 * @see #getComplexTypeProperty()
+	 * @generated
+	 */
+	EAttribute getComplexTypeProperty_HasPrimitiveType();
+
+	/**
+	 * Returns the meta object for the reference '{@link ExternalServiceLayerCIM.ComplexTypeProperty#getPropertyHasComplexType <em>Property Has Complex Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Property Has Complex Type</em>'.
+	 * @see ExternalServiceLayerCIM.ComplexTypeProperty#getPropertyHasComplexType()
+	 * @see #getComplexTypeProperty()
+	 * @generated
+	 */
+	EReference getComplexTypeProperty_PropertyHasComplexType();
+
+	/**
+	 * Returns the meta object for class '{@link ExternalServiceLayerCIM.PathParam <em>Path Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Path Param</em>'.
+	 * @see ExternalServiceLayerCIM.PathParam
+	 * @generated
+	 */
+	EClass getPathParam();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.PathParam#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see ExternalServiceLayerCIM.PathParam#getName()
+	 * @see #getPathParam()
+	 * @generated
+	 */
+	EAttribute getPathParam_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerCIM.PathParam#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see ExternalServiceLayerCIM.PathParam#getType()
+	 * @see #getPathParam()
+	 * @generated
+	 */
+	EAttribute getPathParam_Type();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1281,6 +1695,22 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 		EReference REST_CLIENT_RESOURCE__IS_REST_CLIENT_RESOURCE = eINSTANCE.getRESTClientResource_IsRESTClientResource();
 
 		/**
+		 * The meta object literal for the '<em><b>Has Path Param</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REST_CLIENT_RESOURCE__HAS_PATH_PARAM = eINSTANCE.getRESTClientResource_HasPathParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Is REST Client Complex Type</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference REST_CLIENT_RESOURCE__IS_REST_CLIENT_COMPLEX_TYPE = eINSTANCE.getRESTClientResource_IsRESTClientComplexType();
+
+		/**
 		 * The meta object literal for the '{@link ExternalServiceLayerCIM.impl.TargetRESTServiceImpl <em>Target REST Service</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1355,6 +1785,22 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute QUERY_PARAM__TYPE = eINSTANCE.getQueryParam_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Is Auth Token</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute QUERY_PARAM__IS_AUTH_TOKEN = eINSTANCE.getQueryParam_IsAuthToken();
+
+		/**
+		 * The meta object literal for the '<em><b>Auth Token To URL</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute QUERY_PARAM__AUTH_TOKEN_TO_URL = eINSTANCE.getQueryParam_AuthTokenToURL();
 
 		/**
 		 * The meta object literal for the '{@link ExternalServiceLayerCIM.impl.InputDataModelImpl <em>Input Data Model</em>}' class.
@@ -1437,14 +1883,6 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 		EClass MODEL_PROPERTY = eINSTANCE.getModelProperty();
 
 		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute MODEL_PROPERTY__TYPE = eINSTANCE.getModelProperty_Type();
-
-		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1459,6 +1897,30 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MODEL_PROPERTY__IS_UNIQUE = eINSTANCE.getModelProperty_IsUnique();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODEL_PROPERTY__TYPE = eINSTANCE.getModelProperty_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Has Primitive Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODEL_PROPERTY__HAS_PRIMITIVE_TYPE = eINSTANCE.getModelProperty_HasPrimitiveType();
+
+		/**
+		 * The meta object literal for the '<em><b>Has Complex Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODEL_PROPERTY__HAS_COMPLEX_TYPE = eINSTANCE.getModelProperty_HasComplexType();
 
 		/**
 		 * The meta object literal for the '{@link ExternalServiceLayerCIM.impl.NonPersistentOutputImpl <em>Non Persistent Output</em>}' class.
@@ -1497,6 +1959,108 @@ public interface ExternalServiceLayerCIMPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXISTENT_CRUD_PERSISTENT_OUTPUT__IS_EXISTENT_CRUD_PERSISTENT_OUTPUT = eINSTANCE.getExistentCRUDPersistentOutput_IsExistentCRUDPersistentOutput();
+
+		/**
+		 * The meta object literal for the '{@link ExternalServiceLayerCIM.impl.ComplexTypeImpl <em>Complex Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ExternalServiceLayerCIM.impl.ComplexTypeImpl
+		 * @see ExternalServiceLayerCIM.impl.ExternalServiceLayerCIMPackageImpl#getComplexType()
+		 * @generated
+		 */
+		EClass COMPLEX_TYPE = eINSTANCE.getComplexType();
+
+		/**
+		 * The meta object literal for the '<em><b>Complex Type Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPLEX_TYPE__COMPLEX_TYPE_NAME = eINSTANCE.getComplexType_ComplexTypeName();
+
+		/**
+		 * The meta object literal for the '<em><b>Has Complex Type Properties</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPLEX_TYPE__HAS_COMPLEX_TYPE_PROPERTIES = eINSTANCE.getComplexType_HasComplexTypeProperties();
+
+		/**
+		 * The meta object literal for the '{@link ExternalServiceLayerCIM.impl.ComplexTypePropertyImpl <em>Complex Type Property</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ExternalServiceLayerCIM.impl.ComplexTypePropertyImpl
+		 * @see ExternalServiceLayerCIM.impl.ExternalServiceLayerCIMPackageImpl#getComplexTypeProperty()
+		 * @generated
+		 */
+		EClass COMPLEX_TYPE_PROPERTY = eINSTANCE.getComplexTypeProperty();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPLEX_TYPE_PROPERTY__NAME = eINSTANCE.getComplexTypeProperty_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Is Unique</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPLEX_TYPE_PROPERTY__IS_UNIQUE = eINSTANCE.getComplexTypeProperty_IsUnique();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPLEX_TYPE_PROPERTY__TYPE = eINSTANCE.getComplexTypeProperty_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Has Primitive Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPLEX_TYPE_PROPERTY__HAS_PRIMITIVE_TYPE = eINSTANCE.getComplexTypeProperty_HasPrimitiveType();
+
+		/**
+		 * The meta object literal for the '<em><b>Property Has Complex Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPLEX_TYPE_PROPERTY__PROPERTY_HAS_COMPLEX_TYPE = eINSTANCE.getComplexTypeProperty_PropertyHasComplexType();
+
+		/**
+		 * The meta object literal for the '{@link ExternalServiceLayerCIM.impl.PathParamImpl <em>Path Param</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ExternalServiceLayerCIM.impl.PathParamImpl
+		 * @see ExternalServiceLayerCIM.impl.ExternalServiceLayerCIMPackageImpl#getPathParam()
+		 * @generated
+		 */
+		EClass PATH_PARAM = eINSTANCE.getPathParam();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PATH_PARAM__NAME = eINSTANCE.getPathParam_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PATH_PARAM__TYPE = eINSTANCE.getPathParam_Type();
 
 	}
 

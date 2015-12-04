@@ -71,6 +71,9 @@ public class ExternalServiceLayerCIMFactoryImpl extends EFactoryImpl implements 
 			case ExternalServiceLayerCIMPackage.NON_PERSISTENT_OUTPUT: return createNonPersistentOutput();
 			case ExternalServiceLayerCIMPackage.AUTO_PERSISTENT_OUTPUT: return createAutoPersistentOutput();
 			case ExternalServiceLayerCIMPackage.EXISTENT_CRUD_PERSISTENT_OUTPUT: return createExistentCRUDPersistentOutput();
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE: return createComplexType();
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY: return createComplexTypeProperty();
+			case ExternalServiceLayerCIMPackage.PATH_PARAM: return createPathParam();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -224,6 +227,36 @@ public class ExternalServiceLayerCIMFactoryImpl extends EFactoryImpl implements 
 	public ExistentCRUDPersistentOutput createExistentCRUDPersistentOutput() {
 		ExistentCRUDPersistentOutputImpl existentCRUDPersistentOutput = new ExistentCRUDPersistentOutputImpl();
 		return existentCRUDPersistentOutput;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComplexType createComplexType() {
+		ComplexTypeImpl complexType = new ComplexTypeImpl();
+		return complexType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComplexTypeProperty createComplexTypeProperty() {
+		ComplexTypePropertyImpl complexTypeProperty = new ComplexTypePropertyImpl();
+		return complexTypeProperty;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PathParam createPathParam() {
+		PathParamImpl pathParam = new PathParamImpl();
+		return pathParam;
 	}
 
 	/**

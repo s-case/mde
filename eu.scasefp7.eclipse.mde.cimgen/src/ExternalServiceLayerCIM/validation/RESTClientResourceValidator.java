@@ -5,7 +5,11 @@
 package ExternalServiceLayerCIM.validation;
 
 import ExternalServiceLayerCIM.AnnAlgoResource;
+import ExternalServiceLayerCIM.ComplexType;
+import ExternalServiceLayerCIM.PathParam;
 import ExternalServiceLayerCIM.TargetRESTService;
+
+import org.eclipse.emf.common.util.EList;
 
 /**
  * A sample validator interface for {@link ExternalServiceLayerCIM.RESTClientResource}.
@@ -18,4 +22,6 @@ public interface RESTClientResourceValidator {
 
 	boolean validateTargetsService(TargetRESTService value);
 	boolean validateIsRESTClientResource(AnnAlgoResource value);
+	boolean validateHasPathParam(EList<PathParam> value);
+	boolean validateIsRESTClientComplexType(EList<ComplexType> value);
 }

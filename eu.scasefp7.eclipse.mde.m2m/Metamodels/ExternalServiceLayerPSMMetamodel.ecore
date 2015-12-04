@@ -41,6 +41,8 @@
         lowerBound="1" eType="#//AnnJavaAlgoController"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasAssociatedModel" lowerBound="1"
         eType="#//JavaRESTClientModel"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasComplexTypes" upperBound="-1"
+        eType="#//ComplexType" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JavaRESTClientHTTPActivity">
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasJavaRESTClientHTTPActivityHandler"
@@ -69,6 +71,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="QueryParam">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isAuthToken" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="authTokenToURL" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JavaInputDataModel">
     <eStructuralFeatures xsi:type="ecore:EReference" name="hasInputProperty" lowerBound="1"
@@ -90,11 +94,26 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isUnique" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasPrimitiveType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasComplexType" eType="#//ComplexType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NonPersistentOutput" eSuperTypes="#//JavaOutputDataModel"/>
   <eClassifiers xsi:type="ecore:EClass" name="AutoPersistentOutput" eSuperTypes="#//JavaOutputDataModel"/>
   <eClassifiers xsi:type="ecore:EClass" name="ExistentJavaModelPersistentOutput" eSuperTypes="#//JavaOutputDataModel">
     <eStructuralFeatures xsi:type="ecore:EReference" name="isExistentJavaModelPersistentOutput"
         lowerBound="1" eType="#//AnnJavaResourceModel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComplexType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="complexTypeName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasComplexTypeProperties"
+        lowerBound="1" upperBound="-1" eType="#//ComplexTypeProperty" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComplexTypeProperty">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isUnique" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasPrimitiveType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyHasComplexType"
+        eType="#//ComplexType"/>
   </eClassifiers>
 </ecore:EPackage>

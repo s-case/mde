@@ -16,4 +16,6 @@ public interface QueryParamValidator {
 
 	boolean validateName(String value);
 	boolean validateType(String value);
+	boolean validateIsAuthToken(boolean value);
+	boolean validateAuthTokenToURL(String value);
 }

@@ -128,6 +128,18 @@ public class ExternalServiceLayerCIMAdapterFactory extends AdapterFactoryImpl {
 				return createExistentCRUDPersistentOutputAdapter();
 			}
 			@Override
+			public Adapter caseComplexType(ComplexType object) {
+				return createComplexTypeAdapter();
+			}
+			@Override
+			public Adapter caseComplexTypeProperty(ComplexTypeProperty object) {
+				return createComplexTypePropertyAdapter();
+			}
+			@Override
+			public Adapter casePathParam(PathParam object) {
+				return createPathParamAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -354,6 +366,48 @@ public class ExternalServiceLayerCIMAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createExistentCRUDPersistentOutputAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ExternalServiceLayerCIM.ComplexType <em>Complex Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ExternalServiceLayerCIM.ComplexType
+	 * @generated
+	 */
+	public Adapter createComplexTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ExternalServiceLayerCIM.ComplexTypeProperty <em>Complex Type Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ExternalServiceLayerCIM.ComplexTypeProperty
+	 * @generated
+	 */
+	public Adapter createComplexTypePropertyAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ExternalServiceLayerCIM.PathParam <em>Path Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ExternalServiceLayerCIM.PathParam
+	 * @generated
+	 */
+	public Adapter createPathParamAdapter() {
 		return null;
 	}
 

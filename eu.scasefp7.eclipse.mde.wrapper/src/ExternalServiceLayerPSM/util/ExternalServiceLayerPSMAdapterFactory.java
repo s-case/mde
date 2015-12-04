@@ -148,6 +148,14 @@ public class ExternalServiceLayerPSMAdapterFactory extends AdapterFactoryImpl {
 				return createExistentJavaModelPersistentOutputAdapter();
 			}
 			@Override
+			public Adapter caseComplexType(ComplexType object) {
+				return createComplexTypeAdapter();
+			}
+			@Override
+			public Adapter caseComplexTypeProperty(ComplexTypeProperty object) {
+				return createComplexTypePropertyAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -444,6 +452,34 @@ public class ExternalServiceLayerPSMAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createExistentJavaModelPersistentOutputAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ExternalServiceLayerPSM.ComplexType <em>Complex Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ExternalServiceLayerPSM.ComplexType
+	 * @generated
+	 */
+	public Adapter createComplexTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ExternalServiceLayerPSM.ComplexTypeProperty <em>Complex Type Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ExternalServiceLayerPSM.ComplexTypeProperty
+	 * @generated
+	 */
+	public Adapter createComplexTypePropertyAdapter() {
 		return null;
 	}
 

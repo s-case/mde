@@ -1,5 +1,8 @@
 package eu.fp7.scase.extcompositions;
 
+import java.util.ArrayList;
+
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -21,6 +24,8 @@ import org.eclipse.swt.widgets.Shell;
 import ExternalServiceLayerCIM.AnnAlgoResource;
 import ExternalServiceLayerCIM.AnnCRUDResource;
 import ExternalServiceLayerCIM.AutoPersistentOutput;
+import ExternalServiceLayerCIM.ComplexType;
+import ExternalServiceLayerCIM.ComplexTypeProperty;
 import ExternalServiceLayerCIM.ExistentCRUDPersistentOutput;
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMFactory;
 import ExternalServiceLayerCIM.InputDataModel;
@@ -37,6 +42,8 @@ import ServiceCIM.Resource;
 
 import org.eclipse.swt.widgets.Text;
 
+import eu.fp7.scase.inputParser.YamlResource;
+
 
 public class ExternalCompositionWizardPage extends WizardPage{
 	
@@ -47,6 +54,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 	private ExternalServiceLayerCIMFactory oExternalServiceLayerCIMFactory;
 	private boolean bReloadExistingModels;
 	private SearchLayerCIM.AnnotationModel oSearchLayerCIM;
+	private ComplexDataTypeWizardPage oComplexDataTypeWizardPage;
 	
 	
 	//widgets
@@ -95,8 +103,10 @@ public class ExternalCompositionWizardPage extends WizardPage{
 	//temporary External Composition modeling attributes
 	private boolean[] oRESTClientResourcesArray;
 	private RESTClientResource[] oRESTClientModelingArray;
+	private Text textAuthTokenURL;
+	private Button isQueryAuthTokenButton;
 	
-	public ExternalCompositionWizardPage(RESTfulServiceCIM oRESTfulServiceCIM,  ExternalServiceLayerCIM.AnnotationModel oExternalServiceLayerCIM, SearchLayerCIM.AnnotationModel oParamSearchLayerCIM, boolean bReloadExistingModels){
+	public ExternalCompositionWizardPage(RESTfulServiceCIM oRESTfulServiceCIM,  ExternalServiceLayerCIM.AnnotationModel oExternalServiceLayerCIM, SearchLayerCIM.AnnotationModel oParamSearchLayerCIM, boolean bReloadExistingModels, ArrayList<YamlResource> oYamlResourcesList){
 		super(oRESTfulServiceCIM.getName() + "External Service Editor");
 		this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		this.oExternalServiceLayerCIM = oExternalServiceLayerCIM;
@@ -176,52 +186,52 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		oExternalServiceCombo.setLayoutData(gd_oExternalServiceCombo);
 		
 		Label lblExternalCompositionSetup = new Label(oExternalServiceCombo, SWT.NONE);
-		lblExternalCompositionSetup.setBounds(10, 10, 257, 14);
+		lblExternalCompositionSetup.setBounds(10, 5, 257, 14);
 		lblExternalCompositionSetup.setText("External Composition Setup:");
 		
 		Label lblUrl = new Label(oExternalServiceCombo, SWT.NONE);
-		lblUrl.setBounds(10, 32, 60, 14);
+		lblUrl.setBounds(10, 25, 60, 14);
 		lblUrl.setText("URL:");
 		
 		textTargetServiceURL = new Text(oExternalServiceCombo, SWT.BORDER);
-		textTargetServiceURL.setBounds(50, 29, 495, 19);
+		textTargetServiceURL.setBounds(50, 22, 495, 19);
 		addTargetServiceURLListener();
 		
 		Label lblCrudVerb = new Label(oExternalServiceCombo, SWT.NONE);
-		lblCrudVerb.setBounds(10, 54, 68, 14);
+		lblCrudVerb.setBounds(10, 45, 68, 14);
 		lblCrudVerb.setText("CRUD Verb:");
 		
 		listCRUDVerb = new List(oExternalServiceCombo, SWT.BORDER | SWT.V_SCROLL);
 		listCRUDVerb.setItems(new String[] {"CREATE", "READ", "UPDATE", "DELETE"});
-		listCRUDVerb.setBounds(10, 74, 143, 66);
+		listCRUDVerb.setBounds(10, 60, 143, 66);
 		addCRUDVerbListener();
 		
 		Label lblQueryParameters = new Label(oExternalServiceCombo, SWT.NONE);
-		lblQueryParameters.setBounds(194, 54, 103, 14);
+		lblQueryParameters.setBounds(176, 45, 103, 14);
 		lblQueryParameters.setText("Query Parameters:");
 		
 		listQueryParameters = new List(oExternalServiceCombo, SWT.BORDER | SWT.V_SCROLL);
-		listQueryParameters.setBounds(194, 74, 184, 66);
+		listQueryParameters.setBounds(176, 60, 159, 66);
 		addQueryParameterListListener();
 		
 		buttonRenameQueryParameter = new Button(oExternalServiceCombo, SWT.NONE);
-		buttonRenameQueryParameter.setBounds(384, 118, 95, 28);
+		buttonRenameQueryParameter.setBounds(341, 93, 95, 28);
 		buttonRenameQueryParameter.setText("Rename");
 		addRenameQueryParameterButtonListener();
 		
 		buttonCreateQueryParameter = new Button(oExternalServiceCombo, SWT.NONE);
-		buttonCreateQueryParameter.setBounds(384, 74, 95, 28);
+		buttonCreateQueryParameter.setBounds(341, 55, 95, 28);
 		buttonCreateQueryParameter.setText("Create");
 		addCreateQueryParameterButtonListener();
 		
 		buttonDeleteQueryParameter = new Button(oExternalServiceCombo, SWT.NONE);
-		buttonDeleteQueryParameter.setBounds(384, 96, 95, 28);
+		buttonDeleteQueryParameter.setBounds(341, 74, 95, 28);
 		buttonDeleteQueryParameter.setText("Delete");
 		addDeleteQueryParameterButtonListener();
 		
 		Group groupInputRepresentation = new Group(oExternalServiceCombo, SWT.NONE);
 		groupInputRepresentation.setText("Input Representation:");
-		groupInputRepresentation.setBounds(20, 178, 205, 86);
+		groupInputRepresentation.setBounds(20, 188, 205, 86);
 		
 		buttonInputJSON = new Button(groupInputRepresentation, SWT.RADIO);
 		buttonInputJSON.setBounds(10, 10, 171, 18);
@@ -271,7 +281,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		addInputPropertyTypeListListener();
 		
 		buttonHasInputDataModel = new Button(oExternalServiceCombo, SWT.CHECK);
-		buttonHasInputDataModel.setBounds(10, 158, 143, 18);
+		buttonHasInputDataModel.setBounds(10, 164, 143, 18);
 		buttonHasInputDataModel.setText("Input Data Model");
 		addInputDataModelButtonListener();
 		
@@ -354,10 +364,23 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		addExistentCRUDResourceListListener();
 		
 		Label labelSeperatorInputModel = new Label(oExternalServiceCombo, SWT.SEPARATOR | SWT.HORIZONTAL);
-		labelSeperatorInputModel.setBounds(7, 273, 556, 2);
+		labelSeperatorInputModel.setBounds(10, 280, 556, 2);
 		
 		Label labelSeperatorOutputModel = new Label(oExternalServiceCombo, SWT.SEPARATOR | SWT.HORIZONTAL);
-		labelSeperatorOutputModel.setBounds(10, 150, 556, 2);
+		labelSeperatorOutputModel.setBounds(7, 160, 556, 2);
+		
+		isQueryAuthTokenButton = new Button(oExternalServiceCombo, SWT.CHECK);
+		isQueryAuthTokenButton.setBounds(342, 115, 171, 18);
+		isQueryAuthTokenButton.setText("Authorization Token");
+		addIsQueryAuthTokenButtonListener();
+		
+		Label lblAuthorizationTokenFor = new Label(oExternalServiceCombo, SWT.NONE);
+		lblAuthorizationTokenFor.setBounds(10, 137, 159, 14);
+		lblAuthorizationTokenFor.setText("Authorization Token for URL:");
+		
+		textAuthTokenURL = new Text(oExternalServiceCombo, SWT.BORDER);
+		textAuthTokenURL.setBounds(172, 135, 373, 19);
+		addTextAuthTOkenURLListener();
 		
 		initializeWizardSWTs();
 		  
@@ -366,6 +389,37 @@ public class ExternalCompositionWizardPage extends WizardPage{
 	}
 	
 	
+	private void addTextAuthTOkenURLListener() {
+		this.textAuthTokenURL.addModifyListener(new ModifyListener(){
+			
+			public void modifyText(ModifyEvent event) {
+				for(int n = 0; n < oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().size(); n++){
+					if(listQueryParameters.getSelection()[0].equalsIgnoreCase(oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().get(n).getName())){
+						oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().get(n).setAuthTokenToURL(textAuthTokenURL.getText());
+					}
+				}
+				updateWidgetStatus();
+				setPageComplete(isPageCompleted());	
+			}});
+	}
+
+
+	private void addIsQueryAuthTokenButtonListener() {
+		this.isQueryAuthTokenButton.addListener(SWT.Selection, new Listener(){
+
+		@Override
+		public void handleEvent(Event event) {
+			for(int n = 0; n < oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().size(); n++){
+				if(listQueryParameters.getSelection()[0].equalsIgnoreCase(oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().get(n).getName())){
+					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().get(n).setIsAuthToken(isQueryAuthTokenButton.getSelection() == true ? true : false);
+				}
+			}
+			updateWidgetStatus();
+			setPageComplete(isPageCompleted());
+		}});
+	}
+
+
 	private void addExistentCRUDResourceListListener() {
 		this.listExistentCRUDResources.addSelectionListener(new SelectionListener(){
 
@@ -460,6 +514,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			public void widgetSelected(SelectionEvent e) {
 				//change the type of the selected property
 				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(getOutputPropertyIndexByName(listRESTClientResources.getSelection()[0], listOutputProperties.getSelection()[0])).setType(listOutputPropertyType.getSelection()[0]);
+				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(getOutputPropertyIndexByName(listRESTClientResources.getSelection()[0], listOutputProperties.getSelection()[0])).setHasPrimitiveType(isPrimitiveDataType(listOutputPropertyType.getSelection()[0]));
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}
@@ -468,6 +523,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			public void widgetDefaultSelected(SelectionEvent e) {
 				//change the type of the selected property
 				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(getOutputPropertyIndexByName(listRESTClientResources.getSelection()[0], listOutputProperties.getSelection()[0])).setType(listOutputPropertyType.getSelection()[0]);
+				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(getOutputPropertyIndexByName(listRESTClientResources.getSelection()[0], listOutputProperties.getSelection()[0])).setHasPrimitiveType(isPrimitiveDataType(listOutputPropertyType.getSelection()[0]));
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -612,6 +668,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			public void widgetSelected(SelectionEvent e) {
 				//change the type of the selected property
 				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().get(getInputPropertyIndexByName(listRESTClientResources.getSelection()[0], listInputProperties.getSelection()[0])).setType(listInputPropertyType.getSelection()[0]);
+				if(listInputPropertyType.getSelection()[0].equalsIgnoreCase("complex")){
+					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().get(getInputPropertyIndexByName(listRESTClientResources.getSelection()[0], listInputProperties.getSelection()[0])).setHasPrimitiveType(false);
+				}
+				else{
+					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().get(getInputPropertyIndexByName(listRESTClientResources.getSelection()[0], listInputProperties.getSelection()[0])).setHasPrimitiveType(true);
+				}
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}
@@ -620,6 +682,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			public void widgetDefaultSelected(SelectionEvent e) {
 				//change the type of the selected property
 				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().get(getInputPropertyIndexByName(listRESTClientResources.getSelection()[0], listInputProperties.getSelection()[0])).setType(listInputPropertyType.getSelection()[0]);
+				if(listInputPropertyType.getSelection()[0].equalsIgnoreCase("complex")){
+					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().get(getInputPropertyIndexByName(listRESTClientResources.getSelection()[0], listInputProperties.getSelection()[0])).setHasPrimitiveType(false);
+				}
+				else{
+					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().get(getInputPropertyIndexByName(listRESTClientResources.getSelection()[0], listInputProperties.getSelection()[0])).setHasPrimitiveType(true);
+				}
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -782,12 +850,24 @@ public class ExternalCompositionWizardPage extends WizardPage{
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				for(int n = 0; n < oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().size(); n++){
+					if(listQueryParameters.getSelection()[0].equalsIgnoreCase(oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().get(n).getName())){
+						isQueryAuthTokenButton.setSelection(oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().get(n).isIsAuthToken() == true ? true : false);
+						textAuthTokenURL.setText(oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().get(n).getAuthTokenToURL() == null ? "" : oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().get(n).getAuthTokenToURL());
+					}
+				}
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
+				for(int n = 0; n < oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().size(); n++){
+					if(listQueryParameters.getSelection()[0].equalsIgnoreCase(oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().get(n).getName())){
+						isQueryAuthTokenButton.setSelection(oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().get(n).isIsAuthToken() == true ? true : false);
+						textAuthTokenURL.setText(oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().get(n).getAuthTokenToURL() == null ? "" : oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().get(n).getAuthTokenToURL());
+					}
+				}
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -990,6 +1070,8 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				populateRESTClientResourcesList();
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
+				//update also the RESTClient List of the ComplexDataType Wizard page
+				updateComplexDataTypeRESTClientList();
 			}});
 	}
 
@@ -1208,10 +1290,20 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				populateAvailableResourcesList();
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
+				//update also the RESTClient list of the next page
+				updateComplexDataTypeRESTClientList();
 			}});
 	}
 	
 
+	private void updateComplexDataTypeRESTClientList() {
+		this.oComplexDataTypeWizardPage.getRESTClientResourcesList().removeAll();
+		for(int n = 0; n < this.oRESTClientResourcesArray.length; n++){
+			if(this.oRESTClientResourcesArray[n] == true){
+				this.oComplexDataTypeWizardPage.getRESTClientResourcesList().add(this.oRESTClientModelingArray[n].getIsRESTClientResource().getAnnotatesAlgoResource().getName());
+			}
+		}
+	}
 
 	private void populateRESTClientResource(String strCoreResourceName) {
 		//create an AnnAlgoResource
@@ -1304,6 +1396,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 	private void initializeWizardSWTs() {
 		//initialize the values of all the SWT widgets
 		if(this.bReloadExistingModels == false){
+			initializeRESTClientModels();
 			initializeResourcesGridSWTs();
 			initializeTargetServiceSWTs();			
 		}//else reload existing valid external composition model
@@ -1316,6 +1409,17 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		
 		this.oParentComposite.layout();
 	}
+
+	private void initializeRESTClientModels() {
+		for(int n = 0; n < this.oExternalServiceLayerCIM.getHasAnnotation().size(); n++){
+			if(this.oExternalServiceLayerCIM.getHasAnnotation().get(n) instanceof RESTClientResource){
+				this.oRESTClientResourcesArray[this.getAlgoResourceIndexByName(((RESTClientResource)this.oExternalServiceLayerCIM.getHasAnnotation().get(n)).getIsRESTClientResource().getAnnotatesAlgoResource().getName())] = true;
+				this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(((RESTClientResource)this.oExternalServiceLayerCIM.getHasAnnotation().get(n)).getIsRESTClientResource().getAnnotatesAlgoResource().getName())] = this.deepCopyRESTClientResource(((RESTClientResource)this.oExternalServiceLayerCIM.getHasAnnotation().get(n)));
+			}
+		}
+		
+	}
+
 
 	private void reloadExternalServiceCIMModel() {
 
@@ -1401,8 +1505,19 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			QueryParam oQueryParam = oExternalServiceLayerCIMFactory.createQueryParam();
 			oQueryParam.setName(oBackUpRESTClientResource.getTargetsService().getHasQueryParam().get(n).getName());
 			oQueryParam.setType(oBackUpRESTClientResource.getTargetsService().getHasQueryParam().get(n).getType());
+			oQueryParam.setIsAuthToken(oBackUpRESTClientResource.getTargetsService().getHasQueryParam().get(n).isIsAuthToken());
+			oQueryParam.setAuthTokenToURL(oBackUpRESTClientResource.getTargetsService().getHasQueryParam().get(n).getAuthTokenToURL());
 			oTargetRESTService.getHasQueryParam().add(oQueryParam);
 		}
+		
+		//deep copy any complex types
+		for(int n = 0; n < oBackUpRESTClientResource.getIsRESTClientComplexType().size(); n++){
+			ComplexType oComplexType = oExternalServiceLayerCIMFactory.createComplexType();
+			oComplexType = createNewComplexTypeInstance(oBackUpRESTClientResource.getIsRESTClientComplexType().get(n));
+			oRESTClientResource.getIsRESTClientComplexType().add(oComplexType);
+		}
+		
+		fixComplexTypeCrossReferences(oRESTClientResource, oBackUpRESTClientResource.getIsRESTClientComplexType());
 		
 		//deep copy the input model
 		InputDataModel oInputDataModel = oExternalServiceLayerCIMFactory.createInputDataModel();
@@ -1419,6 +1534,10 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				oInputProperty.setName(oBackUpRESTClientResource.getTargetsService().getHasInputDataModel().getHasInputProperties().get(n).getName());
 				oInputProperty.setType(oBackUpRESTClientResource.getTargetsService().getHasInputDataModel().getHasInputProperties().get(n).getType());
 				oInputProperty.setIsUnique(oBackUpRESTClientResource.getTargetsService().getHasInputDataModel().getHasInputProperties().get(n).isIsUnique());
+				oInputProperty.setHasPrimitiveType(oBackUpRESTClientResource.getTargetsService().getHasInputDataModel().getHasInputProperties().get(n).isHasPrimitiveType());
+				if(oInputProperty.isHasPrimitiveType() == false){
+					oInputProperty.setHasComplexType(findComplexType(oRESTClientResource, oBackUpRESTClientResource, n, true));
+				}
 				oInputDataModel.getHasInputProperties().add(oInputProperty);
 			}
 			oTargetRESTService.setHasInputDataModel(oInputDataModel);
@@ -1438,6 +1557,10 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				oOutputProperty.setName(oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(n).getName());
 				oOutputProperty.setType(oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(n).getType());
 				oOutputProperty.setIsUnique(oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(n).isIsUnique());
+				oOutputProperty.setHasPrimitiveType(oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(n).isHasPrimitiveType());
+				if(oOutputProperty.isHasPrimitiveType() == false){
+					oOutputProperty.setHasComplexType(findComplexType(oRESTClientResource, oBackUpRESTClientResource, n, false));
+				}
 				oOutputDataModel.getHasOutputProperties().add(oOutputProperty);
 			}
 			
@@ -1470,6 +1593,57 @@ public class ExternalCompositionWizardPage extends WizardPage{
 
 		oRESTClientResource.setTargetsService(oTargetRESTService);
 		return oRESTClientResource;
+	}
+	
+	private void fixComplexTypeCrossReferences(RESTClientResource oRESTClientResource, EList<ComplexType> existentRESTClientComplexTypeList) {
+		for(int n = 0; n < oRESTClientResource.getIsRESTClientComplexType().size(); n++){
+			for(int i = 0; i < oRESTClientResource.getIsRESTClientComplexType().get(n).getHasComplexTypeProperties().size(); i++){
+				if(oRESTClientResource.getIsRESTClientComplexType().get(n).getHasComplexTypeProperties().get(i).isHasPrimitiveType() == false){
+					for(int j = 0; j < oRESTClientResource.getIsRESTClientComplexType().size(); j++){
+						if(oRESTClientResource.getIsRESTClientComplexType().get(j).getComplexTypeName().equalsIgnoreCase(existentRESTClientComplexTypeList.get(n).getHasComplexTypeProperties().get(i).getPropertyHasComplexType().getComplexTypeName())){
+							oRESTClientResource.getIsRESTClientComplexType().get(n).getHasComplexTypeProperties().get(i).setPropertyHasComplexType(oRESTClientResource.getIsRESTClientComplexType().get(j));
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+	private ComplexType findComplexType(RESTClientResource oRESTClientResource, RESTClientResource oBackUpRESTClientResource, int iPropertyIndex, boolean bIsInputProperty) {
+		if(bIsInputProperty == true){
+			for(int n = 0; n < oRESTClientResource.getIsRESTClientComplexType().size(); n++){
+				if(oRESTClientResource.getIsRESTClientComplexType().get(n).getComplexTypeName().equalsIgnoreCase(oBackUpRESTClientResource.getTargetsService().getHasInputDataModel().getHasInputProperties().get(iPropertyIndex).getHasComplexType().getComplexTypeName())){
+					return oRESTClientResource.getIsRESTClientComplexType().get(n);
+				}
+			}
+		}
+		else{
+			for(int n = 0; n < oRESTClientResource.getIsRESTClientComplexType().size(); n++){
+				if(oRESTClientResource.getIsRESTClientComplexType().get(n).getComplexTypeName().equalsIgnoreCase(oBackUpRESTClientResource.getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(iPropertyIndex).getHasComplexType().getComplexTypeName())){
+					return oRESTClientResource.getIsRESTClientComplexType().get(n);
+				}
+			}
+		}
+		
+		return null; //throw exception in production code
+	}
+
+
+	private ComplexType createNewComplexTypeInstance(ComplexType oComplexType){
+		ComplexType oNewComplexType = this.oExternalServiceLayerCIMFactory.createComplexType();
+		oNewComplexType.setComplexTypeName(oComplexType.getComplexTypeName());
+		for(int n = 0; n < oComplexType.getHasComplexTypeProperties().size(); n++){
+			ComplexTypeProperty oNewComplexTypeProperty = this.oExternalServiceLayerCIMFactory.createComplexTypeProperty();
+			oNewComplexTypeProperty.setHasPrimitiveType(oComplexType.getHasComplexTypeProperties().get(n).isHasPrimitiveType());
+			oNewComplexTypeProperty.setIsUnique(oComplexType.getHasComplexTypeProperties().get(n).isIsUnique());
+			oNewComplexTypeProperty.setName(oComplexType.getHasComplexTypeProperties().get(n).getName());
+			oNewComplexTypeProperty.setType(oComplexType.getHasComplexTypeProperties().get(n).getType());
+//			oNewComplexTypeProperty.setPropertyHasComplexType(oComplexType.getHasComplexTypeProperties().get(n).getPropertyHasComplexType() == null ? null : createNewComplexTypeInstance(oComplexType.getHasComplexTypeProperties().get(n).getPropertyHasComplexType()));
+			oNewComplexType.getHasComplexTypeProperties().add(oNewComplexTypeProperty);
+		}
+		
+		return oNewComplexType;
 	}
 
 
@@ -1505,7 +1679,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		//initialize available resources list
 		for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
 			if(this.oRESTfulServiceCIM.getHasResources().get(i).isIsAlgorithmic() == true){
-				this.listAvailableResources.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
+				if(this.oRESTClientResourcesArray[this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(i).getName())] == false){
+					this.listAvailableResources.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
+				}
+				else{
+					this.listRESTClientResources.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
+				}
 			}
 		}
 		
@@ -1514,6 +1693,9 @@ public class ExternalCompositionWizardPage extends WizardPage{
 	private void updateWidgetStatus() {
 		updateResourcesSWTStatus();
 		updateTargetServiceSWTStatus();
+		
+		//TODO reload also next page's SWTs in order to determine if the whole wizard can be finished or not
+		//this.oComplexDataTypeWizardPage.reloadComplexTypes();
 	}
 	
 	private void updateResourcesSWTStatus() {
@@ -1564,11 +1746,15 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			this.buttonCreateQueryParameter.setEnabled(true);
 			if(this.listQueryParameters.getSelectionIndex() != -1){
 				this.buttonDeleteQueryParameter.setEnabled(true);
-				this.buttonRenameQueryParameter.setEnabled(true);	
+				this.buttonRenameQueryParameter.setEnabled(true);
+				this.isQueryAuthTokenButton.setEnabled(true);
+				this.textAuthTokenURL.setEnabled(this.isQueryAuthTokenButton.getSelection() == true ? true : false);
 			}
 			else{
 				this.buttonDeleteQueryParameter.setEnabled(false);
 				this.buttonRenameQueryParameter.setEnabled(false);
+				this.isQueryAuthTokenButton.setEnabled(false);
+				this.textAuthTokenURL.setEnabled(false);
 			}
 		}
 		else{
@@ -1578,6 +1764,8 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			this.buttonCreateQueryParameter.setEnabled(false);
 			this.buttonDeleteQueryParameter.setEnabled(false);
 			this.buttonRenameQueryParameter.setEnabled(false);
+			this.isQueryAuthTokenButton.setEnabled(false);
+			this.textAuthTokenURL.setEnabled(false);
 		}
 	}
 
@@ -1708,13 +1896,11 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		}
 	}
 	
-	private int getNumberOfAvailableAlgoResources() {
+	public int getNumberOfAvailableAlgoResources() {
 		int i = 0;
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true){
-				if(!isSearchResource(n)){
-					i++;
-				}
+				i++;
 			}
 		}
 		
@@ -1746,7 +1932,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				//add the RESTClientResource Annotation
 				this.oExternalServiceLayerCIM.getHasAnnotation().add(this.oRESTClientModelingArray[n]);
 				
-				//add the AnnAlgoResource Annotation that is referenced by the RESTClient Resource
+				//add the AnnAlgoResource Annotated Element that is referenced by the RESTClient Resource
 				this.oExternalServiceLayerCIM.getHasAnnotatedElement().add(this.oRESTClientModelingArray[n].getIsRESTClientResource());
 				
 				//if it persists its output using an existing CRUD resource, add the AnnCRUDResource annotation
@@ -1909,5 +2095,44 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		}
 		
 		return true;
+	}
+	
+	public boolean[] getRESTClientResourcesArray(){
+		return this.oRESTClientResourcesArray;
+	}
+	
+	public RESTClientResource[] getRESTClientResource(){
+		return this.oRESTClientModelingArray;
+	}
+
+
+	public ComplexDataTypeWizardPage getComplexDataTypeWizardPage() {
+		return oComplexDataTypeWizardPage;
+	}
+
+
+	public void setComplexDataTypeWizardPage(ComplexDataTypeWizardPage oComplexDataTypeWizardPage) {
+		this.oComplexDataTypeWizardPage = oComplexDataTypeWizardPage;
+	}
+	
+	private boolean isPrimitiveDataType(String strDataTypeName){
+		if(strDataTypeName.equalsIgnoreCase("String")){
+			return true;
+		}
+		else if(strDataTypeName.equalsIgnoreCase("Double")){
+			return true;
+		}
+		else if(strDataTypeName.equalsIgnoreCase("Integer")){
+			return true;
+		}
+		else if(strDataTypeName.equalsIgnoreCase("Float")){
+			return true;
+		}
+		else if(strDataTypeName.equalsIgnoreCase("Boolean")){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }

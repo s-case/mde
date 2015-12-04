@@ -4,6 +4,7 @@
  */
 package ExternalServiceLayerCIM.validation;
 
+import ExternalServiceLayerCIM.ComplexType;
 
 /**
  * A sample validator interface for {@link ExternalServiceLayerCIM.ModelProperty}.
@@ -14,7 +15,9 @@ package ExternalServiceLayerCIM.validation;
 public interface ModelPropertyValidator {
 	boolean validate();
 
-	boolean validateType(String value);
 	boolean validateName(String value);
 	boolean validateIsUnique(boolean value);
+	boolean validateType(String value);
+	boolean validateHasPrimitiveType(boolean value);
+	boolean validateHasComplexType(ComplexType value);
 }

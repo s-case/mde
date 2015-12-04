@@ -162,6 +162,24 @@ public class ExternalServiceLayerCIMSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE: {
+				ComplexType complexType = (ComplexType)theEObject;
+				T result = caseComplexType(complexType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY: {
+				ComplexTypeProperty complexTypeProperty = (ComplexTypeProperty)theEObject;
+				T result = caseComplexTypeProperty(complexTypeProperty);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ExternalServiceLayerCIMPackage.PATH_PARAM: {
+				PathParam pathParam = (PathParam)theEObject;
+				T result = casePathParam(pathParam);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -388,6 +406,51 @@ public class ExternalServiceLayerCIMSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseExistentCRUDPersistentOutput(ExistentCRUDPersistentOutput object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Complex Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Complex Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseComplexType(ComplexType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Complex Type Property</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Complex Type Property</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseComplexTypeProperty(ComplexTypeProperty object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Path Param</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Path Param</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePathParam(PathParam object) {
 		return null;
 	}
 

@@ -6,25 +6,25 @@ import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Model Property</b></em>'.
+ * A representation of the model object '<em><b>Complex Type Property</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link ExternalServiceLayerCIM.ModelProperty#getName <em>Name</em>}</li>
- *   <li>{@link ExternalServiceLayerCIM.ModelProperty#isIsUnique <em>Is Unique</em>}</li>
- *   <li>{@link ExternalServiceLayerCIM.ModelProperty#getType <em>Type</em>}</li>
- *   <li>{@link ExternalServiceLayerCIM.ModelProperty#isHasPrimitiveType <em>Has Primitive Type</em>}</li>
- *   <li>{@link ExternalServiceLayerCIM.ModelProperty#getHasComplexType <em>Has Complex Type</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.ComplexTypeProperty#getName <em>Name</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.ComplexTypeProperty#isIsUnique <em>Is Unique</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.ComplexTypeProperty#getType <em>Type</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.ComplexTypeProperty#isHasPrimitiveType <em>Has Primitive Type</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.ComplexTypeProperty#getPropertyHasComplexType <em>Property Has Complex Type</em>}</li>
  * </ul>
  * </p>
  *
- * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getModelProperty()
+ * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getComplexTypeProperty()
  * @model
  * @generated
  */
-public interface ModelProperty extends EObject {
+public interface ComplexTypeProperty extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -35,14 +35,14 @@ public interface ModelProperty extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getModelProperty_Name()
-	 * @model required="true"
+	 * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getComplexTypeProperty_Name()
+	 * @model
 	 * @generated
 	 */
 	String getName();
 
 	/**
-	 * Sets the value of the '{@link ExternalServiceLayerCIM.ModelProperty#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link ExternalServiceLayerCIM.ComplexTypeProperty#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Name</em>' attribute.
@@ -61,14 +61,14 @@ public interface ModelProperty extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Is Unique</em>' attribute.
 	 * @see #setIsUnique(boolean)
-	 * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getModelProperty_IsUnique()
-	 * @model required="true"
+	 * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getComplexTypeProperty_IsUnique()
+	 * @model
 	 * @generated
 	 */
 	boolean isIsUnique();
 
 	/**
-	 * Sets the value of the '{@link ExternalServiceLayerCIM.ModelProperty#isIsUnique <em>Is Unique</em>}' attribute.
+	 * Sets the value of the '{@link ExternalServiceLayerCIM.ComplexTypeProperty#isIsUnique <em>Is Unique</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Is Unique</em>' attribute.
@@ -87,14 +87,14 @@ public interface ModelProperty extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see #setType(String)
-	 * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getModelProperty_Type()
+	 * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getComplexTypeProperty_Type()
 	 * @model
 	 * @generated
 	 */
 	String getType();
 
 	/**
-	 * Sets the value of the '{@link ExternalServiceLayerCIM.ModelProperty#getType <em>Type</em>}' attribute.
+	 * Sets the value of the '{@link ExternalServiceLayerCIM.ComplexTypeProperty#getType <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Type</em>' attribute.
@@ -113,14 +113,14 @@ public interface ModelProperty extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Has Primitive Type</em>' attribute.
 	 * @see #setHasPrimitiveType(boolean)
-	 * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getModelProperty_HasPrimitiveType()
+	 * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getComplexTypeProperty_HasPrimitiveType()
 	 * @model
 	 * @generated
 	 */
 	boolean isHasPrimitiveType();
 
 	/**
-	 * Sets the value of the '{@link ExternalServiceLayerCIM.ModelProperty#isHasPrimitiveType <em>Has Primitive Type</em>}' attribute.
+	 * Sets the value of the '{@link ExternalServiceLayerCIM.ComplexTypeProperty#isHasPrimitiveType <em>Has Primitive Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Has Primitive Type</em>' attribute.
@@ -130,29 +130,29 @@ public interface ModelProperty extends EObject {
 	void setHasPrimitiveType(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Has Complex Type</b></em>' reference.
+	 * Returns the value of the '<em><b>Property Has Complex Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Has Complex Type</em>' reference isn't clear,
+	 * If the meaning of the '<em>Property Has Complex Type</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Has Complex Type</em>' reference.
-	 * @see #setHasComplexType(ComplexType)
-	 * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getModelProperty_HasComplexType()
+	 * @return the value of the '<em>Property Has Complex Type</em>' reference.
+	 * @see #setPropertyHasComplexType(ComplexType)
+	 * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getComplexTypeProperty_PropertyHasComplexType()
 	 * @model
 	 * @generated
 	 */
-	ComplexType getHasComplexType();
+	ComplexType getPropertyHasComplexType();
 
 	/**
-	 * Sets the value of the '{@link ExternalServiceLayerCIM.ModelProperty#getHasComplexType <em>Has Complex Type</em>}' reference.
+	 * Sets the value of the '{@link ExternalServiceLayerCIM.ComplexTypeProperty#getPropertyHasComplexType <em>Property Has Complex Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Has Complex Type</em>' reference.
-	 * @see #getHasComplexType()
+	 * @param value the new value of the '<em>Property Has Complex Type</em>' reference.
+	 * @see #getPropertyHasComplexType()
 	 * @generated
 	 */
-	void setHasComplexType(ComplexType value);
+	void setPropertyHasComplexType(ComplexType value);
 
-} // ModelProperty
+} // ComplexTypeProperty

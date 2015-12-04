@@ -3,8 +3,8 @@
 package ExternalServiceLayerCIM.impl;
 
 import ExternalServiceLayerCIM.ComplexType;
+import ExternalServiceLayerCIM.ComplexTypeProperty;
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage;
-import ExternalServiceLayerCIM.ModelProperty;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -16,22 +16,22 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Model Property</b></em>'.
+ * An implementation of the model object '<em><b>Complex Type Property</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ExternalServiceLayerCIM.impl.ModelPropertyImpl#getName <em>Name</em>}</li>
- *   <li>{@link ExternalServiceLayerCIM.impl.ModelPropertyImpl#isIsUnique <em>Is Unique</em>}</li>
- *   <li>{@link ExternalServiceLayerCIM.impl.ModelPropertyImpl#getType <em>Type</em>}</li>
- *   <li>{@link ExternalServiceLayerCIM.impl.ModelPropertyImpl#isHasPrimitiveType <em>Has Primitive Type</em>}</li>
- *   <li>{@link ExternalServiceLayerCIM.impl.ModelPropertyImpl#getHasComplexType <em>Has Complex Type</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.impl.ComplexTypePropertyImpl#getName <em>Name</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.impl.ComplexTypePropertyImpl#isIsUnique <em>Is Unique</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.impl.ComplexTypePropertyImpl#getType <em>Type</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.impl.ComplexTypePropertyImpl#isHasPrimitiveType <em>Has Primitive Type</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.impl.ComplexTypePropertyImpl#getPropertyHasComplexType <em>Property Has Complex Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements ModelProperty {
+public class ComplexTypePropertyImpl extends MinimalEObjectImpl.Container implements ComplexTypeProperty {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -113,21 +113,21 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 	protected boolean hasPrimitiveType = HAS_PRIMITIVE_TYPE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getHasComplexType() <em>Has Complex Type</em>}' reference.
+	 * The cached value of the '{@link #getPropertyHasComplexType() <em>Property Has Complex Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getHasComplexType()
+	 * @see #getPropertyHasComplexType()
 	 * @generated
 	 * @ordered
 	 */
-	protected ComplexType hasComplexType;
+	protected ComplexType propertyHasComplexType;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ModelPropertyImpl() {
+	protected ComplexTypePropertyImpl() {
 		super();
 	}
 
@@ -138,7 +138,7 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ExternalServiceLayerCIMPackage.Literals.MODEL_PROPERTY;
+		return ExternalServiceLayerCIMPackage.Literals.COMPLEX_TYPE_PROPERTY;
 	}
 
 	/**
@@ -159,7 +159,7 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.MODEL_PROPERTY__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__NAME, oldName, name));
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 		boolean oldIsUnique = isUnique;
 		isUnique = newIsUnique;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.MODEL_PROPERTY__IS_UNIQUE, oldIsUnique, isUnique));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__IS_UNIQUE, oldIsUnique, isUnique));
 	}
 
 	/**
@@ -201,7 +201,7 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 		String oldType = type;
 		type = newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.MODEL_PROPERTY__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__TYPE, oldType, type));
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 		boolean oldHasPrimitiveType = hasPrimitiveType;
 		hasPrimitiveType = newHasPrimitiveType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.MODEL_PROPERTY__HAS_PRIMITIVE_TYPE, oldHasPrimitiveType, hasPrimitiveType));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__HAS_PRIMITIVE_TYPE, oldHasPrimitiveType, hasPrimitiveType));
 	}
 
 	/**
@@ -230,16 +230,16 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ComplexType getHasComplexType() {
-		if (hasComplexType != null && hasComplexType.eIsProxy()) {
-			InternalEObject oldHasComplexType = (InternalEObject)hasComplexType;
-			hasComplexType = (ComplexType)eResolveProxy(oldHasComplexType);
-			if (hasComplexType != oldHasComplexType) {
+	public ComplexType getPropertyHasComplexType() {
+		if (propertyHasComplexType != null && propertyHasComplexType.eIsProxy()) {
+			InternalEObject oldPropertyHasComplexType = (InternalEObject)propertyHasComplexType;
+			propertyHasComplexType = (ComplexType)eResolveProxy(oldPropertyHasComplexType);
+			if (propertyHasComplexType != oldPropertyHasComplexType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ExternalServiceLayerCIMPackage.MODEL_PROPERTY__HAS_COMPLEX_TYPE, oldHasComplexType, hasComplexType));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__PROPERTY_HAS_COMPLEX_TYPE, oldPropertyHasComplexType, propertyHasComplexType));
 			}
 		}
-		return hasComplexType;
+		return propertyHasComplexType;
 	}
 
 	/**
@@ -247,8 +247,8 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ComplexType basicGetHasComplexType() {
-		return hasComplexType;
+	public ComplexType basicGetPropertyHasComplexType() {
+		return propertyHasComplexType;
 	}
 
 	/**
@@ -256,11 +256,11 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setHasComplexType(ComplexType newHasComplexType) {
-		ComplexType oldHasComplexType = hasComplexType;
-		hasComplexType = newHasComplexType;
+	public void setPropertyHasComplexType(ComplexType newPropertyHasComplexType) {
+		ComplexType oldPropertyHasComplexType = propertyHasComplexType;
+		propertyHasComplexType = newPropertyHasComplexType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.MODEL_PROPERTY__HAS_COMPLEX_TYPE, oldHasComplexType, hasComplexType));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__PROPERTY_HAS_COMPLEX_TYPE, oldPropertyHasComplexType, propertyHasComplexType));
 	}
 
 	/**
@@ -271,17 +271,17 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__NAME:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__NAME:
 				return getName();
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__IS_UNIQUE:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__IS_UNIQUE:
 				return isIsUnique();
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__TYPE:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__TYPE:
 				return getType();
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__HAS_PRIMITIVE_TYPE:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__HAS_PRIMITIVE_TYPE:
 				return isHasPrimitiveType();
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__HAS_COMPLEX_TYPE:
-				if (resolve) return getHasComplexType();
-				return basicGetHasComplexType();
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__PROPERTY_HAS_COMPLEX_TYPE:
+				if (resolve) return getPropertyHasComplexType();
+				return basicGetPropertyHasComplexType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -294,20 +294,20 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__NAME:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__NAME:
 				setName((String)newValue);
 				return;
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__IS_UNIQUE:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__IS_UNIQUE:
 				setIsUnique((Boolean)newValue);
 				return;
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__TYPE:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__TYPE:
 				setType((String)newValue);
 				return;
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__HAS_PRIMITIVE_TYPE:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__HAS_PRIMITIVE_TYPE:
 				setHasPrimitiveType((Boolean)newValue);
 				return;
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__HAS_COMPLEX_TYPE:
-				setHasComplexType((ComplexType)newValue);
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__PROPERTY_HAS_COMPLEX_TYPE:
+				setPropertyHasComplexType((ComplexType)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -321,20 +321,20 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__NAME:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__IS_UNIQUE:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__IS_UNIQUE:
 				setIsUnique(IS_UNIQUE_EDEFAULT);
 				return;
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__TYPE:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__HAS_PRIMITIVE_TYPE:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__HAS_PRIMITIVE_TYPE:
 				setHasPrimitiveType(HAS_PRIMITIVE_TYPE_EDEFAULT);
 				return;
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__HAS_COMPLEX_TYPE:
-				setHasComplexType((ComplexType)null);
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__PROPERTY_HAS_COMPLEX_TYPE:
+				setPropertyHasComplexType((ComplexType)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -348,16 +348,16 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__NAME:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__IS_UNIQUE:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__IS_UNIQUE:
 				return isUnique != IS_UNIQUE_EDEFAULT;
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__TYPE:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__HAS_PRIMITIVE_TYPE:
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__HAS_PRIMITIVE_TYPE:
 				return hasPrimitiveType != HAS_PRIMITIVE_TYPE_EDEFAULT;
-			case ExternalServiceLayerCIMPackage.MODEL_PROPERTY__HAS_COMPLEX_TYPE:
-				return hasComplexType != null;
+			case ExternalServiceLayerCIMPackage.COMPLEX_TYPE_PROPERTY__PROPERTY_HAS_COMPLEX_TYPE:
+				return propertyHasComplexType != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -384,4 +384,4 @@ public class ModelPropertyImpl extends MinimalEObjectImpl.Container implements M
 		return result.toString();
 	}
 
-} //ModelPropertyImpl
+} //ComplexTypePropertyImpl

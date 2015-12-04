@@ -3,17 +3,26 @@
 package ExternalServiceLayerCIM.impl;
 
 import ExternalServiceLayerCIM.AnnAlgoResource;
+import ExternalServiceLayerCIM.ComplexType;
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage;
+import ExternalServiceLayerCIM.PathParam;
 import ExternalServiceLayerCIM.RESTClientResource;
 import ExternalServiceLayerCIM.TargetRESTService;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,6 +33,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link ExternalServiceLayerCIM.impl.RESTClientResourceImpl#getTargetsService <em>Targets Service</em>}</li>
  *   <li>{@link ExternalServiceLayerCIM.impl.RESTClientResourceImpl#getIsRESTClientResource <em>Is REST Client Resource</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.impl.RESTClientResourceImpl#getHasPathParam <em>Has Path Param</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.impl.RESTClientResourceImpl#getIsRESTClientComplexType <em>Is REST Client Complex Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,6 +60,26 @@ public class RESTClientResourceImpl extends AnnotationImpl implements RESTClient
 	 * @ordered
 	 */
 	protected AnnAlgoResource isRESTClientResource;
+
+	/**
+	 * The cached value of the '{@link #getHasPathParam() <em>Has Path Param</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHasPathParam()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<PathParam> hasPathParam;
+
+	/**
+	 * The cached value of the '{@link #getIsRESTClientComplexType() <em>Is REST Client Complex Type</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIsRESTClientComplexType()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ComplexType> isRESTClientComplexType;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -155,11 +186,39 @@ public class RESTClientResourceImpl extends AnnotationImpl implements RESTClient
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<PathParam> getHasPathParam() {
+		if (hasPathParam == null) {
+			hasPathParam = new EObjectContainmentEList<PathParam>(PathParam.class, this, ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__HAS_PATH_PARAM);
+		}
+		return hasPathParam;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ComplexType> getIsRESTClientComplexType() {
+		if (isRESTClientComplexType == null) {
+			isRESTClientComplexType = new EObjectContainmentEList<ComplexType>(ComplexType.class, this, ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__IS_REST_CLIENT_COMPLEX_TYPE);
+		}
+		return isRESTClientComplexType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__TARGETS_SERVICE:
 				return basicSetTargetsService(null, msgs);
+			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__HAS_PATH_PARAM:
+				return ((InternalEList<?>)getHasPathParam()).basicRemove(otherEnd, msgs);
+			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__IS_REST_CLIENT_COMPLEX_TYPE:
+				return ((InternalEList<?>)getIsRESTClientComplexType()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -177,6 +236,10 @@ public class RESTClientResourceImpl extends AnnotationImpl implements RESTClient
 			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__IS_REST_CLIENT_RESOURCE:
 				if (resolve) return getIsRESTClientResource();
 				return basicGetIsRESTClientResource();
+			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__HAS_PATH_PARAM:
+				return getHasPathParam();
+			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__IS_REST_CLIENT_COMPLEX_TYPE:
+				return getIsRESTClientComplexType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -186,6 +249,7 @@ public class RESTClientResourceImpl extends AnnotationImpl implements RESTClient
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -194,6 +258,14 @@ public class RESTClientResourceImpl extends AnnotationImpl implements RESTClient
 				return;
 			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__IS_REST_CLIENT_RESOURCE:
 				setIsRESTClientResource((AnnAlgoResource)newValue);
+				return;
+			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__HAS_PATH_PARAM:
+				getHasPathParam().clear();
+				getHasPathParam().addAll((Collection<? extends PathParam>)newValue);
+				return;
+			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__IS_REST_CLIENT_COMPLEX_TYPE:
+				getIsRESTClientComplexType().clear();
+				getIsRESTClientComplexType().addAll((Collection<? extends ComplexType>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -213,6 +285,12 @@ public class RESTClientResourceImpl extends AnnotationImpl implements RESTClient
 			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__IS_REST_CLIENT_RESOURCE:
 				setIsRESTClientResource((AnnAlgoResource)null);
 				return;
+			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__HAS_PATH_PARAM:
+				getHasPathParam().clear();
+				return;
+			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__IS_REST_CLIENT_COMPLEX_TYPE:
+				getIsRESTClientComplexType().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -229,6 +307,10 @@ public class RESTClientResourceImpl extends AnnotationImpl implements RESTClient
 				return targetsService != null;
 			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__IS_REST_CLIENT_RESOURCE:
 				return isRESTClientResource != null;
+			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__HAS_PATH_PARAM:
+				return hasPathParam != null && !hasPathParam.isEmpty();
+			case ExternalServiceLayerCIMPackage.REST_CLIENT_RESOURCE__IS_REST_CLIENT_COMPLEX_TYPE:
+				return isRESTClientComplexType != null && !isRESTClientComplexType.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

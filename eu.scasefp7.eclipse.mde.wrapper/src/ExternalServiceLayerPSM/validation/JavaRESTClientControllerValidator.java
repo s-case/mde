@@ -5,8 +5,11 @@
 package ExternalServiceLayerPSM.validation;
 
 import ExternalServiceLayerPSM.AnnJavaAlgoController;
+import ExternalServiceLayerPSM.ComplexType;
 import ExternalServiceLayerPSM.JavaRESTClientHTTPActivity;
 import ExternalServiceLayerPSM.JavaRESTClientModel;
+
+import org.eclipse.emf.common.util.EList;
 
 /**
  * A sample validator interface for {@link ExternalServiceLayerPSM.JavaRESTClientController}.
@@ -20,4 +23,5 @@ public interface JavaRESTClientControllerValidator {
 	boolean validateHasJavaRESTClientHTTPActivity(JavaRESTClientHTTPActivity value);
 	boolean validateIsJavaRESTClientController(AnnJavaAlgoController value);
 	boolean validateHasAssociatedModel(JavaRESTClientModel value);
+	boolean validateHasComplexTypes(EList<ComplexType> value);
 }

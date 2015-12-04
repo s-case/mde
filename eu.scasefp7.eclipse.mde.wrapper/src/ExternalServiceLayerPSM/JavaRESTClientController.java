@@ -2,6 +2,7 @@
  */
 package ExternalServiceLayerPSM;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,6 +15,7 @@ package ExternalServiceLayerPSM;
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientController#getHasJavaRESTClientHTTPActivity <em>Has Java REST Client HTTP Activity</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientController#getIsJavaRESTClientController <em>Is Java REST Client Controller</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientController#getHasAssociatedModel <em>Has Associated Model</em>}</li>
+ *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientController#getHasComplexTypes <em>Has Complex Types</em>}</li>
  * </ul>
  * </p>
  *
@@ -99,5 +101,21 @@ public interface JavaRESTClientController extends Annotation {
 	 * @generated
 	 */
 	void setHasAssociatedModel(JavaRESTClientModel value);
+
+	/**
+	 * Returns the value of the '<em><b>Has Complex Types</b></em>' containment reference list.
+	 * The list contents are of type {@link ExternalServiceLayerPSM.ComplexType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Has Complex Types</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Has Complex Types</em>' containment reference list.
+	 * @see ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage#getJavaRESTClientController_HasComplexTypes()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ComplexType> getHasComplexTypes();
 
 } // JavaRESTClientController

@@ -19,6 +19,8 @@ import ExternalServiceLayerPSM.AnnotatedElement;
 import ExternalServiceLayerPSM.Annotation;
 import ExternalServiceLayerPSM.AnnotationModel;
 import ExternalServiceLayerPSM.AutoPersistentOutput;
+import ExternalServiceLayerPSM.ComplexType;
+import ExternalServiceLayerPSM.ComplexTypeProperty;
 import ExternalServiceLayerPSM.ExistentJavaModelPersistentOutput;
 import ExternalServiceLayerPSM.ExternalServiceLayerPSMFactory;
 import ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage;
@@ -194,6 +196,20 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 	 * @generated
 	 */
 	private EClass existentJavaModelPersistentOutputEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass complexTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass complexTypePropertyEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -455,6 +471,15 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getJavaRESTClientController_HasComplexTypes() {
+		return (EReference)javaRESTClientControllerEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getJavaRESTClientHTTPActivity() {
 		return javaRESTClientHTTPActivityEClass;
 	}
@@ -590,6 +615,24 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getQueryParam_IsAuthToken() {
+		return (EAttribute)queryParamEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getQueryParam_AuthTokenToURL() {
+		return (EAttribute)queryParamEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getJavaInputDataModel() {
 		return javaInputDataModelEClass;
 	}
@@ -698,6 +741,24 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getProperty_HasPrimitiveType() {
+		return (EAttribute)propertyEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getProperty_HasComplexType() {
+		return (EReference)propertyEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getNonPersistentOutput() {
 		return nonPersistentOutputEClass;
 	}
@@ -727,6 +788,87 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 	 */
 	public EReference getExistentJavaModelPersistentOutput_IsExistentJavaModelPersistentOutput() {
 		return (EReference)existentJavaModelPersistentOutputEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getComplexType() {
+		return complexTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComplexType_ComplexTypeName() {
+		return (EAttribute)complexTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getComplexType_HasComplexTypeProperties() {
+		return (EReference)complexTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getComplexTypeProperty() {
+		return complexTypePropertyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComplexTypeProperty_Name() {
+		return (EAttribute)complexTypePropertyEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComplexTypeProperty_IsUnique() {
+		return (EAttribute)complexTypePropertyEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComplexTypeProperty_Type() {
+		return (EAttribute)complexTypePropertyEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getComplexTypeProperty_HasPrimitiveType() {
+		return (EAttribute)complexTypePropertyEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getComplexTypeProperty_PropertyHasComplexType() {
+		return (EReference)complexTypePropertyEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -785,6 +927,7 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 		createEReference(javaRESTClientControllerEClass, JAVA_REST_CLIENT_CONTROLLER__HAS_JAVA_REST_CLIENT_HTTP_ACTIVITY);
 		createEReference(javaRESTClientControllerEClass, JAVA_REST_CLIENT_CONTROLLER__IS_JAVA_REST_CLIENT_CONTROLLER);
 		createEReference(javaRESTClientControllerEClass, JAVA_REST_CLIENT_CONTROLLER__HAS_ASSOCIATED_MODEL);
+		createEReference(javaRESTClientControllerEClass, JAVA_REST_CLIENT_CONTROLLER__HAS_COMPLEX_TYPES);
 
 		javaRESTClientHTTPActivityEClass = createEClass(JAVA_REST_CLIENT_HTTP_ACTIVITY);
 		createEReference(javaRESTClientHTTPActivityEClass, JAVA_REST_CLIENT_HTTP_ACTIVITY__HAS_JAVA_REST_CLIENT_HTTP_ACTIVITY_HANDLER);
@@ -804,6 +947,8 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 		queryParamEClass = createEClass(QUERY_PARAM);
 		createEAttribute(queryParamEClass, QUERY_PARAM__NAME);
 		createEAttribute(queryParamEClass, QUERY_PARAM__TYPE);
+		createEAttribute(queryParamEClass, QUERY_PARAM__IS_AUTH_TOKEN);
+		createEAttribute(queryParamEClass, QUERY_PARAM__AUTH_TOKEN_TO_URL);
 
 		javaInputDataModelEClass = createEClass(JAVA_INPUT_DATA_MODEL);
 		createEReference(javaInputDataModelEClass, JAVA_INPUT_DATA_MODEL__HAS_INPUT_PROPERTY);
@@ -820,6 +965,8 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 		createEAttribute(propertyEClass, PROPERTY__NAME);
 		createEAttribute(propertyEClass, PROPERTY__TYPE);
 		createEAttribute(propertyEClass, PROPERTY__IS_UNIQUE);
+		createEAttribute(propertyEClass, PROPERTY__HAS_PRIMITIVE_TYPE);
+		createEReference(propertyEClass, PROPERTY__HAS_COMPLEX_TYPE);
 
 		nonPersistentOutputEClass = createEClass(NON_PERSISTENT_OUTPUT);
 
@@ -827,6 +974,17 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 
 		existentJavaModelPersistentOutputEClass = createEClass(EXISTENT_JAVA_MODEL_PERSISTENT_OUTPUT);
 		createEReference(existentJavaModelPersistentOutputEClass, EXISTENT_JAVA_MODEL_PERSISTENT_OUTPUT__IS_EXISTENT_JAVA_MODEL_PERSISTENT_OUTPUT);
+
+		complexTypeEClass = createEClass(COMPLEX_TYPE);
+		createEAttribute(complexTypeEClass, COMPLEX_TYPE__COMPLEX_TYPE_NAME);
+		createEReference(complexTypeEClass, COMPLEX_TYPE__HAS_COMPLEX_TYPE_PROPERTIES);
+
+		complexTypePropertyEClass = createEClass(COMPLEX_TYPE_PROPERTY);
+		createEAttribute(complexTypePropertyEClass, COMPLEX_TYPE_PROPERTY__NAME);
+		createEAttribute(complexTypePropertyEClass, COMPLEX_TYPE_PROPERTY__IS_UNIQUE);
+		createEAttribute(complexTypePropertyEClass, COMPLEX_TYPE_PROPERTY__TYPE);
+		createEAttribute(complexTypePropertyEClass, COMPLEX_TYPE_PROPERTY__HAS_PRIMITIVE_TYPE);
+		createEReference(complexTypePropertyEClass, COMPLEX_TYPE_PROPERTY__PROPERTY_HAS_COMPLEX_TYPE);
 	}
 
 	/**
@@ -900,6 +1058,7 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 		initEReference(getJavaRESTClientController_HasJavaRESTClientHTTPActivity(), this.getJavaRESTClientHTTPActivity(), null, "hasJavaRESTClientHTTPActivity", null, 1, 1, JavaRESTClientController.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getJavaRESTClientController_IsJavaRESTClientController(), this.getAnnJavaAlgoController(), null, "isJavaRESTClientController", null, 1, 1, JavaRESTClientController.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getJavaRESTClientController_HasAssociatedModel(), this.getJavaRESTClientModel(), null, "hasAssociatedModel", null, 1, 1, JavaRESTClientController.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJavaRESTClientController_HasComplexTypes(), this.getComplexType(), null, "hasComplexTypes", null, 0, -1, JavaRESTClientController.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(javaRESTClientHTTPActivityEClass, JavaRESTClientHTTPActivity.class, "JavaRESTClientHTTPActivity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getJavaRESTClientHTTPActivity_HasJavaRESTClientHTTPActivityHandler(), this.getJavaRESTClientHTTPActivityHandler(), null, "hasJavaRESTClientHTTPActivityHandler", null, 1, 1, JavaRESTClientHTTPActivity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -919,6 +1078,8 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 		initEClass(queryParamEClass, QueryParam.class, "QueryParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getQueryParam_Name(), ecorePackage.getEString(), "name", null, 1, 1, QueryParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getQueryParam_Type(), ecorePackage.getEString(), "type", null, 1, 1, QueryParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getQueryParam_IsAuthToken(), ecorePackage.getEBoolean(), "isAuthToken", null, 0, 1, QueryParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getQueryParam_AuthTokenToURL(), ecorePackage.getEString(), "authTokenToURL", null, 0, 1, QueryParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(javaInputDataModelEClass, JavaInputDataModel.class, "JavaInputDataModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getJavaInputDataModel_HasInputProperty(), this.getProperty(), null, "hasInputProperty", null, 1, -1, JavaInputDataModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -935,6 +1096,8 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 		initEAttribute(getProperty_Name(), ecorePackage.getEString(), "name", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProperty_Type(), ecorePackage.getEString(), "type", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProperty_IsUnique(), ecorePackage.getEBoolean(), "isUnique", null, 1, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProperty_HasPrimitiveType(), ecorePackage.getEBoolean(), "hasPrimitiveType", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getProperty_HasComplexType(), this.getComplexType(), null, "hasComplexType", null, 0, 1, Property.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nonPersistentOutputEClass, NonPersistentOutput.class, "NonPersistentOutput", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -942,6 +1105,17 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 
 		initEClass(existentJavaModelPersistentOutputEClass, ExistentJavaModelPersistentOutput.class, "ExistentJavaModelPersistentOutput", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExistentJavaModelPersistentOutput_IsExistentJavaModelPersistentOutput(), this.getAnnJavaResourceModel(), null, "isExistentJavaModelPersistentOutput", null, 1, 1, ExistentJavaModelPersistentOutput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(complexTypeEClass, ComplexType.class, "ComplexType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getComplexType_ComplexTypeName(), ecorePackage.getEString(), "complexTypeName", null, 0, 1, ComplexType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComplexType_HasComplexTypeProperties(), this.getComplexTypeProperty(), null, "hasComplexTypeProperties", null, 1, -1, ComplexType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(complexTypePropertyEClass, ComplexTypeProperty.class, "ComplexTypeProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getComplexTypeProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, ComplexTypeProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComplexTypeProperty_IsUnique(), ecorePackage.getEBoolean(), "isUnique", null, 0, 1, ComplexTypeProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComplexTypeProperty_Type(), ecorePackage.getEString(), "type", null, 0, 1, ComplexTypeProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getComplexTypeProperty_HasPrimitiveType(), ecorePackage.getEBoolean(), "hasPrimitiveType", null, 0, 1, ComplexTypeProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getComplexTypeProperty_PropertyHasComplexType(), this.getComplexType(), null, "propertyHasComplexType", null, 0, 1, ComplexTypeProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

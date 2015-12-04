@@ -37,6 +37,7 @@ import eu.fp7.scase.cimGenerator.ACIMProducer;
 import eu.fp7.scase.cimGenerator.CoreCIMProducer;
 import eu.fp7.scase.cimGenerator.EcoreXMIExtractor;
 import eu.fp7.scase.cimeditor.CoreCIMEditorWizard;
+import eu.fp7.scase.extcompositions.ExternalCompositionInputParser;
 import eu.fp7.scase.extcompositions.ExternalCompositionWizard;
 
 /**
@@ -64,6 +65,7 @@ public class CIMGenerator extends AbstractHandler {
 	private AuthenticationCIMWizard oAuthenticationCIMWizard;
 	private SearchCIMWizard oSearchCIMWizard;
 	private ExternalCompositionWizard oExternalCompositionWizard;
+	private ExternalCompositionInputParser oExternalCompositionInputParser;
 	private static MessageConsole myConsole = findConsole("SCASE-UI");
 	private static MessageConsoleStream out = myConsole.newMessageStream();
 
@@ -80,14 +82,29 @@ public class CIMGenerator extends AbstractHandler {
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		this.oEvent = event;
-		
 		this.bReloadExistingModels = (event.getParameter("ReloadExistingModels") == null ? false : (event.getParameter("ReloadExistingModels").equalsIgnoreCase("yes") ? true : false));
+		//delete any existing source files
+		deleteExistingSourceFiles();
 		initializeAllCIMModels(event);
 		executeMDE(event);
 		exportBackUpXMIs(event);
 		return null;
 	}
 
+	private void deleteExistingSourceFiles() {
+		File oMdeOutputDirectory = new  File(this.oEvent.getParameter("MDEOutputFolder") + "/MDEGeneratedCode/" + this.oEvent.getParameter("WebServiceName"));
+		this.deleteFile(oMdeOutputDirectory);
+	}
+
+	private void deleteFile(File element) {
+	    if (element.isDirectory()) {
+	        for (File sub : element.listFiles()) {
+	            deleteFile(sub);
+	        }
+	    }
+	    element.delete();
+	}
+	
 	private void exportBackUpXMIs(ExecutionEvent event) {
 		//extract Core to a backup file as well to support 2nd run logic
 		EcoreXMIExtractor oEcoreXMIExtractor = new EcoreXMIExtractor(event.getParameter("MDEOutputFolder") + "/CIMModels/BackUp/" + event.getParameter("WebServiceName") + "CIMBackUp.xmi", this.oEvent.getParameter("WebServiceName"));
@@ -156,10 +173,11 @@ public class CIMGenerator extends AbstractHandler {
 		
 		//if the external Service flag is true
 		if(event.getParameter("ExternalComposition").equalsIgnoreCase("yes")){//instantiate an empty external service composition model
-			//TODO once the composition input from CERTH is available add here external service layer CIM instantiation
 			this.oExternalServiceLayerCIMFactory = ExternalServiceLayerCIMFactory.eINSTANCE;
 			this.oExternalServiceLayerCIM = this.oExternalServiceLayerCIMFactory.createAnnotationModel();
-			this.oExternalServiceLayerCIM.setName(this.oRESTfulServiceCIM.getName() + "ExternalServiceLayer");	
+			this.oExternalServiceLayerCIM.setName(this.oRESTfulServiceCIM.getName() + "ExternalServiceLayer");
+			this.oExternalCompositionInputParser = new ExternalCompositionInputParser(this.listOfYamlResources, oExternalServiceLayerCIM, this.oRESTfulServiceCIM);
+			this.oExternalCompositionInputParser.instantiateExternalCompositionsCIM();
 		}
 		else{
 			this.oExistingExternalServiceLayerCIM = null;
@@ -394,7 +412,7 @@ public class CIMGenerator extends AbstractHandler {
 	private boolean createExternalServiceLayerCIM(ExecutionEvent event){
 		
 		//setup the external service CIM wizard
-		oExternalCompositionWizard = new ExternalCompositionWizard(this.oEvent.getParameter("MDEOutputFolder"), this.oRESTfulServiceCIM, this.oExternalServiceLayerCIM, this.oSearchLayerCIM, this.bReloadExistingModels);
+		oExternalCompositionWizard = new ExternalCompositionWizard(this.oEvent.getParameter("MDEOutputFolder"), this.oRESTfulServiceCIM, this.oExternalServiceLayerCIM, this.oSearchLayerCIM, this.bReloadExistingModels, this.listOfYamlResources);
 		WizardDialog oExternalCompositionWizardDialog = new WizardDialog(null, oExternalCompositionWizard);
 		
 		if(oExternalCompositionWizardDialog.open() == Window.OK){

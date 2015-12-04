@@ -2,6 +2,7 @@
  */
 package ExternalServiceLayerCIM;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -13,6 +14,8 @@ package ExternalServiceLayerCIM;
  * <ul>
  *   <li>{@link ExternalServiceLayerCIM.RESTClientResource#getTargetsService <em>Targets Service</em>}</li>
  *   <li>{@link ExternalServiceLayerCIM.RESTClientResource#getIsRESTClientResource <em>Is REST Client Resource</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.RESTClientResource#getHasPathParam <em>Has Path Param</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.RESTClientResource#getIsRESTClientComplexType <em>Is REST Client Complex Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -72,5 +75,37 @@ public interface RESTClientResource extends Annotation {
 	 * @generated
 	 */
 	void setIsRESTClientResource(AnnAlgoResource value);
+
+	/**
+	 * Returns the value of the '<em><b>Has Path Param</b></em>' containment reference list.
+	 * The list contents are of type {@link ExternalServiceLayerCIM.PathParam}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Has Path Param</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Has Path Param</em>' containment reference list.
+	 * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getRESTClientResource_HasPathParam()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<PathParam> getHasPathParam();
+
+	/**
+	 * Returns the value of the '<em><b>Is REST Client Complex Type</b></em>' containment reference list.
+	 * The list contents are of type {@link ExternalServiceLayerCIM.ComplexType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Is REST Client Complex Type</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Is REST Client Complex Type</em>' containment reference list.
+	 * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage#getRESTClientResource_IsRESTClientComplexType()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ComplexType> getIsRESTClientComplexType();
 
 } // RESTClientResource

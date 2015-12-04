@@ -166,8 +166,16 @@ unique lazy rule createProperty{
 		PIMProperty : EXTPIMOUT!Property(
 			name <- CIMProperty.name,
 			type <- CIMProperty.type,
-			isUnique <- CIMProperty.isUnique
+			isUnique <- CIMProperty.isUnique,
+			hasPrimitiveType <- CIMProperty.hasPrimitiveType
 		)
+	do{
+		if (CIMProperty.hasComplexType.oclIsUndefined() = false){
+			PIMProperty.hasComplexType <- thisModule.createComplexType(CIMProperty.hasComplexType);
+		}
+
+		PIMProperty;
+	}
 }
 
 unique lazy rule createRepresentation{
@@ -186,8 +194,38 @@ unique lazy rule createRESTClientController{
 		RESTClientController : EXTPIMOUT!RESTClientController(
 			isRESTClientController <- thisModule.createAnnAlgoResourceController(CIMRESTClientResource.isRESTClientResource.getAlgoResourceController),
 			hasRESTClientCRUDActivity <- thisModule.createRESTClientCRUDActivity(CIMRESTClientResource),
-			hasAssociatedClientModel <- thisModule.createRESTClientModel(CIMRESTClientResource)
+			hasAssociatedClientModel <- thisModule.createRESTClientModel(CIMRESTClientResource),
+			hasComplexTypes <- CIMRESTClientResource.isRESTClientComplexType->collect(complexType | thisModule.createComplexType(complexType))
 		)
+}
+
+unique lazy rule createComplexType{
+	from
+		CIMComplexType : EXTCIMIN!ComplexType
+	to
+		ComplexType : EXTPIMOUT!ComplexType(
+			complexTypeName <- CIMComplexType.complexTypeName,
+			hasComplexTypeProperties <- CIMComplexType.hasComplexTypeProperties->collect(complexTypeProperty | thisModule.createComplexTypeProperty(complexTypeProperty))
+		)
+}
+
+unique lazy rule createComplexTypeProperty{
+	from
+		CIMComplexTypeProperty : EXTCIMIN!ComplexTypeProperty
+	to
+		ComplexTypeProperty : EXTPIMOUT!ComplexTypeProperty(
+			name <- CIMComplexTypeProperty.name,
+			isUnique <- CIMComplexTypeProperty.isUnique,
+			type <- CIMComplexTypeProperty.type,
+			hasPrimitiveType <- CIMComplexTypeProperty.hasPrimitiveType
+		)
+	do{
+		if (CIMComplexTypeProperty.propertyHasComplexType.oclIsUndefined() = false){
+			ComplexTypeProperty.propertyHasComplexType <- thisModule.createComplexType(CIMComplexTypeProperty.propertyHasComplexType);
+		}
+
+		ComplexTypeProperty;
+	}
 }
 
 unique lazy rule createRESTClientCRUDActivity{
@@ -207,7 +245,9 @@ unique lazy rule createQueryParam{
 	to
 		PIMQueryParam : EXTPIMOUT!QueryParam(
 			name <- CIMQueryParam.name,
-			type <- CIMQueryParam.type
+			type <- CIMQueryParam.type,
+			isAuthToken <- CIMQueryParam.isAuthToken,
+			authTokenToURL <- CIMQueryParam.authTokenToURL
 		)
 }
 

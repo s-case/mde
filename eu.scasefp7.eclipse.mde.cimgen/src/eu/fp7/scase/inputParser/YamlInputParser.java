@@ -55,9 +55,6 @@ public class YamlInputParser {
     public ArrayList<YamlResource> parseYamlInputFile(){
 		
 		this.listOfYamlResources = oYamlHandler.loadAs(oInputStreamHandler, ArrayList.class);
-		for( YamlResource oYamlResource : listOfYamlResources){
-			out.println(oYamlResource + "\n");
-		}
 		return this.listOfYamlResources;
 	}
 

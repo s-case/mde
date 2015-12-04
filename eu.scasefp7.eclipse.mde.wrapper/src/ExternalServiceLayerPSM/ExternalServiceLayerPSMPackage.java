@@ -391,13 +391,22 @@ public interface ExternalServiceLayerPSMPackage extends EPackage {
 	int JAVA_REST_CLIENT_CONTROLLER__HAS_ASSOCIATED_MODEL = ANNOTATION_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Has Complex Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_REST_CLIENT_CONTROLLER__HAS_COMPLEX_TYPES = ANNOTATION_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Java REST Client Controller</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JAVA_REST_CLIENT_CONTROLLER_FEATURE_COUNT = ANNOTATION_FEATURE_COUNT + 3;
+	int JAVA_REST_CLIENT_CONTROLLER_FEATURE_COUNT = ANNOTATION_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Java REST Client Controller</em>' class.
@@ -602,13 +611,31 @@ public interface ExternalServiceLayerPSMPackage extends EPackage {
 	int QUERY_PARAM__TYPE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Is Auth Token</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUERY_PARAM__IS_AUTH_TOKEN = 2;
+
+	/**
+	 * The feature id for the '<em><b>Auth Token To URL</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int QUERY_PARAM__AUTH_TOKEN_TO_URL = 3;
+
+	/**
 	 * The number of structural features of the '<em>Query Param</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int QUERY_PARAM_FEATURE_COUNT = 2;
+	int QUERY_PARAM_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Query Param</em>' class.
@@ -786,13 +813,31 @@ public interface ExternalServiceLayerPSMPackage extends EPackage {
 	int PROPERTY__IS_UNIQUE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Has Primitive Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY__HAS_PRIMITIVE_TYPE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Has Complex Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY__HAS_COMPLEX_TYPE = 4;
+
+	/**
 	 * The number of structural features of the '<em>Property</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_FEATURE_COUNT = 3;
+	int PROPERTY_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Property</em>' class.
@@ -949,6 +994,125 @@ public interface ExternalServiceLayerPSMPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXISTENT_JAVA_MODEL_PERSISTENT_OUTPUT_OPERATION_COUNT = JAVA_OUTPUT_DATA_MODEL_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link ExternalServiceLayerPSM.impl.ComplexTypeImpl <em>Complex Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ExternalServiceLayerPSM.impl.ComplexTypeImpl
+	 * @see ExternalServiceLayerPSM.impl.ExternalServiceLayerPSMPackageImpl#getComplexType()
+	 * @generated
+	 */
+	int COMPLEX_TYPE = 20;
+
+	/**
+	 * The feature id for the '<em><b>Complex Type Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE__COMPLEX_TYPE_NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Has Complex Type Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE__HAS_COMPLEX_TYPE_PROPERTIES = 1;
+
+	/**
+	 * The number of structural features of the '<em>Complex Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Complex Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link ExternalServiceLayerPSM.impl.ComplexTypePropertyImpl <em>Complex Type Property</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ExternalServiceLayerPSM.impl.ComplexTypePropertyImpl
+	 * @see ExternalServiceLayerPSM.impl.ExternalServiceLayerPSMPackageImpl#getComplexTypeProperty()
+	 * @generated
+	 */
+	int COMPLEX_TYPE_PROPERTY = 21;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Is Unique</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY__IS_UNIQUE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY__TYPE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Has Primitive Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY__HAS_PRIMITIVE_TYPE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Property Has Complex Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY__PROPERTY_HAS_COMPLEX_TYPE = 4;
+
+	/**
+	 * The number of structural features of the '<em>Complex Type Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY_FEATURE_COUNT = 5;
+
+	/**
+	 * The number of operations of the '<em>Complex Type Property</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPLEX_TYPE_PROPERTY_OPERATION_COUNT = 0;
 
 
 	/**
@@ -1163,6 +1327,17 @@ public interface ExternalServiceLayerPSMPackage extends EPackage {
 	EReference getJavaRESTClientController_HasAssociatedModel();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link ExternalServiceLayerPSM.JavaRESTClientController#getHasComplexTypes <em>Has Complex Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Has Complex Types</em>'.
+	 * @see ExternalServiceLayerPSM.JavaRESTClientController#getHasComplexTypes()
+	 * @see #getJavaRESTClientController()
+	 * @generated
+	 */
+	EReference getJavaRESTClientController_HasComplexTypes();
+
+	/**
 	 * Returns the meta object for class '{@link ExternalServiceLayerPSM.JavaRESTClientHTTPActivity <em>Java REST Client HTTP Activity</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1324,6 +1499,28 @@ public interface ExternalServiceLayerPSMPackage extends EPackage {
 	EAttribute getQueryParam_Type();
 
 	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerPSM.QueryParam#isIsAuthToken <em>Is Auth Token</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Is Auth Token</em>'.
+	 * @see ExternalServiceLayerPSM.QueryParam#isIsAuthToken()
+	 * @see #getQueryParam()
+	 * @generated
+	 */
+	EAttribute getQueryParam_IsAuthToken();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerPSM.QueryParam#getAuthTokenToURL <em>Auth Token To URL</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Auth Token To URL</em>'.
+	 * @see ExternalServiceLayerPSM.QueryParam#getAuthTokenToURL()
+	 * @see #getQueryParam()
+	 * @generated
+	 */
+	EAttribute getQueryParam_AuthTokenToURL();
+
+	/**
 	 * Returns the meta object for class '{@link ExternalServiceLayerPSM.JavaInputDataModel <em>Java Input Data Model</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1452,6 +1649,28 @@ public interface ExternalServiceLayerPSMPackage extends EPackage {
 	EAttribute getProperty_IsUnique();
 
 	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerPSM.Property#isHasPrimitiveType <em>Has Primitive Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Has Primitive Type</em>'.
+	 * @see ExternalServiceLayerPSM.Property#isHasPrimitiveType()
+	 * @see #getProperty()
+	 * @generated
+	 */
+	EAttribute getProperty_HasPrimitiveType();
+
+	/**
+	 * Returns the meta object for the reference '{@link ExternalServiceLayerPSM.Property#getHasComplexType <em>Has Complex Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Has Complex Type</em>'.
+	 * @see ExternalServiceLayerPSM.Property#getHasComplexType()
+	 * @see #getProperty()
+	 * @generated
+	 */
+	EReference getProperty_HasComplexType();
+
+	/**
 	 * Returns the meta object for class '{@link ExternalServiceLayerPSM.NonPersistentOutput <em>Non Persistent Output</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1491,6 +1710,103 @@ public interface ExternalServiceLayerPSMPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getExistentJavaModelPersistentOutput_IsExistentJavaModelPersistentOutput();
+
+	/**
+	 * Returns the meta object for class '{@link ExternalServiceLayerPSM.ComplexType <em>Complex Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Complex Type</em>'.
+	 * @see ExternalServiceLayerPSM.ComplexType
+	 * @generated
+	 */
+	EClass getComplexType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerPSM.ComplexType#getComplexTypeName <em>Complex Type Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Complex Type Name</em>'.
+	 * @see ExternalServiceLayerPSM.ComplexType#getComplexTypeName()
+	 * @see #getComplexType()
+	 * @generated
+	 */
+	EAttribute getComplexType_ComplexTypeName();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link ExternalServiceLayerPSM.ComplexType#getHasComplexTypeProperties <em>Has Complex Type Properties</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Has Complex Type Properties</em>'.
+	 * @see ExternalServiceLayerPSM.ComplexType#getHasComplexTypeProperties()
+	 * @see #getComplexType()
+	 * @generated
+	 */
+	EReference getComplexType_HasComplexTypeProperties();
+
+	/**
+	 * Returns the meta object for class '{@link ExternalServiceLayerPSM.ComplexTypeProperty <em>Complex Type Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Complex Type Property</em>'.
+	 * @see ExternalServiceLayerPSM.ComplexTypeProperty
+	 * @generated
+	 */
+	EClass getComplexTypeProperty();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerPSM.ComplexTypeProperty#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see ExternalServiceLayerPSM.ComplexTypeProperty#getName()
+	 * @see #getComplexTypeProperty()
+	 * @generated
+	 */
+	EAttribute getComplexTypeProperty_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerPSM.ComplexTypeProperty#isIsUnique <em>Is Unique</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Is Unique</em>'.
+	 * @see ExternalServiceLayerPSM.ComplexTypeProperty#isIsUnique()
+	 * @see #getComplexTypeProperty()
+	 * @generated
+	 */
+	EAttribute getComplexTypeProperty_IsUnique();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerPSM.ComplexTypeProperty#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see ExternalServiceLayerPSM.ComplexTypeProperty#getType()
+	 * @see #getComplexTypeProperty()
+	 * @generated
+	 */
+	EAttribute getComplexTypeProperty_Type();
+
+	/**
+	 * Returns the meta object for the attribute '{@link ExternalServiceLayerPSM.ComplexTypeProperty#isHasPrimitiveType <em>Has Primitive Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Has Primitive Type</em>'.
+	 * @see ExternalServiceLayerPSM.ComplexTypeProperty#isHasPrimitiveType()
+	 * @see #getComplexTypeProperty()
+	 * @generated
+	 */
+	EAttribute getComplexTypeProperty_HasPrimitiveType();
+
+	/**
+	 * Returns the meta object for the reference '{@link ExternalServiceLayerPSM.ComplexTypeProperty#getPropertyHasComplexType <em>Property Has Complex Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Property Has Complex Type</em>'.
+	 * @see ExternalServiceLayerPSM.ComplexTypeProperty#getPropertyHasComplexType()
+	 * @see #getComplexTypeProperty()
+	 * @generated
+	 */
+	EReference getComplexTypeProperty_PropertyHasComplexType();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1694,6 +2010,14 @@ public interface ExternalServiceLayerPSMPackage extends EPackage {
 		EReference JAVA_REST_CLIENT_CONTROLLER__HAS_ASSOCIATED_MODEL = eINSTANCE.getJavaRESTClientController_HasAssociatedModel();
 
 		/**
+		 * The meta object literal for the '<em><b>Has Complex Types</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JAVA_REST_CLIENT_CONTROLLER__HAS_COMPLEX_TYPES = eINSTANCE.getJavaRESTClientController_HasComplexTypes();
+
+		/**
 		 * The meta object literal for the '{@link ExternalServiceLayerPSM.impl.JavaRESTClientHTTPActivityImpl <em>Java REST Client HTTP Activity</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1822,6 +2146,22 @@ public interface ExternalServiceLayerPSMPackage extends EPackage {
 		EAttribute QUERY_PARAM__TYPE = eINSTANCE.getQueryParam_Type();
 
 		/**
+		 * The meta object literal for the '<em><b>Is Auth Token</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute QUERY_PARAM__IS_AUTH_TOKEN = eINSTANCE.getQueryParam_IsAuthToken();
+
+		/**
+		 * The meta object literal for the '<em><b>Auth Token To URL</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute QUERY_PARAM__AUTH_TOKEN_TO_URL = eINSTANCE.getQueryParam_AuthTokenToURL();
+
+		/**
 		 * The meta object literal for the '{@link ExternalServiceLayerPSM.impl.JavaInputDataModelImpl <em>Java Input Data Model</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1926,6 +2266,22 @@ public interface ExternalServiceLayerPSMPackage extends EPackage {
 		EAttribute PROPERTY__IS_UNIQUE = eINSTANCE.getProperty_IsUnique();
 
 		/**
+		 * The meta object literal for the '<em><b>Has Primitive Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PROPERTY__HAS_PRIMITIVE_TYPE = eINSTANCE.getProperty_HasPrimitiveType();
+
+		/**
+		 * The meta object literal for the '<em><b>Has Complex Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PROPERTY__HAS_COMPLEX_TYPE = eINSTANCE.getProperty_HasComplexType();
+
+		/**
 		 * The meta object literal for the '{@link ExternalServiceLayerPSM.impl.NonPersistentOutputImpl <em>Non Persistent Output</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1962,6 +2318,82 @@ public interface ExternalServiceLayerPSMPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXISTENT_JAVA_MODEL_PERSISTENT_OUTPUT__IS_EXISTENT_JAVA_MODEL_PERSISTENT_OUTPUT = eINSTANCE.getExistentJavaModelPersistentOutput_IsExistentJavaModelPersistentOutput();
+
+		/**
+		 * The meta object literal for the '{@link ExternalServiceLayerPSM.impl.ComplexTypeImpl <em>Complex Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ExternalServiceLayerPSM.impl.ComplexTypeImpl
+		 * @see ExternalServiceLayerPSM.impl.ExternalServiceLayerPSMPackageImpl#getComplexType()
+		 * @generated
+		 */
+		EClass COMPLEX_TYPE = eINSTANCE.getComplexType();
+
+		/**
+		 * The meta object literal for the '<em><b>Complex Type Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPLEX_TYPE__COMPLEX_TYPE_NAME = eINSTANCE.getComplexType_ComplexTypeName();
+
+		/**
+		 * The meta object literal for the '<em><b>Has Complex Type Properties</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPLEX_TYPE__HAS_COMPLEX_TYPE_PROPERTIES = eINSTANCE.getComplexType_HasComplexTypeProperties();
+
+		/**
+		 * The meta object literal for the '{@link ExternalServiceLayerPSM.impl.ComplexTypePropertyImpl <em>Complex Type Property</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ExternalServiceLayerPSM.impl.ComplexTypePropertyImpl
+		 * @see ExternalServiceLayerPSM.impl.ExternalServiceLayerPSMPackageImpl#getComplexTypeProperty()
+		 * @generated
+		 */
+		EClass COMPLEX_TYPE_PROPERTY = eINSTANCE.getComplexTypeProperty();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPLEX_TYPE_PROPERTY__NAME = eINSTANCE.getComplexTypeProperty_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Is Unique</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPLEX_TYPE_PROPERTY__IS_UNIQUE = eINSTANCE.getComplexTypeProperty_IsUnique();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPLEX_TYPE_PROPERTY__TYPE = eINSTANCE.getComplexTypeProperty_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Has Primitive Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COMPLEX_TYPE_PROPERTY__HAS_PRIMITIVE_TYPE = eINSTANCE.getComplexTypeProperty_HasPrimitiveType();
+
+		/**
+		 * The meta object literal for the '<em><b>Property Has Complex Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPLEX_TYPE_PROPERTY__PROPERTY_HAS_COMPLEX_TYPE = eINSTANCE.getComplexTypeProperty_PropertyHasComplexType();
 
 	}
 

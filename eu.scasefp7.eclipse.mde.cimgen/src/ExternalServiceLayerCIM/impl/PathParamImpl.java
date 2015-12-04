@@ -3,7 +3,7 @@
 package ExternalServiceLayerCIM.impl;
 
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage;
-import ExternalServiceLayerCIM.QueryParam;
+import ExternalServiceLayerCIM.PathParam;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -14,19 +14,19 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Query Param</b></em>'.
+ * An implementation of the model object '<em><b>Path Param</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link ExternalServiceLayerCIM.impl.QueryParamImpl#getName <em>Name</em>}</li>
- *   <li>{@link ExternalServiceLayerCIM.impl.QueryParamImpl#getType <em>Type</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.impl.PathParamImpl#getName <em>Name</em>}</li>
+ *   <li>{@link ExternalServiceLayerCIM.impl.PathParamImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class QueryParamImpl extends MinimalEObjectImpl.Container implements QueryParam {
+public class PathParamImpl extends MinimalEObjectImpl.Container implements PathParam {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -72,7 +72,7 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected QueryParamImpl() {
+	protected PathParamImpl() {
 		super();
 	}
 
@@ -83,7 +83,7 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ExternalServiceLayerCIMPackage.Literals.QUERY_PARAM;
+		return ExternalServiceLayerCIMPackage.Literals.PATH_PARAM;
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.QUERY_PARAM__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.PATH_PARAM__NAME, oldName, name));
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 		String oldType = type;
 		type = newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.QUERY_PARAM__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, ExternalServiceLayerCIMPackage.PATH_PARAM__TYPE, oldType, type));
 	}
 
 	/**
@@ -136,9 +136,9 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ExternalServiceLayerCIMPackage.QUERY_PARAM__NAME:
+			case ExternalServiceLayerCIMPackage.PATH_PARAM__NAME:
 				return getName();
-			case ExternalServiceLayerCIMPackage.QUERY_PARAM__TYPE:
+			case ExternalServiceLayerCIMPackage.PATH_PARAM__TYPE:
 				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -152,10 +152,10 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ExternalServiceLayerCIMPackage.QUERY_PARAM__NAME:
+			case ExternalServiceLayerCIMPackage.PATH_PARAM__NAME:
 				setName((String)newValue);
 				return;
-			case ExternalServiceLayerCIMPackage.QUERY_PARAM__TYPE:
+			case ExternalServiceLayerCIMPackage.PATH_PARAM__TYPE:
 				setType((String)newValue);
 				return;
 		}
@@ -170,10 +170,10 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ExternalServiceLayerCIMPackage.QUERY_PARAM__NAME:
+			case ExternalServiceLayerCIMPackage.PATH_PARAM__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case ExternalServiceLayerCIMPackage.QUERY_PARAM__TYPE:
+			case ExternalServiceLayerCIMPackage.PATH_PARAM__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
 		}
@@ -188,9 +188,9 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ExternalServiceLayerCIMPackage.QUERY_PARAM__NAME:
+			case ExternalServiceLayerCIMPackage.PATH_PARAM__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ExternalServiceLayerCIMPackage.QUERY_PARAM__TYPE:
+			case ExternalServiceLayerCIMPackage.PATH_PARAM__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		}
 		return super.eIsSet(featureID);
@@ -214,4 +214,4 @@ public class QueryParamImpl extends MinimalEObjectImpl.Container implements Quer
 		return result.toString();
 	}
 
-} //QueryParamImpl
+} //PathParamImpl

@@ -4,6 +4,7 @@
  */
 package ExternalServiceLayerPSM.validation;
 
+import ExternalServiceLayerPSM.ComplexType;
 
 /**
  * A sample validator interface for {@link ExternalServiceLayerPSM.Property}.
@@ -17,4 +18,6 @@ public interface PropertyValidator {
 	boolean validateName(String value);
 	boolean validateType(String value);
 	boolean validateIsUnique(boolean value);
+	boolean validateHasPrimitiveType(boolean value);
+	boolean validateHasComplexType(ComplexType value);
 }
