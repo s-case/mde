@@ -1575,13 +1575,22 @@ public interface RESTfulServicePSMPackage extends EPackage {
 	int SERVICE_PSM__SERVICE_DATABASE_PASSWORD = 12;
 
 	/**
+	 * The feature id for the '<em><b>Service Database Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_PSM__SERVICE_DATABASE_TYPE = 13;
+
+	/**
 	 * The number of structural features of the '<em>Service PSM</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_PSM_FEATURE_COUNT = 13;
+	int SERVICE_PSM_FEATURE_COUNT = 14;
 
 	/**
 	 * The number of operations of the '<em>Service PSM</em>' class.
@@ -2824,6 +2833,17 @@ public interface RESTfulServicePSMPackage extends EPackage {
 	EAttribute getServicePSM_ServiceDatabasePassword();
 
 	/**
+	 * Returns the meta object for the attribute '{@link RESTfulServicePSM.ServicePSM#getServiceDatabaseType <em>Service Database Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Service Database Type</em>'.
+	 * @see RESTfulServicePSM.ServicePSM#getServiceDatabaseType()
+	 * @see #getServicePSM()
+	 * @generated
+	 */
+	EAttribute getServicePSM_ServiceDatabaseType();
+
+	/**
 	 * Returns the meta object for class '{@link RESTfulServicePSM.FunctionParameter <em>Function Parameter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3859,6 +3879,14 @@ public interface RESTfulServicePSMPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SERVICE_PSM__SERVICE_DATABASE_PASSWORD = eINSTANCE.getServicePSM_ServiceDatabasePassword();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Database Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_PSM__SERVICE_DATABASE_TYPE = eINSTANCE.getServicePSM_ServiceDatabaseType();
 
 		/**
 		 * The meta object literal for the '{@link RESTfulServicePSM.impl.FunctionParameterImpl <em>Function Parameter</em>}' class.

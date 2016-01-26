@@ -3,7 +3,7 @@
 package ServiceCIM.impl;
 
 import ServiceCIM.Property;
-import ServiceCIM.ServiceCIMPackage;
+import ServiceCIM.RESTServiceCIMPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -122,7 +122,7 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ServiceCIMPackage.Literals.PROPERTY;
+		return RESTServiceCIMPackage.Literals.PROPERTY;
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 		boolean oldIsUnique = isUnique;
 		isUnique = newIsUnique;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ServiceCIMPackage.PROPERTY__IS_UNIQUE, oldIsUnique, isUnique));
+			eNotify(new ENotificationImpl(this, Notification.SET, RESTServiceCIMPackage.PROPERTY__IS_UNIQUE, oldIsUnique, isUnique));
 	}
 
 	/**
@@ -164,7 +164,7 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 		boolean oldIsNamingProperty = isNamingProperty;
 		isNamingProperty = newIsNamingProperty;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ServiceCIMPackage.PROPERTY__IS_NAMING_PROPERTY, oldIsNamingProperty, isNamingProperty));
+			eNotify(new ENotificationImpl(this, Notification.SET, RESTServiceCIMPackage.PROPERTY__IS_NAMING_PROPERTY, oldIsNamingProperty, isNamingProperty));
 	}
 
 	/**
@@ -185,7 +185,7 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ServiceCIMPackage.PROPERTY__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, RESTServiceCIMPackage.PROPERTY__NAME, oldName, name));
 	}
 
 	/**
@@ -206,7 +206,7 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 		String oldType = type;
 		type = newType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ServiceCIMPackage.PROPERTY__TYPE, oldType, type));
+			eNotify(new ENotificationImpl(this, Notification.SET, RESTServiceCIMPackage.PROPERTY__TYPE, oldType, type));
 	}
 
 	/**
@@ -217,13 +217,13 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ServiceCIMPackage.PROPERTY__IS_UNIQUE:
+			case RESTServiceCIMPackage.PROPERTY__IS_UNIQUE:
 				return isIsUnique();
-			case ServiceCIMPackage.PROPERTY__IS_NAMING_PROPERTY:
+			case RESTServiceCIMPackage.PROPERTY__IS_NAMING_PROPERTY:
 				return isIsNamingProperty();
-			case ServiceCIMPackage.PROPERTY__NAME:
+			case RESTServiceCIMPackage.PROPERTY__NAME:
 				return getName();
-			case ServiceCIMPackage.PROPERTY__TYPE:
+			case RESTServiceCIMPackage.PROPERTY__TYPE:
 				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -237,16 +237,16 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ServiceCIMPackage.PROPERTY__IS_UNIQUE:
+			case RESTServiceCIMPackage.PROPERTY__IS_UNIQUE:
 				setIsUnique((Boolean)newValue);
 				return;
-			case ServiceCIMPackage.PROPERTY__IS_NAMING_PROPERTY:
+			case RESTServiceCIMPackage.PROPERTY__IS_NAMING_PROPERTY:
 				setIsNamingProperty((Boolean)newValue);
 				return;
-			case ServiceCIMPackage.PROPERTY__NAME:
+			case RESTServiceCIMPackage.PROPERTY__NAME:
 				setName((String)newValue);
 				return;
-			case ServiceCIMPackage.PROPERTY__TYPE:
+			case RESTServiceCIMPackage.PROPERTY__TYPE:
 				setType((String)newValue);
 				return;
 		}
@@ -261,16 +261,16 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ServiceCIMPackage.PROPERTY__IS_UNIQUE:
+			case RESTServiceCIMPackage.PROPERTY__IS_UNIQUE:
 				setIsUnique(IS_UNIQUE_EDEFAULT);
 				return;
-			case ServiceCIMPackage.PROPERTY__IS_NAMING_PROPERTY:
+			case RESTServiceCIMPackage.PROPERTY__IS_NAMING_PROPERTY:
 				setIsNamingProperty(IS_NAMING_PROPERTY_EDEFAULT);
 				return;
-			case ServiceCIMPackage.PROPERTY__NAME:
+			case RESTServiceCIMPackage.PROPERTY__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case ServiceCIMPackage.PROPERTY__TYPE:
+			case RESTServiceCIMPackage.PROPERTY__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
 		}
@@ -285,13 +285,13 @@ public class PropertyImpl extends MinimalEObjectImpl.Container implements Proper
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ServiceCIMPackage.PROPERTY__IS_UNIQUE:
+			case RESTServiceCIMPackage.PROPERTY__IS_UNIQUE:
 				return isUnique != IS_UNIQUE_EDEFAULT;
-			case ServiceCIMPackage.PROPERTY__IS_NAMING_PROPERTY:
+			case RESTServiceCIMPackage.PROPERTY__IS_NAMING_PROPERTY:
 				return isNamingProperty != IS_NAMING_PROPERTY_EDEFAULT;
-			case ServiceCIMPackage.PROPERTY__NAME:
+			case RESTServiceCIMPackage.PROPERTY__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ServiceCIMPackage.PROPERTY__TYPE:
+			case RESTServiceCIMPackage.PROPERTY__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 		}
 		return super.eIsSet(featureID);

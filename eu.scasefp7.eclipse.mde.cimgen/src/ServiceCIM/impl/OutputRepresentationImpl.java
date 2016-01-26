@@ -4,7 +4,7 @@ package ServiceCIM.impl;
 
 import ServiceCIM.MediaType;
 import ServiceCIM.OutputRepresentation;
-import ServiceCIM.ServiceCIMPackage;
+import ServiceCIM.RESTServiceCIMPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -60,7 +60,7 @@ public class OutputRepresentationImpl extends MinimalEObjectImpl.Container imple
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ServiceCIMPackage.Literals.OUTPUT_REPRESENTATION;
+		return RESTServiceCIMPackage.Literals.OUTPUT_REPRESENTATION;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class OutputRepresentationImpl extends MinimalEObjectImpl.Container imple
 		MediaType oldOutputMediaType = outputMediaType;
 		outputMediaType = newOutputMediaType == null ? OUTPUT_MEDIA_TYPE_EDEFAULT : newOutputMediaType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ServiceCIMPackage.OUTPUT_REPRESENTATION__OUTPUT_MEDIA_TYPE, oldOutputMediaType, outputMediaType));
+			eNotify(new ENotificationImpl(this, Notification.SET, RESTServiceCIMPackage.OUTPUT_REPRESENTATION__OUTPUT_MEDIA_TYPE, oldOutputMediaType, outputMediaType));
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class OutputRepresentationImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ServiceCIMPackage.OUTPUT_REPRESENTATION__OUTPUT_MEDIA_TYPE:
+			case RESTServiceCIMPackage.OUTPUT_REPRESENTATION__OUTPUT_MEDIA_TYPE:
 				return getOutputMediaType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -106,7 +106,7 @@ public class OutputRepresentationImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ServiceCIMPackage.OUTPUT_REPRESENTATION__OUTPUT_MEDIA_TYPE:
+			case RESTServiceCIMPackage.OUTPUT_REPRESENTATION__OUTPUT_MEDIA_TYPE:
 				setOutputMediaType((MediaType)newValue);
 				return;
 		}
@@ -121,7 +121,7 @@ public class OutputRepresentationImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ServiceCIMPackage.OUTPUT_REPRESENTATION__OUTPUT_MEDIA_TYPE:
+			case RESTServiceCIMPackage.OUTPUT_REPRESENTATION__OUTPUT_MEDIA_TYPE:
 				setOutputMediaType(OUTPUT_MEDIA_TYPE_EDEFAULT);
 				return;
 		}
@@ -136,7 +136,7 @@ public class OutputRepresentationImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ServiceCIMPackage.OUTPUT_REPRESENTATION__OUTPUT_MEDIA_TYPE:
+			case RESTServiceCIMPackage.OUTPUT_REPRESENTATION__OUTPUT_MEDIA_TYPE:
 				return outputMediaType != OUTPUT_MEDIA_TYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);

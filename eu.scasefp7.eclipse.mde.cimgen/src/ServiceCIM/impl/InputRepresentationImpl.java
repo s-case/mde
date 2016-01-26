@@ -4,7 +4,7 @@ package ServiceCIM.impl;
 
 import ServiceCIM.InputRepresentation;
 import ServiceCIM.MediaType;
-import ServiceCIM.ServiceCIMPackage;
+import ServiceCIM.RESTServiceCIMPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -60,7 +60,7 @@ public class InputRepresentationImpl extends MinimalEObjectImpl.Container implem
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ServiceCIMPackage.Literals.INPUT_REPRESENTATION;
+		return RESTServiceCIMPackage.Literals.INPUT_REPRESENTATION;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class InputRepresentationImpl extends MinimalEObjectImpl.Container implem
 		MediaType oldInputMediaType = inputMediaType;
 		inputMediaType = newInputMediaType == null ? INPUT_MEDIA_TYPE_EDEFAULT : newInputMediaType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ServiceCIMPackage.INPUT_REPRESENTATION__INPUT_MEDIA_TYPE, oldInputMediaType, inputMediaType));
+			eNotify(new ENotificationImpl(this, Notification.SET, RESTServiceCIMPackage.INPUT_REPRESENTATION__INPUT_MEDIA_TYPE, oldInputMediaType, inputMediaType));
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class InputRepresentationImpl extends MinimalEObjectImpl.Container implem
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ServiceCIMPackage.INPUT_REPRESENTATION__INPUT_MEDIA_TYPE:
+			case RESTServiceCIMPackage.INPUT_REPRESENTATION__INPUT_MEDIA_TYPE:
 				return getInputMediaType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -106,7 +106,7 @@ public class InputRepresentationImpl extends MinimalEObjectImpl.Container implem
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ServiceCIMPackage.INPUT_REPRESENTATION__INPUT_MEDIA_TYPE:
+			case RESTServiceCIMPackage.INPUT_REPRESENTATION__INPUT_MEDIA_TYPE:
 				setInputMediaType((MediaType)newValue);
 				return;
 		}
@@ -121,7 +121,7 @@ public class InputRepresentationImpl extends MinimalEObjectImpl.Container implem
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ServiceCIMPackage.INPUT_REPRESENTATION__INPUT_MEDIA_TYPE:
+			case RESTServiceCIMPackage.INPUT_REPRESENTATION__INPUT_MEDIA_TYPE:
 				setInputMediaType(INPUT_MEDIA_TYPE_EDEFAULT);
 				return;
 		}
@@ -136,7 +136,7 @@ public class InputRepresentationImpl extends MinimalEObjectImpl.Container implem
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ServiceCIMPackage.INPUT_REPRESENTATION__INPUT_MEDIA_TYPE:
+			case RESTServiceCIMPackage.INPUT_REPRESENTATION__INPUT_MEDIA_TYPE:
 				return inputMediaType != INPUT_MEDIA_TYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);

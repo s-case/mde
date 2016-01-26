@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see ServiceCIM.ServiceCIMPackage#getCRUDActivity()
+ * @see ServiceCIM.RESTServiceCIMPackage#getCRUDActivity()
  * @model
  * @generated
  */
@@ -33,7 +33,7 @@ public interface CRUDActivity extends EObject {
 	 * @return the value of the '<em>CRUD Verb</em>' attribute.
 	 * @see ServiceCIM.CRUDVerb
 	 * @see #setCRUDVerb(CRUDVerb)
-	 * @see ServiceCIM.ServiceCIMPackage#getCRUDActivity_CRUDVerb()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getCRUDActivity_CRUDVerb()
 	 * @model required="true"
 	 * @generated
 	 */

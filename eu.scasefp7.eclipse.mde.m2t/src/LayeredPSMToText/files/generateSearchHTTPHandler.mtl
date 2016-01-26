@@ -45,7 +45,7 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.HibernateController;
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.PersistenceUtil;
 [for (aSearchableResource : SearchableJavaResourceModel | jAlgoResourceController.getSearchableResources(anAnnotationStack))]
-import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName.toLower()/].[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/];
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/].[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/];
 [/for]
 
 import org.hibernate.search.jpa.FullTextEntityManager;

@@ -611,6 +611,7 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 		this.oTypeList.add("Integer");
 		this.oTypeList.add("Float");
 		this.oTypeList.add("Boolean");
+		this.oTypeList.add("Long");
 		
 		//add the complex data types of this service
 		for(int n = 0; n < oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].size(); n++){

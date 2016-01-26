@@ -29,4 +29,6 @@ public interface RESTfulServiceCIMValidator {
 	boolean validateServiceDatabaseUsername(String value);
 
 	boolean validateServiceDatabasePassword(String value);
+
+	boolean validateServiceDatabaseType(String value);
 }

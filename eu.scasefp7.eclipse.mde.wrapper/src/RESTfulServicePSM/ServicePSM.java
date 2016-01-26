@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link RESTfulServicePSM.ServicePSM#getServiceDatabasePort <em>Service Database Port</em>}</li>
  *   <li>{@link RESTfulServicePSM.ServicePSM#getServiceDatabaseUsername <em>Service Database Username</em>}</li>
  *   <li>{@link RESTfulServicePSM.ServicePSM#getServiceDatabasePassword <em>Service Database Password</em>}</li>
+ *   <li>{@link RESTfulServicePSM.ServicePSM#getServiceDatabaseType <em>Service Database Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -313,5 +314,31 @@ public interface ServicePSM extends EObject {
 	 * @generated
 	 */
 	void setServiceDatabasePassword(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Service Database Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Service Database Type</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Service Database Type</em>' attribute.
+	 * @see #setServiceDatabaseType(String)
+	 * @see RESTfulServicePSM.RESTfulServicePSMPackage#getServicePSM_ServiceDatabaseType()
+	 * @model required="true"
+	 * @generated
+	 */
+	String getServiceDatabaseType();
+
+	/**
+	 * Sets the value of the '{@link RESTfulServicePSM.ServicePSM#getServiceDatabaseType <em>Service Database Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Service Database Type</em>' attribute.
+	 * @see #getServiceDatabaseType()
+	 * @generated
+	 */
+	void setServiceDatabaseType(String value);
 
 } // ServicePSM

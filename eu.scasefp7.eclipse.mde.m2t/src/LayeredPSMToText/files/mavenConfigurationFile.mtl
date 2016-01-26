@@ -45,12 +45,20 @@
         <version>1.18.1</version>
         <scope>compile</scope>
     </dependency>
+	[if (anAnnotationStack.hasCorePSM.serviceDatabaseType = 'MySQL')]
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>5.1.38</version>
+    </dependency>
+	[else]
     <dependency>
         <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
         <version>9.3-1100-jdbc4</version>
         <scope>compile</scope>
     </dependency>
+	[/if]
 	[if (anAnnotationStack.bHasSearchLayer)]
 	<dependency>
 		<groupId>org.hibernate</groupId>

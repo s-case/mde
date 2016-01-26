@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see ServiceCIM.ServiceCIMPackage#getProperty()
+ * @see ServiceCIM.RESTServiceCIMPackage#getProperty()
  * @model
  * @generated
  */
@@ -34,7 +34,7 @@ public interface Property extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Is Unique</em>' attribute.
 	 * @see #setIsUnique(boolean)
-	 * @see ServiceCIM.ServiceCIMPackage#getProperty_IsUnique()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getProperty_IsUnique()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -60,7 +60,7 @@ public interface Property extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Is Naming Property</em>' attribute.
 	 * @see #setIsNamingProperty(boolean)
-	 * @see ServiceCIM.ServiceCIMPackage#getProperty_IsNamingProperty()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getProperty_IsNamingProperty()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -86,7 +86,7 @@ public interface Property extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see ServiceCIM.ServiceCIMPackage#getProperty_Name()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getProperty_Name()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -112,7 +112,7 @@ public interface Property extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see #setType(String)
-	 * @see ServiceCIM.ServiceCIMPackage#getProperty_Type()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getProperty_Type()
 	 * @model required="true"
 	 * @generated
 	 */

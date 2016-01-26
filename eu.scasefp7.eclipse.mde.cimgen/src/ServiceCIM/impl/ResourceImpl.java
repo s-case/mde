@@ -6,8 +6,8 @@ import ServiceCIM.CRUDActivity;
 import ServiceCIM.InputRepresentation;
 import ServiceCIM.OutputRepresentation;
 import ServiceCIM.Property;
+import ServiceCIM.RESTServiceCIMPackage;
 import ServiceCIM.Resource;
-import ServiceCIM.ServiceCIMPackage;
 import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -157,7 +157,7 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ServiceCIMPackage.Literals.RESOURCE;
+		return RESTServiceCIMPackage.Literals.RESOURCE;
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 		boolean oldIsAlgorithmic = isAlgorithmic;
 		isAlgorithmic = newIsAlgorithmic;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ServiceCIMPackage.RESOURCE__IS_ALGORITHMIC, oldIsAlgorithmic, isAlgorithmic));
+			eNotify(new ENotificationImpl(this, Notification.SET, RESTServiceCIMPackage.RESOURCE__IS_ALGORITHMIC, oldIsAlgorithmic, isAlgorithmic));
 	}
 
 	/**
@@ -199,7 +199,7 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 		String oldName = name;
 		name = newName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ServiceCIMPackage.RESOURCE__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, RESTServiceCIMPackage.RESOURCE__NAME, oldName, name));
 	}
 
 	/**
@@ -209,7 +209,7 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 	 */
 	public EList<InputRepresentation> getHasInputRepresentation() {
 		if (hasInputRepresentation == null) {
-			hasInputRepresentation = new EObjectContainmentEList<InputRepresentation>(InputRepresentation.class, this, ServiceCIMPackage.RESOURCE__HAS_INPUT_REPRESENTATION);
+			hasInputRepresentation = new EObjectContainmentEList<InputRepresentation>(InputRepresentation.class, this, RESTServiceCIMPackage.RESOURCE__HAS_INPUT_REPRESENTATION);
 		}
 		return hasInputRepresentation;
 	}
@@ -221,7 +221,7 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 	 */
 	public EList<CRUDActivity> getHasCRUDActivity() {
 		if (hasCRUDActivity == null) {
-			hasCRUDActivity = new EObjectContainmentEList<CRUDActivity>(CRUDActivity.class, this, ServiceCIMPackage.RESOURCE__HAS_CRUD_ACTIVITY);
+			hasCRUDActivity = new EObjectContainmentEList<CRUDActivity>(CRUDActivity.class, this, RESTServiceCIMPackage.RESOURCE__HAS_CRUD_ACTIVITY);
 		}
 		return hasCRUDActivity;
 	}
@@ -233,7 +233,7 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 	 */
 	public EList<Property> getHasProperty() {
 		if (hasProperty == null) {
-			hasProperty = new EObjectContainmentEList<Property>(Property.class, this, ServiceCIMPackage.RESOURCE__HAS_PROPERTY);
+			hasProperty = new EObjectContainmentEList<Property>(Property.class, this, RESTServiceCIMPackage.RESOURCE__HAS_PROPERTY);
 		}
 		return hasProperty;
 	}
@@ -245,7 +245,7 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 	 */
 	public EList<OutputRepresentation> getHasOutputRepresentation() {
 		if (hasOutputRepresentation == null) {
-			hasOutputRepresentation = new EObjectContainmentEList<OutputRepresentation>(OutputRepresentation.class, this, ServiceCIMPackage.RESOURCE__HAS_OUTPUT_REPRESENTATION);
+			hasOutputRepresentation = new EObjectContainmentEList<OutputRepresentation>(OutputRepresentation.class, this, RESTServiceCIMPackage.RESOURCE__HAS_OUTPUT_REPRESENTATION);
 		}
 		return hasOutputRepresentation;
 	}
@@ -257,7 +257,7 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 	 */
 	public EList<Resource> getHasRelatedResource() {
 		if (hasRelatedResource == null) {
-			hasRelatedResource = new EObjectResolvingEList<Resource>(Resource.class, this, ServiceCIMPackage.RESOURCE__HAS_RELATED_RESOURCE);
+			hasRelatedResource = new EObjectResolvingEList<Resource>(Resource.class, this, RESTServiceCIMPackage.RESOURCE__HAS_RELATED_RESOURCE);
 		}
 		return hasRelatedResource;
 	}
@@ -269,7 +269,7 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 	 */
 	public EList<Resource> getIsRelatedResource() {
 		if (isRelatedResource == null) {
-			isRelatedResource = new EObjectResolvingEList<Resource>(Resource.class, this, ServiceCIMPackage.RESOURCE__IS_RELATED_RESOURCE);
+			isRelatedResource = new EObjectResolvingEList<Resource>(Resource.class, this, RESTServiceCIMPackage.RESOURCE__IS_RELATED_RESOURCE);
 		}
 		return isRelatedResource;
 	}
@@ -282,13 +282,13 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ServiceCIMPackage.RESOURCE__HAS_INPUT_REPRESENTATION:
+			case RESTServiceCIMPackage.RESOURCE__HAS_INPUT_REPRESENTATION:
 				return ((InternalEList<?>)getHasInputRepresentation()).basicRemove(otherEnd, msgs);
-			case ServiceCIMPackage.RESOURCE__HAS_CRUD_ACTIVITY:
+			case RESTServiceCIMPackage.RESOURCE__HAS_CRUD_ACTIVITY:
 				return ((InternalEList<?>)getHasCRUDActivity()).basicRemove(otherEnd, msgs);
-			case ServiceCIMPackage.RESOURCE__HAS_PROPERTY:
+			case RESTServiceCIMPackage.RESOURCE__HAS_PROPERTY:
 				return ((InternalEList<?>)getHasProperty()).basicRemove(otherEnd, msgs);
-			case ServiceCIMPackage.RESOURCE__HAS_OUTPUT_REPRESENTATION:
+			case RESTServiceCIMPackage.RESOURCE__HAS_OUTPUT_REPRESENTATION:
 				return ((InternalEList<?>)getHasOutputRepresentation()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -302,21 +302,21 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ServiceCIMPackage.RESOURCE__IS_ALGORITHMIC:
+			case RESTServiceCIMPackage.RESOURCE__IS_ALGORITHMIC:
 				return isIsAlgorithmic();
-			case ServiceCIMPackage.RESOURCE__NAME:
+			case RESTServiceCIMPackage.RESOURCE__NAME:
 				return getName();
-			case ServiceCIMPackage.RESOURCE__HAS_INPUT_REPRESENTATION:
+			case RESTServiceCIMPackage.RESOURCE__HAS_INPUT_REPRESENTATION:
 				return getHasInputRepresentation();
-			case ServiceCIMPackage.RESOURCE__HAS_CRUD_ACTIVITY:
+			case RESTServiceCIMPackage.RESOURCE__HAS_CRUD_ACTIVITY:
 				return getHasCRUDActivity();
-			case ServiceCIMPackage.RESOURCE__HAS_PROPERTY:
+			case RESTServiceCIMPackage.RESOURCE__HAS_PROPERTY:
 				return getHasProperty();
-			case ServiceCIMPackage.RESOURCE__HAS_OUTPUT_REPRESENTATION:
+			case RESTServiceCIMPackage.RESOURCE__HAS_OUTPUT_REPRESENTATION:
 				return getHasOutputRepresentation();
-			case ServiceCIMPackage.RESOURCE__HAS_RELATED_RESOURCE:
+			case RESTServiceCIMPackage.RESOURCE__HAS_RELATED_RESOURCE:
 				return getHasRelatedResource();
-			case ServiceCIMPackage.RESOURCE__IS_RELATED_RESOURCE:
+			case RESTServiceCIMPackage.RESOURCE__IS_RELATED_RESOURCE:
 				return getIsRelatedResource();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -331,33 +331,33 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ServiceCIMPackage.RESOURCE__IS_ALGORITHMIC:
+			case RESTServiceCIMPackage.RESOURCE__IS_ALGORITHMIC:
 				setIsAlgorithmic((Boolean)newValue);
 				return;
-			case ServiceCIMPackage.RESOURCE__NAME:
+			case RESTServiceCIMPackage.RESOURCE__NAME:
 				setName((String)newValue);
 				return;
-			case ServiceCIMPackage.RESOURCE__HAS_INPUT_REPRESENTATION:
+			case RESTServiceCIMPackage.RESOURCE__HAS_INPUT_REPRESENTATION:
 				getHasInputRepresentation().clear();
 				getHasInputRepresentation().addAll((Collection<? extends InputRepresentation>)newValue);
 				return;
-			case ServiceCIMPackage.RESOURCE__HAS_CRUD_ACTIVITY:
+			case RESTServiceCIMPackage.RESOURCE__HAS_CRUD_ACTIVITY:
 				getHasCRUDActivity().clear();
 				getHasCRUDActivity().addAll((Collection<? extends CRUDActivity>)newValue);
 				return;
-			case ServiceCIMPackage.RESOURCE__HAS_PROPERTY:
+			case RESTServiceCIMPackage.RESOURCE__HAS_PROPERTY:
 				getHasProperty().clear();
 				getHasProperty().addAll((Collection<? extends Property>)newValue);
 				return;
-			case ServiceCIMPackage.RESOURCE__HAS_OUTPUT_REPRESENTATION:
+			case RESTServiceCIMPackage.RESOURCE__HAS_OUTPUT_REPRESENTATION:
 				getHasOutputRepresentation().clear();
 				getHasOutputRepresentation().addAll((Collection<? extends OutputRepresentation>)newValue);
 				return;
-			case ServiceCIMPackage.RESOURCE__HAS_RELATED_RESOURCE:
+			case RESTServiceCIMPackage.RESOURCE__HAS_RELATED_RESOURCE:
 				getHasRelatedResource().clear();
 				getHasRelatedResource().addAll((Collection<? extends Resource>)newValue);
 				return;
-			case ServiceCIMPackage.RESOURCE__IS_RELATED_RESOURCE:
+			case RESTServiceCIMPackage.RESOURCE__IS_RELATED_RESOURCE:
 				getIsRelatedResource().clear();
 				getIsRelatedResource().addAll((Collection<? extends Resource>)newValue);
 				return;
@@ -373,28 +373,28 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ServiceCIMPackage.RESOURCE__IS_ALGORITHMIC:
+			case RESTServiceCIMPackage.RESOURCE__IS_ALGORITHMIC:
 				setIsAlgorithmic(IS_ALGORITHMIC_EDEFAULT);
 				return;
-			case ServiceCIMPackage.RESOURCE__NAME:
+			case RESTServiceCIMPackage.RESOURCE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case ServiceCIMPackage.RESOURCE__HAS_INPUT_REPRESENTATION:
+			case RESTServiceCIMPackage.RESOURCE__HAS_INPUT_REPRESENTATION:
 				getHasInputRepresentation().clear();
 				return;
-			case ServiceCIMPackage.RESOURCE__HAS_CRUD_ACTIVITY:
+			case RESTServiceCIMPackage.RESOURCE__HAS_CRUD_ACTIVITY:
 				getHasCRUDActivity().clear();
 				return;
-			case ServiceCIMPackage.RESOURCE__HAS_PROPERTY:
+			case RESTServiceCIMPackage.RESOURCE__HAS_PROPERTY:
 				getHasProperty().clear();
 				return;
-			case ServiceCIMPackage.RESOURCE__HAS_OUTPUT_REPRESENTATION:
+			case RESTServiceCIMPackage.RESOURCE__HAS_OUTPUT_REPRESENTATION:
 				getHasOutputRepresentation().clear();
 				return;
-			case ServiceCIMPackage.RESOURCE__HAS_RELATED_RESOURCE:
+			case RESTServiceCIMPackage.RESOURCE__HAS_RELATED_RESOURCE:
 				getHasRelatedResource().clear();
 				return;
-			case ServiceCIMPackage.RESOURCE__IS_RELATED_RESOURCE:
+			case RESTServiceCIMPackage.RESOURCE__IS_RELATED_RESOURCE:
 				getIsRelatedResource().clear();
 				return;
 		}
@@ -409,21 +409,21 @@ public class ResourceImpl extends MinimalEObjectImpl.Container implements Resour
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ServiceCIMPackage.RESOURCE__IS_ALGORITHMIC:
+			case RESTServiceCIMPackage.RESOURCE__IS_ALGORITHMIC:
 				return isAlgorithmic != IS_ALGORITHMIC_EDEFAULT;
-			case ServiceCIMPackage.RESOURCE__NAME:
+			case RESTServiceCIMPackage.RESOURCE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case ServiceCIMPackage.RESOURCE__HAS_INPUT_REPRESENTATION:
+			case RESTServiceCIMPackage.RESOURCE__HAS_INPUT_REPRESENTATION:
 				return hasInputRepresentation != null && !hasInputRepresentation.isEmpty();
-			case ServiceCIMPackage.RESOURCE__HAS_CRUD_ACTIVITY:
+			case RESTServiceCIMPackage.RESOURCE__HAS_CRUD_ACTIVITY:
 				return hasCRUDActivity != null && !hasCRUDActivity.isEmpty();
-			case ServiceCIMPackage.RESOURCE__HAS_PROPERTY:
+			case RESTServiceCIMPackage.RESOURCE__HAS_PROPERTY:
 				return hasProperty != null && !hasProperty.isEmpty();
-			case ServiceCIMPackage.RESOURCE__HAS_OUTPUT_REPRESENTATION:
+			case RESTServiceCIMPackage.RESOURCE__HAS_OUTPUT_REPRESENTATION:
 				return hasOutputRepresentation != null && !hasOutputRepresentation.isEmpty();
-			case ServiceCIMPackage.RESOURCE__HAS_RELATED_RESOURCE:
+			case RESTServiceCIMPackage.RESOURCE__HAS_RELATED_RESOURCE:
 				return hasRelatedResource != null && !hasRelatedResource.isEmpty();
-			case ServiceCIMPackage.RESOURCE__IS_RELATED_RESOURCE:
+			case RESTServiceCIMPackage.RESOURCE__IS_RELATED_RESOURCE:
 				return isRelatedResource != null && !isRelatedResource.isEmpty();
 		}
 		return super.eIsSet(featureID);

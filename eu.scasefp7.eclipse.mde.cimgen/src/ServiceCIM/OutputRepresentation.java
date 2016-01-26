@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see ServiceCIM.ServiceCIMPackage#getOutputRepresentation()
+ * @see ServiceCIM.RESTServiceCIMPackage#getOutputRepresentation()
  * @model
  * @generated
  */
@@ -33,7 +33,7 @@ public interface OutputRepresentation extends EObject {
 	 * @return the value of the '<em>Output Media Type</em>' attribute.
 	 * @see ServiceCIM.MediaType
 	 * @see #setOutputMediaType(MediaType)
-	 * @see ServiceCIM.ServiceCIMPackage#getOutputRepresentation_OutputMediaType()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getOutputRepresentation_OutputMediaType()
 	 * @model required="true"
 	 * @generated
 	 */

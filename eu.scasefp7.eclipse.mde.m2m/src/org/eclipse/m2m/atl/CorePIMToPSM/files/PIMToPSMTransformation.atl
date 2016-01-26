@@ -302,6 +302,7 @@ rule PIMToPSMService{
 			serviceDatabasePort <- PIMService.serviceDatabasePort,
 			serviceDatabaseUsername <- PIMService.serviceDatabaseUsername,
 			serviceDatabasePassword <- PIMService.serviceDatabasePassword,
+			serviceDatabaseType     <- PIMService.serviceDatabaseType,
 			hasJavaRModel <- PIMService.hasResourceModel->collect(PIMResourceModel | thisModule.createJavaRModel(PIMResourceModel)),
 			hasJavaRController <- PIMService.hasResourceController->collect(PIMResourceController | thisModule.createJavaRController(PIMResourceController)),
 			hasJavaRCManager <- PIMService.hasResourceControllerManager->collect(PIMRCManager | thisModule.createJavaRCManager(PIMRCManager)),

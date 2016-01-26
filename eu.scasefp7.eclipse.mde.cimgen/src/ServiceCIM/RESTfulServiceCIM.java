@@ -21,10 +21,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link ServiceCIM.RESTfulServiceCIM#getServiceDatabasePort <em>Service Database Port</em>}</li>
  *   <li>{@link ServiceCIM.RESTfulServiceCIM#getServiceDatabaseUsername <em>Service Database Username</em>}</li>
  *   <li>{@link ServiceCIM.RESTfulServiceCIM#getServiceDatabasePassword <em>Service Database Password</em>}</li>
+ *   <li>{@link ServiceCIM.RESTfulServiceCIM#getServiceDatabaseType <em>Service Database Type</em>}</li>
  * </ul>
  * </p>
  *
- * @see ServiceCIM.ServiceCIMPackage#getRESTfulServiceCIM()
+ * @see ServiceCIM.RESTServiceCIMPackage#getRESTfulServiceCIM()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='UniqueResourceNames'"
  *        annotation="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot UniqueResourceNames='self.hasResources->isUnique(name)'"
  * @generated
@@ -40,7 +41,7 @@ public interface RESTfulServiceCIM extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see ServiceCIM.ServiceCIMPackage#getRESTfulServiceCIM_Name()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getRESTfulServiceCIM_Name()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -66,7 +67,7 @@ public interface RESTfulServiceCIM extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Has Resources</em>' containment reference list.
-	 * @see ServiceCIM.ServiceCIMPackage#getRESTfulServiceCIM_HasResources()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getRESTfulServiceCIM_HasResources()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
@@ -82,7 +83,7 @@ public interface RESTfulServiceCIM extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Service Output Path</em>' attribute.
 	 * @see #setServiceOutputPath(String)
-	 * @see ServiceCIM.ServiceCIMPackage#getRESTfulServiceCIM_ServiceOutputPath()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getRESTfulServiceCIM_ServiceOutputPath()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -108,7 +109,7 @@ public interface RESTfulServiceCIM extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Service Database IP</em>' attribute.
 	 * @see #setServiceDatabaseIP(String)
-	 * @see ServiceCIM.ServiceCIMPackage#getRESTfulServiceCIM_ServiceDatabaseIP()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getRESTfulServiceCIM_ServiceDatabaseIP()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -134,7 +135,7 @@ public interface RESTfulServiceCIM extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Service Database Port</em>' attribute.
 	 * @see #setServiceDatabasePort(String)
-	 * @see ServiceCIM.ServiceCIMPackage#getRESTfulServiceCIM_ServiceDatabasePort()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getRESTfulServiceCIM_ServiceDatabasePort()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -160,7 +161,7 @@ public interface RESTfulServiceCIM extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Service Database Username</em>' attribute.
 	 * @see #setServiceDatabaseUsername(String)
-	 * @see ServiceCIM.ServiceCIMPackage#getRESTfulServiceCIM_ServiceDatabaseUsername()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getRESTfulServiceCIM_ServiceDatabaseUsername()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -186,7 +187,7 @@ public interface RESTfulServiceCIM extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Service Database Password</em>' attribute.
 	 * @see #setServiceDatabasePassword(String)
-	 * @see ServiceCIM.ServiceCIMPackage#getRESTfulServiceCIM_ServiceDatabasePassword()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getRESTfulServiceCIM_ServiceDatabasePassword()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -201,5 +202,31 @@ public interface RESTfulServiceCIM extends EObject {
 	 * @generated
 	 */
 	void setServiceDatabasePassword(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Service Database Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Service Database Type</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Service Database Type</em>' attribute.
+	 * @see #setServiceDatabaseType(String)
+	 * @see ServiceCIM.RESTServiceCIMPackage#getRESTfulServiceCIM_ServiceDatabaseType()
+	 * @model
+	 * @generated
+	 */
+	String getServiceDatabaseType();
+
+	/**
+	 * Sets the value of the '{@link ServiceCIM.RESTfulServiceCIM#getServiceDatabaseType <em>Service Database Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Service Database Type</em>' attribute.
+	 * @see #getServiceDatabaseType()
+	 * @generated
+	 */
+	void setServiceDatabaseType(String value);
 
 } // RESTfulServiceCIM

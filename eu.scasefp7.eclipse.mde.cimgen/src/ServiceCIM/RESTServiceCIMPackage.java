@@ -40,7 +40,7 @@ public interface RESTServiceCIMPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "CIM/metamodel";
+	String eNS_URI = "platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/CIMMetamodel.ecore";
 
 	/**
 	 * The package namespace name.
@@ -407,13 +407,22 @@ public interface RESTServiceCIMPackage extends EPackage {
 	int RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_PASSWORD = 6;
 
 	/**
+	 * The feature id for the '<em><b>Service Database Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_TYPE = 7;
+
+	/**
 	 * The number of structural features of the '<em>RES Tful Service CIM</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RES_TFUL_SERVICE_CIM_FEATURE_COUNT = 7;
+	int RES_TFUL_SERVICE_CIM_FEATURE_COUNT = 8;
 
 	/**
 	 * The number of operations of the '<em>RES Tful Service CIM</em>' class.
@@ -748,6 +757,17 @@ public interface RESTServiceCIMPackage extends EPackage {
 	EAttribute getRESTfulServiceCIM_ServiceDatabasePassword();
 
 	/**
+	 * Returns the meta object for the attribute '{@link ServiceCIM.RESTfulServiceCIM#getServiceDatabaseType <em>Service Database Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Service Database Type</em>'.
+	 * @see ServiceCIM.RESTfulServiceCIM#getServiceDatabaseType()
+	 * @see #getRESTfulServiceCIM()
+	 * @generated
+	 */
+	EAttribute getRESTfulServiceCIM_ServiceDatabaseType();
+
+	/**
 	 * Returns the meta object for enum '{@link ServiceCIM.MediaType <em>Media Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1025,6 +1045,14 @@ public interface RESTServiceCIMPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_PASSWORD = eINSTANCE.getRESTfulServiceCIM_ServiceDatabasePassword();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Database Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_TYPE = eINSTANCE.getRESTfulServiceCIM_ServiceDatabaseType();
 
 		/**
 		 * The meta object literal for the '{@link ServiceCIM.MediaType <em>Media Type</em>}' enum.

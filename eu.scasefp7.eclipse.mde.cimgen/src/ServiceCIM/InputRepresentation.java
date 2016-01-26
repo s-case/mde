@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see ServiceCIM.ServiceCIMPackage#getInputRepresentation()
+ * @see ServiceCIM.RESTServiceCIMPackage#getInputRepresentation()
  * @model
  * @generated
  */
@@ -33,7 +33,7 @@ public interface InputRepresentation extends EObject {
 	 * @return the value of the '<em>Input Media Type</em>' attribute.
 	 * @see ServiceCIM.MediaType
 	 * @see #setInputMediaType(MediaType)
-	 * @see ServiceCIM.ServiceCIMPackage#getInputRepresentation_InputMediaType()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getInputRepresentation_InputMediaType()
 	 * @model required="true"
 	 * @generated
 	 */

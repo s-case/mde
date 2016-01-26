@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  *
- * @see ServiceCIM.ServiceCIMPackage#getResource()
+ * @see ServiceCIM.RESTServiceCIMPackage#getResource()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='UniqueCRUDVerbs UniqueInputMediaTypes UniqueOutputMediaTypes UniqueNamingProperty AlgoResHaveNoProperties CRUDResHaveAtLeastOneProperty'"
  *        annotation="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot UniqueCRUDVerbs='self.hasCRUDActivity->isUnique(CRUDVerb)' UniqueInputMediaTypes='self.hasInputRepresentation->isUnique(MediaType)' UniqueOutputMediaTypes='self.hasOutputRepresentation->isUnique(MediaType)' UniqueNamingProperty='self.hasProperty->notEmpty() implies self.hasProperty->one(isNamingProperty = true)' AlgoResHaveNoProperties='(self.isAlgorithmic = true) implies self.hasProperty->isEmpty()' CRUDResHaveAtLeastOneProperty='(self.isAlgorithmic = false) implies self.hasProperty->notEmpty()'"
  * @generated
@@ -41,7 +41,7 @@ public interface Resource extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Is Algorithmic</em>' attribute.
 	 * @see #setIsAlgorithmic(boolean)
-	 * @see ServiceCIM.ServiceCIMPackage#getResource_IsAlgorithmic()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getResource_IsAlgorithmic()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -67,7 +67,7 @@ public interface Resource extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see ServiceCIM.ServiceCIMPackage#getResource_Name()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getResource_Name()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -93,7 +93,7 @@ public interface Resource extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Has Input Representation</em>' containment reference list.
-	 * @see ServiceCIM.ServiceCIMPackage#getResource_HasInputRepresentation()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getResource_HasInputRepresentation()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
@@ -109,7 +109,7 @@ public interface Resource extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Has CRUD Activity</em>' containment reference list.
-	 * @see ServiceCIM.ServiceCIMPackage#getResource_HasCRUDActivity()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getResource_HasCRUDActivity()
 	 * @model containment="true" required="true" upper="4"
 	 * @generated
 	 */
@@ -125,7 +125,7 @@ public interface Resource extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Has Property</em>' containment reference list.
-	 * @see ServiceCIM.ServiceCIMPackage#getResource_HasProperty()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getResource_HasProperty()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -141,7 +141,7 @@ public interface Resource extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Has Output Representation</em>' containment reference list.
-	 * @see ServiceCIM.ServiceCIMPackage#getResource_HasOutputRepresentation()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getResource_HasOutputRepresentation()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
@@ -157,7 +157,7 @@ public interface Resource extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Has Related Resource</em>' reference list.
-	 * @see ServiceCIM.ServiceCIMPackage#getResource_HasRelatedResource()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getResource_HasRelatedResource()
 	 * @model
 	 * @generated
 	 */
@@ -173,7 +173,7 @@ public interface Resource extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Is Related Resource</em>' reference list.
-	 * @see ServiceCIM.ServiceCIMPackage#getResource_IsRelatedResource()
+	 * @see ServiceCIM.RESTServiceCIMPackage#getResource_IsRelatedResource()
 	 * @model
 	 * @generated
 	 */

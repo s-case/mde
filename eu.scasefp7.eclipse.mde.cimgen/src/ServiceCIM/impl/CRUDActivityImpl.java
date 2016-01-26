@@ -4,7 +4,7 @@ package ServiceCIM.impl;
 
 import ServiceCIM.CRUDActivity;
 import ServiceCIM.CRUDVerb;
-import ServiceCIM.ServiceCIMPackage;
+import ServiceCIM.RESTServiceCIMPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -60,7 +60,7 @@ public class CRUDActivityImpl extends MinimalEObjectImpl.Container implements CR
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ServiceCIMPackage.Literals.CRUD_ACTIVITY;
+		return RESTServiceCIMPackage.Literals.CRUD_ACTIVITY;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class CRUDActivityImpl extends MinimalEObjectImpl.Container implements CR
 		CRUDVerb oldCRUDVerb = crudVerb;
 		crudVerb = newCRUDVerb == null ? CRUD_VERB_EDEFAULT : newCRUDVerb;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ServiceCIMPackage.CRUD_ACTIVITY__CRUD_VERB, oldCRUDVerb, crudVerb));
+			eNotify(new ENotificationImpl(this, Notification.SET, RESTServiceCIMPackage.CRUD_ACTIVITY__CRUD_VERB, oldCRUDVerb, crudVerb));
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class CRUDActivityImpl extends MinimalEObjectImpl.Container implements CR
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ServiceCIMPackage.CRUD_ACTIVITY__CRUD_VERB:
+			case RESTServiceCIMPackage.CRUD_ACTIVITY__CRUD_VERB:
 				return getCRUDVerb();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -106,7 +106,7 @@ public class CRUDActivityImpl extends MinimalEObjectImpl.Container implements CR
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ServiceCIMPackage.CRUD_ACTIVITY__CRUD_VERB:
+			case RESTServiceCIMPackage.CRUD_ACTIVITY__CRUD_VERB:
 				setCRUDVerb((CRUDVerb)newValue);
 				return;
 		}
@@ -121,7 +121,7 @@ public class CRUDActivityImpl extends MinimalEObjectImpl.Container implements CR
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ServiceCIMPackage.CRUD_ACTIVITY__CRUD_VERB:
+			case RESTServiceCIMPackage.CRUD_ACTIVITY__CRUD_VERB:
 				setCRUDVerb(CRUD_VERB_EDEFAULT);
 				return;
 		}
@@ -136,7 +136,7 @@ public class CRUDActivityImpl extends MinimalEObjectImpl.Container implements CR
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ServiceCIMPackage.CRUD_ACTIVITY__CRUD_VERB:
+			case RESTServiceCIMPackage.CRUD_ACTIVITY__CRUD_VERB:
 				return crudVerb != CRUD_VERB_EDEFAULT;
 		}
 		return super.eIsSet(featureID);

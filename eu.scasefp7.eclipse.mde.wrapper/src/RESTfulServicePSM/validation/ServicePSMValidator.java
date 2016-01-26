@@ -36,4 +36,5 @@ public interface ServicePSMValidator {
 	boolean validateServiceDatabasePort(String value);
 	boolean validateServiceDatabaseUsername(String value);
 	boolean validateServiceDatabasePassword(String value);
+	boolean validateServiceDatabaseType(String value);
 }

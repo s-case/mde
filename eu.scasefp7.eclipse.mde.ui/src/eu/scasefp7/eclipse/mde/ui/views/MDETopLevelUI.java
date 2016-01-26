@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -89,6 +90,9 @@ public class MDETopLevelUI extends ScrolledComposite {
 	private Label oDatabasePasswordLabel;
 	private Text  oDatabasePasswordText;
 	private Composite oDatabasePasswordGrid;
+	private Composite oDatabaseTypeGrid;
+	private Label oDatabaseTypeLabel;
+	private List oDatabaseTypeList;
 	
 	//2D MDE SWTs
 	private Composite oExtraFunctionalityGrid;
@@ -114,13 +118,14 @@ public class MDETopLevelUI extends ScrolledComposite {
 		new Label(oYamlFileGrid, SWT.NONE);
 		
 		//TODO remove the following lines in production code
-//		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts/CompositionAuto.yml");
-//		this.oWSNameText.setText("CompositionTest");
-//		this.oMDEOutputText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts");
+//		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts/RESTTest.yml");
+//		this.oWSNameText.setText("SampleService");
+//		this.oMDEOutputText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/CiroInput/output_rebuild");
 //		this.oDatabaseIPText.setText("localhost");
 //		this.oDatabasePortText.setText("3127");
 //		this.oDatabaseUsernameText.setText("postgres");
 //		this.oDatabasePasswordText.setText("fp7s-case");
+//		this.oDatabaseTypeList.select(0);
 //		this.oDatabaseSearchingCheckBoxButton.setSelection(false);
 		this.oAuthorizationCheckBoxButton.setEnabled(false);
 //		this.oAuthenticationCheckBoxButton.setSelection(true);
@@ -129,7 +134,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 	}
 
 	private void initializeUILayout() {
-		this.oMDEUIGrid.setSize(new Point(365, 438));
+		this.oMDEUIGrid.setSize(new Point(365, 480));
 		this.oMDEUIGrid.layout();
 	}
 
@@ -187,6 +192,11 @@ public class MDETopLevelUI extends ScrolledComposite {
 		oDatabasePasswordLabel.setText("Database Password: ");
 		oDatabasePasswordText = new Text(this.oDatabasePasswordGrid, SWT.SINGLE | SWT.BORDER);
 		oDatabasePasswordText.setText("");
+		this.oDatabaseTypeLabel = new Label(this.oDatabaseTypeGrid, SWT.NULL);
+		this.oDatabaseTypeLabel.setText("Database Type: ");
+		this.oDatabaseTypeList = new List(this.oDatabaseTypeGrid, SWT.V_SCROLL);
+		oDatabaseTypeList.setItems(new String[] {"MySQL", "PostgreSQL"});
+		oDatabaseTypeList.select(1);
 
 				
 		//initialize 2D MDE SWTs
@@ -217,7 +227,9 @@ public class MDETopLevelUI extends ScrolledComposite {
 					MDEPreferences = getCoreMDEPreferences(MDEPreferences);
 
 					//generate the Core CIM and its extensions plugin
-					createCIMModels(MDEPreferences);
+					if(createCIMModels(MDEPreferences) == false){ //if user canceled, abort)
+						return;
+					}
 					
 					//execute all the Model-To-Model transformations plugin
 					executeModelToModelTransformations(MDEPreferences);
@@ -261,15 +273,23 @@ public class MDETopLevelUI extends ScrolledComposite {
 		});
 	}
 	
-	private void createCIMModels(Map<String, String> mapMDEPreferences){
+	private boolean createCIMModels(Map<String, String> mapMDEPreferences){
 		IServiceLocator serviceLocator = PlatformUI.getWorkbench();
 		ICommandService commandService = (ICommandService) serviceLocator.getService(ICommandService.class);
 		try {
 			Command command = commandService.getCommand("eu.scasefp7.eclipse.mde.cimgen.commands.CIMGeneratorCommand");
 			command.executeWithChecks(new ExecutionEvent(command, mapMDEPreferences, null, null));
 		} catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-			e.printStackTrace();
+			if(e.getCause().toString().equalsIgnoreCase("Code generation process canceled by user.")){
+				System.out.println("User canceled the code generation process");
+				return false;
+			}
+			else{
+				System.out.println("Exception message is: " + e.getCause().toString());
+			}
+			return false;
 		}
+		return true;
 	}
 	
 	private void executeModelToModelTransformations(Map<String, String> mapMDEPreferences){
@@ -314,6 +334,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 		mapMDEPreferences.put("DatabasePort", oDatabasePortText.getText());
 		mapMDEPreferences.put("DatabaseUsername", oDatabaseUsernameText.getText());
 		mapMDEPreferences.put("DatabasePassword", oDatabasePasswordText.getText());
+		mapMDEPreferences.put("DatabaseType", this.oDatabaseTypeList.getSelection()[0]);
 		mapMDEPreferences.put("Authentication", (oAuthenticationCheckBoxButton.getSelection() ? "yes" : "no"));
 		mapMDEPreferences.put("Authorization", (oAuthorizationCheckBoxButton.getSelection() ? "yes" : "no"));
 		mapMDEPreferences.put("DatabaseSearching", (oDatabaseSearchingCheckBoxButton.getSelection() ? "yes" : "no"));
@@ -389,6 +410,9 @@ public class MDETopLevelUI extends ScrolledComposite {
 
 		oDatabasePasswordGrid = new Composite(this.oMDEUIGrid, SWT.NONE);
 		oDatabasePasswordGrid.setLayout(new GridLayout(2, false));	
+		
+		this.oDatabaseTypeGrid = new Composite(this.oMDEUIGrid, SWT.None);
+		this.oDatabaseTypeGrid.setLayout(new GridLayout(2, false));
 		
 		oExtraFunctionalityGrid = new Composite(this.oMDEUIGrid, SWT.None);
 		oExtraFunctionalityGrid.setLayout(new GridLayout(1, false));

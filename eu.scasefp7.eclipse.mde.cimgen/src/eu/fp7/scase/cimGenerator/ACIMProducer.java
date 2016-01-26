@@ -36,8 +36,9 @@ public abstract class ACIMProducer
 	protected String strServiceDatabasePort;
 	protected String strServiceDatabaseUsername;
 	protected String strServiceDatabasePassword;
+	protected String strServiceDatabaseType;
 	
-	public ACIMProducer(ArrayList<YamlResource> listOfYamlResources, String strProjectName, String strProjectOutputPath, String strServiceDatabaseIp, String strServiceDatabasePort, String strServiceDatabaseUsername, String strServiceDatabasePassword){
+	public ACIMProducer(ArrayList<YamlResource> listOfYamlResources, String strProjectName, String strProjectOutputPath, String strServiceDatabaseIp, String strServiceDatabasePort, String strServiceDatabaseUsername, String strServiceDatabasePassword, String strServiceDatabaseType){
 		this.listOfYamlResources = listOfYamlResources;
 		this.oRestServiceCIMFactory = RESTServiceCIMFactory.eINSTANCE;
 		this.strProjectName = strProjectName;
@@ -48,6 +49,7 @@ public abstract class ACIMProducer
 		this.oRESTfulServiceCIM.setServiceDatabasePort(strServiceDatabasePort);
 		this.oRESTfulServiceCIM.setServiceDatabaseUsername(strServiceDatabaseUsername);
 		this.oRESTfulServiceCIM.setServiceDatabasePassword(strServiceDatabasePassword);
+		this.oRESTfulServiceCIM.setServiceDatabaseType(strServiceDatabaseType);
 	}
 	
 	public RESTfulServiceCIM getRESTfulServiceCIM(){

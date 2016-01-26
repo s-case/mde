@@ -22,6 +22,7 @@ package eu.fp7.scase.inputParser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -55,6 +56,11 @@ public class YamlInputParser {
     public ArrayList<YamlResource> parseYamlInputFile(){
 		
 		this.listOfYamlResources = oYamlHandler.loadAs(oInputStreamHandler, ArrayList.class);
+		try {
+			oInputStreamHandler.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return this.listOfYamlResources;
 	}
 

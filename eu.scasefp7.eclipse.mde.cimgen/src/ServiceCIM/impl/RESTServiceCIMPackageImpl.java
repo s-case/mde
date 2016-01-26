@@ -414,6 +414,15 @@ public class RESTServiceCIMPackageImpl extends EPackageImpl implements RESTServi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getRESTfulServiceCIM_ServiceDatabaseType() {
+		return (EAttribute)resTfulServiceCIMEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getMediaType() {
 		return mediaTypeEEnum;
 	}
@@ -488,6 +497,7 @@ public class RESTServiceCIMPackageImpl extends EPackageImpl implements RESTServi
 		createEAttribute(resTfulServiceCIMEClass, RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_PORT);
 		createEAttribute(resTfulServiceCIMEClass, RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_USERNAME);
 		createEAttribute(resTfulServiceCIMEClass, RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_PASSWORD);
+		createEAttribute(resTfulServiceCIMEClass, RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_TYPE);
 
 		// Create enums
 		mediaTypeEEnum = createEEnum(MEDIA_TYPE);
@@ -557,6 +567,7 @@ public class RESTServiceCIMPackageImpl extends EPackageImpl implements RESTServi
 		initEAttribute(getRESTfulServiceCIM_ServiceDatabasePort(), ecorePackage.getEString(), "serviceDatabasePort", null, 1, 1, RESTfulServiceCIM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRESTfulServiceCIM_ServiceDatabaseUsername(), ecorePackage.getEString(), "serviceDatabaseUsername", null, 1, 1, RESTfulServiceCIM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRESTfulServiceCIM_ServiceDatabasePassword(), ecorePackage.getEString(), "serviceDatabasePassword", null, 1, 1, RESTfulServiceCIM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRESTfulServiceCIM_ServiceDatabaseType(), ecorePackage.getEString(), "serviceDatabaseType", null, 0, 1, RESTfulServiceCIM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(mediaTypeEEnum, MediaType.class, "MediaType");

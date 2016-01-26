@@ -48,6 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link RESTfulServicePSM.impl.ServicePSMImpl#getServiceDatabasePort <em>Service Database Port</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.ServicePSMImpl#getServiceDatabaseUsername <em>Service Database Username</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.ServicePSMImpl#getServiceDatabasePassword <em>Service Database Password</em>}</li>
+ *   <li>{@link RESTfulServicePSM.impl.ServicePSMImpl#getServiceDatabaseType <em>Service Database Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -243,6 +244,26 @@ public class ServicePSMImpl extends MinimalEObjectImpl.Container implements Serv
 	 * @ordered
 	 */
 	protected String serviceDatabasePassword = SERVICE_DATABASE_PASSWORD_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getServiceDatabaseType() <em>Service Database Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getServiceDatabaseType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SERVICE_DATABASE_TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getServiceDatabaseType() <em>Service Database Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getServiceDatabaseType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String serviceDatabaseType = SERVICE_DATABASE_TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -509,6 +530,27 @@ public class ServicePSMImpl extends MinimalEObjectImpl.Container implements Serv
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getServiceDatabaseType() {
+		return serviceDatabaseType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setServiceDatabaseType(String newServiceDatabaseType) {
+		String oldServiceDatabaseType = serviceDatabaseType;
+		serviceDatabaseType = newServiceDatabaseType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, RESTfulServicePSMPackage.SERVICE_PSM__SERVICE_DATABASE_TYPE, oldServiceDatabaseType, serviceDatabaseType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -564,6 +606,8 @@ public class ServicePSMImpl extends MinimalEObjectImpl.Container implements Serv
 				return getServiceDatabaseUsername();
 			case RESTfulServicePSMPackage.SERVICE_PSM__SERVICE_DATABASE_PASSWORD:
 				return getServiceDatabasePassword();
+			case RESTfulServicePSMPackage.SERVICE_PSM__SERVICE_DATABASE_TYPE:
+				return getServiceDatabaseType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -622,6 +666,9 @@ public class ServicePSMImpl extends MinimalEObjectImpl.Container implements Serv
 			case RESTfulServicePSMPackage.SERVICE_PSM__SERVICE_DATABASE_PASSWORD:
 				setServiceDatabasePassword((String)newValue);
 				return;
+			case RESTfulServicePSMPackage.SERVICE_PSM__SERVICE_DATABASE_TYPE:
+				setServiceDatabaseType((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -673,6 +720,9 @@ public class ServicePSMImpl extends MinimalEObjectImpl.Container implements Serv
 			case RESTfulServicePSMPackage.SERVICE_PSM__SERVICE_DATABASE_PASSWORD:
 				setServiceDatabasePassword(SERVICE_DATABASE_PASSWORD_EDEFAULT);
 				return;
+			case RESTfulServicePSMPackage.SERVICE_PSM__SERVICE_DATABASE_TYPE:
+				setServiceDatabaseType(SERVICE_DATABASE_TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -711,6 +761,8 @@ public class ServicePSMImpl extends MinimalEObjectImpl.Container implements Serv
 				return SERVICE_DATABASE_USERNAME_EDEFAULT == null ? serviceDatabaseUsername != null : !SERVICE_DATABASE_USERNAME_EDEFAULT.equals(serviceDatabaseUsername);
 			case RESTfulServicePSMPackage.SERVICE_PSM__SERVICE_DATABASE_PASSWORD:
 				return SERVICE_DATABASE_PASSWORD_EDEFAULT == null ? serviceDatabasePassword != null : !SERVICE_DATABASE_PASSWORD_EDEFAULT.equals(serviceDatabasePassword);
+			case RESTfulServicePSMPackage.SERVICE_PSM__SERVICE_DATABASE_TYPE:
+				return SERVICE_DATABASE_TYPE_EDEFAULT == null ? serviceDatabaseType != null : !SERVICE_DATABASE_TYPE_EDEFAULT.equals(serviceDatabaseType);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -737,6 +789,8 @@ public class ServicePSMImpl extends MinimalEObjectImpl.Container implements Serv
 		result.append(serviceDatabaseUsername);
 		result.append(", serviceDatabasePassword: ");
 		result.append(serviceDatabasePassword);
+		result.append(", serviceDatabaseType: ");
+		result.append(serviceDatabaseType);
 		result.append(')');
 		return result.toString();
 	}
