@@ -133,7 +133,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                             try {
                                 handlerService.executeCommand(parametrizedCommandCIM, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-                                if(e.getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
+                                if(e.getCause().getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
                                     return Status.CANCEL_STATUS;
                                 } else {
                                     e.printStackTrace(); // TODO
