@@ -119,6 +119,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                 @Override
                 public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
                     monitor.beginTask(this.getName(), 4);
+                    IProgressMonitor pm = Job.getJobManager().createProgressGroup();
                     
                     // Setup CIM job
                     Job jCim = new WorkbenchJob("Generating CIM") {
@@ -212,8 +213,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                         }  
                     };
 
-                    IProgressMonitor pm = Job.getJobManager().createProgressGroup();
-                    try {
+                    try {   
                         pm.beginTask("Generating code for " + mdePreferences.get("WebServiceName"), 402);
                         pm.worked(1);
                         
@@ -221,26 +221,34 @@ public class GenerateCodeHandler extends AbstractHandler {
                         jCim.setProgressGroup(pm, 100);
                         jCim.schedule();                        
 
-                        jM2M.setRule(project);
-                        jM2M.setProgressGroup(pm, 100);
-                        jM2M.schedule();                        
-
-                        jAnn.setRule(project);
-                        jAnn.setProgressGroup(pm, 100);
-                        jAnn.schedule();                        
-
-                        jM2T.setRule(project);
-                        jM2T.setProgressGroup(pm, 100);
-                        jM2T.schedule();                        
-
                         jCim.join();
                         monitor.worked(1);
-                        jM2M.join();
-                        monitor.worked(1);
-                        jAnn.join();
-                        monitor.worked(1);
-                        jM2T.join();
-                        monitor.worked(1);
+                        
+                        if(jCim.getResult().isOK()) {
+                            jM2M.setRule(project);
+                            jM2M.setProgressGroup(pm, 100);
+                            jM2M.schedule();                        
+    
+                            jAnn.setRule(project);
+                            jAnn.setProgressGroup(pm, 100);
+                            jAnn.schedule();                        
+    
+                            jM2T.setRule(project);
+                            jM2T.setProgressGroup(pm, 100);
+                            jM2T.schedule();                        
+    
+                           
+                            jM2M.join();
+                            monitor.worked(1);
+                            jAnn.join();
+                            monitor.worked(1);
+                            jM2T.join();
+                            monitor.worked(1);
+                        } else {
+                            jM2M.cancel();
+                            jAnn.cancel();
+                            jM2T.cancel();
+                        }
                         
                         pm.worked(1);
                     } catch(InterruptedException e) {
