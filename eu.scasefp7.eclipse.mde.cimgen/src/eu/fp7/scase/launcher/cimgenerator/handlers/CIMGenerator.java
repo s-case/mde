@@ -327,7 +327,7 @@ public class CIMGenerator extends AbstractHandler{
 			oEcoreXMIExtractor.exportEcoreXMI(oRESTfulServiceCIM);
 		}
 		else{
-			throw new ExecutionException("Code generation process canceled by user.");
+			throw new ExecutionException("Code generation process canceled by user.", new CanceledExecutionException("canceled exception"));
 		}
 		
 		return true;
@@ -362,7 +362,7 @@ public class CIMGenerator extends AbstractHandler{
 			oAuthenticationCIMWizard.createAuthenticationCIM();
 		}
 		else{
-			throw new ExecutionException("Code generation process canceled by user.");
+			throw new ExecutionException("Code generation process canceled by user.", new CanceledExecutionException("canceled exception"));
 		}
 		
 		return true;
@@ -378,7 +378,7 @@ public class CIMGenerator extends AbstractHandler{
 			this.oSearchLayerCIM = oSearchCIMWizard.createSearchLayerCIM();
 		}
 		else{
-			throw new ExecutionException("Code generation process canceled by user.");
+			throw new ExecutionException("Code generation process canceled by user.", new CanceledExecutionException("canceled exception"));
 		}
 		
 		return true;
@@ -418,7 +418,7 @@ public class CIMGenerator extends AbstractHandler{
 			oExternalCompositionWizard.createExternalServiceLayerCIM();
 		}
 		else{
-			throw new ExecutionException("Code generation process canceled by user.");
+			throw new ExecutionException("Code generation process canceled by user.", new CanceledExecutionException("canceled exception"));
 		}
 
 		return true;
