@@ -69,6 +69,8 @@ public class GenerateCodeHandler extends AbstractHandler {
     
     public static final String CMD_PAR_RELOAD = "eu.scasefp7.eclipse.mde.ui.generateCode.reload";
     
+    public static final String CANCEL_EX_CLASSNAME = "CanceledExecutionException";
+    
     @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
 
@@ -124,11 +126,19 @@ public class GenerateCodeHandler extends AbstractHandler {
                         public IStatus runInUIThread(IProgressMonitor monitor) {
                             monitor.beginTask("Preparing the specification", 1);
                             
+                            if(monitor.isCanceled()) {
+                                return Status.CANCEL_STATUS;
+                            }
+                            
                             try {
                                 handlerService.executeCommand(parametrizedCommandCIM, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-                                e.printStackTrace();
-                                return errorStatus(e);
+                                if(e.getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
+                                    return Status.CANCEL_STATUS;
+                                } else {
+                                    e.printStackTrace(); // TODO
+                                    return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to prepare the specification.", e);
+                                }
                             } finally {
                                 monitor.done();
                             }
