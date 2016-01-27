@@ -297,6 +297,7 @@ public class GenerateCodeHandler extends AbstractHandler {
         String dbPort = store.getString(PreferenceConstants.P_DATABASE_PORT);
         String dbUsername = store.getString(PreferenceConstants.P_DATABASE_USER);
         String dbPassword = store.getString(PreferenceConstants.P_DATABASE_PASSWORD);
+        String dbType = store.getString(PreferenceConstants.P_DATABASE_TYPE);
         String authentication = (store.getBoolean(PreferenceConstants.P_FACET_BASIC_AUTHENTICATION) ? "yes" : "no");
         String authorization = (store.getBoolean(PreferenceConstants.P_FACET_ABAC_AUTHORIZATION) ? "yes" : "no");
         String searching = (store.getBoolean(PreferenceConstants.P_FACET_SEARCH) ? "yes" : "no");
@@ -311,6 +312,7 @@ public class GenerateCodeHandler extends AbstractHandler {
         mapMDEPreferences.put("DatabasePort", dbPort);
         mapMDEPreferences.put("DatabaseUsername", dbUsername);
         mapMDEPreferences.put("DatabasePassword", dbPassword);
+        mapMDEPreferences.put("DatabaseType", dbType);
         mapMDEPreferences.put("Authentication", authentication);
         mapMDEPreferences.put("Authorization", authorization);
         mapMDEPreferences.put("DatabaseSearching", searching);

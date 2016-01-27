@@ -1,9 +1,12 @@
 package eu.scasefp7.eclipse.mde.ui.preferences;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
+import org.eclipse.jface.preference.ComboFieldEditor;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.StringFieldEditor;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
@@ -29,10 +32,15 @@ public class CodeGenerationPreferencePage extends FieldEditorOverlayPage impleme
 	 * restore itself.
 	 */
 	public void createFieldEditors() {
-		addField(new StringFieldEditor(PreferenceConstants.P_SERVICE_NAME, "Web service &name:", getFieldEditorParent()));
+	    final StringFieldEditor serviceName = new StringFieldEditor(PreferenceConstants.P_SERVICE_NAME, "Web service &name:", getFieldEditorParent());
+	    BooleanFieldEditor useProjectName = new BooleanFieldEditor(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME, "Use project name &for service name", getFieldEditorParent());
+	    
+		addField(useProjectName);
+	    addField(serviceName);
 		addField(new StringFieldEditor(PreferenceConstants.P_INPUT_FILE, "&YAML file name:", getFieldEditorParent()));
 		addField(new DirectoryFieldEditor(PreferenceConstants.P_OUTPUT_PATH, "&Output path:", getFieldEditorParent()));
-
+		    
+		addField(new ComboFieldEditor(PreferenceConstants.P_DATABASE_TYPE, "Database type:", new String[][]{{"PostgreSQL server","PostgreSQL"},{"MySQL server","MySQL"}}, getFieldEditorParent()));//$NON-NLS-2$ //$NON-NLS-4$
 		addField(new StringFieldEditor(PreferenceConstants.P_DATABASE_ADDRESS, "&Database server address:", getFieldEditorParent()));
         addField(new IntegerFieldEditor(PreferenceConstants.P_DATABASE_PORT, "Database server &port:", getFieldEditorParent(), 5));
         addField(new StringFieldEditor(PreferenceConstants.P_DATABASE_USER, "Database &user name:", getFieldEditorParent()));
@@ -42,6 +50,17 @@ public class CodeGenerationPreferencePage extends FieldEditorOverlayPage impleme
 		addField(new BooleanFieldEditor(PreferenceConstants.P_FACET_ABAC_AUTHORIZATION, "Add &ABAC authentication", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(PreferenceConstants.P_FACET_SEARCH, "Add database &searching", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(PreferenceConstants.P_FACET_EXT_COMPOSITIONS, "Add &External compositions", getFieldEditorParent()));
+		
+		useProjectName.setPropertyChangeListener(new IPropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent event) {
+                Object val = event.getNewValue();
+                
+                if(val instanceof Boolean) {
+                    serviceName.setEnabled(!((Boolean) val), getFieldEditorParent());
+                }
+            }
+        });
 	}
 
 	
