@@ -118,14 +118,14 @@ public class MDETopLevelUI extends ScrolledComposite {
 		new Label(oYamlFileGrid, SWT.NONE);
 		
 		//TODO remove the following lines in production code
-//		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts/RESTTest.yml");
-//		this.oWSNameText.setText("SampleService");
-//		this.oMDEOutputText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/CiroInput/output_rebuild");
-//		this.oDatabaseIPText.setText("localhost");
-//		this.oDatabasePortText.setText("3127");
-//		this.oDatabaseUsernameText.setText("postgres");
-//		this.oDatabasePasswordText.setText("fp7s-case");
-//		this.oDatabaseTypeList.select(0);
+		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts/CompositionAuto.yml");
+		this.oWSNameText.setText("CompositionAuto");
+		this.oMDEOutputText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts");
+		this.oDatabaseIPText.setText("localhost");
+		this.oDatabasePortText.setText("3127");
+		this.oDatabaseUsernameText.setText("postgres");
+		this.oDatabasePasswordText.setText("fp7s-case");
+		this.oDatabaseTypeList.select(0);
 //		this.oDatabaseSearchingCheckBoxButton.setSelection(false);
 		this.oAuthorizationCheckBoxButton.setEnabled(false);
 //		this.oAuthenticationCheckBoxButton.setSelection(true);
@@ -280,7 +280,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 			Command command = commandService.getCommand("eu.scasefp7.eclipse.mde.cimgen.commands.CIMGeneratorCommand");
 			command.executeWithChecks(new ExecutionEvent(command, mapMDEPreferences, null, null));
 		} catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-			if(e.getCause().toString().equalsIgnoreCase("Code generation process canceled by user.")){
+			if(e.getCause().getMessage().equalsIgnoreCase("canceled exception")){
 				System.out.println("User canceled the code generation process");
 				return false;
 			}

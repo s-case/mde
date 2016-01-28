@@ -22,14 +22,14 @@ package eu.fp7.scase.cimGenerator;
 import java.util.ArrayList;
 
 import eu.fp7.scase.inputParser.YamlResource;
-import ServiceCIM.RESTServiceCIMFactory;
+import ServiceCIM.ServiceCIMFactory;
 import ServiceCIM.RESTfulServiceCIM;
 
 public abstract class ACIMProducer
 {
 	protected RESTfulServiceCIM oRESTfulServiceCIM;
 	protected ArrayList<YamlResource> listOfYamlResources;
-	protected RESTServiceCIMFactory oRestServiceCIMFactory;
+	protected ServiceCIMFactory oRestServiceCIMFactory;
 	protected String strProjectName;
 	protected String strProjectOutputPath;
 	protected String strServiceDatabaseIp;
@@ -40,7 +40,7 @@ public abstract class ACIMProducer
 	
 	public ACIMProducer(ArrayList<YamlResource> listOfYamlResources, String strProjectName, String strProjectOutputPath, String strServiceDatabaseIp, String strServiceDatabasePort, String strServiceDatabaseUsername, String strServiceDatabasePassword, String strServiceDatabaseType){
 		this.listOfYamlResources = listOfYamlResources;
-		this.oRestServiceCIMFactory = RESTServiceCIMFactory.eINSTANCE;
+		this.oRestServiceCIMFactory = ServiceCIMFactory.eINSTANCE;
 		this.strProjectName = strProjectName;
 		this.oRESTfulServiceCIM = this.oRestServiceCIMFactory.createRESTfulServiceCIM();
 		this.oRESTfulServiceCIM.setName(strProjectName);
@@ -56,7 +56,7 @@ public abstract class ACIMProducer
 		return this.oRESTfulServiceCIM;
 	}
 	
-	public RESTServiceCIMFactory getRESTServiceCIMFactory(){
+	public ServiceCIMFactory getRESTServiceCIMFactory(){
 		return this.oRestServiceCIMFactory;
 	}
 	

@@ -27,7 +27,7 @@ import ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage;
 import SearchLayerCIM.AnnAlgoResource;
 import SearchLayerCIM.SearchLayerCIMFactory;
 import SearchLayerCIM.SearchLayerCIMPackage;
-import ServiceCIM.RESTServiceCIMPackage;
+import ServiceCIM.ServiceCIMPackage;
 import ServiceCIM.RESTfulServiceCIM;
 import eu.fp7.scase.inputParser.YamlInputParser;
 import eu.fp7.scase.inputParser.YamlResource;
@@ -429,7 +429,7 @@ public class CIMGenerator extends AbstractHandler{
 		ResourceSet oResourceSet;
 		URI oURI;
 		
-		RESTServiceCIMPackage.eINSTANCE.getClass();
+		ServiceCIMPackage.eINSTANCE.getClass();
 		
 		// Create a resource set.
 		oResourceSet = new ResourceSetImpl();

@@ -23,7 +23,7 @@ import ServiceCIM.InputRepresentation;
 import ServiceCIM.MediaType;
 import ServiceCIM.OutputRepresentation;
 import ServiceCIM.Property;
-import ServiceCIM.RESTServiceCIMFactory;
+import ServiceCIM.ServiceCIMFactory;
 import ServiceCIM.RESTfulServiceCIM;
 import ServiceCIM.Resource;
 
@@ -31,7 +31,7 @@ import ServiceCIM.Resource;
 public class CoreCIMEditorWizardPage extends WizardPage{
 	
 	private RESTfulServiceCIM oRESTfulServiceCIM;
-	private RESTServiceCIMFactory oRestServiceCIMFactory;
+	private ServiceCIMFactory oRestServiceCIMFactory;
 	private Composite oWizardPageGrid;
 	private boolean bExecuteFromScratchYaml;
 	private int intMinRequiredAlgoResources;
@@ -90,7 +90,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 	public CoreCIMEditorWizardPage(RESTfulServiceCIM oRESTfulServiceCIM, int intMinRequiredAlgoResources, boolean bExecuteFromScratchYaml){
 		super(oRESTfulServiceCIM.getName() + " CIM Editor");
 		this.oRESTfulServiceCIM = oRESTfulServiceCIM;
-		this.oRestServiceCIMFactory = RESTServiceCIMFactory.eINSTANCE;
+		this.oRestServiceCIMFactory = ServiceCIMFactory.eINSTANCE;
 		this.bExecuteFromScratchYaml = bExecuteFromScratchYaml;
 		this.intMinRequiredAlgoResources = intMinRequiredAlgoResources;
 	}
