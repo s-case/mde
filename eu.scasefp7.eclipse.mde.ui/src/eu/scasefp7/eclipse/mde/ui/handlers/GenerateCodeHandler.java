@@ -62,6 +62,13 @@ import eu.scasefp7.eclipse.mde.ui.preferences.PreferenceConstants;
 public class GenerateCodeHandler extends AbstractHandler {
 
     // Command IDs
+    // Ontology
+    public static final String CMD_STATIC = "eu.scasefp7.eclipse.core.commands.compileStaticRequirements";
+    public static final String CMD_DYNAMIC = "eu.scasefp7.eclipse.core.commands.compileDynamicRequirements";
+    public static final String CMD_LINK = "eu.scasefp7.eclipse.core.commands.linkOntologies";
+    public static final String CMD_YAML = "eu.scasefp7.eclipse.core.commands.exportToYaml";
+    
+    // MDE
     public static final String CMD_CIMGEN = "eu.scasefp7.eclipse.mde.cimgen.commands.CIMGeneratorCommand";
     public static final String CMD_M2M = "eu.scasefp7.eclipse.mde.m2m.commands.ExecuteModelToModelTransformations";
     public static final String CMD_ANN = "AnnotationStackPopulator.commands.PopulateAnnotationStack";
@@ -109,7 +116,8 @@ public class GenerateCodeHandler extends AbstractHandler {
                     System.out.println("Cannot find parameter: " + entry.getKey() + " of command " + commandCIM);
                 }
             }
-            
+             
+            // MDE commands
             ParameterizedCommand parametrizedCommandCIM = new ParameterizedCommand(commandCIM, params.toArray(new Parameterization[params.size()]));
             ParameterizedCommand parametrizedCommandM2M = new ParameterizedCommand(commandM2M, params.toArray(new Parameterization[params.size()]));
             ParameterizedCommand parametrizedCommandANN = new ParameterizedCommand(commandANN, params.toArray(new Parameterization[params.size()]));
@@ -118,8 +126,37 @@ public class GenerateCodeHandler extends AbstractHandler {
             WorkspaceJob job = new WorkspaceJob("Generating code for " + mdePreferences.get("WebServiceName")) { //TODO
                 @Override
                 public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
-                    monitor.beginTask(this.getName(), 4);
+                    monitor.beginTask(this.getName(), 8);
                     IProgressMonitor pm = Job.getJobManager().createProgressGroup();
+                    
+                    // Setup ontology compile job
+                    Job jOnto = new WorkbenchJob("Generating ontology") {
+                        @Override
+                        public IStatus runInUIThread(IProgressMonitor monitor) {
+                            monitor.beginTask("Preparing the ontology", 4);
+                            
+                            if(monitor.isCanceled()) {
+                                return Status.CANCEL_STATUS;
+                            }
+                            
+                            try {
+                                handlerService.executeCommand(CMD_STATIC, null);
+                                handlerService.executeCommand(CMD_DYNAMIC, null);
+                                handlerService.executeCommand(CMD_LINK, null);
+                                handlerService.executeCommand(CMD_YAML, null);
+                            } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
+                                if(e.getCause().getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
+                                    return Status.CANCEL_STATUS;
+                                } else {
+                                    e.printStackTrace(); // TODO
+                                    return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to prepare the specification.", e);
+                                }
+                            } finally {
+                                monitor.done();
+                            }
+                            return Status.OK_STATUS;
+                        }  
+                    };           
                     
                     // Setup CIM job
                     Job jCim = new WorkbenchJob("Generating CIM") {
@@ -214,40 +251,51 @@ public class GenerateCodeHandler extends AbstractHandler {
                     };
 
                     try {   
-                        pm.beginTask("Generating code for " + mdePreferences.get("WebServiceName"), 402);
+                        pm.beginTask("Generating code for " + mdePreferences.get("WebServiceName"), 503);
                         pm.worked(1);
                         
-                        jCim.setRule(project);
-                        jCim.setProgressGroup(pm, 100);
-                        jCim.schedule();                        
-
-                        jCim.join();
+                        jOnto.setRule(project);
+                        jOnto.setProgressGroup(pm, 100);
+                        jOnto.schedule();
+                        
+                        jOnto.join();
                         monitor.worked(1);
                         
-                        if(jCim.getResult().isOK()) {
-                            jM2M.setRule(project);
-                            jM2M.setProgressGroup(pm, 100);
-                            jM2M.schedule();                        
+                        // Need to have ontology before continuing
+                        if(jOnto.getResult().isOK()) {
+                            jCim.setRule(project);
+                            jCim.setProgressGroup(pm, 100);
+                            jCim.schedule();                        
     
-                            jAnn.setRule(project);
-                            jAnn.setProgressGroup(pm, 100);
-                            jAnn.schedule();                        
-    
-                            jM2T.setRule(project);
-                            jM2T.setProgressGroup(pm, 100);
-                            jM2T.schedule();                        
-    
-                           
-                            jM2M.join();
+                            jCim.join();
                             monitor.worked(1);
-                            jAnn.join();
-                            monitor.worked(1);
-                            jM2T.join();
-                            monitor.worked(1);
-                        } else {
-                            jM2M.cancel();
-                            jAnn.cancel();
-                            jM2T.cancel();
+                            
+                            // Check if CIM wizard is cancelled
+                            if(jCim.getResult().isOK()) {
+                                jM2M.setRule(project);
+                                jM2M.setProgressGroup(pm, 100);
+                                jM2M.schedule();                        
+        
+                                jAnn.setRule(project);
+                                jAnn.setProgressGroup(pm, 100);
+                                jAnn.schedule();                        
+        
+                                jM2T.setRule(project);
+                                jM2T.setProgressGroup(pm, 100);
+                                jM2T.schedule();                        
+        
+                               
+                                jM2M.join();
+                                monitor.worked(1);
+                                jAnn.join();
+                                monitor.worked(1);
+                                jM2T.join();
+                                monitor.worked(1);
+                            } else {
+                                jM2M.cancel();
+                                jAnn.cancel();
+                                jM2T.cancel();
+                            }
                         }
                         
                         pm.worked(1);
