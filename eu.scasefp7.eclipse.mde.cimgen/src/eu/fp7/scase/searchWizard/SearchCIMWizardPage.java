@@ -1,5 +1,7 @@
 package eu.fp7.scase.searchWizard;
 
+import java.util.concurrent.ExecutionException;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -13,6 +15,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 import SearchLayerCIM.AnnAlgoResource;
 import SearchLayerCIM.AnnCRUDResource;
 import SearchLayerCIM.AnnProperty;
@@ -176,7 +179,11 @@ public class SearchCIMWizardPage extends WizardPage{
 			}
 		}
 		
-		//throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to load searchable property " + strOldPropertyName, e);
+		}
 	}
 
 
@@ -199,7 +206,13 @@ public class SearchCIMWizardPage extends WizardPage{
 				}
 			}
 		}
-		return null; // throw exception in production code
+		
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find search resource by name " + strSearchResourceName, e);
+			return null;
+		}
 	}
 
 
@@ -584,7 +597,12 @@ public class SearchCIMWizardPage extends WizardPage{
 			}
 		}
 
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find algorithic resource " + strAlgoResourceName + " by index.", e);
+			return -1;
+		}
 	}
 	
 	private int getCRUDResourceIndexByName(String strCRUDResourceName){
@@ -598,7 +616,12 @@ public class SearchCIMWizardPage extends WizardPage{
 			}
 		}
 
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find CRUD Resource index by name " + strCRUDResourceName, e);
+			return -1;
+		}
 	}
 	
 	
@@ -612,7 +635,12 @@ public class SearchCIMWizardPage extends WizardPage{
 				}
 			}
 		}
-		return null;//throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find CRUDResource by index " + iCRUDResourceIndex, e);
+			return null;
+		}
 	}
 	
 	private Resource getAlgoResourceByIndex(int iAlgoResourceIndex){
@@ -625,7 +653,12 @@ public class SearchCIMWizardPage extends WizardPage{
 				}
 			}
 		}
-		return null;//throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find Algorithmic Resource by index " + iAlgoResourceIndex, e);
+			return null;
+		}
 	}
 	
 	private int getPropertyIndexByName(String strCRUDResourceName, String strPropertyName){
@@ -640,7 +673,12 @@ public class SearchCIMWizardPage extends WizardPage{
 				}
 			}
 		}
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find property index by name " + strCRUDResourceName, e);
+			return -1;
+		}	
 	}
 	
 	private Property getPropertyByIndex(int iCRUDResourceIndex, int iPropertyIndex){
@@ -653,7 +691,12 @@ public class SearchCIMWizardPage extends WizardPage{
 				}
 			}
 		}
-		return null;//throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find property by index " + iCRUDResourceIndex, e);
+			return null;
+		}
 	}
 	
 	private int getElementIndexByResourcePropertyComboName(String strResourcePropertyComboName, boolean bGetCRUDResourceIndex){
@@ -674,7 +717,12 @@ public class SearchCIMWizardPage extends WizardPage{
 				}
 			}
 		}
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find element index by name " + strResourcePropertyComboName, e);
+			return -1;
+		}
 	}
 	
 	private void updateWidgetStatus(){

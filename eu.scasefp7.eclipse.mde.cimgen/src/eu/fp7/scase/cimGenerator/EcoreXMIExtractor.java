@@ -34,6 +34,7 @@ import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 import ServiceCIM.RESTfulServiceCIM;
 
 
@@ -74,7 +75,7 @@ public class EcoreXMIExtractor{
 		try {
 			this.oEcoreResource.save(Collections.EMPTY_MAP);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Activator.log("Could not export CORE CIM XMI file.", e);
 		}
 	}
 	

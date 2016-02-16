@@ -1,5 +1,7 @@
 package eu.fp7.scase.cimeditor;
 
+import java.util.concurrent.ExecutionException;
+
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -17,6 +19,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import eu.fp7.scase.extcompositions.SimpleDialogBox;
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 import ServiceCIM.CRUDActivity;
 import ServiceCIM.CRUDVerb;
 import ServiceCIM.InputRepresentation;
@@ -350,7 +353,12 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				return n;
 			}
 		}
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find property index by name " + strPropertyName, e);
+			return -1;
+		}
 	}
 
 	private void addUnrelatedResourceListListener() {
@@ -1030,8 +1038,12 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				return oResource.getHasProperty().get(n);
 			}
 		}
-		
-		return null; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find property by name " + strPropertyName, e);
+			return null;
+		}
 	}
 		
 	private int getResourceRepresentationIndex(Resource oResource, MediaType oMediaType, boolean bIsInputMediaType){
@@ -1078,7 +1090,12 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				return n;
 			}
 		}
-		return -1; //Throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find resource index by name " + strResourceName, e);
+			return -1;
+		}
 	}
 	
 	private boolean resourceHasRelatedResource(Resource oResource, Resource oRelatedResource) {
@@ -1109,7 +1126,12 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		else{
 			System.out.println("DID NOT FIND THE IS RELATED RESOURCE INDEX");
 		}
-		return -1; //throw exception in production code;
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find related resource index.", e);
+			return -1;
+		}
 	}
 
 	private void updateWidgetStatus(){

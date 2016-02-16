@@ -1,6 +1,7 @@
 package eu.fp7.scase.extcompositions;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.window.Window;
@@ -43,6 +44,7 @@ import ServiceCIM.Resource;
 import org.eclipse.swt.widgets.Text;
 
 import eu.fp7.scase.inputParser.YamlResource;
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 
 
 public class ExternalCompositionWizardPage extends WizardPage{
@@ -455,8 +457,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				}
 			}
 		}
-
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find CRUD Resource index by name " + strCRUDResourceName, e);
+			return -1;
+		}
 	}
 
 
@@ -753,8 +759,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				return n;
 			}
 		}
-		
-		return -1;//throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find input property index by name " + strInputPropertyName, e);
+			return -1;
+		}
 	}
 	
 	private int getOutputPropertyIndexByName(String strAlgoResourceName, String strOutputPropertyName){
@@ -763,8 +773,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				return n;
 			}
 		}
-		
-		return -1;//throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find output property index by name " + strOutputPropertyName, e);
+			return -1;
+		}
 	}
 	
 	private void addDeleteInputPropertyButtonListener() {
@@ -937,8 +951,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				return n;
 			}
 		}
-		
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find query param index by name " + strQueryParameterName, e);
+			return -1;
+		}
 	}
 
 	private void addCRUDVerbListener() {
@@ -1333,8 +1351,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				return this.oRESTfulServiceCIM.getHasResources().get(n);
 			}
 		}
-		
-		return null;//throw exception in production code instead
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find core CIM resource reference by name " + strCoreResourceName, e);
+			return null;
+		}
 	}
 
 
@@ -1478,7 +1500,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				}
 			}
 		}
-		return null;//throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find RESTClient resource by name " + strResourceName, e);
+			return null;
+		}
 	}
 
 	private RESTClientResource deepCopyRESTClientResource(RESTClientResource oBackUpRESTClientResource) {
@@ -1625,8 +1652,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				}
 			}
 		}
-		
-		return null; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find complex type.", e);
+			return null;
+		}
 	}
 
 
@@ -1917,8 +1948,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				}
 			}
 		}
-
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find algorithmic resource index by name " + strAlgoResourceName, e);
+			return -1;
+		}
 	}
 
 

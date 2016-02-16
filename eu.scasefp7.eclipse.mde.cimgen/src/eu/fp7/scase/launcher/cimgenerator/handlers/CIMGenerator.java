@@ -31,6 +31,7 @@ import ServiceCIM.ServiceCIMPackage;
 import ServiceCIM.RESTfulServiceCIM;
 import eu.fp7.scase.inputParser.YamlInputParser;
 import eu.fp7.scase.inputParser.YamlResource;
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 import eu.fp7.scase.searchWizard.SearchCIMWizard;
 import eu.fp7.scase.authenticationWizard.AuthenticationCIMWizard;
 import eu.fp7.scase.cimGenerator.ACIMProducer;
@@ -447,8 +448,7 @@ public class CIMGenerator extends AbstractHandler{
 	    try {
 			resource.load(null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.log("Could not load Core CIM file", e);
 		}
 	    
 	    // Get the first model element and cast it to the right type, in my
@@ -481,8 +481,8 @@ public class CIMGenerator extends AbstractHandler{
 	    try {
 			resource.load(null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.log("Could not load Authentication CIM file", e);
+
 		}
 	    
 	    // Get the first model element and cast it to the right type, in my
@@ -514,8 +514,8 @@ public class CIMGenerator extends AbstractHandler{
 	    try {
 			resource.load(null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.log("Could not load Search layer CIM file", e);
+
 		}
 	    
 	    // Get the first model element and cast it to the right type, in my
@@ -547,8 +547,7 @@ public class CIMGenerator extends AbstractHandler{
 	    try {
 			resource.load(null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.log("Could not load External Service Composition CIM file", e);
 		}
 	    
 	    // Get the first model element and cast it to the right type, in my

@@ -1,5 +1,7 @@
 package eu.fp7.scase.authenticationWizard;
 
+import java.util.concurrent.ExecutionException;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -14,6 +16,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 import AuthenticationLayerCIM.AnnCRUDActivity;
 import AuthenticationLayerCIM.AuthenticationLayerCIMFactory;
 import AuthenticationLayerCIM.AuthenticationOnlyMode;
@@ -785,8 +788,12 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 				return oCIMResource.getHasCRUDActivity().get(n);
 			}
 		}
-		
-		return null;//add exception for production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find resource activity by type.", e);
+			return null;
+		}
 	}
 }
 	 

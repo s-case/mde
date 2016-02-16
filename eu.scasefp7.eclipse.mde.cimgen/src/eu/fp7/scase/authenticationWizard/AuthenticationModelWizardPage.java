@@ -1,5 +1,7 @@
 package eu.fp7.scase.authenticationWizard;
 
+import java.util.concurrent.ExecutionException;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -11,6 +13,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 import AuthenticationLayerCIM.AnnProperty;
 import AuthenticationLayerCIM.AnnResource;
 import AuthenticationLayerCIM.Annotation;
@@ -175,8 +178,12 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				return this.oRESTfulServiceCIM.getHasResources().get(n).getName();
 			}
 		}
-		
-		return null; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find new authentication model name.", e);
+			return null;
+		}
 	}
 	
 	private boolean usernameTokenIsStillValid(AuthenticationModel oAuthenticationModel){
@@ -201,8 +208,12 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				}
 			}
 		}
-		
-		return false; //Throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Runtime error while checking validity of username token.", e);
+			return false;
+		}
 	}
 	
 	private String getNewUsernameTokenName(AuthenticationModel oAuthenticationModel){
@@ -220,12 +231,22 @@ public class AuthenticationModelWizardPage extends WizardPage {
 								return this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).getName();
 							}
 						}
-						return null; //throw exception in production code
+						try {
+							throw new ExecutionException(new Throwable());
+						} catch (ExecutionException e) {
+							Activator.log("Runtime error while trying to find new username token name.", e);
+							return null;
+						}
 					}
 				}
 			}
 		}
-		return null; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Runtime error while trying to find new username token name.", e);
+			return null;
+		}
 	}
 
 	private boolean passwordTokenIsStillValid(AuthenticationModel oAuthenticationModel){
@@ -250,8 +271,12 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				}
 			}
 		}
-		
-		return false; //Throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Runtime error while checking the validity of password token.", e);
+			return false;
+		}
 	}
 	
 	private String getPasswordTokenNewName(AuthenticationModel oAuthenticationModel){
@@ -275,8 +300,12 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				}
 			}
 		}
-		
-		return null; //Throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find password token new name", e);
+			return null;
+		}
 	}
 
 
@@ -445,7 +474,12 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				  return this.oRESTfulServiceCIM.getHasResources().get(i);
 			  }
 		  }
-		  return null; //throw exceptions instead in production code
+		  try {
+				throw new ExecutionException(new Throwable());
+			} catch (ExecutionException e) {
+				Activator.log("Unable to find core Resource by name " + strCoreResourceName, e);
+				return null;
+			}
 	  }
 	  
 	  private AuthenticationModel getAuthenticationModelResource(){
@@ -454,7 +488,12 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				  return (AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(i);
 			  }
 		  }
-		  return null;//throw exception in production code
+			try {
+				throw new ExecutionException(new Throwable());
+			} catch (ExecutionException e) {
+				Activator.log("Unable to find authentication model resource.", e);
+				return null;
+			}
 	  }
 	  
 	  private void addUsernameTokenToCIM(String strUsernameTokenName){
@@ -499,8 +538,12 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				  return this.getAuthenticationModelResource().getResourceAuthenticationModel().getAnnotatesResource().getHasProperty().get(i);
 			  }
 		  }
-			
-		  return null; //throw exception in production code
+			try {
+				throw new ExecutionException(new Throwable());
+			} catch (ExecutionException e) {
+				Activator.log("Unable to find core property by name " + strPropertyName, e);
+				return null;
+			}
 	  }
 	  
 	  public void createAuthenticationCIM(){

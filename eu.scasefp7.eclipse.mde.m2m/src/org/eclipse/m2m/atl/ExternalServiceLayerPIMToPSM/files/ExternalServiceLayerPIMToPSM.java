@@ -38,6 +38,8 @@ import org.eclipse.m2m.atl.core.emf.EMFModelFactory;
 import org.eclipse.m2m.atl.core.launch.ILauncher;
 import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
 
+import eu.scasefp7.eclipse.mde.m2m.Activator;
+
 /**
  * Entry point of the 'ExternalServiceLayerPIMToPSM' transformation module.
  */
@@ -91,11 +93,11 @@ public class ExternalServiceLayerPIMToPSM {
 				runner.saveModels(args[3]);
 			}
 		} catch (ATLCoreException e) {
-			e.printStackTrace();
+			Activator.log("ATL Core Exception while performing the External Service Layer PIM to PSM M2M transformation.", e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Activator.log("Unable to load or save the needed meta-models while performing the External Service Layer PIM to PSM M2M transformation.", e);
 		} catch (ATLExecutionException e) {
-			e.printStackTrace();
+			Activator.log("ATL Core Exception while performing the External Service Layer PIM to PSM M2M transformation.", e);
 		}
 	}
 

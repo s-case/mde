@@ -1,6 +1,7 @@
 package eu.fp7.scase.extcompositions;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.window.Window;
@@ -20,6 +21,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import eu.fp7.scase.inputParser.YamlResource;
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 import ExternalServiceLayerCIM.ComplexType;
 import ExternalServiceLayerCIM.ComplexTypeProperty;
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMFactory;
@@ -830,8 +832,12 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 				return this.oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientName)].get(this.getComplexTypeIndexByResourceAndName(strRESTClientName, strComplexTypeName)).getHasComplexTypeProperties().get(n);
 			}
 		}
-		
-		return null; // throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find complex type property by name " + strComplexTypePropertyName, e);
+			return null;
+		}
 	}
 	
 	private int getComplexTypeIndexByResourceAndName(String strRESTClientName, String strComplexTypeName){
@@ -840,8 +846,12 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 				return n;
 			}
 		}
-		
-		return -1;//throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find complex type index.", e);
+			return -1;
+		}
 	}
 	
 	private int getAlgoResourceIndexByName(String strAlgoResourceName){
@@ -854,8 +864,12 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 				}
 			}
 		}
-
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find algorithmic resource index by name " + strAlgoResourceName, e);
+			return -1;
+		}
 	}
 	
 	private ModelProperty getIOPropertyByName(String strModelPropertyName){
@@ -885,8 +899,12 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 				}
 			}
 		}
-		
-		return null; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find IO property by name " + strModelPropertyName, e);
+			return null;
+		}
 	}
 	
 	private ComplexType getComplexTypeByName(String strRESTClientName, String strComplexTypeName){
@@ -901,8 +919,12 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 				}
 			}
 		}
-		return null; //throw exception in production code
-	}
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find complex type by name " + strComplexTypeName, e);
+			return null;
+		}	}
 	
 	private void deleteIOPropertiesComplexType(String strComplexTypeName){
 		for(int n = 0; n < this.oExternalCompositionWizardPage.getRESTClientResourcesArray().length; n++){

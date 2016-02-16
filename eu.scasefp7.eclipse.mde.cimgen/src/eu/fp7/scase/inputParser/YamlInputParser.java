@@ -33,6 +33,8 @@ import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.yaml.snakeyaml.Yaml;
 
+import eu.fp7.scase.launcher.cimgenerator.Activator;
+
 public class YamlInputParser {
 
 	private Yaml   oYamlHandler;
@@ -48,7 +50,7 @@ public class YamlInputParser {
 		try {
 			oInputStreamHandler = new FileInputStream(new File(strYamlFilePath));
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			Activator.log("Could not load YAML input file", e);
 		}
 	}
 	
@@ -59,7 +61,7 @@ public class YamlInputParser {
 		try {
 			oInputStreamHandler.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Activator.log("Unable to open input stream to read the input YAML file", e);
 		}
 		return this.listOfYamlResources;
 	}
