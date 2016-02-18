@@ -39,7 +39,9 @@ public class CodeGenerationPreferencePage extends FieldEditorOverlayPage impleme
 	    addField(serviceName);
 		addField(new StringFieldEditor(PreferenceConstants.P_INPUT_FILE, "&YAML file name:", getFieldEditorParent()));
 		addField(new DirectoryFieldEditor(PreferenceConstants.P_OUTPUT_PATH, "&Output path:", getFieldEditorParent()));
-		    
+		addField(new BooleanFieldEditor(PreferenceConstants.P_AUTO_IMPORT_GENERATED_CODE, "Import &generated project to workspace:", getFieldEditorParent()));
+            
+		
 		addField(new ComboFieldEditor(PreferenceConstants.P_DATABASE_TYPE, "Database type:", new String[][]{{"PostgreSQL server","PostgreSQL"},{"MySQL server","MySQL"}}, getFieldEditorParent()));//$NON-NLS-2$ //$NON-NLS-4$
 		addField(new StringFieldEditor(PreferenceConstants.P_DATABASE_ADDRESS, "&Database server address:", getFieldEditorParent()));
         addField(new IntegerFieldEditor(PreferenceConstants.P_DATABASE_PORT, "Database server &port:", getFieldEditorParent(), 5));
@@ -58,6 +60,7 @@ public class CodeGenerationPreferencePage extends FieldEditorOverlayPage impleme
                 
                 if(val instanceof Boolean) {
                     serviceName.setEnabled(!((Boolean) val), getFieldEditorParent());
+                    serviceName.getTextControl(getFieldEditorParent()).setEnabled(!((Boolean) val));
                 }
             }
         });

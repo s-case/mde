@@ -63,20 +63,23 @@ public class GenerateCodeHandler extends AbstractHandler {
 
     // Command IDs
     // Ontology
-    public static final String CMD_STATIC = "eu.scasefp7.eclipse.core.commands.compileStaticRequirements";
-    public static final String CMD_DYNAMIC = "eu.scasefp7.eclipse.core.commands.compileDynamicRequirements";
-    public static final String CMD_LINK = "eu.scasefp7.eclipse.core.commands.linkOntologies";
-    public static final String CMD_YAML = "eu.scasefp7.eclipse.core.commands.exportToYaml";
+    private static final String CMD_STATIC = "eu.scasefp7.eclipse.core.commands.compileStaticRequirements"; //$NON-NLS-1$
+    private static final String CMD_DYNAMIC = "eu.scasefp7.eclipse.core.commands.compileDynamicRequirements"; //$NON-NLS-1$
+    private static final String CMD_LINK = "eu.scasefp7.eclipse.core.commands.linkOntologies"; //$NON-NLS-1$
+    private static final String CMD_YAML = "eu.scasefp7.eclipse.core.commands.exportToYaml"; //$NON-NLS-1$
     
     // MDE
-    public static final String CMD_CIMGEN = "eu.scasefp7.eclipse.mde.cimgen.commands.CIMGeneratorCommand";
-    public static final String CMD_M2M = "eu.scasefp7.eclipse.mde.m2m.commands.ExecuteModelToModelTransformations";
-    public static final String CMD_ANN = "AnnotationStackPopulator.commands.PopulateAnnotationStack";
-    public static final String CMD_M2T = "eu.scasefp7.eclipse.mde.m2t.commands.executeModelToTextTransformation";
+    private static final String CMD_CIMGEN = "eu.scasefp7.eclipse.mde.cimgen.commands.CIMGeneratorCommand"; //$NON-NLS-1$
+    private static final String CMD_M2M = "eu.scasefp7.eclipse.mde.m2m.commands.ExecuteModelToModelTransformations"; //$NON-NLS-1$
+    private static final String CMD_ANN = "AnnotationStackPopulator.commands.PopulateAnnotationStack"; //$NON-NLS-1$
+    private static final String CMD_M2T = "eu.scasefp7.eclipse.mde.m2t.commands.executeModelToTextTransformation"; //$NON-NLS-1$
     
-    public static final String CMD_PAR_RELOAD = "eu.scasefp7.eclipse.mde.ui.generateCode.reload";
+    // Maven import
+    private static final String CMD_IMPORT = "eu.scasefp7.eclipse.mde.ui.commands.importMavenProject"; //$NON-NLS-1$
     
-    public static final String CANCEL_EX_CLASSNAME = "CanceledExecutionException";
+    private static final String CMD_PAR_RELOAD = "eu.scasefp7.eclipse.mde.ui.generateCode.reload"; //$NON-NLS-1$
+    
+    private static final String CANCEL_EX_CLASSNAME = "CanceledExecutionException"; //$NON-NLS-1$
     
     @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -105,6 +108,8 @@ public class GenerateCodeHandler extends AbstractHandler {
             Command commandM2M = commandService.getCommand(CMD_M2M);
             Command commandANN = commandService.getCommand(CMD_ANN);
             Command commandM2T = commandService.getCommand(CMD_M2T);
+            
+            Command commandImport = commandService.getCommand(CMD_IMPORT);
 
             ArrayList<Parameterization> params = new ArrayList<Parameterization>();
             for(Map.Entry<String, String> entry : mdePreferences.entrySet()) {
@@ -117,16 +122,29 @@ public class GenerateCodeHandler extends AbstractHandler {
                 }
             }
              
+            ArrayList<Parameterization> paramsImport = new ArrayList<Parameterization>();
+            for(Map.Entry<String, String> entry : mdePreferences.entrySet()) {
+                IParameter p = commandImport.getParameter(entry.getKey());
+                if(p != null) {
+                    Parameterization param = new Parameterization(p, entry.getValue());
+                    paramsImport.add(param);
+                } else {
+                    System.out.println("Cannot find parameter: " + entry.getKey() + " of command " + commandImport);
+                }
+            }
+            
             // MDE commands
             ParameterizedCommand parametrizedCommandCIM = new ParameterizedCommand(commandCIM, params.toArray(new Parameterization[params.size()]));
             ParameterizedCommand parametrizedCommandM2M = new ParameterizedCommand(commandM2M, params.toArray(new Parameterization[params.size()]));
             ParameterizedCommand parametrizedCommandANN = new ParameterizedCommand(commandANN, params.toArray(new Parameterization[params.size()]));
             ParameterizedCommand parametrizedCommandM2T = new ParameterizedCommand(commandM2T, params.toArray(new Parameterization[params.size()]));
 
+            ParameterizedCommand parametrizedCommandImport = new ParameterizedCommand(commandImport, paramsImport.toArray(new Parameterization[paramsImport.size()]));
+            
             WorkspaceJob job = new WorkspaceJob("Generating code for " + mdePreferences.get("WebServiceName")) { //TODO
                 @Override
                 public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
-                    monitor.beginTask(this.getName(), 8);
+                    monitor.beginTask(this.getName(), 9);
                     IProgressMonitor pm = Job.getJobManager().createProgressGroup();
                     
                     // Setup ontology compile job
@@ -148,7 +166,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                                 if(e.getCause().getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
                                     return Status.CANCEL_STATUS;
                                 } else {
-                                    e.printStackTrace(); // TODO
+                                    Activator.log("Failed to compile to ontology and create YAML.", e);
                                     return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to prepare the specification.", e);
                                 }
                             } finally {
@@ -174,7 +192,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                                 if(e.getCause().getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
                                     return Status.CANCEL_STATUS;
                                 } else {
-                                    e.printStackTrace(); // TODO
+                                    Activator.log("Failed to execute CIM generator.", e);
                                     return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to prepare the specification.", e);
                                 }
                             } finally {
@@ -197,7 +215,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                             try {
                                 handlerService.executeCommand(parametrizedCommandM2M, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-                                e.printStackTrace();
+                                Activator.log("Failed to execute M2M transformation.", e);
                                 return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to generate models.", e);
                             } finally {
                                 monitor.done();
@@ -219,7 +237,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                             try {
                                 handlerService.executeCommand(parametrizedCommandANN, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-                                e.printStackTrace();
+                                Activator.log("Failed to execute annotator.", e);
                                 return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to generate annotations.", e);
                             } finally {
                                 monitor.done();
@@ -241,7 +259,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                             try {
                                 handlerService.executeCommand(parametrizedCommandM2T, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-                                e.printStackTrace();
+                                Activator.log("Failed to execute M2T generator.", e);
                                 return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to generate code.", e);
                             } finally {
                                 monitor.done();
@@ -296,6 +314,25 @@ public class GenerateCodeHandler extends AbstractHandler {
                                 jAnn.cancel();
                                 jM2T.cancel();
                             }
+                        
+                            IStatus result = jM2T.getResult();
+                            String shouldRun = mdePreferences.get("ImportGeneratedProject");
+                            
+                            if(result != null 
+                                    && result.isOK() 
+                                    && shouldRun != null 
+                                    && shouldRun.equals("yes")) {
+                                monitor.beginTask("Importing generated project", 1);
+                                try {
+                                    handlerService.executeCommand(parametrizedCommandImport, null);
+                                } catch (ExecutionException | NotDefinedException | NotEnabledException
+                                        | NotHandledException e) {
+                                    Activator.log("Failed to import generated Maven project.", e);
+                                    return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to import generated project.", e);
+                                } finally {
+                                    monitor.worked(1);
+                                }
+                            }
                         }
                         
                         pm.worked(1);
@@ -313,7 +350,7 @@ public class GenerateCodeHandler extends AbstractHandler {
             job.schedule();
 
         } catch (NotDefinedException e) {
-            e.printStackTrace();
+            Activator.log("Failed to find commands needed to generate code.", e);
         }
         
         return null;
@@ -370,6 +407,7 @@ public class GenerateCodeHandler extends AbstractHandler {
         String extComposition = (store.getBoolean(PreferenceConstants.P_FACET_EXT_COMPOSITIONS) ? "yes" : "no");
         String reloadModels = (commandParams.get(GenerateCodeHandler.CMD_PAR_RELOAD) == null) ? "no" 
                 : ((String) commandParams.get(GenerateCodeHandler.CMD_PAR_RELOAD)).equalsIgnoreCase("yes") ? "yes" : "no";
+        String importMaven = (store.getBoolean(PreferenceConstants.P_AUTO_IMPORT_GENERATED_CODE) ? "yes" : "no");
         
         mapMDEPreferences.put("YamlFilePath", yamlFilePath); 
         mapMDEPreferences.put("WebServiceName", wsName);
@@ -384,6 +422,7 @@ public class GenerateCodeHandler extends AbstractHandler {
         mapMDEPreferences.put("DatabaseSearching", searching);
         mapMDEPreferences.put("ExternalComposition", extComposition);
         mapMDEPreferences.put("ReloadExistingModels", reloadModels);
+        mapMDEPreferences.put("ImportGeneratedProject", importMaven);
         
         return mapMDEPreferences;
     }

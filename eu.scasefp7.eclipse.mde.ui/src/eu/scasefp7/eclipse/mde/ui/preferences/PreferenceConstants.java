@@ -22,6 +22,9 @@ public final class PreferenceConstants {
      */
     public static final String P_SERVICE_NAME = "serviceName"; //$NON-NLS-1$
     
+    /** Automatically import the generated web service Maven project to workspace. */
+    public static final String P_AUTO_IMPORT_GENERATED_CODE = "importGeneratedMavenProject"; //$NON-NLS-1$
+    
     /** MDE input file name (YAML resource description). */
     public static final String P_INPUT_FILE = "inputFile"; //$NON-NLS-1$
 
@@ -51,4 +54,5 @@ public final class PreferenceConstants {
     
     /** Enable MDE facet External compositions. */
     public static final String P_FACET_EXT_COMPOSITIONS = "facetExternalCompositions"; //$NON-NLS-1$
-}
+
+ }

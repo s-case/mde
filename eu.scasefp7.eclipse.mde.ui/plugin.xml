@@ -75,12 +75,22 @@
                optional="true">
          </commandParameter>
       </command>
+      <command
+           	id="eu.scasefp7.eclipse.mde.ui.commands.importMavenProject"
+            name="Import generated Maven project">
+			<commandParameter id="WebServiceName" name="Web service name" optional="false"/>
+     		<commandParameter id="MDEOutputFolder" name="Output folder" optional="false"/>
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
       <handler
             class="eu.scasefp7.eclipse.mde.ui.handlers.GenerateCodeHandler"
             commandId="eu.scasefp7.eclipse.mde.ui.generateCode">
+      </handler>
+      <handler
+            class="eu.scasefp7.eclipse.mde.ui.handlers.ImportMavenProjectHandler"
+            commandId="eu.scasefp7.eclipse.mde.ui.importMavenProject">
       </handler>
    </extension>
 
