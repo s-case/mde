@@ -75,7 +75,7 @@ public class GenerateCodeHandler extends AbstractHandler {
     private static final String CMD_M2T = "eu.scasefp7.eclipse.mde.m2t.commands.executeModelToTextTransformation"; //$NON-NLS-1$
     
     // Maven import
-    private static final String CMD_IMPORT = "eu.scasefp7.eclipse.mde.ui.commands.importMavenProject"; //$NON-NLS-1$
+    private static final String CMD_IMPORT = "eu.scasefp7.eclipse.mde.ui.importMavenProject"; //$NON-NLS-1$
     
     private static final String CMD_PAR_RELOAD = "eu.scasefp7.eclipse.mde.ui.generateCode.reload"; //$NON-NLS-1$
     
