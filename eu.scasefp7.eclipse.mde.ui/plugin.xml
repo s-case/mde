@@ -76,7 +76,7 @@
          </commandParameter>
       </command>
       <command
-           	id="eu.scasefp7.eclipse.mde.ui.commands.importMavenProject"
+           	id="eu.scasefp7.eclipse.mde.ui.importMavenProject"
             name="Import generated Maven project">
 			<commandParameter id="WebServiceName" name="Web service name" optional="false"/>
      		<commandParameter id="MDEOutputFolder" name="Output folder" optional="false"/>

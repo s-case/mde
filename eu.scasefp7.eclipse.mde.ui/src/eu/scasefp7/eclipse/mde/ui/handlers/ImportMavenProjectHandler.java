@@ -4,25 +4,19 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.maven.model.Model;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.commands.NotEnabledException;
-import org.eclipse.core.commands.NotHandledException;
-import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.m2e.core.MavenPlugin;
+import org.eclipse.m2e.core.project.IProjectConfigurationManager;
 import org.eclipse.m2e.core.project.MavenProjectInfo;
 import org.eclipse.m2e.core.project.ProjectImportConfiguration;
-import org.eclipse.m2e.core.project.IProjectConfigurationManager;
-import org.eclipse.ui.progress.WorkbenchJob;
-import org.apache.maven.model.Model;
 
 import eu.scasefp7.eclipse.mde.ui.Activator;
 
@@ -82,7 +76,7 @@ public class ImportMavenProjectHandler extends AbstractHandler {
                     infos.add(info);
                     manager.importProjects(infos, config , monitor);
                 } catch (CoreException e) {
-                    e.printStackTrace(); // TODO
+                    Activator.log("Import maven project command failed.", e);
                     return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to import Maven project.", e);
                 } finally {
                     monitor.done();
