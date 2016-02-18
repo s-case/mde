@@ -101,7 +101,7 @@ public class Activator extends Plugin {
 		msg += "\n!FAILURE_TIMESTAMP " + oDateFormatter.format(new Date());
 		errorID++;
 		if (plugin != null)
-			plugin.getLog().log(new Status(Status.INFO, PLUGIN_ID, Status.OK, msg, exception));
+			plugin.getLog().log(new Status(Status.ERROR, PLUGIN_ID, Status.OK, msg, exception));
 		else
 			exception.printStackTrace();
 	}	
