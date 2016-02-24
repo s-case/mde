@@ -176,6 +176,7 @@ public class SearchCIMWizardPage extends WizardPage{
 		for(int n = 0; n < this.getCRUDResourceByIndex(CRUDResourceIndex).getHasProperty().size(); n++){
 			if(this.getCRUDResourceByIndex(CRUDResourceIndex).getHasProperty().get(n).getName().equalsIgnoreCase(strOldPropertyName)){
 				this.oSelectedSearchablePropertiesArray[this.getAlgoResourceIndexByName(strSearchResourceName)][CRUDResourceIndex][n] = true;
+				return;
 			}
 		}
 		

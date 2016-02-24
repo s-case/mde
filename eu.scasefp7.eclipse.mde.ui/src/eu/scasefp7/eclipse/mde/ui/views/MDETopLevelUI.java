@@ -119,8 +119,8 @@ public class MDETopLevelUI extends ScrolledComposite {
 		
 		//TODO remove the following lines in production code
 		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts/CompositionAuto.yml");
-		this.oWSNameText.setText("CompositionAuto");
-		this.oMDEOutputText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts");
+//		this.oWSNameText.setText("CompositionAuto");
+//		this.oMDEOutputText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts");
 		this.oDatabaseIPText.setText("localhost");
 		this.oDatabasePortText.setText("3127");
 		this.oDatabaseUsernameText.setText("postgres");
