@@ -1281,6 +1281,9 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		if(!resourcesHaveUniqueNamingProperty()){
 			return false;
 		}
+		if(!algorithmicResourceHasNoRelatedResources()){
+			return false;
+		}
 		
 		//validate properties
 		if(!allPropertiesHaveType()){
@@ -1293,6 +1296,20 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		}
 		
 		setErrorMessage(null);
+		
+		return true;
+	}
+
+	private boolean algorithmicResourceHasNoRelatedResources() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true){
+				if(this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().isEmpty() == false){
+					setErrorMessage("Algorithmic resources may not have any related resources. However resource " + this.oRESTfulServiceCIM.getHasResources().get(n).getName()
+							+ " has related resources.");
+					return false;
+				}
+			}
+		}
 		
 		return true;
 	}
