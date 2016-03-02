@@ -1295,7 +1295,42 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 			return false;
 		}
 		
+		//validate that all CRUD resources have at least CREATE and READ activities
+		if(!allCRUDResourcesHaveRequiredActivities()){
+			return false;
+		}
+		
 		setErrorMessage(null);
+		
+		return true;
+	}
+
+	private boolean allCRUDResourcesHaveRequiredActivities() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == false){ //if it is CRUD resource
+				//check if it has CREATE and READ activity
+				boolean bHasCreateActivity = false;
+				boolean bHasReadActivity = false;
+				for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasCRUDActivity().size(); i++){
+					if(this.oRESTfulServiceCIM.getHasResources().get(n).getHasCRUDActivity().get(i).getCRUDVerb() == CRUDVerb.CREATE){
+						bHasCreateActivity = true;
+					}
+					else if(this.oRESTfulServiceCIM.getHasResources().get(n).getHasCRUDActivity().get(i).getCRUDVerb() == CRUDVerb.READ){
+						bHasReadActivity = true;
+					}
+				}
+				
+				if(bHasCreateActivity && bHasReadActivity){
+					return true;
+				}
+				else{
+					setErrorMessage("CRUD resources must have CREATE and READ activities. However resource " + this.oRESTfulServiceCIM.getHasResources().get(n).getName()
+							+ " does not have one or either of them.");
+					return false;
+				}
+			}
+		}
+		
 		
 		return true;
 	}
