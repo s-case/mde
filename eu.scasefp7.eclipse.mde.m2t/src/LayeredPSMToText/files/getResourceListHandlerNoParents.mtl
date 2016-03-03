@@ -49,6 +49,7 @@ public class Get[jRCManager.parentName/]ListHandler{
 
     private HibernateController oHibernateController;
     private UriInfo oApplicationUri; //Standard datatype that holds information on the URI info of this request
+	private String strResourcePath; //relative path to the current resource
     private Set<[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.name/]> SetOf[jRCManager.parentName/]Model = new HashSet<[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.name/]>(); // Since this resource is not related of any other, this HashSet will hold the list to be sent back to client.
 	[if (anAnnotationStack.bHasAuthenticationAnnotation)]
 	[if (anAnnotationStack.hasGuestMode(jRCManager.parentName) = false)]
@@ -60,6 +61,7 @@ public class Get[jRCManager.parentName/]ListHandler{
     public Get[jRCManager.parentName/]ListHandler([if (anAnnotationStack.bHasAuthenticationAnnotation)][if (anAnnotationStack.hasGuestMode(jRCManager.parentName) = false)]String authHeader, [/if][/if]UriInfo oApplicationUri){
         this.oHibernateController = HibernateController.getHibernateControllerHandle();
         this.oApplicationUri = oApplicationUri;
+		this.strResourcePath = calculateProperResourcePath();
 		[if (anAnnotationStack.bHasAuthenticationAnnotation)]
 		[if (anAnnotationStack.hasGuestMode( jRCManager.parentName) = false)]
 		this.authHeader = authHeader;
@@ -67,6 +69,15 @@ public class Get[jRCManager.parentName/]ListHandler{
 		[/if] 
 		[/if]
     }
+
+	public String calculateProperResourcePath(){
+    	if(this.oApplicationUri.getPath().lastIndexOf('/') == this.oApplicationUri.getPath().length() - 1){
+        	return this.oApplicationUri.getPath().substring(0, this.oApplicationUri.getPath().length() - 1);
+    	}
+    	else{
+        	return this.oApplicationUri.getPath();
+    	}
+	}
 
     public [jRCManager.hasAssociatedRMManager.name/] get[jRCManager.hasAssociatedRMManager.name/](){
 
@@ -132,12 +143,12 @@ public class Get[jRCManager.parentName/]ListHandler{
         [jRCManager.hasAssociatedRMManager.name/] o[jRCManager.hasAssociatedRMManager.name/] = new [jRCManager.hasAssociatedRMManager.name/]();
 
         /* Create hypermedia links towards this specific [jRCManager.parentName/] resource. These must be GET and POST as it is prescribed in the meta-models.*/
-        o[jRCManager.hasAssociatedRMManager.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), oApplicationUri.getPath()), "Get all [jRCManager.parentName/]s", "GET", "Sibling"));
-        o[jRCManager.hasAssociatedRMManager.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), oApplicationUri.getPath()), "Create a new [jRCManager.parentName/]", "POST", "Sibling"));
+        o[jRCManager.hasAssociatedRMManager.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), this.strResourcePath), "Get all [jRCManager.parentName/]s", "GET", "Sibling"));
+        o[jRCManager.hasAssociatedRMManager.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), this.strResourcePath), "Create a new [jRCManager.parentName/]", "POST", "Sibling"));
 
         /* Then calculate the relative path to any related resource of this one and add for each one a hypermedia link to the Linklist.*/
         String oRelativePath;
-        oRelativePath = oApplicationUri.getPath();
+        oRelativePath = this.strResourcePath;
         Iterator<[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.name/]> setIterator = this.SetOf[jRCManager.parentName/]Model.iterator();
         while(setIterator.hasNext()){
             [jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.name/] oNext[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.name/] = new [jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.name/]();
