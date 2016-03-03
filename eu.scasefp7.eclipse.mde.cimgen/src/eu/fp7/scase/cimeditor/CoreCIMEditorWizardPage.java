@@ -1300,9 +1300,67 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 			return false;
 		}
 		
+		//validate that there are not any properties that cause naming conflicts and compilation errors
+		if(!allPropertiesHaveProperNames()){
+			return false;
+		}
+		
 		setErrorMessage(null);
 		
 		return true;
+	}
+
+	private boolean allPropertiesHaveProperNames() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == false){
+				for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().size(); i++){
+					//check if the property name is reserved within MDE
+					if(isReservedMDEPropertyName(this.oRESTfulServiceCIM.getHasResources().get(n).getName(), this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName())){
+						setErrorMessage("CRUD resource properties may not have as names reserved MDE keywords. Rename " + 
+								this.oRESTfulServiceCIM.getHasResources().get(n).getName() + " resource's " + 
+								this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName() + " property.");
+						return false;
+					}
+					
+					//check if the property's resource is related of some other resource with the same name as the property
+					if(isReservedForRelationsPropertyName(this.oRESTfulServiceCIM.getHasResources().get(n).getName(), this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName())){
+						setErrorMessage("CRUD resource properties may not have the same name as resources of which they are related. Rename " + 
+								this.oRESTfulServiceCIM.getHasResources().get(n).getName() + " resource's " + 
+								this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName() + " property.");
+						return false;
+					}
+				}
+			}
+		}
+		
+		return true;
+	}
+
+	private boolean isReservedForRelationsPropertyName(String strResourceName, String strPropertyName) {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(strPropertyName.equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(n).getName())){
+				//check if this resource has as related the property's resource
+				for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().size(); i++){
+					if(this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().get(i).getName().equalsIgnoreCase(strResourceName)){
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+
+	private boolean isReservedMDEPropertyName(String strResourceName, String strPropertyName) {
+		
+		if(strPropertyName.equalsIgnoreCase("linklist")){
+			return true;
+		}
+		else if(strPropertyName.equalsIgnoreCase(strResourceName + "Id")){
+			return true;
+		}
+		
+		return false;
 	}
 
 	private boolean allCRUDResourcesHaveRequiredActivities() {
