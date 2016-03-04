@@ -109,7 +109,7 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].utilities.Set
 parsing/marshalling as well as with Hibernate annotations for ORM transformations.*/
 @XmlRootElement
 @Entity
-@Table(name="[jRModel.parentName/]")
+@Table(name="\"[jRModel.parentName.toLower()/]\"")
 [if (anAnnotationStack.bHasSearchLayer)]
 [if (jRModel.isSearchableResourceModel(anAnnotationStack))]
 @Indexed
