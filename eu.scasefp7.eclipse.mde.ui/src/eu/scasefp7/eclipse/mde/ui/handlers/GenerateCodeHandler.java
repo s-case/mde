@@ -409,6 +409,12 @@ public class GenerateCodeHandler extends AbstractHandler {
                 : ((String) commandParams.get(GenerateCodeHandler.CMD_PAR_RELOAD)).equalsIgnoreCase("yes") ? "yes" : "no";
         String importMaven = (store.getBoolean(PreferenceConstants.P_AUTO_IMPORT_GENERATED_CODE) ? "yes" : "no");
         
+        // Figure out service name
+        Boolean useProjectName = (store.getBoolean(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME));
+        if (useProjectName) {
+            wsName = project.getName() + "Api";
+        }
+        
         mapMDEPreferences.put("YamlFilePath", yamlFilePath); 
         mapMDEPreferences.put("WebServiceName", wsName);
         mapMDEPreferences.put("MDEOutputFolder", outputFolder);

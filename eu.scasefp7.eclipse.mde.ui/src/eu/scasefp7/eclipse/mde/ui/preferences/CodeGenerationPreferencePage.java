@@ -33,7 +33,7 @@ public class CodeGenerationPreferencePage extends FieldEditorOverlayPage impleme
 	 */
 	public void createFieldEditors() {
 	    final StringFieldEditor serviceName = new StringFieldEditor(PreferenceConstants.P_SERVICE_NAME, "Web service &name:", getFieldEditorParent());
-	    BooleanFieldEditor useProjectName = new BooleanFieldEditor(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME, "Use project name &for service name", getFieldEditorParent());
+	    BooleanFieldEditor useProjectName = new BooleanFieldEditor(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME, "Use project name+'Api' &for service name ", getFieldEditorParent());
 	    
 		addField(useProjectName);
 	    addField(serviceName);
@@ -53,6 +53,8 @@ public class CodeGenerationPreferencePage extends FieldEditorOverlayPage impleme
 		addField(new BooleanFieldEditor(PreferenceConstants.P_FACET_SEARCH, "Add database &searching", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(PreferenceConstants.P_FACET_EXT_COMPOSITIONS, "Add &External compositions", getFieldEditorParent()));
 		
+		/* This does not work since there can be only one property change listener and we get overriden by the FieldParent */
+		/*
 		useProjectName.setPropertyChangeListener(new IPropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent event) {
@@ -64,6 +66,7 @@ public class CodeGenerationPreferencePage extends FieldEditorOverlayPage impleme
                 }
             }
         });
+        */
 	}
 
 	
