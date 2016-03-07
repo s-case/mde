@@ -15,6 +15,7 @@
  */
 package eu.scasefp7.eclipse.mde.ui.handlers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -394,6 +395,14 @@ public class GenerateCodeHandler extends AbstractHandler {
 
         // Get preferences
         String yamlFilePath = project.getFile(store.getString(PreferenceConstants.P_INPUT_FILE)).getLocation().toString();
+        // Fix to avoid exceptions from projects that do not have a models folder  
+        if (!new File(yamlFilePath).exists()) {  
+        	File filename = new File(yamlFilePath);  
+        	String filepath = filename.getAbsolutePath();  
+        	String projectpath = filepath.substring(0,  
+        			filepath.lastIndexOf(File.separator, filepath.lastIndexOf(File.separator) - 1));  
+        	yamlFilePath = projectpath + File.separator + filename.getName();  
+        }  
         String wsName = store.getString(PreferenceConstants.P_SERVICE_NAME);
         String outputFolder = project.getFile(store.getString(PreferenceConstants.P_OUTPUT_PATH)).getLocation().toString();
         String dbAddress = store.getString(PreferenceConstants.P_DATABASE_ADDRESS);

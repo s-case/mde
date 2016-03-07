@@ -48,14 +48,6 @@ public class YamlInputParser {
 		this.listOfYamlResources = new ArrayList<YamlResource>();
 		oYamlHandler = new Yaml();
 		try {
-			// Fix to avoid exceptions from projects that do not have a models folder
-			if (!new File(strYamlFilePath).exists()) {
-				File filename = new File(strYamlFilePath);
-				String filepath = filename.getAbsolutePath();
-				String projectpath = filepath.substring(0,
-						filepath.lastIndexOf(File.separator, filepath.lastIndexOf(File.separator) - 1));
-				strYamlFilePath = projectpath + File.separator + filename.getName();
-			}
 			oInputStreamHandler = new FileInputStream(new File(strYamlFilePath));
 		} catch (FileNotFoundException e) {
 			Activator.log("Could not load YAML input file", e);
