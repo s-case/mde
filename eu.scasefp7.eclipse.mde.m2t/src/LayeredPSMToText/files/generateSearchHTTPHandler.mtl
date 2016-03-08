@@ -64,6 +64,7 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
 	[/for]
 	[/for]
 	private String searchKeyword;
+	private final static String arrayInvalidSearchTerms['['/][']'/] = { "a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "if", "in", "into", "is", "it", "no", "not", "of", "on", "or", "such", "that", "the", "their", "then", "there", "these", "they", "this", "to", "was", "will", "with"};
 	[if (anAnnotationStack.bHasAuthenticationAnnotation)]
 	[if (anAnnotationStack.hasGuestMode(jAlgoResourceController.parentName) = false)]
 	private String authHeader;
@@ -90,6 +91,9 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
     }
 
     public [jAlgoResourceController.hasAssociatedAlgoModel.name/] [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTPActivityHandler.HandlerHTTPVerb.toString().toLower()/][jAlgoResourceController.parentName.toLower()/](){
+
+        //validate the search keyword
+        validateSearchString();
 
 		[if (anAnnotationStack.bHasAuthenticationAnnotation)]
 		[if (anAnnotationStack.hasGuestMode(jAlgoResourceController.parentName) = false)]
@@ -166,7 +170,12 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
 	/* This functions produces hypermedia links to be sent to the client that include search results of resource [aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName.toUpperFirst()/] search requests
 	 */
     public void add[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName.toUpperFirst()/]HypermediaLinks(){
-   
+
+        //check if the validated search keyword is non empty
+        if(this.searchKeyword == null){
+            return;
+        }   
+
     	FullTextEntityManager oFullTextEntityManager = PersistenceUtil.getFullTextEntityManager();
     	PersistenceUtil.beginEntityManagerTransaction();
 
@@ -206,7 +215,33 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
     	PersistenceUtil.endEntityManagerTransaction();    	
     }	
 	[/for]
-	
+
+    public void validateSearchString(){
+        String['['/][']'/] arraySearchKeywordTokens = this.searchKeyword.split(" ");
+        this.searchKeyword = "";
+        boolean bSearchKeywordIsEmpty = true;
+        
+        for(int n = 0; n < arraySearchKeywordTokens.length; n++){
+            if(isValidSearchKeywordToken(arraySearchKeywordTokens['[n'/][']'/])){
+                searchKeyword += arraySearchKeywordTokens['[n'/][']'/];
+                bSearchKeywordIsEmpty = false;
+            }
+        }
+        
+        if(bSearchKeywordIsEmpty){
+            this.searchKeyword = null;
+        }
+    }
+    
+    public boolean isValidSearchKeywordToken(String strSearchKeywordTerm){
+        
+        for(int n = 0; n < this.arrayInvalidSearchTerms.length; n++){
+            if(strSearchKeywordTerm.equalsIgnoreCase(arrayInvalidSearchTerms['[n'/][']'/])){
+                return false;
+            }
+        }
+        return true;
+    }	
 }
 [/file]
 [/template]

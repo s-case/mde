@@ -22,3 +22,7 @@ local.properties
 
 
 eu.scasefp7.eclipse.mde.m2t/LayeredPSMToText
+
+eu.scasefp7.eclipse.mde.cimgen/reports/pmd-report.txt
+
+eu.scasefp7.eclipse.mde.cimgen/reports/pmd-report.xml
