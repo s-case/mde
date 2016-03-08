@@ -397,13 +397,13 @@ public class GenerateCodeHandler extends AbstractHandler {
         // Get preferences
         String yamlFilePath = project.getFile(store.getString(PreferenceConstants.P_INPUT_FILE)).getLocation().toString();
         // Fix to avoid exceptions from projects that do not have a models folder  
-        if (!new File(yamlFilePath).exists()) {  
-        	File filename = new File(yamlFilePath);  
-        	String filepath = filename.getAbsolutePath();  
-        	String projectpath = filepath.substring(0,  
-        			filepath.lastIndexOf(File.separator, filepath.lastIndexOf(File.separator) - 1));  
-        	yamlFilePath = projectpath + File.separator + filename.getName();  
-        }  
+		File path = new File(yamlFilePath);
+		String modelsPath = yamlFilePath.substring(0, path.toString().lastIndexOf(File.separator));
+		if (!new File(modelsPath).exists()) {
+			String projectPath = yamlFilePath.substring(0,
+					path.toString().lastIndexOf(File.separator, path.toString().lastIndexOf(File.separator) - 1));
+			yamlFilePath = projectPath + yamlFilePath.substring(path.toString().lastIndexOf(File.separator));
+		}
         String wsName = store.getString(PreferenceConstants.P_SERVICE_NAME);
         String outputFolder = project.getFile(store.getString(PreferenceConstants.P_OUTPUT_PATH)).getLocation().toString();
         String dbAddress = store.getString(PreferenceConstants.P_DATABASE_ADDRESS);
