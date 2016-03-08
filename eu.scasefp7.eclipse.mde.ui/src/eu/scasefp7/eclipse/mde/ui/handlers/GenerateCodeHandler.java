@@ -15,6 +15,7 @@
  */
 package eu.scasefp7.eclipse.mde.ui.handlers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.IScopeContext;
@@ -76,9 +78,9 @@ public class GenerateCodeHandler extends AbstractHandler {
     
     // Maven import
     private static final String CMD_IMPORT = "eu.scasefp7.eclipse.mde.ui.importMavenProject"; //$NON-NLS-1$
-    
     private static final String CMD_PAR_RELOAD = "eu.scasefp7.eclipse.mde.ui.generateCode.reload"; //$NON-NLS-1$
-    
+   
+    // Cancel logic for wizard
     private static final String CANCEL_EX_CLASSNAME = "CanceledExecutionException"; //$NON-NLS-1$
     
     @Override
@@ -394,6 +396,14 @@ public class GenerateCodeHandler extends AbstractHandler {
 
         // Get preferences
         String yamlFilePath = project.getFile(store.getString(PreferenceConstants.P_INPUT_FILE)).getLocation().toString();
+        // Fix to avoid exceptions from projects that do not have a models folder  
+        if (!new File(yamlFilePath).exists()) {  
+        	File filename = new File(yamlFilePath);  
+        	String filepath = filename.getAbsolutePath();  
+        	String projectpath = filepath.substring(0,  
+        			filepath.lastIndexOf(File.separator, filepath.lastIndexOf(File.separator) - 1));  
+        	yamlFilePath = projectpath + File.separator + filename.getName();  
+        }  
         String wsName = store.getString(PreferenceConstants.P_SERVICE_NAME);
         String outputFolder = store.getString(PreferenceConstants.P_OUTPUT_PATH);
         String dbAddress = store.getString(PreferenceConstants.P_DATABASE_ADDRESS);
@@ -413,6 +423,35 @@ public class GenerateCodeHandler extends AbstractHandler {
         Boolean useProjectName = (store.getBoolean(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME));
         if (useProjectName) {
             wsName = project.getName() + "Api";
+        }
+
+        // Figure out output folder
+        Boolean useProjectOutputFolder = (store.getBoolean(PreferenceConstants.P_USE_PROJECT_OUTPUT_FOLDER));
+        if (useProjectOutputFolder) {
+            String out = null;
+            try {
+                out = project.getPersistentProperty(new QualifiedName("", "eu.scasefp7.eclipse.core.ui.outputFolder"));
+            } catch (CoreException e) {
+                Activator.log("Unable to get project property.", e);
+            } finally {
+                if(out != null) {
+                    IResource res = project.findMember(out); // Search in project first
+                    if(res == null) {
+                        res = project.getWorkspace().getRoot().findMember(out); // If not found in project, look in workspace
+                    }
+                    if(res != null) {
+                        outputFolder = res.getLocation().toPortableString();
+                    } else {
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("Project output path \"");
+                        sb.append(out);
+                        sb.append("\" not found, using default \"");
+                        sb.append(outputFolder);
+                        sb.append(".");
+                        Activator.log(sb.toString(), new Exception());
+                    }
+                }
+            }
         }
         
         mapMDEPreferences.put("YamlFilePath", yamlFilePath); 

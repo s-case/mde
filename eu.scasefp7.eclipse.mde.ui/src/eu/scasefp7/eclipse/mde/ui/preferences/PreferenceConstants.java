@@ -11,6 +11,9 @@ public final class PreferenceConstants {
     /** Use project preferences and override workspace preferences. */
     public static final String P_USE_PROJECT_PREFS = "useProjectPreferences"; //$NON-NLS-1$
     
+    /** Use the output folder configured in the project for generating code. */
+    public static final String P_USE_PROJECT_OUTPUT_FOLDER = "useProjectOutputFolder"; //$NON-NLS-1$
+    
     /** Output path for the generated code. */
 	public static final String P_OUTPUT_PATH = "outputPath"; //$NON-NLS-1$
 	
@@ -54,5 +57,4 @@ public final class PreferenceConstants {
     
     /** Enable MDE facet External compositions. */
     public static final String P_FACET_EXT_COMPOSITIONS = "facetExternalCompositions"; //$NON-NLS-1$
-
  }

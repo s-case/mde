@@ -5,21 +5,24 @@ import org.eclipse.jface.preference.ComboFieldEditor;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.StringFieldEditor;
-import org.eclipse.jface.util.IPropertyChangeListener;
-import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import eu.scasefp7.eclipse.mde.ui.Activator;
 
 /**
+ * Sets the preferences for the MDE code generation. Overlay scoped preference store is used to allow global (workspace) preferences, 
+ * or project-level preference (properties).
  * 
+ * @author Marin Orlic
  */
-
 public class CodeGenerationPreferencePage extends FieldEditorOverlayPage implements IWorkbenchPreferencePage {
 
 	private static final String PAGE_ID = "eu.scasefp7.eclipse.mde.ui.preferencePages.CodeGenerationPreferencePage";
 
+    /**
+     * Constructs the page, sets the preference store.
+     */
     public CodeGenerationPreferencePage() {
 		super(GRID);
         setPreferenceStore(Activator.getDefault().getPreferenceStore());
@@ -33,11 +36,12 @@ public class CodeGenerationPreferencePage extends FieldEditorOverlayPage impleme
 	 */
 	public void createFieldEditors() {
 	    final StringFieldEditor serviceName = new StringFieldEditor(PreferenceConstants.P_SERVICE_NAME, "Web service &name:", getFieldEditorParent());
-	    BooleanFieldEditor useProjectName = new BooleanFieldEditor(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME, "Use project name+'Api' &for service name ", getFieldEditorParent());
+	    BooleanFieldEditor useProjectName = new BooleanFieldEditor(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME, "Use project name+'Api' &for service name", getFieldEditorParent());
 	    
 		addField(useProjectName);
 	    addField(serviceName);
 		addField(new StringFieldEditor(PreferenceConstants.P_INPUT_FILE, "&YAML file name:", getFieldEditorParent()));
+		addField(new BooleanFieldEditor(PreferenceConstants.P_USE_PROJECT_OUTPUT_FOLDER, "Use project's ou&tput folder", getFieldEditorParent()));
 		addField(new DirectoryFieldEditor(PreferenceConstants.P_OUTPUT_PATH, "&Output path:", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(PreferenceConstants.P_AUTO_IMPORT_GENERATED_CODE, "Import &generated project to workspace:", getFieldEditorParent()));
             
