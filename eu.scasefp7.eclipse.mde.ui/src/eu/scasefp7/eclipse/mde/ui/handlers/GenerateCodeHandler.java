@@ -165,7 +165,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                                 handlerService.executeCommand(CMD_LINK, null);
                                 handlerService.executeCommand(CMD_YAML, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-                                if(e.getCause().getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
+                                if(e.getCause()!=null && e.getCause().getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
                                     return Status.CANCEL_STATUS;
                                 } else {
                                     Activator.log("Failed to compile to ontology and create YAML.", e);
