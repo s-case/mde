@@ -405,7 +405,7 @@ public class GenerateCodeHandler extends AbstractHandler {
 			yamlFilePath = projectPath + yamlFilePath.substring(path.toString().lastIndexOf(File.separator));
 		}
         String wsName = store.getString(PreferenceConstants.P_SERVICE_NAME);
-        String outputFolder = project.getFile(store.getString(PreferenceConstants.P_OUTPUT_PATH)).getLocation().toString();
+        String outputFolder = store.getString(PreferenceConstants.P_OUTPUT_PATH);
         String dbAddress = store.getString(PreferenceConstants.P_DATABASE_ADDRESS);
         String dbPort = store.getString(PreferenceConstants.P_DATABASE_PORT);
         String dbUsername = store.getString(PreferenceConstants.P_DATABASE_USER);
