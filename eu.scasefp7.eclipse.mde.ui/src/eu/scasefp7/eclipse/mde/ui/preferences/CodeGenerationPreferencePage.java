@@ -40,7 +40,7 @@ public class CodeGenerationPreferencePage extends FieldEditorOverlayPage impleme
 	    
 		addField(useProjectName);
 	    addField(serviceName);
-		addField(new StringFieldEditor(PreferenceConstants.P_INPUT_FILE, "&YAML file name:", getFieldEditorParent()));
+		// addField(new StringFieldEditor(PreferenceConstants.P_INPUT_FILE, "&YAML file name:", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(PreferenceConstants.P_USE_PROJECT_OUTPUT_FOLDER, "Use project's ou&tput folder", getFieldEditorParent()));
 		addField(new DirectoryFieldEditor(PreferenceConstants.P_OUTPUT_PATH, "&Output path:", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(PreferenceConstants.P_AUTO_IMPORT_GENERATED_CODE, "Import &generated project to workspace:", getFieldEditorParent()));

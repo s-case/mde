@@ -29,7 +29,7 @@ public final class PreferenceConstants {
     public static final String P_AUTO_IMPORT_GENERATED_CODE = "importGeneratedMavenProject"; //$NON-NLS-1$
     
     /** MDE input file name (YAML resource description). */
-    public static final String P_INPUT_FILE = "inputFile"; //$NON-NLS-1$
+    // public static final String P_INPUT_FILE = "inputFile"; //$NON-NLS-1$
 
     /** Host name of the database server. */
 	public static final String P_DATABASE_ADDRESS = "databaseAddress"; //$NON-NLS-1$

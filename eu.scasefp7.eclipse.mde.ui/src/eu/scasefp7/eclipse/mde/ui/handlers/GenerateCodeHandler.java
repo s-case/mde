@@ -30,6 +30,8 @@ import org.eclipse.core.commands.NotHandledException;
 import org.eclipse.core.commands.Parameterization;
 import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.core.commands.common.NotDefinedException;
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
@@ -38,6 +40,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
@@ -395,16 +398,21 @@ public class GenerateCodeHandler extends AbstractHandler {
         Map<String, String> mapMDEPreferences = new HashMap<String, String>();
 
         // Get preferences
-        String yamlFilePath = project.getFile(store.getString(PreferenceConstants.P_INPUT_FILE)).getLocation().toString();
-        // Fix to avoid exceptions from projects that do not have a models folder  
-		File path = new File(yamlFilePath);
-		String modelsPath = yamlFilePath.substring(0, path.toString().lastIndexOf(File.separator));
-		if (!new File(modelsPath).exists()) {
-			String projectPath = yamlFilePath.substring(0,
-					path.toString().lastIndexOf(File.separator, path.toString().lastIndexOf(File.separator) - 1));
-			yamlFilePath = projectPath + yamlFilePath.substring(path.toString().lastIndexOf(File.separator));
+		String modelsFolderLocation = null;
+		try {
+			modelsFolderLocation = project.getPersistentProperty(new QualifiedName("",
+					"eu.scasefp7.eclipse.core.ui.modelsFolder"));
+		} catch (CoreException e) {
+			Activator.log("Error retrieving project property (models folder location)", e);
 		}
-        String wsName = store.getString(PreferenceConstants.P_SERVICE_NAME);
+		IContainer container = project;
+		if (modelsFolderLocation != null) {
+			if (project.findMember(new Path(modelsFolderLocation)).exists())
+				container = (IContainer) project.findMember(new Path(modelsFolderLocation));
+		}
+		IFile file = container.getFile(new Path("service.yml"));
+		String yamlFilePath = file.getLocation().toPortableString();
+		String wsName = store.getString(PreferenceConstants.P_SERVICE_NAME);
         String outputFolder = store.getString(PreferenceConstants.P_OUTPUT_PATH);
         String dbAddress = store.getString(PreferenceConstants.P_DATABASE_ADDRESS);
         String dbPort = store.getString(PreferenceConstants.P_DATABASE_PORT);

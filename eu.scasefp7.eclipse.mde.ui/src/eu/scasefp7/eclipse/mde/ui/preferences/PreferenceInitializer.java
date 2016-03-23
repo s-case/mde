@@ -25,7 +25,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		store.setDefault(PreferenceConstants.P_OUTPUT_PATH, ResourcesPlugin.getWorkspace().getRoot().getLocation().toString());
 		        //.append("MDE_output").toString()); //$NON-NLS-1$ 
 		store.setDefault(PreferenceConstants.P_USE_PROJECT_OUTPUT_FOLDER, "true"); //$NON-NLS-1$
-		store.setDefault(PreferenceConstants.P_INPUT_FILE, "models/service.yml"); //$NON-NLS-1$
+		// store.setDefault(PreferenceConstants.P_INPUT_FILE, "models/service.yml"); //$NON-NLS-1$
 		store.setDefault(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME, true); //$NON-NLS-1$
 		store.setDefault(PreferenceConstants.P_AUTO_IMPORT_GENERATED_CODE, "true"); //$NON-NLS-1$
 		store.setDefault(PreferenceConstants.P_SERVICE_NAME, "SampleService"); //$NON-NLS-1$
