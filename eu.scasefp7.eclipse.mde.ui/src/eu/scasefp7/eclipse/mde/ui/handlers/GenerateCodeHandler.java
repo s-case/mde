@@ -15,6 +15,7 @@
  */
 package eu.scasefp7.eclipse.mde.ui.handlers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.preferences.IScopeContext;
@@ -62,12 +64,24 @@ import eu.scasefp7.eclipse.mde.ui.preferences.PreferenceConstants;
 public class GenerateCodeHandler extends AbstractHandler {
 
     // Command IDs
-    public static final String CMD_CIMGEN = "eu.scasefp7.eclipse.mde.cimgen.commands.CIMGeneratorCommand";
-    public static final String CMD_M2M = "eu.scasefp7.eclipse.mde.m2m.commands.ExecuteModelToModelTransformations";
-    public static final String CMD_ANN = "AnnotationStackPopulator.commands.PopulateAnnotationStack";
-    public static final String CMD_M2T = "eu.scasefp7.eclipse.mde.m2t.commands.executeModelToTextTransformation";
+    // Ontology
+    private static final String CMD_STATIC = "eu.scasefp7.eclipse.core.commands.compileStaticRequirements"; //$NON-NLS-1$
+    private static final String CMD_DYNAMIC = "eu.scasefp7.eclipse.core.commands.compileDynamicRequirements"; //$NON-NLS-1$
+    private static final String CMD_LINK = "eu.scasefp7.eclipse.core.commands.linkOntologies"; //$NON-NLS-1$
+    private static final String CMD_YAML = "eu.scasefp7.eclipse.core.commands.exportToYaml"; //$NON-NLS-1$
     
-    public static final String CMD_PAR_RELOAD = "eu.scasefp7.eclipse.mde.ui.generateCode.reload";
+    // MDE
+    private static final String CMD_CIMGEN = "eu.scasefp7.eclipse.mde.cimgen.commands.CIMGeneratorCommand"; //$NON-NLS-1$
+    private static final String CMD_M2M = "eu.scasefp7.eclipse.mde.m2m.commands.ExecuteModelToModelTransformations"; //$NON-NLS-1$
+    private static final String CMD_ANN = "AnnotationStackPopulator.commands.PopulateAnnotationStack"; //$NON-NLS-1$
+    private static final String CMD_M2T = "eu.scasefp7.eclipse.mde.m2t.commands.executeModelToTextTransformation"; //$NON-NLS-1$
+    
+    // Maven import
+    private static final String CMD_IMPORT = "eu.scasefp7.eclipse.mde.ui.importMavenProject"; //$NON-NLS-1$
+    private static final String CMD_PAR_RELOAD = "eu.scasefp7.eclipse.mde.ui.generateCode.reload"; //$NON-NLS-1$
+   
+    // Cancel logic for wizard
+    private static final String CANCEL_EX_CLASSNAME = "CanceledExecutionException"; //$NON-NLS-1$
     
     @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -96,6 +110,8 @@ public class GenerateCodeHandler extends AbstractHandler {
             Command commandM2M = commandService.getCommand(CMD_M2M);
             Command commandANN = commandService.getCommand(CMD_ANN);
             Command commandM2T = commandService.getCommand(CMD_M2T);
+            
+            Command commandImport = commandService.getCommand(CMD_IMPORT);
 
             ArrayList<Parameterization> params = new ArrayList<Parameterization>();
             for(Map.Entry<String, String> entry : mdePreferences.entrySet()) {
@@ -107,16 +123,61 @@ public class GenerateCodeHandler extends AbstractHandler {
                     System.out.println("Cannot find parameter: " + entry.getKey() + " of command " + commandCIM);
                 }
             }
+             
+            ArrayList<Parameterization> paramsImport = new ArrayList<Parameterization>();
+            for(Map.Entry<String, String> entry : mdePreferences.entrySet()) {
+                IParameter p = commandImport.getParameter(entry.getKey());
+                if(p != null) {
+                    Parameterization param = new Parameterization(p, entry.getValue());
+                    paramsImport.add(param);
+                } else {
+                    System.out.println("Cannot find parameter: " + entry.getKey() + " of command " + commandImport);
+                }
+            }
             
+            // MDE commands
             ParameterizedCommand parametrizedCommandCIM = new ParameterizedCommand(commandCIM, params.toArray(new Parameterization[params.size()]));
             ParameterizedCommand parametrizedCommandM2M = new ParameterizedCommand(commandM2M, params.toArray(new Parameterization[params.size()]));
             ParameterizedCommand parametrizedCommandANN = new ParameterizedCommand(commandANN, params.toArray(new Parameterization[params.size()]));
             ParameterizedCommand parametrizedCommandM2T = new ParameterizedCommand(commandM2T, params.toArray(new Parameterization[params.size()]));
 
+            ParameterizedCommand parametrizedCommandImport = new ParameterizedCommand(commandImport, paramsImport.toArray(new Parameterization[paramsImport.size()]));
+            
             WorkspaceJob job = new WorkspaceJob("Generating code for " + mdePreferences.get("WebServiceName")) { //TODO
                 @Override
                 public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
-                    monitor.beginTask(this.getName(), 4);
+                    monitor.beginTask(this.getName(), 9);
+                    IProgressMonitor pm = Job.getJobManager().createProgressGroup();
+                    
+                    // Setup ontology compile job
+                    Job jOnto = new WorkbenchJob("Generating ontology") {
+                        @Override
+                        public IStatus runInUIThread(IProgressMonitor monitor) {
+                            monitor.beginTask("Preparing the ontology", 4);
+                            
+                            if(monitor.isCanceled()) {
+                                return Status.CANCEL_STATUS;
+                            }
+                            
+                            try {
+                                handlerService.executeCommand(CMD_STATIC, null);
+                                handlerService.executeCommand(CMD_DYNAMIC, null);
+                                handlerService.executeCommand(CMD_LINK, null);
+                                handlerService.executeCommand(CMD_YAML, null);
+                            } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
+                                if( e.getCause().getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
+                                	//TODO tu si maknula e.getCause()!=null &&
+                                    return Status.CANCEL_STATUS;
+                                } else {
+                                    Activator.log("Failed to compile to ontology and create YAML.", e);
+                                    return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to prepare the specification.", e);
+                                }
+                            } finally {
+                                monitor.done();
+                            }
+                            return Status.OK_STATUS;
+                        }  
+                    };           
                     
                     // Setup CIM job
                     Job jCim = new WorkbenchJob("Generating CIM") {
@@ -124,11 +185,19 @@ public class GenerateCodeHandler extends AbstractHandler {
                         public IStatus runInUIThread(IProgressMonitor monitor) {
                             monitor.beginTask("Preparing the specification", 1);
                             
+                            if(monitor.isCanceled()) {
+                                return Status.CANCEL_STATUS;
+                            }
+                            
                             try {
                                 handlerService.executeCommand(parametrizedCommandCIM, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-                                e.printStackTrace();
-                                return errorStatus(e);
+                                if(e.getCause().getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
+                                    return Status.CANCEL_STATUS;
+                                } else {
+                                    Activator.log("Failed to execute CIM generator.", e);
+                                    return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to prepare the specification.", e);
+                                }
                             } finally {
                                 monitor.done();
                             }
@@ -149,7 +218,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                             try {
                                 handlerService.executeCommand(parametrizedCommandM2M, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-                                e.printStackTrace();
+                                Activator.log("Failed to execute M2M transformation.", e);
                                 return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to generate models.", e);
                             } finally {
                                 monitor.done();
@@ -171,7 +240,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                             try {
                                 handlerService.executeCommand(parametrizedCommandANN, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-                                e.printStackTrace();
+                                Activator.log("Failed to execute annotator.", e);
                                 return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to generate annotations.", e);
                             } finally {
                                 monitor.done();
@@ -193,7 +262,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                             try {
                                 handlerService.executeCommand(parametrizedCommandM2T, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-                                e.printStackTrace();
+                                Activator.log("Failed to execute M2T generator.", e);
                                 return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to generate code.", e);
                             } finally {
                                 monitor.done();
@@ -202,35 +271,72 @@ public class GenerateCodeHandler extends AbstractHandler {
                         }  
                     };
 
-                    IProgressMonitor pm = Job.getJobManager().createProgressGroup();
-                    try {
-                        pm.beginTask("Generating code for " + mdePreferences.get("WebServiceName"), 402);
+                    try {   
+                        pm.beginTask("Generating code for " + mdePreferences.get("WebServiceName"), 503);
                         pm.worked(1);
                         
-                        jCim.setRule(project);
-                        jCim.setProgressGroup(pm, 100);
-                        jCim.schedule();                        
-
-                        jM2M.setRule(project);
-                        jM2M.setProgressGroup(pm, 100);
-                        jM2M.schedule();                        
-
-                        jAnn.setRule(project);
-                        jAnn.setProgressGroup(pm, 100);
-                        jAnn.schedule();                        
-
-                        jM2T.setRule(project);
-                        jM2T.setProgressGroup(pm, 100);
-                        jM2T.schedule();                        
-
-                        jCim.join();
+                        jOnto.setRule(project);
+                        jOnto.setProgressGroup(pm, 100);
+                        jOnto.schedule();
+                        
+                        jOnto.join();
                         monitor.worked(1);
-                        jM2M.join();
-                        monitor.worked(1);
-                        jAnn.join();
-                        monitor.worked(1);
-                        jM2T.join();
-                        monitor.worked(1);
+                        
+                        // Need to have ontology before continuing
+                        if(jOnto.getResult().isOK()) {
+                            jCim.setRule(project);
+                            jCim.setProgressGroup(pm, 100);
+                            jCim.schedule();                        
+    
+                            jCim.join();
+                            monitor.worked(1);
+                            
+                            // Check if CIM wizard is cancelled
+                            if(jCim.getResult().isOK()) {
+                                jM2M.setRule(project);
+                                jM2M.setProgressGroup(pm, 100);
+                                jM2M.schedule();                        
+        
+                                jAnn.setRule(project);
+                                jAnn.setProgressGroup(pm, 100);
+                                jAnn.schedule();                        
+        
+                                jM2T.setRule(project);
+                                jM2T.setProgressGroup(pm, 100);
+                                jM2T.schedule();                        
+        
+                               
+                                jM2M.join();
+                                monitor.worked(1);
+                                jAnn.join();
+                                monitor.worked(1);
+                                jM2T.join();
+                                monitor.worked(1);
+                            } else {
+                                jM2M.cancel();
+                                jAnn.cancel();
+                                jM2T.cancel();
+                            }
+                        
+                            IStatus result = jM2T.getResult();
+                            String shouldRun = mdePreferences.get("ImportGeneratedProject");
+                            
+                            if(result != null 
+                                    && result.isOK() 
+                                    && shouldRun != null 
+                                    && shouldRun.equals("yes")) {
+                                monitor.beginTask("Importing generated project", 1);
+                                try {
+                                    handlerService.executeCommand(parametrizedCommandImport, null);
+                                } catch (ExecutionException | NotDefinedException | NotEnabledException
+                                        | NotHandledException e) {
+                                    Activator.log("Failed to import generated Maven project.", e);
+                                    return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to import generated project.", e);
+                                } finally {
+                                    monitor.worked(1);
+                                }
+                            }
+                        }
                         
                         pm.worked(1);
                     } catch(InterruptedException e) {
@@ -247,7 +353,7 @@ public class GenerateCodeHandler extends AbstractHandler {
             job.schedule();
 
         } catch (NotDefinedException e) {
-            e.printStackTrace();
+            Activator.log("Failed to find commands needed to generate code.", e);
         }
         
         return null;
@@ -291,18 +397,63 @@ public class GenerateCodeHandler extends AbstractHandler {
 
         // Get preferences
         String yamlFilePath = project.getFile(store.getString(PreferenceConstants.P_INPUT_FILE)).getLocation().toString();
+        // Fix to avoid exceptions from projects that do not have a models folder  
+		File path = new File(yamlFilePath);
+		String modelsPath = yamlFilePath.substring(0, path.toString().lastIndexOf(File.separator));
+		if (!new File(modelsPath).exists()) {
+			String projectPath = yamlFilePath.substring(0,
+					path.toString().lastIndexOf(File.separator, path.toString().lastIndexOf(File.separator) - 1));
+			yamlFilePath = projectPath + yamlFilePath.substring(path.toString().lastIndexOf(File.separator));
+		}
         String wsName = store.getString(PreferenceConstants.P_SERVICE_NAME);
-        String outputFolder = store.getString(PreferenceConstants.P_OUTPUT_PATH);
+        String outputFolder = project.getFile(store.getString(PreferenceConstants.P_OUTPUT_PATH)).getLocation().toString();
         String dbAddress = store.getString(PreferenceConstants.P_DATABASE_ADDRESS);
         String dbPort = store.getString(PreferenceConstants.P_DATABASE_PORT);
         String dbUsername = store.getString(PreferenceConstants.P_DATABASE_USER);
         String dbPassword = store.getString(PreferenceConstants.P_DATABASE_PASSWORD);
+        String dbType = store.getString(PreferenceConstants.P_DATABASE_TYPE);
         String authentication = (store.getBoolean(PreferenceConstants.P_FACET_BASIC_AUTHENTICATION) ? "yes" : "no");
         String authorization = (store.getBoolean(PreferenceConstants.P_FACET_ABAC_AUTHORIZATION) ? "yes" : "no");
         String searching = (store.getBoolean(PreferenceConstants.P_FACET_SEARCH) ? "yes" : "no");
         String extComposition = (store.getBoolean(PreferenceConstants.P_FACET_EXT_COMPOSITIONS) ? "yes" : "no");
         String reloadModels = (commandParams.get(GenerateCodeHandler.CMD_PAR_RELOAD) == null) ? "no" 
                 : ((String) commandParams.get(GenerateCodeHandler.CMD_PAR_RELOAD)).equalsIgnoreCase("yes") ? "yes" : "no";
+        String importMaven = (store.getBoolean(PreferenceConstants.P_AUTO_IMPORT_GENERATED_CODE) ? "yes" : "no");
+        
+        // Figure out service name
+        Boolean useProjectName = (store.getBoolean(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME));
+        if (useProjectName) {
+            wsName = project.getName() + "Api";
+        }
+
+        // Figure out output folder
+        Boolean useProjectOutputFolder = (store.getBoolean(PreferenceConstants.P_USE_PROJECT_OUTPUT_FOLDER));
+        if (useProjectOutputFolder) {
+            String out = null;
+            try {
+                out = project.getPersistentProperty(new QualifiedName("", "eu.scasefp7.eclipse.core.ui.outputFolder"));
+            } catch (CoreException e) {
+                Activator.log("Unable to get project property.", e);
+            } finally {
+                if(out != null) {
+                    IResource res = project.findMember(out); // Search in project first
+                    if(res == null) {
+                        res = project.getWorkspace().getRoot().findMember(out); // If not found in project, look in workspace
+                    }
+                    if(res != null) {
+                        outputFolder = res.getLocation().toPortableString();
+                    } else {
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("Project output path \"");
+                        sb.append(out);
+                        sb.append("\" not found, using default \"");
+                        sb.append(outputFolder);
+                        sb.append(".");
+                        Activator.log(sb.toString(), new Exception());
+                    }
+                }
+            }
+        }
         
         mapMDEPreferences.put("YamlFilePath", yamlFilePath); 
         mapMDEPreferences.put("WebServiceName", wsName);
@@ -311,11 +462,13 @@ public class GenerateCodeHandler extends AbstractHandler {
         mapMDEPreferences.put("DatabasePort", dbPort);
         mapMDEPreferences.put("DatabaseUsername", dbUsername);
         mapMDEPreferences.put("DatabasePassword", dbPassword);
+        mapMDEPreferences.put("DatabaseType", dbType);
         mapMDEPreferences.put("Authentication", authentication);
         mapMDEPreferences.put("Authorization", authorization);
         mapMDEPreferences.put("DatabaseSearching", searching);
         mapMDEPreferences.put("ExternalComposition", extComposition);
         mapMDEPreferences.put("ReloadExistingModels", reloadModels);
+        mapMDEPreferences.put("ImportGeneratedProject", importMaven);
         
         return mapMDEPreferences;
     }
