@@ -90,6 +90,8 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 	private Button btnRenameResource;
 	private Button btnRenameProperty;
 	
+	private final static String arrayOfJavaKeywords[] = { "abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue", "default", "do", "double", "else", "enum", "extends", "final", "finally", "float", "for", "goto", "if", "implements", "import", "instanceof", "int", "interface", "long", "native", "new", "package", "private", "protected", "public", "return", "short", "static", "strictfp", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while", "false", "null", "true"};
+	
 	public CoreCIMEditorWizardPage(RESTfulServiceCIM oRESTfulServiceCIM, int intMinRequiredAlgoResources, boolean bExecuteFromScratchYaml){
 		super(oRESTfulServiceCIM.getName() + " CIM Editor");
 		this.oRESTfulServiceCIM = oRESTfulServiceCIM;
@@ -1305,10 +1307,109 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 			return false;
 		}
 		
+		//validate that there are not any resources using java reserved keywords as their names
+		if(!noResourcesHaveJavaKeywordInName()){
+			return false;
+		}
+		
+		//validate that there are not any resources using invalid characters in their names
+		if(!noResourcesHaveJavaInvalidCharacterInName()){
+			return false;
+		}
+		
+		//validate that there are not any resource properties using java reserved keywords as their names
+		if(!noPropertiesHaveJavaKeywordInName()){
+			return false;
+		}
+		
+		//validate that there are not any resource properties using invalid characters in their names
+		if(!noPropertiesHaveJavaInvalidCharacterInName()){
+			return false;
+		}
+		
 		setErrorMessage(null);
 		
 		return true;
 	}
+
+	private boolean noPropertiesHaveJavaInvalidCharacterInName() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().size(); i++){
+				if(!isValidJavaIdentifier(this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName())){
+					setErrorMessage("No invalid Java characters may be used for resouce properties names. Resource's " +
+							this.oRESTfulServiceCIM.getHasResources().get(n).getName() + " property " + 
+							this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName() + " however uses invalid characters.");
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+
+	private boolean noPropertiesHaveJavaKeywordInName() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().size(); i++){
+				if(isJavaReservedKeyword(this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName())){
+					setErrorMessage("No Java reserved keyword may be used for resouce properties names. Resource's " +
+							this.oRESTfulServiceCIM.getHasResources().get(n).getName() + " property " + 
+							this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName() + " however uses a reserved keyword.");
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+
+	private boolean noResourcesHaveJavaInvalidCharacterInName() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(!isValidJavaIdentifier(this.oRESTfulServiceCIM.getHasResources().get(n).getName())){
+				setErrorMessage("No invalid Java characters may be used for resouce names. Resource " + 
+						this.oRESTfulServiceCIM.getHasResources().get(n).getName() + " however used invalid characters.");
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	private boolean noResourcesHaveJavaKeywordInName() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(isJavaReservedKeyword(this.oRESTfulServiceCIM.getHasResources().get(n).getName())){
+				setErrorMessage("No Java reserved keyword may be used for resouce names. Resource " + 
+						this.oRESTfulServiceCIM.getHasResources().get(n).getName() + " however is reserved keyword.");
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+    private static boolean isJavaReservedKeyword(String strPhrase){
+        
+        for(int n = 0; n < arrayOfJavaKeywords.length; n++){
+            if(strPhrase.equalsIgnoreCase(arrayOfJavaKeywords[n])){
+                return true;
+            }
+        }
+        return false;
+    }	
+    
+    public static boolean isValidJavaIdentifier(String s) {
+        if (s.isEmpty()) {
+            return false;
+        }
+        if (!Character.isJavaIdentifierStart(s.charAt(0))) {
+            return false;
+        }
+        for (int i = 1; i < s.length(); i++) {
+            if (!Character.isJavaIdentifierPart(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 	private boolean allPropertiesHaveProperNames() {
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
