@@ -173,10 +173,8 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		addNamingPropertyButtonListener();
 		
 		this.oTypeList = new List(this.oPropertyConfigurationGroup, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
+		oTypeList.setItems(new String[] {"String", "Integer", "Double", "Float", "Long", "Boolean", "Date"});
 		this.oTypeList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		this.oTypeList.add("String");
-		this.oTypeList.add("Integer");
-		this.oTypeList.add("Double");
 		addTypeListListener();
 	}
 
@@ -940,8 +938,20 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Integer")){
 					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("int");
 				}
-				else{
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Double")){
 					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("double");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Float")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("float");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Long")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("long");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Boolean")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("boolean");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Date")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("Date");
 				}
 				setPageComplete(isPageCompleted());
 				updateWidgetStatus();
@@ -955,8 +965,20 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Integer")){
 					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("int");
 				}
-				else{
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Double")){
 					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("double");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Float")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("float");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Long")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("long");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Boolean")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("boolean");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Date")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("Date");
 				}
 				setPageComplete(isPageCompleted());
 				updateWidgetStatus();
