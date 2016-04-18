@@ -118,9 +118,9 @@ public class MDETopLevelUI extends ScrolledComposite {
 		new Label(oYamlFileGrid, SWT.NONE);
 		
 		//TODO remove the following lines in production code
-		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts/RESTMarks.yml");
+//		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts/RESTMarks.yml");
 		this.oWSNameText.setText("RESTMarks");
-		this.oMDEOutputText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts");
+//		this.oMDEOutputText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts");
 		this.oDatabaseIPText.setText("localhost");
 		this.oDatabasePortText.setText("3127");
 		this.oDatabaseUsernameText.setText("postgres");
@@ -134,7 +134,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 	}
 
 	private void initializeUILayout() {
-		this.oMDEUIGrid.setSize(new Point(365, 480));
+		this.oMDEUIGrid.setSize(new Point(480, 640));
 		this.oMDEUIGrid.layout();
 	}
 

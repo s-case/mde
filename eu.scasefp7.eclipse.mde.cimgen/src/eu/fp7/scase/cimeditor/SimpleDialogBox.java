@@ -3,6 +3,7 @@ package eu.fp7.scase.cimeditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.jface.dialogs.Dialog;
@@ -38,6 +39,7 @@ public class SimpleDialogBox extends Dialog{
 		
 		oInputText = new Text(container, SWT.None);
 		oInputText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		
 		addInputTextListener();
 		
 	    return container;

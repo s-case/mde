@@ -296,12 +296,16 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//rename an existing Complex Data Type
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "Provide new Complex Type name:");
 				if(oSimpleDialogBox.open() == Window.OK){
 					oComplexTypes[getAlgoResourceIndexByName(oRESTClientResourcesList.getSelection()[0])].get(getComplexTypeIndexByResourceAndName(oRESTClientResourcesList.getSelection()[0], oComplexDataTypesList.getSelection()[0])).setComplexTypeName(oSimpleDialogBox.getArtefactName());
 					populateComplexDataTypeSWTs(oRESTClientResourcesList.getSelection()[0]);
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -313,7 +317,8 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//create a new Complex Data Type
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "New Complex Type name:");
 				if(oSimpleDialogBox.open() == Window.OK){
 					ComplexType oComplexType = oExternalServiceLayerCIMFactory.createComplexType();
@@ -321,6 +326,9 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 					oComplexTypes[getAlgoResourceIndexByName(oRESTClientResourcesList.getSelection()[0])].add(oComplexType);
 					populateComplexDataTypeSWTs(oRESTClientResourcesList.getSelection()[0]);
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -362,12 +370,16 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//rename an existing Complex Data Type Property
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "Provide new Complex Type Property name:");
 				if(oSimpleDialogBox.open() == Window.OK){
 					getComplexTypeProperty(oRESTClientResourcesList.getSelection()[0], oComplexDataTypesList.getSelection()[0], oComplexTypePropertiesList.getSelection()[0]).setName(oSimpleDialogBox.getArtefactName());
 					populateComplexDataTypePropertiesList(oRESTClientResourcesList.getSelection()[0], oComplexDataTypesList.getSelection()[0]);
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -379,7 +391,8 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//create a new Complex Data Type Property
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "New Complex Type Property name:");
 				if(oSimpleDialogBox.open() == Window.OK){
 					ComplexTypeProperty oComplexTypeProperty = oExternalServiceLayerCIMFactory.createComplexTypeProperty();
@@ -388,6 +401,9 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 					oComplexTypes[getAlgoResourceIndexByName(oRESTClientResourcesList.getSelection()[0])].get(getComplexTypeIndexByResourceAndName(oRESTClientResourcesList.getSelection()[0], oComplexDataTypesList.getSelection()[0])).getHasComplexTypeProperties().add(oComplexTypeProperty);
 					populateComplexDataTypePropertiesList(oRESTClientResourcesList.getSelection()[0], oComplexDataTypesList.getSelection()[0]);
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
