@@ -63,6 +63,12 @@ public class YamlInputParser {
 		} catch (IOException e) {
 			Activator.log("Unable to open input stream to read the input YAML file", e);
 		}
+		
+		//check if the loaded list is null - This is the case of an empty YAML file
+		if(this.listOfYamlResources == null){
+			this.listOfYamlResources = new ArrayList<YamlResource>();
+		}
+		
 		return this.listOfYamlResources;
 	}
 

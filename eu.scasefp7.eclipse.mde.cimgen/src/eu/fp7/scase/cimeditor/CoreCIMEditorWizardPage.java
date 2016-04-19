@@ -1300,6 +1300,9 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 
 	private boolean isValidCIMModel() {
 		//validate resources
+		if(CIMHasNoResources()){
+			return false;
+		}
 		if(!CIMHasUniqueResourceNames()){
 			return false;
 		}
@@ -1368,6 +1371,15 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		setErrorMessage(null);
 		
 		return true;
+	}
+
+	private boolean CIMHasNoResources() {
+		if(this.oRESTfulServiceCIM.getHasResources().size() == 0){
+			setErrorMessage("The envisioned RESTful service must have at least one resource. Please add a resource!");
+			return true;
+		}
+		
+		return false;
 	}
 
 	private boolean noPropertiesHaveJavaInvalidCharacterInName() {

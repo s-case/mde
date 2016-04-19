@@ -144,9 +144,15 @@ public class CIMGenerator extends AbstractHandler{
 
 	private void instantiateAllCIMModels(ExecutionEvent event) {
 		
-		//parse the input yaml file
-		oYamlInputParser = new YamlInputParser(event.getParameter("YamlFilePath"));
-		this.listOfYamlResources = oYamlInputParser.parseYamlInputFile();
+		//check if user selected to start from scratch
+		if(event.getParameter("YamlFilePath") == null){
+			this.listOfYamlResources = new ArrayList<YamlResource>();
+		}
+		else{
+			//parse the input yaml file
+			oYamlInputParser = new YamlInputParser(event.getParameter("YamlFilePath"));
+			this.listOfYamlResources = oYamlInputParser.parseYamlInputFile();
+		}
 		
 		//initialize the CIM model from yaml
 		oACIMProducer = new CoreCIMProducer(listOfYamlResources, this.oEvent.getParameter("WebServiceName"), this.oEvent.getParameter("MDEOutputFolder"), this.oEvent.getParameter("DatabaseIP"), this.oEvent.getParameter("DatabasePort"), this.oEvent.getParameter("DatabaseUsername"), this.oEvent.getParameter("DatabasePassword"), this.oEvent.getParameter("DatabaseType"));

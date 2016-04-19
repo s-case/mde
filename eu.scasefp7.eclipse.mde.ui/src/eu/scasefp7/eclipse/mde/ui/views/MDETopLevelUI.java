@@ -105,6 +105,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 	private Composite oMDEGrid;
 	private Button oGenerateCodeButton;
 	private Button oReloadModelsCheckButton;
+	private Button oStartFromScratchButton;
 	
 	/**
 	 * The constructor.
@@ -114,8 +115,9 @@ public class MDETopLevelUI extends ScrolledComposite {
 		initializeMDEUIGrids();
 		initializeAllUIWidgets();
 		initializeUILayout();
-	
-		new Label(oYamlFileGrid, SWT.NONE);
+		
+		oStartFromScratchButton = new Button(oYamlFileGrid, SWT.CHECK);
+		oStartFromScratchButton.setText("From Scratch");
 		
 		//TODO remove the following lines in production code
 //		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts/RESTMarks.yml");
@@ -126,6 +128,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 		this.oDatabaseUsernameText.setText("postgres");
 		this.oDatabasePasswordText.setText("fp7s-case");
 		this.oDatabaseTypeList.select(0);
+		this.oStartFromScratchButton.setSelection(true);
 //		this.oDatabaseSearchingCheckBoxButton.setSelection(false);
 		this.oAuthorizationCheckBoxButton.setEnabled(false);
 //		this.oAuthenticationCheckBoxButton.setSelection(true);
@@ -327,7 +330,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 	
 	private Map<String, String> getCoreMDEPreferences(Map<String, String> mapMDEPreferences){
 		
-		mapMDEPreferences.put("YamlFilePath", oYamlFileText.getText());
+		mapMDEPreferences.put("YamlFilePath", this.oStartFromScratchButton.getSelection() == true ? null : oYamlFileText.getText());
 		mapMDEPreferences.put("WebServiceName", oWSNameText.getText());
 		mapMDEPreferences.put("MDEOutputFolder", oMDEOutputText.getText());
 		mapMDEPreferences.put("DatabaseIP", oDatabaseIPText.getText());
@@ -345,7 +348,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 	}
 	
 	private boolean validateInputPreferences(){
-		if( oYamlFileText.getText().isEmpty()         ||
+		if( (oYamlFileText.getText().isEmpty() && !this.oStartFromScratchButton.getSelection())        ||
 			oWSNameText.getText().isEmpty()           ||
 			oMDEOutputText.getText().isEmpty()        ||
 			oDatabaseIPText.getText().isEmpty()       ||
