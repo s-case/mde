@@ -4,7 +4,6 @@ package AuthenticationLayerCIM;
 
 import org.eclipse.emf.ecore.EObject;
 
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Annotated Element</b></em>'.
@@ -16,5 +15,4 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface AnnotatedElement extends EObject {
-
 } // AnnotatedElement

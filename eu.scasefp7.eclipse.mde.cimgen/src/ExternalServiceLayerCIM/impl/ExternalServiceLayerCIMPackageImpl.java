@@ -25,8 +25,6 @@ import ExternalServiceLayerCIM.TargetRESTService;
 
 import ServiceCIM.ServiceCIMPackage;
 
-import ServiceCIM.impl.ServiceCIMPackageImpl;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -213,16 +211,14 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 
 		isInited = true;
 
-		// Obtain or create and register interdependencies
-		ServiceCIMPackageImpl theServiceCIMPackage = (ServiceCIMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ServiceCIMPackage.eNS_URI) instanceof ServiceCIMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ServiceCIMPackage.eNS_URI) : ServiceCIMPackage.eINSTANCE);
+		// Initialize simple dependencies
+		ServiceCIMPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theExternalServiceLayerCIMPackage.createPackageContents();
-		theServiceCIMPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theExternalServiceLayerCIMPackage.initializePackageContents();
-		theServiceCIMPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theExternalServiceLayerCIMPackage.freeze();
@@ -955,6 +951,26 @@ public class ExternalServiceLayerCIMPackageImpl extends EPackageImpl implements 
 
 		// Create resource
 		createResource(eNS_URI);
+
+		// Create annotations
+		// http://www.eclipse.org/OCL/Import
+		createImportAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>http://www.eclipse.org/OCL/Import</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createImportAnnotations() {
+		String source = "http://www.eclipse.org/OCL/Import";	
+		addAnnotation
+		  (this, 
+		   source, 
+		   new String[] {
+			 "Eu.fp7.scase", "CIMMetamodel.ecore#/"
+		   });
 	}
 
 } //ExternalServiceLayerCIMPackageImpl

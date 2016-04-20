@@ -46,6 +46,7 @@ public class Delete[jRC.parentName/]Handler{
 
     private HibernateController oHibernateController;
     private UriInfo oApplicationUri; //Standard datatype that holds information on the URI info of this request
+	private String strResourcePath; //relative path to the current resource
     private [jRC.hasAssociatedJavaRModel.name/] o[jRC.hasAssociatedJavaRModel.name/];
 	[if (anAnnotationStack.bHasAuthenticationAnnotation)]
 	[if (anAnnotationStack.hasGuestMode(jRC.parentName) = false)]
@@ -59,6 +60,7 @@ public class Delete[jRC.parentName/]Handler{
         o[jRC.hasAssociatedJavaRModel.name/].set[jRC.parentName/]Id([jRC.parentName/]Id);
         this.oHibernateController = HibernateController.getHibernateControllerHandle();
         this.oApplicationUri = oApplicationUri;
+		this.strResourcePath = calculateProperResourcePath();
 		[if (anAnnotationStack.bHasAuthenticationAnnotation)]
 		[if (anAnnotationStack.hasGuestMode( jRC.parentName) = false)]
 		this.authHeader = authHeader;
@@ -66,6 +68,15 @@ public class Delete[jRC.parentName/]Handler{
 		[/if] 
 		[/if]
     }
+
+	public String calculateProperResourcePath(){
+    	if(this.oApplicationUri.getPath().lastIndexOf('/') == this.oApplicationUri.getPath().length() - 1){
+        	return this.oApplicationUri.getPath().substring(0, this.oApplicationUri.getPath().length() - 1);
+    	}
+    	else{
+        	return this.oApplicationUri.getPath();
+    	}
+	}
 
     public [jRC.hasAssociatedJavaRModel.name/] delete[jRC.hasAssociatedJavaRModel.name/](){
 
@@ -128,9 +139,9 @@ public class Delete[jRC.parentName/]Handler{
     public [jRC.hasAssociatedJavaRModel.name/] createHypermedia([jRC.hasAssociatedJavaRModel.name/] o[jRC.hasAssociatedJavaRModel.name/]){
 
     /* Since both this resource and the related of it are deleted, there are created hypermedia links only towards the resources of which this one is related.*/
-    	int iLastSlashIndex = String.format("%s%s", oApplicationUri.getBaseUri(), oApplicationUri.getPath()).lastIndexOf("/");
-    	o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", oApplicationUri.getPath())).substring(0, iLastSlashIndex), "Create a new [jRC.parentName/]", "POST", "Parent"));
-    	o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", oApplicationUri.getPath())).substring(0, iLastSlashIndex), "Get all [jRC.parentName/]", "GET", "Parent"));
+    	int iLastSlashIndex = String.format("%s%s", oApplicationUri.getBaseUri(), this.strResourcePath).lastIndexOf("/");
+    	o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath)).substring(0, iLastSlashIndex), "Create a new [jRC.parentName/]", "POST", "Parent"));
+    	o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath)).substring(0, iLastSlashIndex), "Get all [jRC.parentName/]", "GET", "Parent"));
     	return o[jRC.hasAssociatedJavaRModel.name/];
 	}
 }

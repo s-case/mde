@@ -7,8 +7,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
-
-
 /**
  * <!-- begin-user-doc -->
  * The <b>Package</b> for the model.
@@ -491,7 +489,6 @@ public interface AuthenticationLayerCIMPackage extends EPackage {
 	 */
 	int BOTH_MODE_OPERATION_COUNT = AUTHENTICATION_MODE_OPERATION_COUNT + 0;
 
-
 	/**
 	 * The meta object id for the '{@link AuthenticationLayerCIM.impl.AnnResourceImpl <em>Ann Resource</em>}' class.
 	 * <!-- begin-user-doc -->
@@ -728,17 +725,6 @@ public interface AuthenticationLayerCIMPackage extends EPackage {
 	EClass getAuthenticationToken();
 
 	/**
-	 * Returns the meta object for the reference '{@link AuthenticationLayerCIM.AuthenticationToken#getPropertyAuthenticationToken <em>Property Authentication Token</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Property Authentication Token</em>'.
-	 * @see AuthenticationLayerCIM.AuthenticationToken#getPropertyAuthenticationToken()
-	 * @see #getAuthenticationToken()
-	 * @generated
-	 */
-	EReference getAuthenticationToken_PropertyAuthenticationToken();
-
-	/**
 	 * Returns the meta object for the attribute '{@link AuthenticationLayerCIM.AuthenticationToken#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -770,6 +756,17 @@ public interface AuthenticationLayerCIMPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAuthenticationToken_BIsUnique();
+
+	/**
+	 * Returns the meta object for the reference '{@link AuthenticationLayerCIM.AuthenticationToken#getPropertyAuthenticationToken <em>Property Authentication Token</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Property Authentication Token</em>'.
+	 * @see AuthenticationLayerCIM.AuthenticationToken#getPropertyAuthenticationToken()
+	 * @see #getAuthenticationToken()
+	 * @generated
+	 */
+	EReference getAuthenticationToken_PropertyAuthenticationToken();
 
 	/**
 	 * Returns the meta object for class '{@link AuthenticationLayerCIM.Password <em>Password</em>}'.
@@ -1031,14 +1028,6 @@ public interface AuthenticationLayerCIMPackage extends EPackage {
 		EClass AUTHENTICATION_TOKEN = eINSTANCE.getAuthenticationToken();
 
 		/**
-		 * The meta object literal for the '<em><b>Property Authentication Token</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference AUTHENTICATION_TOKEN__PROPERTY_AUTHENTICATION_TOKEN = eINSTANCE.getAuthenticationToken_PropertyAuthenticationToken();
-
-		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1061,6 +1050,14 @@ public interface AuthenticationLayerCIMPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute AUTHENTICATION_TOKEN__BIS_UNIQUE = eINSTANCE.getAuthenticationToken_BIsUnique();
+
+		/**
+		 * The meta object literal for the '<em><b>Property Authentication Token</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference AUTHENTICATION_TOKEN__PROPERTY_AUTHENTICATION_TOKEN = eINSTANCE.getAuthenticationToken_PropertyAuthenticationToken();
 
 		/**
 		 * The meta object literal for the '{@link AuthenticationLayerCIM.impl.PasswordImpl <em>Password</em>}' class.

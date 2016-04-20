@@ -1,6 +1,7 @@
 package eu.fp7.scase.extcompositions;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import ExternalServiceLayerCIM.AnnAlgoResource;
 import ExternalServiceLayerCIM.AnnotationModel;
@@ -17,6 +18,7 @@ import ExternalServiceLayerCIM.TargetRESTService;
 import ServiceCIM.RESTfulServiceCIM;
 import ServiceCIM.Resource;
 import eu.fp7.scase.inputParser.YamlResource;
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 
 public class ExternalCompositionInputParser {
 	
@@ -173,8 +175,12 @@ public class ExternalCompositionInputParser {
 				}
 			}
 		}
-		
-		return null; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find complex type " + typeRef, e);
+			return null;
+		}
 	}
 
 	private void populateTargetServiceInput(RESTClientResource oRESTClientResource, YamlResource oYAMLResource) {
@@ -207,7 +213,12 @@ public class ExternalCompositionInputParser {
 			return "DELETE";
 		}
 		else{
-			return null;//throw exception in production code
+			try {
+				throw new ExecutionException(new Throwable());
+			} catch (ExecutionException e) {
+				Activator.log("Unable to convert HTTP verb " + HTTPVerb + " to CRUD verb.", e);
+				return null;
+			}
 		}
 	}
 
@@ -246,8 +257,12 @@ public class ExternalCompositionInputParser {
 				return this.oRESTfulServiceCIM.getHasResources().get(n);
 			}
 		}
-		
-		return null;//Throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find core CIM resource reference by name " + strCIMResourceName, e);
+			return null;
+		}
 	}
 
 	private void ExternalCIMToString(){

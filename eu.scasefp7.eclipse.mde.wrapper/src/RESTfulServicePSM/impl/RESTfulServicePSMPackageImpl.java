@@ -2,18 +2,6 @@
  */
 package RESTfulServicePSM.impl;
 
-import AnnotationLayerStack.AnnotationLayerStackPackage;
-
-import AnnotationLayerStack.impl.AnnotationLayerStackPackageImpl;
-
-import AuthenticationLayerPSM.AuthenticationLayerPSMPackage;
-
-import AuthenticationLayerPSM.impl.AuthenticationLayerPSMPackageImpl;
-
-import ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage;
-
-import ExternalServiceLayerPSM.impl.ExternalServiceLayerPSMPackageImpl;
-
 import RESTfulServicePSM.FunctionParameter;
 import RESTfulServicePSM.HTTPActivity;
 import RESTfulServicePSM.HTTPActivityFunctionParameter;
@@ -43,10 +31,6 @@ import RESTfulServicePSM.RESTfulServicePSMPackage;
 import RESTfulServicePSM.ServicePSM;
 
 import RESTfulServicePSM.util.RESTfulServicePSMValidator;
-
-import SearchLayerPSM.SearchLayerPSMPackage;
-
-import SearchLayerPSM.impl.SearchLayerPSMPackageImpl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -285,25 +269,11 @@ public class RESTfulServicePSMPackageImpl extends EPackageImpl implements RESTfu
 
 		isInited = true;
 
-		// Obtain or create and register interdependencies
-		AnnotationLayerStackPackageImpl theAnnotationLayerStackPackage = (AnnotationLayerStackPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnnotationLayerStackPackage.eNS_URI) instanceof AnnotationLayerStackPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnnotationLayerStackPackage.eNS_URI) : AnnotationLayerStackPackage.eINSTANCE);
-		AuthenticationLayerPSMPackageImpl theAuthenticationLayerPSMPackage = (AuthenticationLayerPSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AuthenticationLayerPSMPackage.eNS_URI) instanceof AuthenticationLayerPSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AuthenticationLayerPSMPackage.eNS_URI) : AuthenticationLayerPSMPackage.eINSTANCE);
-		SearchLayerPSMPackageImpl theSearchLayerPSMPackage = (SearchLayerPSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SearchLayerPSMPackage.eNS_URI) instanceof SearchLayerPSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SearchLayerPSMPackage.eNS_URI) : SearchLayerPSMPackage.eINSTANCE);
-		ExternalServiceLayerPSMPackageImpl theExternalServiceLayerPSMPackage = (ExternalServiceLayerPSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExternalServiceLayerPSMPackage.eNS_URI) instanceof ExternalServiceLayerPSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExternalServiceLayerPSMPackage.eNS_URI) : ExternalServiceLayerPSMPackage.eINSTANCE);
-
 		// Create package meta-data objects
 		theRESTfulServicePSMPackage.createPackageContents();
-		theAnnotationLayerStackPackage.createPackageContents();
-		theAuthenticationLayerPSMPackage.createPackageContents();
-		theSearchLayerPSMPackage.createPackageContents();
-		theExternalServiceLayerPSMPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theRESTfulServicePSMPackage.initializePackageContents();
-		theAnnotationLayerStackPackage.initializePackageContents();
-		theAuthenticationLayerPSMPackage.initializePackageContents();
-		theSearchLayerPSMPackage.initializePackageContents();
-		theExternalServiceLayerPSMPackage.initializePackageContents();
 
 		// Register package validator
 		EValidator.Registry.INSTANCE.put
@@ -1327,6 +1297,15 @@ public class RESTfulServicePSMPackageImpl extends EPackageImpl implements RESTfu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getServicePSM_ServiceDatabaseType() {
+		return (EAttribute)servicePSMEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFunctionParameter() {
 		return functionParameterEClass;
 	}
@@ -1553,6 +1532,7 @@ public class RESTfulServicePSMPackageImpl extends EPackageImpl implements RESTfu
 		createEAttribute(servicePSMEClass, SERVICE_PSM__SERVICE_DATABASE_PORT);
 		createEAttribute(servicePSMEClass, SERVICE_PSM__SERVICE_DATABASE_USERNAME);
 		createEAttribute(servicePSMEClass, SERVICE_PSM__SERVICE_DATABASE_PASSWORD);
+		createEAttribute(servicePSMEClass, SERVICE_PSM__SERVICE_DATABASE_TYPE);
 
 		functionParameterEClass = createEClass(FUNCTION_PARAMETER);
 		createEAttribute(functionParameterEClass, FUNCTION_PARAMETER__NAME);
@@ -1730,6 +1710,7 @@ public class RESTfulServicePSMPackageImpl extends EPackageImpl implements RESTfu
 		initEAttribute(getServicePSM_ServiceDatabasePort(), ecorePackage.getEString(), "serviceDatabasePort", null, 1, 1, ServicePSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServicePSM_ServiceDatabaseUsername(), ecorePackage.getEString(), "serviceDatabaseUsername", null, 1, 1, ServicePSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServicePSM_ServiceDatabasePassword(), ecorePackage.getEString(), "serviceDatabasePassword", null, 1, 1, ServicePSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServicePSM_ServiceDatabaseType(), ecorePackage.getEString(), "serviceDatabaseType", null, 1, 1, ServicePSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(functionParameterEClass, FunctionParameter.class, "FunctionParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFunctionParameter_Name(), ecorePackage.getEString(), "name", null, 1, 1, FunctionParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -34,6 +34,7 @@ import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 import SearchLayerCIM.AnnotationModel;
 
 public class EcoreXMISearchLayerExtractor{
@@ -73,7 +74,7 @@ public class EcoreXMISearchLayerExtractor{
 		try {
 			this.oEcoreResource.save(Collections.EMPTY_MAP);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Activator.log("Could not export search layer CIM XMI file.", e);
 		}
 	}
 	

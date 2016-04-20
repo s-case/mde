@@ -23,6 +23,7 @@ import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 
+import annotationstackpopulator.Activator;
 import RESTfulServicePSM.ServicePSM;
 import RESTfulServicePSM.RESTfulServicePSMPackage;
 import SearchLayerPSM.SearchLayerPSMPackage;
@@ -128,8 +129,7 @@ public class AnnotationStackPopulator extends AbstractHandler {
 	    try {
 			resource.load(null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.log("Could not load Core PSM file", e);
 		}
 	    
 	    // Get the first model element and cast it to the right type, in my
@@ -162,8 +162,7 @@ public class AnnotationStackPopulator extends AbstractHandler {
 	    try {
 			resource.load(null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.log("Could not load Authentication PSM file", e);
 		}
 	    
 	    // Get the first model element and cast it to the right type, in my
@@ -195,8 +194,7 @@ public class AnnotationStackPopulator extends AbstractHandler {
 	    try {
 			resource.load(null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.log("Could not load Search PSM file", e);
 		}
 	    
 	    // Get the first model element and cast it to the right type, in my
@@ -228,8 +226,7 @@ public class AnnotationStackPopulator extends AbstractHandler {
 	    try {
 			resource.load(null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.log("Could not load External Service Layer PSM file", e);
 		}
 	    
 	    // Get the first model element and cast it to the right type, in my
@@ -263,7 +260,7 @@ public class AnnotationStackPopulator extends AbstractHandler {
 		try {
 			oEcoreResource.save(Collections.EMPTY_MAP);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Activator.log("Could not save the meta-model stack to an XMI file", e);
 		}
 	}
 	

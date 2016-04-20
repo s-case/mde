@@ -43,8 +43,8 @@ public class CoreCIMProducer extends ACIMProducer{
 	private static MessageConsole myConsole = findConsole("SCASE-UI");
 	private static MessageConsoleStream out = myConsole.newMessageStream();
 	
-	public CoreCIMProducer(ArrayList<YamlResource> listOfCIMYamlResources, String strProjectName, String strProjectOutputPath, String strServiceDatabaseIp, String strServiceDatabasePort, String strServiceDatabaseUsername, String strServiceDatabasePassword){
-		super(listOfCIMYamlResources, strProjectName, strProjectOutputPath, strServiceDatabaseIp, strServiceDatabasePort, strServiceDatabaseUsername, strServiceDatabasePassword);
+	public CoreCIMProducer(ArrayList<YamlResource> listOfCIMYamlResources, String strProjectName, String strProjectOutputPath, String strServiceDatabaseIp, String strServiceDatabasePort, String strServiceDatabaseUsername, String strServiceDatabasePassword, String strServiceDatabaseType){
+		super(listOfCIMYamlResources, strProjectName, strProjectOutputPath, strServiceDatabaseIp, strServiceDatabasePort, strServiceDatabaseUsername, strServiceDatabasePassword, strServiceDatabaseType);
 	}
 
 	@Override

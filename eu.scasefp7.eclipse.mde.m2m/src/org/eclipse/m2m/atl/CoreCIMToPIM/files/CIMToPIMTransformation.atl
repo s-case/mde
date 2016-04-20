@@ -126,6 +126,7 @@ rule CIMToPIMService {
 			serviceDatabasePort <- CIMService.serviceDatabasePort,
 			serviceDatabaseUsername <- CIMService.serviceDatabaseUsername,
 			serviceDatabasePassword <- CIMService.serviceDatabasePassword,
+			serviceDatabaseType     <- CIMService.serviceDatabaseType,
 			hasDatabaseController <- thisModule.createDatabaseController(thisModule.getCIMService),
 			hasAlgoResourceModel <- thisModule.getCIMAlgoResources->collect(CIMAlgoResource | thisModule.createAlgoResourceModel(CIMAlgoResource)),
 			hasAlgoResourceController <- thisModule.getCIMAlgoResources->collect(CIMAlgoResource | thisModule.createAlgoResourceController(CIMAlgoResource)),

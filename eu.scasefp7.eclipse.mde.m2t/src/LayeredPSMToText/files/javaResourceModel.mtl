@@ -36,6 +36,7 @@ import java.util.Iterator;
 [/if]
 import java.util.List;
 import java.util.Set;
+import java.util.Date;
 
 [if (jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | (property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@Transient') = -1) and (property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') = -1) and (property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') = -1) and (property.name <> 'linklist'))->exists(property : PSMComponentProperty | property.bIsUnique = false))]
 import javax.persistence.CollectionTable;
@@ -109,7 +110,7 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].utilities.Set
 parsing/marshalling as well as with Hibernate annotations for ORM transformations.*/
 @XmlRootElement
 @Entity
-@Table(name="[jRModel.parentName/]")
+@Table(name="\"[jRModel.parentName.toLower()/]\"")
 [if (anAnnotationStack.bHasSearchLayer)]
 [if (jRModel.isSearchableResourceModel(anAnnotationStack))]
 @Indexed

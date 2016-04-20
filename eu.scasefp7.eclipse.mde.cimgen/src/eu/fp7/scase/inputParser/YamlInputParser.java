@@ -22,6 +22,7 @@ package eu.fp7.scase.inputParser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -31,6 +32,8 @@ import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.yaml.snakeyaml.Yaml;
+
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 
 public class YamlInputParser {
 
@@ -47,7 +50,7 @@ public class YamlInputParser {
 		try {
 			oInputStreamHandler = new FileInputStream(new File(strYamlFilePath));
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			Activator.log("Could not load YAML input file", e);
 		}
 	}
 	
@@ -55,6 +58,17 @@ public class YamlInputParser {
     public ArrayList<YamlResource> parseYamlInputFile(){
 		
 		this.listOfYamlResources = oYamlHandler.loadAs(oInputStreamHandler, ArrayList.class);
+		try {
+			oInputStreamHandler.close();
+		} catch (IOException e) {
+			Activator.log("Unable to open input stream to read the input YAML file", e);
+		}
+		
+		//check if the loaded list is null - This is the case of an empty YAML file
+		if(this.listOfYamlResources == null){
+			this.listOfYamlResources = new ArrayList<YamlResource>();
+		}
+		
 		return this.listOfYamlResources;
 	}
 

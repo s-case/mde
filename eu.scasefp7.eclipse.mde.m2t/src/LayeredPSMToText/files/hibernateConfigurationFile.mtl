@@ -12,13 +12,25 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.dialect">
+			[if (anAnnotationStack.hasCorePSM.serviceDatabaseType = 'MySQL')]
+            org.hibernate.dialect.MySQLDialect
+			[else]
             org.hibernate.dialect.PostgreSQLDialect
+			[/if]
         </property>
         <property name="hibernate.connection.driver_class">
+			[if (anAnnotationStack.hasCorePSM.serviceDatabaseType = 'MySQL')]
+			com.mysql.jdbc.Driver
+			[else]
             org.postgresql.Driver
+			[/if]
         </property>
         <property name="hibernate.connection.url">
-            jdbc:postgresql://[anAnnotationStack.hasCorePSM.serviceDatabaseIP/]:[anAnnotationStack.hasCorePSM.serviceDatabasePort/]/
+			[if (anAnnotationStack.hasCorePSM.serviceDatabaseType = 'MySQL')]
+            jdbc:mysql://[anAnnotationStack.hasCorePSM.serviceDatabaseIP/]:[anAnnotationStack.hasCorePSM.serviceDatabasePort/]/[anAnnotationStack.hasCorePSM.name.toLowerCase()/]?createDatabaseIfNotExist=true
+			[else]
+            jdbc:postgresql://[anAnnotationStack.hasCorePSM.serviceDatabaseIP/]:[anAnnotationStack.hasCorePSM.serviceDatabasePort/]/[anAnnotationStack.hasCorePSM.name.toLowerCase()/]
+			[/if]
         </property>
         <property name="hibernate.connection.username">
             [anAnnotationStack.hasCorePSM.serviceDatabaseUsername/]

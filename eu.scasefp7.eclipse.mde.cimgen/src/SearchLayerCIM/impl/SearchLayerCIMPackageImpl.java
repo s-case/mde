@@ -16,8 +16,6 @@ import SearchLayerCIM.SearchableResource;
 
 import ServiceCIM.ServiceCIMPackage;
 
-import ServiceCIM.impl.ServiceCIMPackageImpl;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -141,16 +139,14 @@ public class SearchLayerCIMPackageImpl extends EPackageImpl implements SearchLay
 
 		isInited = true;
 
-		// Obtain or create and register interdependencies
-		ServiceCIMPackageImpl theServiceCIMPackage = (ServiceCIMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ServiceCIMPackage.eNS_URI) instanceof ServiceCIMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ServiceCIMPackage.eNS_URI) : ServiceCIMPackage.eINSTANCE);
+		// Initialize simple dependencies
+		ServiceCIMPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theSearchLayerCIMPackage.createPackageContents();
-		theServiceCIMPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theSearchLayerCIMPackage.initializePackageContents();
-		theServiceCIMPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theSearchLayerCIMPackage.freeze();

@@ -20,8 +20,6 @@ import AuthenticationLayerCIM.Password;
 
 import ServiceCIM.ServiceCIMPackage;
 
-import ServiceCIM.impl.ServiceCIMPackageImpl;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -173,16 +171,14 @@ public class AuthenticationLayerCIMPackageImpl extends EPackageImpl implements A
 
 		isInited = true;
 
-		// Obtain or create and register interdependencies
-		ServiceCIMPackageImpl theServiceCIMPackage = (ServiceCIMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ServiceCIMPackage.eNS_URI) instanceof ServiceCIMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ServiceCIMPackage.eNS_URI) : ServiceCIMPackage.eINSTANCE);
+		// Initialize simple dependencies
+		ServiceCIMPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theAuthenticationLayerCIMPackage.createPackageContents();
-		theServiceCIMPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theAuthenticationLayerCIMPackage.initializePackageContents();
-		theServiceCIMPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theAuthenticationLayerCIMPackage.freeze();

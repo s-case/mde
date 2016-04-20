@@ -24,32 +24,6 @@ package AuthenticationLayerCIM;
  */
 public interface AuthenticationToken extends Annotation {
 	/**
-	 * Returns the value of the '<em><b>Property Authentication Token</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Property Authentication Token</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Property Authentication Token</em>' reference.
-	 * @see #setPropertyAuthenticationToken(AnnProperty)
-	 * @see AuthenticationLayerCIM.AuthenticationLayerCIMPackage#getAuthenticationToken_PropertyAuthenticationToken()
-	 * @model required="true"
-	 * @generated
-	 */
-	AnnProperty getPropertyAuthenticationToken();
-
-	/**
-	 * Sets the value of the '{@link AuthenticationLayerCIM.AuthenticationToken#getPropertyAuthenticationToken <em>Property Authentication Token</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Property Authentication Token</em>' reference.
-	 * @see #getPropertyAuthenticationToken()
-	 * @generated
-	 */
-	void setPropertyAuthenticationToken(AnnProperty value);
-
-	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -126,5 +100,31 @@ public interface AuthenticationToken extends Annotation {
 	 * @generated
 	 */
 	void setBIsUnique(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Property Authentication Token</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Property Authentication Token</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Property Authentication Token</em>' reference.
+	 * @see #setPropertyAuthenticationToken(AnnProperty)
+	 * @see AuthenticationLayerCIM.AuthenticationLayerCIMPackage#getAuthenticationToken_PropertyAuthenticationToken()
+	 * @model required="true"
+	 * @generated
+	 */
+	AnnProperty getPropertyAuthenticationToken();
+
+	/**
+	 * Sets the value of the '{@link AuthenticationLayerCIM.AuthenticationToken#getPropertyAuthenticationToken <em>Property Authentication Token</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Property Authentication Token</em>' reference.
+	 * @see #getPropertyAuthenticationToken()
+	 * @generated
+	 */
+	void setPropertyAuthenticationToken(AnnProperty value);
 
 } // AuthenticationToken

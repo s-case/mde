@@ -1,5 +1,7 @@
 package eu.fp7.scase.authenticationWizard;
 
+import java.util.concurrent.ExecutionException;
+
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -11,6 +13,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 import AuthenticationLayerCIM.AnnProperty;
 import AuthenticationLayerCIM.AnnResource;
 import AuthenticationLayerCIM.Annotation;
@@ -122,7 +125,7 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				  if(!authenticationModelIsStillValid((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n))){
 					  return false;
 				  }
-				  this.strSelectedAuthenticationModelName = ((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n)).getResourceAuthenticationModel().getAnnotatesResource().getName();
+				  this.strSelectedAuthenticationModelName = getNewAuthenticationModelName((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n));
 				  this.oAuthenticationModelResourceList.setSelection(this.oAuthenticationModelResourceList.indexOf(this.strSelectedAuthenticationModelName));
 				  
 				  //find the username token
@@ -132,7 +135,7 @@ public class AuthenticationModelWizardPage extends WizardPage {
 							  this.populateUsernameTokenList(this.strSelectedAuthenticationModelName);
 							  return false;
 						  }
-						  this.strSelectedUsernameTokenName = ((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n)).getHasAuthenticationToken().get(i).getName();
+						  this.strSelectedUsernameTokenName = getNewUsernameTokenName((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n));
 						  this.populateUsernameTokenList(this.strSelectedAuthenticationModelName);
 						  this.oUsernameTokenPromtList.setSelection(this.oUsernameTokenPromtList.indexOf(this.strSelectedUsernameTokenName));
 					  }
@@ -144,7 +147,7 @@ public class AuthenticationModelWizardPage extends WizardPage {
 							  this.populatePasswordTokenList(this.strSelectedUsernameTokenName);
 							  return false;
 						  }
-						  this.strSelectedPasswordTokenName = ((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n)).getHasAuthenticationToken().get(i).getName();
+						  this.strSelectedPasswordTokenName = getPasswordTokenNewName((AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(n));
 						  this.populatePasswordTokenList(this.strSelectedUsernameTokenName);
 						  this.oPasswordTokenPromtList.setSelection(this.oPasswordTokenPromtList.indexOf(this.strSelectedPasswordTokenName));
 						  return true;
@@ -169,6 +172,20 @@ public class AuthenticationModelWizardPage extends WizardPage {
 		return false;
 	}
 	
+	private String getNewAuthenticationModelName(AuthenticationModel oAuthenticationModel){
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(oAuthenticationModel.getResourceAuthenticationModel().getAnnotatesResource().getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(n).getName())){
+				return this.oRESTfulServiceCIM.getHasResources().get(n).getName();
+			}
+		}
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find new authentication model name.", e);
+			return null;
+		}
+	}
+	
 	private boolean usernameTokenIsStillValid(AuthenticationModel oAuthenticationModel){
 		for(int n = 0; n < oAuthenticationModel.getHasAuthenticationToken().size(); n++){
 			//check if the username token still exists after CIM Editor
@@ -191,8 +208,45 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				}
 			}
 		}
-		
-		return false; //Throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Runtime error while checking validity of username token.", e);
+			return false;
+		}
+	}
+	
+	private String getNewUsernameTokenName(AuthenticationModel oAuthenticationModel){
+		for(int n = 0; n < oAuthenticationModel.getHasAuthenticationToken().size(); n++){
+			//check if the username token still exists after CIM Editor
+			if(!(oAuthenticationModel.getHasAuthenticationToken().get(n) instanceof Password)){
+				//find the authentication model core CIM Resource
+				for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
+					if(oAuthenticationModel.getResourceAuthenticationModel().getAnnotatesResource().getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(i).getName())){
+						//check if the the exact same core CIM property that previously was username token still exists
+						for(int j = 0; j < this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().size(); j++){
+							if(oAuthenticationModel.getHasAuthenticationToken().get(n).getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).getName()) 
+							&& oAuthenticationModel.getHasAuthenticationToken().get(n).getType().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).getType())
+							&& oAuthenticationModel.getHasAuthenticationToken().get(n).isBIsUnique() == this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).isIsUnique()){
+								return this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).getName();
+							}
+						}
+						try {
+							throw new ExecutionException(new Throwable());
+						} catch (ExecutionException e) {
+							Activator.log("Runtime error while trying to find new username token name.", e);
+							return null;
+						}
+					}
+				}
+			}
+		}
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Runtime error while trying to find new username token name.", e);
+			return null;
+		}
 	}
 
 	private boolean passwordTokenIsStillValid(AuthenticationModel oAuthenticationModel){
@@ -217,8 +271,41 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				}
 			}
 		}
-		
-		return false; //Throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Runtime error while checking the validity of password token.", e);
+			return false;
+		}
+	}
+	
+	private String getPasswordTokenNewName(AuthenticationModel oAuthenticationModel){
+		for(int n = 0; n < oAuthenticationModel.getHasAuthenticationToken().size(); n++){
+			//check if the password token still exists after CIM Editor
+			if((oAuthenticationModel.getHasAuthenticationToken().get(n) instanceof Password)){
+				//find the authentication model core CIM Resource
+				for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
+					if(oAuthenticationModel.getResourceAuthenticationModel().getAnnotatesResource().getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(i).getName())){
+						//check if the the exact same core CIM property that previously was password token still exists
+						for(int j = 0; j < this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().size(); j++){
+							if(oAuthenticationModel.getHasAuthenticationToken().get(n).getName().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).getName()) 
+							&& oAuthenticationModel.getHasAuthenticationToken().get(n).getType().equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).getType())
+							&& oAuthenticationModel.getHasAuthenticationToken().get(n).isBIsUnique() == this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).isIsUnique()){
+								System.out.println("Password token is still valid!");
+								return this.oRESTfulServiceCIM.getHasResources().get(i).getHasProperty().get(j).getName();
+							}
+						}
+						return null;
+					}
+				}
+			}
+		}
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find password token new name", e);
+			return null;
+		}
 	}
 
 
@@ -387,7 +474,12 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				  return this.oRESTfulServiceCIM.getHasResources().get(i);
 			  }
 		  }
-		  return null; //throw exceptions instead in production code
+		  try {
+				throw new ExecutionException(new Throwable());
+			} catch (ExecutionException e) {
+				Activator.log("Unable to find core Resource by name " + strCoreResourceName, e);
+				return null;
+			}
 	  }
 	  
 	  private AuthenticationModel getAuthenticationModelResource(){
@@ -396,7 +488,12 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				  return (AuthenticationModel) this.oAuthenticationCIM.getHasAnnotation().get(i);
 			  }
 		  }
-		  return null;//throw exception in production code
+			try {
+				throw new ExecutionException(new Throwable());
+			} catch (ExecutionException e) {
+				Activator.log("Unable to find authentication model resource.", e);
+				return null;
+			}
 	  }
 	  
 	  private void addUsernameTokenToCIM(String strUsernameTokenName){
@@ -441,8 +538,12 @@ public class AuthenticationModelWizardPage extends WizardPage {
 				  return this.getAuthenticationModelResource().getResourceAuthenticationModel().getAnnotatesResource().getHasProperty().get(i);
 			  }
 		  }
-			
-		  return null; //throw exception in production code
+			try {
+				throw new ExecutionException(new Throwable());
+			} catch (ExecutionException e) {
+				Activator.log("Unable to find core property by name " + strPropertyName, e);
+				return null;
+			}
 	  }
 	  
 	  public void createAuthenticationCIM(){

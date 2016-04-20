@@ -17,8 +17,6 @@ public interface AnnCRUDActivityValidator {
 	boolean validate();
 
 	boolean validateAnnotatesCRUDActivity(CRUDActivity value);
-
 	boolean validateName(String value);
-
 	boolean validateBelongsToResource(Resource value);
 }

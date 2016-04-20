@@ -1,5 +1,7 @@
 package eu.fp7.scase.cimeditor;
 
+import java.util.concurrent.ExecutionException;
+
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -17,13 +19,14 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import eu.fp7.scase.extcompositions.SimpleDialogBox;
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 import ServiceCIM.CRUDActivity;
 import ServiceCIM.CRUDVerb;
 import ServiceCIM.InputRepresentation;
 import ServiceCIM.MediaType;
 import ServiceCIM.OutputRepresentation;
 import ServiceCIM.Property;
-import ServiceCIM.RESTServiceCIMFactory;
+import ServiceCIM.ServiceCIMFactory;
 import ServiceCIM.RESTfulServiceCIM;
 import ServiceCIM.Resource;
 
@@ -31,7 +34,7 @@ import ServiceCIM.Resource;
 public class CoreCIMEditorWizardPage extends WizardPage{
 	
 	private RESTfulServiceCIM oRESTfulServiceCIM;
-	private RESTServiceCIMFactory oRestServiceCIMFactory;
+	private ServiceCIMFactory oRestServiceCIMFactory;
 	private Composite oWizardPageGrid;
 	private boolean bExecuteFromScratchYaml;
 	private int intMinRequiredAlgoResources;
@@ -87,10 +90,12 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 	private Button btnRenameResource;
 	private Button btnRenameProperty;
 	
+	private final static String arrayOfJavaKeywords[] = { "abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue", "default", "do", "double", "else", "enum", "extends", "final", "finally", "float", "for", "goto", "if", "implements", "import", "instanceof", "int", "interface", "long", "native", "new", "package", "private", "protected", "public", "return", "short", "static", "strictfp", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while", "false", "null", "true"};
+	
 	public CoreCIMEditorWizardPage(RESTfulServiceCIM oRESTfulServiceCIM, int intMinRequiredAlgoResources, boolean bExecuteFromScratchYaml){
 		super(oRESTfulServiceCIM.getName() + " CIM Editor");
 		this.oRESTfulServiceCIM = oRESTfulServiceCIM;
-		this.oRestServiceCIMFactory = RESTServiceCIMFactory.eINSTANCE;
+		this.oRestServiceCIMFactory = ServiceCIMFactory.eINSTANCE;
 		this.bExecuteFromScratchYaml = bExecuteFromScratchYaml;
 		this.intMinRequiredAlgoResources = intMinRequiredAlgoResources;
 	}
@@ -168,10 +173,8 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		addNamingPropertyButtonListener();
 		
 		this.oTypeList = new List(this.oPropertyConfigurationGroup, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
+		oTypeList.setItems(new String[] {"String", "Integer", "Double", "Float", "Long", "Boolean", "Date"});
 		this.oTypeList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
-		this.oTypeList.add("String");
-		this.oTypeList.add("Integer");
-		this.oTypeList.add("Double");
 		addTypeListListener();
 	}
 
@@ -311,7 +314,8 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//rename an existing Resource
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "Resource");
 				if(oSimpleDialogBox.open() == Window.OK){
 					oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])).setName(oSimpleDialogBox.getArtefactName());
@@ -319,6 +323,9 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 					oResourceList.add(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oSimpleDialogBox.getArtefactName())).getName());
 					oResourceList.setSelection(oResourceList.indexOf(oSimpleDialogBox.getArtefactName()));
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				setPageComplete(isPageCompleted());
 				updateWidgetStatus();
 			}});
@@ -330,7 +337,8 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//rename an existing Resource
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "Property's name");
 				if(oSimpleDialogBox.open() == Window.OK){
 					Resource oResource = oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0]));
@@ -339,6 +347,9 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 					oPropertiesList.add(oSimpleDialogBox.getArtefactName());
 					oPropertiesList.setSelection(oPropertiesList.indexOf(oSimpleDialogBox.getArtefactName()));
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				setPageComplete(isPageCompleted());
 				updateWidgetStatus();
 			}});
@@ -350,7 +361,12 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				return n;
 			}
 		}
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find property index by name " + strPropertyName, e);
+			return -1;
+		}
 	}
 
 	private void addUnrelatedResourceListListener() {
@@ -375,7 +391,8 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 
 			@Override
 			public void handleEvent(Event event) {
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "property");
 				if(oSimpleDialogBox.open() == Window.OK){
 					Property oNewProperty = oRestServiceCIMFactory.createProperty();
@@ -384,6 +401,9 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 					oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])).getHasProperty().add(oNewProperty);
 					oPropertiesList.add(oNewProperty.getName());
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				setPageComplete(isPageCompleted());
 				updateWidgetStatus();
 			}
@@ -449,7 +469,8 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 
 			@Override
 			public void handleEvent(Event event) {
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "resource");
 				if(oSimpleDialogBox.open() == Window.OK){ //if user did not press cancel
 					Resource oNewResource = oRestServiceCIMFactory.createResource();
@@ -457,6 +478,9 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 					oRESTfulServiceCIM.getHasResources().add(oNewResource);
 					oResourceList.add(oNewResource.getName());
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				setPageComplete(isPageCompleted());
 				updateWidgetStatus();
 			}
@@ -930,8 +954,20 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Integer")){
 					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("int");
 				}
-				else{
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Double")){
 					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("double");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Float")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("float");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Long")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("long");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Boolean")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("boolean");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Date")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("Date");
 				}
 				setPageComplete(isPageCompleted());
 				updateWidgetStatus();
@@ -945,8 +981,20 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Integer")){
 					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("int");
 				}
-				else{
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Double")){
 					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("double");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Float")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("float");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Long")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("long");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Boolean")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("boolean");
+				}
+				else if(oTypeList.getSelection()[0].equalsIgnoreCase("Date")){
+					getPropertyByName(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])), oPropertiesList.getSelection()[0]).setType("Date");
 				}
 				setPageComplete(isPageCompleted());
 				updateWidgetStatus();
@@ -1030,8 +1078,12 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				return oResource.getHasProperty().get(n);
 			}
 		}
-		
-		return null; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find property by name " + strPropertyName, e);
+			return null;
+		}
 	}
 		
 	private int getResourceRepresentationIndex(Resource oResource, MediaType oMediaType, boolean bIsInputMediaType){
@@ -1078,7 +1130,12 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				return n;
 			}
 		}
-		return -1; //Throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find resource index by name " + strResourceName, e);
+			return -1;
+		}
 	}
 	
 	private boolean resourceHasRelatedResource(Resource oResource, Resource oRelatedResource) {
@@ -1109,7 +1166,12 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		else{
 			System.out.println("DID NOT FIND THE IS RELATED RESOURCE INDEX");
 		}
-		return -1; //throw exception in production code;
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find related resource index.", e);
+			return -1;
+		}
 	}
 
 	private void updateWidgetStatus(){
@@ -1238,6 +1300,9 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 
 	private boolean isValidCIMModel() {
 		//validate resources
+		if(CIMHasNoResources()){
+			return false;
+		}
 		if(!CIMHasUniqueResourceNames()){
 			return false;
 		}
@@ -1259,6 +1324,9 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		if(!resourcesHaveUniqueNamingProperty()){
 			return false;
 		}
+		if(!algorithmicResourceHasNoRelatedResources()){
+			return false;
+		}
 		
 		//validate properties
 		if(!allPropertiesHaveType()){
@@ -1270,7 +1338,222 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 			return false;
 		}
 		
+		//validate that all CRUD resources have at least CREATE and READ activities
+		if(!allCRUDResourcesHaveRequiredActivities()){
+			return false;
+		}
+		
+		//validate that there are not any properties that cause naming conflicts and compilation errors
+		if(!allPropertiesHaveProperNames()){
+			return false;
+		}
+		
+		//validate that there are not any resources using java reserved keywords as their names
+		if(!noResourcesHaveJavaKeywordInName()){
+			return false;
+		}
+		
+		//validate that there are not any resources using invalid characters in their names
+		if(!noResourcesHaveJavaInvalidCharacterInName()){
+			return false;
+		}
+		
+		//validate that there are not any resource properties using java reserved keywords as their names
+		if(!noPropertiesHaveJavaKeywordInName()){
+			return false;
+		}
+		
+		//validate that there are not any resource properties using invalid characters in their names
+		if(!noPropertiesHaveJavaInvalidCharacterInName()){
+			return false;
+		}
+		
 		setErrorMessage(null);
+		
+		return true;
+	}
+
+	private boolean CIMHasNoResources() {
+		if(this.oRESTfulServiceCIM.getHasResources().size() == 0){
+			setErrorMessage("The envisioned RESTful service must have at least one resource. Please add a resource!");
+			return true;
+		}
+		
+		return false;
+	}
+
+	private boolean noPropertiesHaveJavaInvalidCharacterInName() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().size(); i++){
+				if(!isValidJavaIdentifier(this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName())){
+					setErrorMessage("No invalid Java characters may be used for resouce properties names. Resource's " +
+							this.oRESTfulServiceCIM.getHasResources().get(n).getName() + " property " + 
+							this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName() + " however uses invalid characters.");
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+
+	private boolean noPropertiesHaveJavaKeywordInName() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().size(); i++){
+				if(isJavaReservedKeyword(this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName())){
+					setErrorMessage("No Java reserved keyword may be used for resouce properties names. Resource's " +
+							this.oRESTfulServiceCIM.getHasResources().get(n).getName() + " property " + 
+							this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName() + " however uses a reserved keyword.");
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+
+	private boolean noResourcesHaveJavaInvalidCharacterInName() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(!isValidJavaIdentifier(this.oRESTfulServiceCIM.getHasResources().get(n).getName())){
+				setErrorMessage("No invalid Java characters may be used for resouce names. Resource " + 
+						this.oRESTfulServiceCIM.getHasResources().get(n).getName() + " however used invalid characters.");
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	private boolean noResourcesHaveJavaKeywordInName() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(isJavaReservedKeyword(this.oRESTfulServiceCIM.getHasResources().get(n).getName())){
+				setErrorMessage("No Java reserved keyword may be used for resouce names. Resource " + 
+						this.oRESTfulServiceCIM.getHasResources().get(n).getName() + " however is reserved keyword.");
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+    private static boolean isJavaReservedKeyword(String strPhrase){
+        
+        for(int n = 0; n < arrayOfJavaKeywords.length; n++){
+            if(strPhrase.equalsIgnoreCase(arrayOfJavaKeywords[n])){
+                return true;
+            }
+        }
+        return false;
+    }	
+    
+    public static boolean isValidJavaIdentifier(String s) {
+        if (s.isEmpty()) {
+            return false;
+        }
+        if (!Character.isJavaIdentifierStart(s.charAt(0))) {
+            return false;
+        }
+        for (int i = 1; i < s.length(); i++) {
+            if (!Character.isJavaIdentifierPart(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+	private boolean allPropertiesHaveProperNames() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == false){
+				for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().size(); i++){
+					//check if the property name is reserved within MDE
+					if(isReservedMDEPropertyName(this.oRESTfulServiceCIM.getHasResources().get(n).getName(), this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName())){
+						setErrorMessage("CRUD resource properties may not have as names reserved MDE keywords. Rename " + 
+								this.oRESTfulServiceCIM.getHasResources().get(n).getName() + " resource's " + 
+								this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName() + " property.");
+						return false;
+					}
+					
+					//check if the property's resource is related of some other resource with the same name as the property
+					if(isReservedForRelationsPropertyName(this.oRESTfulServiceCIM.getHasResources().get(n).getName(), this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName())){
+						setErrorMessage("CRUD resource properties may not have the same name as resources of which they are related. Rename " + 
+								this.oRESTfulServiceCIM.getHasResources().get(n).getName() + " resource's " + 
+								this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName() + " property.");
+						return false;
+					}
+				}
+			}
+		}
+		
+		return true;
+	}
+
+	private boolean isReservedForRelationsPropertyName(String strResourceName, String strPropertyName) {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(strPropertyName.equalsIgnoreCase(this.oRESTfulServiceCIM.getHasResources().get(n).getName())){
+				//check if this resource has as related the property's resource
+				for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().size(); i++){
+					if(this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().get(i).getName().equalsIgnoreCase(strResourceName)){
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+
+	private boolean isReservedMDEPropertyName(String strResourceName, String strPropertyName) {
+		
+		if(strPropertyName.equalsIgnoreCase("linklist")){
+			return true;
+		}
+		else if(strPropertyName.equalsIgnoreCase(strResourceName + "Id")){
+			return true;
+		}
+		
+		return false;
+	}
+
+	private boolean allCRUDResourcesHaveRequiredActivities() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == false){ //if it is CRUD resource
+				//check if it has CREATE and READ activity
+				boolean bHasCreateActivity = false;
+				boolean bHasReadActivity = false;
+				for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasCRUDActivity().size(); i++){
+					if(this.oRESTfulServiceCIM.getHasResources().get(n).getHasCRUDActivity().get(i).getCRUDVerb() == CRUDVerb.CREATE){
+						bHasCreateActivity = true;
+					}
+					else if(this.oRESTfulServiceCIM.getHasResources().get(n).getHasCRUDActivity().get(i).getCRUDVerb() == CRUDVerb.READ){
+						bHasReadActivity = true;
+					}
+				}
+				
+				if(bHasCreateActivity && bHasReadActivity){
+					return true;
+				}
+				else{
+					setErrorMessage("CRUD resources must have CREATE and READ activities. However resource " + this.oRESTfulServiceCIM.getHasResources().get(n).getName()
+							+ " does not have one or either of them.");
+					return false;
+				}
+			}
+		}
+		
+		
+		return true;
+	}
+
+	private boolean algorithmicResourceHasNoRelatedResources() {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true){
+				if(this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().isEmpty() == false){
+					setErrorMessage("Algorithmic resources may not have any related resources. However resource " + this.oRESTfulServiceCIM.getHasResources().get(n).getName()
+							+ " has related resources.");
+					return false;
+				}
+			}
+		}
 		
 		return true;
 	}

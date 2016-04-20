@@ -15,9 +15,7 @@
  */
 package eu.scasefp7.eclipse.mde.ui.handlers;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -32,34 +30,28 @@ import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.core.runtime.preferences.IScopeContext;
-import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.handlers.IHandlerService;
-import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.ui.progress.WorkbenchJob;
 import org.eclipse.ui.services.IServiceLocator;
 
 import eu.scasefp7.eclipse.mde.ui.Activator;
-import eu.scasefp7.eclipse.mde.ui.preferences.PreferenceConstants;
 
 /**
- * @author emaorli
- *
+ * Calls the generate code command sequence,
+ * 
+ * @author Marin Orlic
  */
 public class GenerateCodeHandler extends AbstractHandler {
 
@@ -98,6 +90,7 @@ public class GenerateCodeHandler extends AbstractHandler {
         }
         
         // Get the preferences
+        @SuppressWarnings("unchecked")
         Map<String, String> mdePreferences = getCoreMDEPreferences(project, event.getParameters());
 
         // Roll the commands
@@ -165,8 +158,7 @@ public class GenerateCodeHandler extends AbstractHandler {
                                 handlerService.executeCommand(CMD_LINK, null);
                                 handlerService.executeCommand(CMD_YAML, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
-                                if( e.getCause().getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
-                                	//TODO tu si maknula e.getCause()!=null &&
+                                if(e.getCause()!=null && e.getCause().getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
                                     return Status.CANCEL_STATUS;
                                 } else {
                                     Activator.log("Failed to compile to ontology and create YAML.", e);
@@ -381,96 +373,18 @@ public class GenerateCodeHandler extends AbstractHandler {
         return null;
     }
     
-    private IPreferenceStore getPreferenceStore(IProject project) {
-        // Get a preference store with the search path project, instance
-        ProjectScope ps = new ProjectScope(project);
-        ScopedPreferenceStore scoped = new ScopedPreferenceStore(ps, Activator.PLUGIN_ID);
-        scoped.setSearchContexts(new IScopeContext[] { ps, InstanceScope.INSTANCE });
-        
-        return scoped;
-    }
-    
-    private Map<String, String> getCoreMDEPreferences(IProject project, Map commandParams) {
+    private Map<String, String> getCoreMDEPreferences(IProject project, Map<String, String> commandParams) {
 
-        IPreferenceStore store = getPreferenceStore(project);
-        Map<String, String> mapMDEPreferences = new HashMap<String, String>();
-
-        // Get preferences
-        String yamlFilePath = project.getFile(store.getString(PreferenceConstants.P_INPUT_FILE)).getLocation().toString();
-        // Fix to avoid exceptions from projects that do not have a models folder  
-		File path = new File(yamlFilePath);
-		String modelsPath = yamlFilePath.substring(0, path.toString().lastIndexOf(File.separator));
-		if (!new File(modelsPath).exists()) {
-			String projectPath = yamlFilePath.substring(0,
-					path.toString().lastIndexOf(File.separator, path.toString().lastIndexOf(File.separator) - 1));
-			yamlFilePath = projectPath + yamlFilePath.substring(path.toString().lastIndexOf(File.separator));
-		}
-        String wsName = store.getString(PreferenceConstants.P_SERVICE_NAME);
-        String outputFolder = project.getFile(store.getString(PreferenceConstants.P_OUTPUT_PATH)).getLocation().toString();
-        String dbAddress = store.getString(PreferenceConstants.P_DATABASE_ADDRESS);
-        String dbPort = store.getString(PreferenceConstants.P_DATABASE_PORT);
-        String dbUsername = store.getString(PreferenceConstants.P_DATABASE_USER);
-        String dbPassword = store.getString(PreferenceConstants.P_DATABASE_PASSWORD);
-        String dbType = store.getString(PreferenceConstants.P_DATABASE_TYPE);
-        String authentication = (store.getBoolean(PreferenceConstants.P_FACET_BASIC_AUTHENTICATION) ? "yes" : "no");
-        String authorization = (store.getBoolean(PreferenceConstants.P_FACET_ABAC_AUTHORIZATION) ? "yes" : "no");
-        String searching = (store.getBoolean(PreferenceConstants.P_FACET_SEARCH) ? "yes" : "no");
-        String extComposition = (store.getBoolean(PreferenceConstants.P_FACET_EXT_COMPOSITIONS) ? "yes" : "no");
-        String reloadModels = (commandParams.get(GenerateCodeHandler.CMD_PAR_RELOAD) == null) ? "no" 
-                : ((String) commandParams.get(GenerateCodeHandler.CMD_PAR_RELOAD)).equalsIgnoreCase("yes") ? "yes" : "no";
-        String importMaven = (store.getBoolean(PreferenceConstants.P_AUTO_IMPORT_GENERATED_CODE) ? "yes" : "no");
+        Map<String, String> mapMDEPreferences = Utils.getCoreMDEPreferences(project);
         
-        // Figure out service name
-        Boolean useProjectName = (store.getBoolean(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME));
-        if (useProjectName) {
-            wsName = project.getName() + "Api";
-        }
+        String reloadModels = (commandParams.get(GenerateCodeHandler.CMD_PAR_RELOAD) == null) ? "no"
+                : commandParams.get(GenerateCodeHandler.CMD_PAR_RELOAD).equalsIgnoreCase("yes") ? "yes" 
+                        : "no";
 
-        // Figure out output folder
-        Boolean useProjectOutputFolder = (store.getBoolean(PreferenceConstants.P_USE_PROJECT_OUTPUT_FOLDER));
-        if (useProjectOutputFolder) {
-            String out = null;
-            try {
-                out = project.getPersistentProperty(new QualifiedName("", "eu.scasefp7.eclipse.core.ui.outputFolder"));
-            } catch (CoreException e) {
-                Activator.log("Unable to get project property.", e);
-            } finally {
-                if(out != null) {
-                    IResource res = project.findMember(out); // Search in project first
-                    if(res == null) {
-                        res = project.getWorkspace().getRoot().findMember(out); // If not found in project, look in workspace
-                    }
-                    if(res != null) {
-                        outputFolder = res.getLocation().toPortableString();
-                    } else {
-                        StringBuilder sb = new StringBuilder();
-                        sb.append("Project output path \"");
-                        sb.append(out);
-                        sb.append("\" not found, using default \"");
-                        sb.append(outputFolder);
-                        sb.append(".");
-                        Activator.log(sb.toString(), new Exception());
-                    }
-                }
-            }
-        }
-        
-        mapMDEPreferences.put("YamlFilePath", yamlFilePath); 
-        mapMDEPreferences.put("WebServiceName", wsName);
-        mapMDEPreferences.put("MDEOutputFolder", outputFolder);
-        mapMDEPreferences.put("DatabaseIP", dbAddress);
-        mapMDEPreferences.put("DatabasePort", dbPort);
-        mapMDEPreferences.put("DatabaseUsername", dbUsername);
-        mapMDEPreferences.put("DatabasePassword", dbPassword);
-        mapMDEPreferences.put("DatabaseType", dbType);
-        mapMDEPreferences.put("Authentication", authentication);
-        mapMDEPreferences.put("Authorization", authorization);
-        mapMDEPreferences.put("DatabaseSearching", searching);
-        mapMDEPreferences.put("ExternalComposition", extComposition);
         mapMDEPreferences.put("ReloadExistingModels", reloadModels);
-        mapMDEPreferences.put("ImportGeneratedProject", importMaven);
         
         return mapMDEPreferences;
     }
     
 }
+

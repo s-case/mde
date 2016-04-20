@@ -34,6 +34,7 @@ import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 import ExternalServiceLayerCIM.AnnotationModel;
 
 public class EcoreXMIExternalServiceLayerExtractor{
@@ -73,7 +74,7 @@ public class EcoreXMIExternalServiceLayerExtractor{
 		try {
 			this.oEcoreResource.save(Collections.EMPTY_MAP);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Activator.log("Could not export External Service Composition Wizard to XMI file.", e);
 		}
 	}
 	

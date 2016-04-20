@@ -5,14 +5,20 @@ package ServiceCIM.impl;
 import ServiceCIM.RESTfulServiceCIM;
 import ServiceCIM.Resource;
 import ServiceCIM.ServiceCIMPackage;
+
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -30,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link ServiceCIM.impl.RESTfulServiceCIMImpl#getServiceDatabasePort <em>Service Database Port</em>}</li>
  *   <li>{@link ServiceCIM.impl.RESTfulServiceCIMImpl#getServiceDatabaseUsername <em>Service Database Username</em>}</li>
  *   <li>{@link ServiceCIM.impl.RESTfulServiceCIMImpl#getServiceDatabasePassword <em>Service Database Password</em>}</li>
+ *   <li>{@link ServiceCIM.impl.RESTfulServiceCIMImpl#getServiceDatabaseType <em>Service Database Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -165,6 +172,26 @@ public class RESTfulServiceCIMImpl extends MinimalEObjectImpl.Container implemen
 	 * @ordered
 	 */
 	protected String serviceDatabasePassword = SERVICE_DATABASE_PASSWORD_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getServiceDatabaseType() <em>Service Database Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getServiceDatabaseType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String SERVICE_DATABASE_TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getServiceDatabaseType() <em>Service Database Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getServiceDatabaseType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String serviceDatabaseType = SERVICE_DATABASE_TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -328,6 +355,27 @@ public class RESTfulServiceCIMImpl extends MinimalEObjectImpl.Container implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getServiceDatabaseType() {
+		return serviceDatabaseType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setServiceDatabaseType(String newServiceDatabaseType) {
+		String oldServiceDatabaseType = serviceDatabaseType;
+		serviceDatabaseType = newServiceDatabaseType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServiceCIMPackage.RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_TYPE, oldServiceDatabaseType, serviceDatabaseType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -359,6 +407,8 @@ public class RESTfulServiceCIMImpl extends MinimalEObjectImpl.Container implemen
 				return getServiceDatabaseUsername();
 			case ServiceCIMPackage.RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_PASSWORD:
 				return getServiceDatabasePassword();
+			case ServiceCIMPackage.RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_TYPE:
+				return getServiceDatabaseType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -394,6 +444,9 @@ public class RESTfulServiceCIMImpl extends MinimalEObjectImpl.Container implemen
 			case ServiceCIMPackage.RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_PASSWORD:
 				setServiceDatabasePassword((String)newValue);
 				return;
+			case ServiceCIMPackage.RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_TYPE:
+				setServiceDatabaseType((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -427,6 +480,9 @@ public class RESTfulServiceCIMImpl extends MinimalEObjectImpl.Container implemen
 			case ServiceCIMPackage.RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_PASSWORD:
 				setServiceDatabasePassword(SERVICE_DATABASE_PASSWORD_EDEFAULT);
 				return;
+			case ServiceCIMPackage.RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_TYPE:
+				setServiceDatabaseType(SERVICE_DATABASE_TYPE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -453,6 +509,8 @@ public class RESTfulServiceCIMImpl extends MinimalEObjectImpl.Container implemen
 				return SERVICE_DATABASE_USERNAME_EDEFAULT == null ? serviceDatabaseUsername != null : !SERVICE_DATABASE_USERNAME_EDEFAULT.equals(serviceDatabaseUsername);
 			case ServiceCIMPackage.RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_PASSWORD:
 				return SERVICE_DATABASE_PASSWORD_EDEFAULT == null ? serviceDatabasePassword != null : !SERVICE_DATABASE_PASSWORD_EDEFAULT.equals(serviceDatabasePassword);
+			case ServiceCIMPackage.RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_TYPE:
+				return SERVICE_DATABASE_TYPE_EDEFAULT == null ? serviceDatabaseType != null : !SERVICE_DATABASE_TYPE_EDEFAULT.equals(serviceDatabaseType);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -479,6 +537,8 @@ public class RESTfulServiceCIMImpl extends MinimalEObjectImpl.Container implemen
 		result.append(serviceDatabaseUsername);
 		result.append(", serviceDatabasePassword: ");
 		result.append(serviceDatabasePassword);
+		result.append(", serviceDatabaseType: ");
+		result.append(serviceDatabaseType);
 		result.append(')');
 		return result.toString();
 	}

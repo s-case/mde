@@ -2,13 +2,12 @@
  */
 package AuthenticationLayerCIM.impl;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import AuthenticationLayerCIM.AnnotatedElement;
 import AuthenticationLayerCIM.AuthenticationLayerCIMPackage;
 
+import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->

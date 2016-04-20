@@ -14,5 +14,4 @@ package AuthenticationLayerCIM.validation;
 public interface AnnotatedElementValidator {
 	boolean validate();
 
-	boolean validateName(String value);
 }

@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EReference;
  * <!-- end-user-doc -->
  * @see ExternalServiceLayerCIM.ExternalServiceLayerCIMFactory
  * @model kind="package"
+ *        annotation="http://www.eclipse.org/OCL/Import Eu.fp7.scase='CIMMetamodel.ecore#/'"
  * @generated
  */
 public interface ExternalServiceLayerCIMPackage extends EPackage {

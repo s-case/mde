@@ -6,7 +6,6 @@ package AuthenticationLayerCIM.validation;
 
 import AuthenticationLayerCIM.AnnResource;
 import AuthenticationLayerCIM.AuthenticationToken;
-import AuthenticationLayerCIM.Resource;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -21,6 +20,4 @@ public interface AuthenticationModelValidator {
 
 	boolean validateHasAuthenticationToken(EList<AuthenticationToken> value);
 	boolean validateResourceAuthenticationModel(AnnResource value);
-
-	boolean validateResourceAuthenticationModel(Resource value);
 }

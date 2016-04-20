@@ -1,6 +1,7 @@
 package eu.fp7.scase.extcompositions;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.window.Window;
@@ -43,6 +44,7 @@ import ServiceCIM.Resource;
 import org.eclipse.swt.widgets.Text;
 
 import eu.fp7.scase.inputParser.YamlResource;
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 
 
 public class ExternalCompositionWizardPage extends WizardPage{
@@ -190,7 +192,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		lblExternalCompositionSetup.setText("External Composition Setup:");
 		
 		Label lblUrl = new Label(oExternalServiceCombo, SWT.NONE);
-		lblUrl.setBounds(10, 25, 60, 14);
+		lblUrl.setBounds(10, 25, 36, 14);
 		lblUrl.setText("URL:");
 		
 		textTargetServiceURL = new Text(oExternalServiceCombo, SWT.BORDER);
@@ -215,17 +217,17 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		addQueryParameterListListener();
 		
 		buttonRenameQueryParameter = new Button(oExternalServiceCombo, SWT.NONE);
-		buttonRenameQueryParameter.setBounds(341, 93, 95, 28);
+		buttonRenameQueryParameter.setBounds(341, 87, 95, 21);
 		buttonRenameQueryParameter.setText("Rename");
 		addRenameQueryParameterButtonListener();
 		
 		buttonCreateQueryParameter = new Button(oExternalServiceCombo, SWT.NONE);
-		buttonCreateQueryParameter.setBounds(341, 55, 95, 28);
+		buttonCreateQueryParameter.setBounds(341, 45, 95, 21);
 		buttonCreateQueryParameter.setText("Create");
 		addCreateQueryParameterButtonListener();
 		
 		buttonDeleteQueryParameter = new Button(oExternalServiceCombo, SWT.NONE);
-		buttonDeleteQueryParameter.setBounds(341, 74, 95, 28);
+		buttonDeleteQueryParameter.setBounds(341, 66, 95, 21);
 		buttonDeleteQueryParameter.setText("Delete");
 		addDeleteQueryParameterButtonListener();
 		
@@ -234,12 +236,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		groupInputRepresentation.setBounds(20, 188, 205, 86);
 		
 		buttonInputJSON = new Button(groupInputRepresentation, SWT.RADIO);
-		buttonInputJSON.setBounds(10, 10, 171, 18);
+		buttonInputJSON.setBounds(10, 20, 171, 18);
 		buttonInputJSON.setText("Application/JSON");
 		addInputJSONButtonListener();
 		
 		buttonInputXML = new Button(groupInputRepresentation, SWT.RADIO);
-		buttonInputXML.setBounds(10, 34, 131, 18);
+		buttonInputXML.setBounds(10, 38, 131, 18);
 		buttonInputXML.setText("Application/XML");
 		addInputXMLButtonListener();
 		
@@ -257,17 +259,17 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		addInputPropertyMultiplicityButtonListener();
 		
 		buttonCreateInputProperty = new Button(oExternalServiceCombo, SWT.NONE);
-		buttonCreateInputProperty.setBounds(384, 196, 95, 28);
+		buttonCreateInputProperty.setBounds(384, 196, 95, 21);
 		buttonCreateInputProperty.setText("Create");
 		addCreateInputPropertyButtonListener();
 		
 		buttonDeleteInputProperty = new Button(oExternalServiceCombo, SWT.NONE);
-		buttonDeleteInputProperty.setBounds(384, 216, 95, 28);
+		buttonDeleteInputProperty.setBounds(384, 217, 95, 21);
 		buttonDeleteInputProperty.setText("Delete");
 		addDeleteInputPropertyButtonListener();
 		
 		buttonRenameInputProperty = new Button(oExternalServiceCombo, SWT.NONE);
-		buttonRenameInputProperty.setBounds(384, 236, 95, 28);
+		buttonRenameInputProperty.setBounds(384, 238, 95, 21);
 		buttonRenameInputProperty.setText("Rename");
 		addRenameInputPropertyButtonListener();
 		
@@ -296,12 +298,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		
 		buttonOutputJSON = new Button(groupOutputRepresentation, SWT.RADIO);
 		buttonOutputJSON.setText("Application/JSON");
-		buttonOutputJSON.setBounds(10, 10, 171, 18);
+		buttonOutputJSON.setBounds(10, 20, 171, 18);
 		addOutputJSONButtonListener();
 		
 		buttonOutputXML = new Button(groupOutputRepresentation, SWT.RADIO);
 		buttonOutputXML.setText("Application/XML");
-		buttonOutputXML.setBounds(10, 34, 131, 18);
+		buttonOutputXML.setBounds(10, 38, 131, 18);
 		addOutputXMLButtonListener();
 		
 		Label lblOutputProperties = new Label(oExternalServiceCombo, SWT.NONE);
@@ -319,17 +321,17 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		
 		buttonCreateOutputProperty = new Button(oExternalServiceCombo, SWT.NONE);
 		buttonCreateOutputProperty.setText("Create");
-		buttonCreateOutputProperty.setBounds(384, 323, 95, 28);
+		buttonCreateOutputProperty.setBounds(384, 323, 95, 21);
 		addCreateOutputPropertyButtonListener();
 		
 		buttonDeleteOutputProperty = new Button(oExternalServiceCombo, SWT.NONE);
 		buttonDeleteOutputProperty.setText("Delete");
-		buttonDeleteOutputProperty.setBounds(384, 346, 95, 28);
+		buttonDeleteOutputProperty.setBounds(384, 344, 95, 21);
 		addDeleteOutputPropertyButtonListener();
 		
 		buttonRenameOutputProperty = new Button(oExternalServiceCombo, SWT.NONE);
 		buttonRenameOutputProperty.setText("Rename");
-		buttonRenameOutputProperty.setBounds(384, 370, 95, 28);
+		buttonRenameOutputProperty.setBounds(384, 365, 95, 21);
 		addRenameOutputPropertyButtonListener();
 		
 		Label lbOutputType = new Label(oExternalServiceCombo, SWT.NONE);
@@ -347,7 +349,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		persistOutputDataModelButtonListener();
 		
 		Label labelType = new Label(oExternalServiceCombo, SWT.NONE);
-		labelType.setBounds(231, 416, 60, 14);
+		labelType.setBounds(231, 416, 44, 14);
 		labelType.setText("Type:");
 		
 		listPersistenceType = new List(oExternalServiceCombo, SWT.BORDER | SWT.V_SCROLL);
@@ -370,7 +372,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		labelSeperatorOutputModel.setBounds(7, 160, 556, 2);
 		
 		isQueryAuthTokenButton = new Button(oExternalServiceCombo, SWT.CHECK);
-		isQueryAuthTokenButton.setBounds(342, 115, 171, 18);
+		isQueryAuthTokenButton.setBounds(342, 108, 171, 18);
 		isQueryAuthTokenButton.setText("Authorization Token");
 		addIsQueryAuthTokenButtonListener();
 		
@@ -455,8 +457,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				}
 			}
 		}
-
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find CRUD Resource index by name " + strCRUDResourceName, e);
+			return -1;
+		}
 	}
 
 
@@ -536,7 +542,8 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//rename an existing Output Model Property 
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "output model property");
 				if(oSimpleDialogBox.open() == Window.OK){
 					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().
@@ -545,6 +552,9 @@ public class ExternalCompositionWizardPage extends WizardPage{
 					listOutputProperties.removeAll();
 					populateAllRESTClientSWTs(listRESTClientResources.getSelection()[0]);
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -572,7 +582,8 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//create a new Output Model Property 
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "output model property");
 				if(oSimpleDialogBox.open() == Window.OK){
 					ModelProperty oOutputProperty = oExternalServiceLayerCIMFactory.createModelProperty();
@@ -581,6 +592,9 @@ public class ExternalCompositionWizardPage extends WizardPage{
 					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasOutputDataModel().getHasOutputProperties().add(oOutputProperty);
 					listOutputProperties.add(oOutputProperty.getName());
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -732,7 +746,8 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//rename an existing Input Model Property 
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "input model property");
 				if(oSimpleDialogBox.open() == Window.OK){
 					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().
@@ -741,6 +756,9 @@ public class ExternalCompositionWizardPage extends WizardPage{
 					listInputProperties.removeAll();
 					populateAllRESTClientSWTs(listRESTClientResources.getSelection()[0]);
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -753,8 +771,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				return n;
 			}
 		}
-		
-		return -1;//throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find input property index by name " + strInputPropertyName, e);
+			return -1;
+		}
 	}
 	
 	private int getOutputPropertyIndexByName(String strAlgoResourceName, String strOutputPropertyName){
@@ -763,8 +785,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				return n;
 			}
 		}
-		
-		return -1;//throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find output property index by name " + strOutputPropertyName, e);
+			return -1;
+		}
 	}
 	
 	private void addDeleteInputPropertyButtonListener() {
@@ -788,7 +814,8 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//create a new Input Model Property 
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "input model property");
 				if(oSimpleDialogBox.open() == Window.OK){
 					ModelProperty oInputProperty = oExternalServiceLayerCIMFactory.createModelProperty();
@@ -797,6 +824,9 @@ public class ExternalCompositionWizardPage extends WizardPage{
 					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasInputDataModel().getHasInputProperties().add(oInputProperty);
 					listInputProperties.add(oInputProperty.getName());
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -896,7 +926,8 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		@Override
 		public void handleEvent(Event event) {
 			//create a new Query Parameter
-			Shell oShell = new Shell();
+			Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+			oShell.setSize(0,0);
 			SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "query parameter");
 			if(oSimpleDialogBox.open() == Window.OK){
 				QueryParam oQueryParam = oExternalServiceLayerCIMFactory.createQueryParam();
@@ -904,6 +935,9 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().getHasQueryParam().add(oQueryParam);
 				listQueryParameters.add(oQueryParam.getName());
 			}
+			oSimpleDialogBox.close();
+			oShell.close();
+			
 			updateWidgetStatus();
 			setPageComplete(isPageCompleted());
 		}});
@@ -916,7 +950,8 @@ public class ExternalCompositionWizardPage extends WizardPage{
 		@Override
 		public void handleEvent(Event event) {
 			//rename an existing Query Parameter
-			Shell oShell = new Shell();
+			Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+			oShell.setSize(0,0);
 			SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "query parameter");
 			if(oSimpleDialogBox.open() == Window.OK){
 				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService()
@@ -925,6 +960,9 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				listQueryParameters.removeAll();
 				
 			}
+			oSimpleDialogBox.close();
+			oShell.close();
+			
 			populateTargetServiceSWTs(listRESTClientResources.getSelection()[0]);
 			updateWidgetStatus();
 			setPageComplete(isPageCompleted());
@@ -937,8 +975,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				return n;
 			}
 		}
-		
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find query param index by name " + strQueryParameterName, e);
+			return -1;
+		}
 	}
 
 	private void addCRUDVerbListener() {
@@ -1333,8 +1375,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				return this.oRESTfulServiceCIM.getHasResources().get(n);
 			}
 		}
-		
-		return null;//throw exception in production code instead
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find core CIM resource reference by name " + strCoreResourceName, e);
+			return null;
+		}
 	}
 
 
@@ -1478,7 +1524,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				}
 			}
 		}
-		return null;//throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find RESTClient resource by name " + strResourceName, e);
+			return null;
+		}
 	}
 
 	private RESTClientResource deepCopyRESTClientResource(RESTClientResource oBackUpRESTClientResource) {
@@ -1625,8 +1676,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				}
 			}
 		}
-		
-		return null; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find complex type.", e);
+			return null;
+		}
 	}
 
 
@@ -1917,8 +1972,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				}
 			}
 		}
-
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find algorithmic resource index by name " + strAlgoResourceName, e);
+			return -1;
+		}
 	}
 
 

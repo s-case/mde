@@ -27,10 +27,11 @@ import ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage;
 import SearchLayerCIM.AnnAlgoResource;
 import SearchLayerCIM.SearchLayerCIMFactory;
 import SearchLayerCIM.SearchLayerCIMPackage;
-import ServiceCIM.RESTServiceCIMPackage;
+import ServiceCIM.ServiceCIMPackage;
 import ServiceCIM.RESTfulServiceCIM;
 import eu.fp7.scase.inputParser.YamlInputParser;
 import eu.fp7.scase.inputParser.YamlResource;
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 import eu.fp7.scase.searchWizard.SearchCIMWizard;
 import eu.fp7.scase.authenticationWizard.AuthenticationCIMWizard;
 import eu.fp7.scase.cimGenerator.ACIMProducer;
@@ -45,7 +46,7 @@ import eu.fp7.scase.extcompositions.ExternalCompositionWizard;
  * @see org.eclipse.core.commands.IHandler
  * @see org.eclipse.core.commands.AbstractHandler
  */
-public class CIMGenerator extends AbstractHandler {
+public class CIMGenerator extends AbstractHandler{
 	
 	private YamlInputParser oYamlInputParser;
 	private ACIMProducer oACIMProducer;
@@ -143,12 +144,18 @@ public class CIMGenerator extends AbstractHandler {
 
 	private void instantiateAllCIMModels(ExecutionEvent event) {
 		
-		//parse the input yaml file
-		oYamlInputParser = new YamlInputParser(event.getParameter("YamlFilePath"));
-		this.listOfYamlResources = oYamlInputParser.parseYamlInputFile();
+		//check if user selected to start from scratch
+		if(event.getParameter("YamlFilePath") == null){
+			this.listOfYamlResources = new ArrayList<YamlResource>();
+		}
+		else{
+			//parse the input yaml file
+			oYamlInputParser = new YamlInputParser(event.getParameter("YamlFilePath"));
+			this.listOfYamlResources = oYamlInputParser.parseYamlInputFile();
+		}
 		
 		//initialize the CIM model from yaml
-		oACIMProducer = new CoreCIMProducer(listOfYamlResources, this.oEvent.getParameter("WebServiceName"), this.oEvent.getParameter("MDEOutputFolder"), this.oEvent.getParameter("DatabaseIP"), this.oEvent.getParameter("DatabasePort"), this.oEvent.getParameter("DatabaseUsername"), this.oEvent.getParameter("DatabasePassword"));
+		oACIMProducer = new CoreCIMProducer(listOfYamlResources, this.oEvent.getParameter("WebServiceName"), this.oEvent.getParameter("MDEOutputFolder"), this.oEvent.getParameter("DatabaseIP"), this.oEvent.getParameter("DatabasePort"), this.oEvent.getParameter("DatabaseUsername"), this.oEvent.getParameter("DatabasePassword"), this.oEvent.getParameter("DatabaseType"));
 		oRESTfulServiceCIM = oACIMProducer.produceCIM();
 		
 		//if the authentication flag is true
@@ -190,9 +197,9 @@ public class CIMGenerator extends AbstractHandler {
 		File oFile;
 		
 		//load the core CIM model
-		oFile = new File(event.getParameter("MDEOutputFolder") + "/CIMModels/" + event.getParameter("WebServiceName") + "CIM.xmi");
+		oFile = new File(event.getParameter("MDEOutputFolder") + "/CIMModels/BackUp/" + event.getParameter("WebServiceName") + "CIMBackUp.xmi");
 		if(oFile.exists() && oFile.isFile()){
-			this.oRESTfulServiceCIM = this.loadCoreCIM(event.getParameter("MDEOutputFolder") + "/CIMModels/" + event.getParameter("WebServiceName") + "CIM.xmi");
+			this.oRESTfulServiceCIM = this.loadCoreCIM(event.getParameter("MDEOutputFolder") + "/CIMModels/BackUp/" + event.getParameter("WebServiceName") + "CIMBackUp.xmi");
 			System.out.println("Loaded existing core CIM Model.");
 		}
 		else{//if the Core CIM model does not exist there is no point to try to load anything else
@@ -262,11 +269,10 @@ public class CIMGenerator extends AbstractHandler {
 		}
 	}
 
-	private void executeMDE(ExecutionEvent event) {
+	private void executeMDE(ExecutionEvent event) throws ExecutionException {
 		
 		//initiate CIM generator to create the envisioned system's Core REST CIM
-		createCoreRestCIM(event);
-
+			createCoreRestCIM(event);
 		
 		//if the authentication flag is true
 		if(event.getParameter("Authentication").equalsIgnoreCase("yes")){
@@ -316,7 +322,7 @@ public class CIMGenerator extends AbstractHandler {
 		return false; //through exception that resource is not found in production code
 	}
 	
-	private boolean createCoreRestCIM(ExecutionEvent event){
+	private boolean createCoreRestCIM(ExecutionEvent event) throws ExecutionException{
 
 		//initialize the core CIM wizard
 		CoreCIMEditorWizard oCoreCIMEditorWizard = new CoreCIMEditorWizard(this.oEvent.getParameter("MDEOutputFolder"), oRESTfulServiceCIM, calculateMinimumRequiredAlgoResources(), this.bReloadExistingModels);
@@ -328,7 +334,7 @@ public class CIMGenerator extends AbstractHandler {
 			oEcoreXMIExtractor.exportEcoreXMI(oRESTfulServiceCIM);
 		}
 		else{
-			return false;
+			throw new ExecutionException("Code generation process canceled by user.", new CanceledExecutionException("canceled exception"));
 		}
 		
 		return true;
@@ -354,7 +360,7 @@ public class CIMGenerator extends AbstractHandler {
 		}		
 	}
 
-	private boolean createBasicAuthenticationCIM(ExecutionEvent event){
+	private boolean createBasicAuthenticationCIM(ExecutionEvent event) throws ExecutionException{
 		
 		//setup the authentication CIM wizard
 		oAuthenticationCIMWizard = new AuthenticationCIMWizard(this.oEvent.getParameter("MDEOutputFolder"), oRESTfulServiceCIM, oAuthenticationLayerCIM, this.bReloadExistingModels);
@@ -363,13 +369,13 @@ public class CIMGenerator extends AbstractHandler {
 			oAuthenticationCIMWizard.createAuthenticationCIM();
 		}
 		else{
-			return false;
+			throw new ExecutionException("Code generation process canceled by user.", new CanceledExecutionException("canceled exception"));
 		}
 		
 		return true;
 	}
 	
-	private boolean createDatabaseSearchingCIM(ExecutionEvent event){
+	private boolean createDatabaseSearchingCIM(ExecutionEvent event) throws ExecutionException{
 		
 		//setup the search CIM wizard
 		oSearchCIMWizard = new SearchCIMWizard(this.oEvent.getParameter("MDEOutputFolder"), oRESTfulServiceCIM, oSearchLayerCIM, (this.oEvent.getParameter("Authentication").equalsIgnoreCase("yes") ? oAuthenticationLayerCIM : null), calculateMaxSearchResources(), this.bReloadExistingModels);
@@ -379,7 +385,7 @@ public class CIMGenerator extends AbstractHandler {
 			this.oSearchLayerCIM = oSearchCIMWizard.createSearchLayerCIM();
 		}
 		else{
-			return false;
+			throw new ExecutionException("Code generation process canceled by user.", new CanceledExecutionException("canceled exception"));
 		}
 		
 		return true;
@@ -409,7 +415,7 @@ public class CIMGenerator extends AbstractHandler {
 		return iNumberOfAlgoResources;
 	}
 
-	private boolean createExternalServiceLayerCIM(ExecutionEvent event){
+	private boolean createExternalServiceLayerCIM(ExecutionEvent event) throws ExecutionException{
 		
 		//setup the external service CIM wizard
 		oExternalCompositionWizard = new ExternalCompositionWizard(this.oEvent.getParameter("MDEOutputFolder"), this.oRESTfulServiceCIM, this.oExternalServiceLayerCIM, this.oSearchLayerCIM, this.bReloadExistingModels, this.listOfYamlResources);
@@ -419,7 +425,7 @@ public class CIMGenerator extends AbstractHandler {
 			oExternalCompositionWizard.createExternalServiceLayerCIM();
 		}
 		else{
-			return false;
+			throw new ExecutionException("Code generation process canceled by user.", new CanceledExecutionException("canceled exception"));
 		}
 
 		return true;
@@ -430,7 +436,7 @@ public class CIMGenerator extends AbstractHandler {
 		ResourceSet oResourceSet;
 		URI oURI;
 		
-		RESTServiceCIMPackage.eINSTANCE.getClass();
+		ServiceCIMPackage.eINSTANCE.getClass();
 		
 		// Create a resource set.
 		oResourceSet = new ResourceSetImpl();
@@ -448,8 +454,7 @@ public class CIMGenerator extends AbstractHandler {
 	    try {
 			resource.load(null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.log("Could not load Core CIM file", e);
 		}
 	    
 	    // Get the first model element and cast it to the right type, in my
@@ -482,8 +487,8 @@ public class CIMGenerator extends AbstractHandler {
 	    try {
 			resource.load(null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.log("Could not load Authentication CIM file", e);
+
 		}
 	    
 	    // Get the first model element and cast it to the right type, in my
@@ -515,8 +520,8 @@ public class CIMGenerator extends AbstractHandler {
 	    try {
 			resource.load(null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.log("Could not load Search layer CIM file", e);
+
 		}
 	    
 	    // Get the first model element and cast it to the right type, in my
@@ -548,8 +553,7 @@ public class CIMGenerator extends AbstractHandler {
 	    try {
 			resource.load(null);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Activator.log("Could not load External Service Composition CIM file", e);
 		}
 	    
 	    // Get the first model element and cast it to the right type, in my

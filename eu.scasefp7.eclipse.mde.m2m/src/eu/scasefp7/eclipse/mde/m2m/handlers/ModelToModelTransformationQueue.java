@@ -14,6 +14,8 @@ import org.eclipse.m2m.atl.DatabaseSearchingPIMToPSMTransformation.files.SearchL
 import org.eclipse.m2m.atl.ExternalServiceLayerCIMToPIM.files.ExternalServiceLayerCIMToPIM;
 import org.eclipse.m2m.atl.ExternalServiceLayerPIMToPSM.files.ExternalServiceLayerPIMToPSM;
 
+import eu.scasefp7.eclipse.mde.m2m.Activator;
+
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
  * @see org.eclipse.core.commands.IHandler
@@ -52,8 +54,7 @@ public class ModelToModelTransformationQueue extends AbstractHandler {
 				}
 			
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Activator.log("Failed to load/save one or more core or annotation meta-models.", e);
 			}
 
 		return null;

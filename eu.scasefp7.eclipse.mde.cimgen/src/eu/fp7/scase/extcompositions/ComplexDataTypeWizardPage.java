@@ -1,6 +1,7 @@
 package eu.fp7.scase.extcompositions;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.window.Window;
@@ -20,6 +21,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import eu.fp7.scase.inputParser.YamlResource;
+import eu.fp7.scase.launcher.cimgenerator.Activator;
 import ExternalServiceLayerCIM.ComplexType;
 import ExternalServiceLayerCIM.ComplexTypeProperty;
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMFactory;
@@ -294,12 +296,16 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//rename an existing Complex Data Type
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "Provide new Complex Type name:");
 				if(oSimpleDialogBox.open() == Window.OK){
 					oComplexTypes[getAlgoResourceIndexByName(oRESTClientResourcesList.getSelection()[0])].get(getComplexTypeIndexByResourceAndName(oRESTClientResourcesList.getSelection()[0], oComplexDataTypesList.getSelection()[0])).setComplexTypeName(oSimpleDialogBox.getArtefactName());
 					populateComplexDataTypeSWTs(oRESTClientResourcesList.getSelection()[0]);
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -311,7 +317,8 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//create a new Complex Data Type
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "New Complex Type name:");
 				if(oSimpleDialogBox.open() == Window.OK){
 					ComplexType oComplexType = oExternalServiceLayerCIMFactory.createComplexType();
@@ -319,6 +326,9 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 					oComplexTypes[getAlgoResourceIndexByName(oRESTClientResourcesList.getSelection()[0])].add(oComplexType);
 					populateComplexDataTypeSWTs(oRESTClientResourcesList.getSelection()[0]);
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -360,12 +370,16 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//rename an existing Complex Data Type Property
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "Provide new Complex Type Property name:");
 				if(oSimpleDialogBox.open() == Window.OK){
 					getComplexTypeProperty(oRESTClientResourcesList.getSelection()[0], oComplexDataTypesList.getSelection()[0], oComplexTypePropertiesList.getSelection()[0]).setName(oSimpleDialogBox.getArtefactName());
 					populateComplexDataTypePropertiesList(oRESTClientResourcesList.getSelection()[0], oComplexDataTypesList.getSelection()[0]);
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -377,7 +391,8 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 			@Override
 			public void handleEvent(Event event) {
 				//create a new Complex Data Type Property
-				Shell oShell = new Shell();
+				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
+				oShell.setSize(0,0);
 				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "New Complex Type Property name:");
 				if(oSimpleDialogBox.open() == Window.OK){
 					ComplexTypeProperty oComplexTypeProperty = oExternalServiceLayerCIMFactory.createComplexTypeProperty();
@@ -386,6 +401,9 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 					oComplexTypes[getAlgoResourceIndexByName(oRESTClientResourcesList.getSelection()[0])].get(getComplexTypeIndexByResourceAndName(oRESTClientResourcesList.getSelection()[0], oComplexDataTypesList.getSelection()[0])).getHasComplexTypeProperties().add(oComplexTypeProperty);
 					populateComplexDataTypePropertiesList(oRESTClientResourcesList.getSelection()[0], oComplexDataTypesList.getSelection()[0]);
 				}
+				oSimpleDialogBox.close();
+				oShell.close();
+				
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
 			}});
@@ -611,6 +629,7 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 		this.oTypeList.add("Integer");
 		this.oTypeList.add("Float");
 		this.oTypeList.add("Boolean");
+		this.oTypeList.add("Long");
 		
 		//add the complex data types of this service
 		for(int n = 0; n < oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].size(); n++){
@@ -829,8 +848,12 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 				return this.oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientName)].get(this.getComplexTypeIndexByResourceAndName(strRESTClientName, strComplexTypeName)).getHasComplexTypeProperties().get(n);
 			}
 		}
-		
-		return null; // throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find complex type property by name " + strComplexTypePropertyName, e);
+			return null;
+		}
 	}
 	
 	private int getComplexTypeIndexByResourceAndName(String strRESTClientName, String strComplexTypeName){
@@ -839,8 +862,12 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 				return n;
 			}
 		}
-		
-		return -1;//throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find complex type index.", e);
+			return -1;
+		}
 	}
 	
 	private int getAlgoResourceIndexByName(String strAlgoResourceName){
@@ -853,8 +880,12 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 				}
 			}
 		}
-
-		return -1; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find algorithmic resource index by name " + strAlgoResourceName, e);
+			return -1;
+		}
 	}
 	
 	private ModelProperty getIOPropertyByName(String strModelPropertyName){
@@ -884,8 +915,12 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 				}
 			}
 		}
-		
-		return null; //throw exception in production code
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find IO property by name " + strModelPropertyName, e);
+			return null;
+		}
 	}
 	
 	private ComplexType getComplexTypeByName(String strRESTClientName, String strComplexTypeName){
@@ -900,8 +935,12 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 				}
 			}
 		}
-		return null; //throw exception in production code
-	}
+		try {
+			throw new ExecutionException(new Throwable());
+		} catch (ExecutionException e) {
+			Activator.log("Unable to find complex type by name " + strComplexTypeName, e);
+			return null;
+		}	}
 	
 	private void deleteIOPropertiesComplexType(String strComplexTypeName){
 		for(int n = 0; n < this.oExternalCompositionWizardPage.getRESTClientResourcesArray().length; n++){

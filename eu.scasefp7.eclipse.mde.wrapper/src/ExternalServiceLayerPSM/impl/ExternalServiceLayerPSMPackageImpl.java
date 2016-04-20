@@ -2,14 +2,6 @@
  */
 package ExternalServiceLayerPSM.impl;
 
-import AnnotationLayerStack.AnnotationLayerStackPackage;
-
-import AnnotationLayerStack.impl.AnnotationLayerStackPackageImpl;
-
-import AuthenticationLayerPSM.AuthenticationLayerPSMPackage;
-
-import AuthenticationLayerPSM.impl.AuthenticationLayerPSMPackageImpl;
-
 import ExternalServiceLayerPSM.AnnHTTPActivity;
 import ExternalServiceLayerPSM.AnnHTTPActivityHandler;
 import ExternalServiceLayerPSM.AnnJavaAlgoController;
@@ -36,12 +28,6 @@ import ExternalServiceLayerPSM.QueryParam;
 import ExternalServiceLayerPSM.Representation;
 
 import RESTfulServicePSM.RESTfulServicePSMPackage;
-
-import RESTfulServicePSM.impl.RESTfulServicePSMPackageImpl;
-
-import SearchLayerPSM.SearchLayerPSMPackage;
-
-import SearchLayerPSM.impl.SearchLayerPSMPackageImpl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -257,25 +243,14 @@ public class ExternalServiceLayerPSMPackageImpl extends EPackageImpl implements 
 
 		isInited = true;
 
-		// Obtain or create and register interdependencies
-		AnnotationLayerStackPackageImpl theAnnotationLayerStackPackage = (AnnotationLayerStackPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AnnotationLayerStackPackage.eNS_URI) instanceof AnnotationLayerStackPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AnnotationLayerStackPackage.eNS_URI) : AnnotationLayerStackPackage.eINSTANCE);
-		AuthenticationLayerPSMPackageImpl theAuthenticationLayerPSMPackage = (AuthenticationLayerPSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AuthenticationLayerPSMPackage.eNS_URI) instanceof AuthenticationLayerPSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AuthenticationLayerPSMPackage.eNS_URI) : AuthenticationLayerPSMPackage.eINSTANCE);
-		RESTfulServicePSMPackageImpl theRESTfulServicePSMPackage = (RESTfulServicePSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RESTfulServicePSMPackage.eNS_URI) instanceof RESTfulServicePSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RESTfulServicePSMPackage.eNS_URI) : RESTfulServicePSMPackage.eINSTANCE);
-		SearchLayerPSMPackageImpl theSearchLayerPSMPackage = (SearchLayerPSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SearchLayerPSMPackage.eNS_URI) instanceof SearchLayerPSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SearchLayerPSMPackage.eNS_URI) : SearchLayerPSMPackage.eINSTANCE);
+		// Initialize simple dependencies
+		RESTfulServicePSMPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theExternalServiceLayerPSMPackage.createPackageContents();
-		theAnnotationLayerStackPackage.createPackageContents();
-		theAuthenticationLayerPSMPackage.createPackageContents();
-		theRESTfulServicePSMPackage.createPackageContents();
-		theSearchLayerPSMPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theExternalServiceLayerPSMPackage.initializePackageContents();
-		theAnnotationLayerStackPackage.initializePackageContents();
-		theAuthenticationLayerPSMPackage.initializePackageContents();
-		theRESTfulServicePSMPackage.initializePackageContents();
-		theSearchLayerPSMPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theExternalServiceLayerPSMPackage.freeze();

@@ -6,8 +6,8 @@ import AuthenticationLayerCIM.Annotation;
 import AuthenticationLayerCIM.AuthenticationLayerCIMPackage;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->

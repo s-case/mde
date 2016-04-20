@@ -50,18 +50,18 @@
      </page>
   </extension>
   <extension
-        point="org.eclipse.core.runtime.preferences">
-     <initializer
-           class="eu.scasefp7.eclipse.mde.ui.preferences.PreferenceInitializer">
-     </initializer>
-  </extension>
-  <extension
         point="org.eclipse.ui.preferencePages">
      <page
            category="eu.scasefp7.eclipse.core.ui.preferences.global"
            class="eu.scasefp7.eclipse.mde.ui.preferences.CodeGenerationPreferencePage"
            id="eu.scasefp7.eclipse.mde.ui.preferencePages.CodeGenerationPreferencePage"
            name="Code generation" />
+  </extension>
+  <extension
+        point="org.eclipse.core.runtime.preferences">
+     <initializer
+           class="eu.scasefp7.eclipse.mde.ui.preferences.PreferenceInitializer">
+     </initializer>
   </extension>
 
    <extension
@@ -93,51 +93,35 @@
             commandId="eu.scasefp7.eclipse.mde.ui.importMavenProject">
       </handler>
    </extension>
-   <!--
    <extension
-         point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-      <propertyContributor
-            contributorId="org.eclipse.ui.navigator.ProjectExplorer"
-            tabDescriptorProvider="eu.scasefp7.eclipse.core.ui.properties.TabDescriptionProvider">
-         <propertyCategory></propertyCategory>
-      </propertyContributor>
-   </extension>
--->
-<extension
-          point="org.eclipse.core.runtime.adapters">
-       <factory
-             adaptableType="org.eclipse.ui.navigator.resources.ProjectExplorer"
-            class="eu.scasefp7.eclipse.mde.ui.properties.TabbedPropertySheetAdapterFactory">
-         <adapter type="org.eclipse.ui.views.properties.IPropertySheetPage"/>
-      </factory>
-    </extension>
-    <extension
           point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
        <propertyContributor
              contributorId="org.eclipse.ui.navigator.ProjectExplorer">
-          <propertyCategory category="mde"/>
+          <propertyCategory category="eu.scasefp7.eclipse.category"/>
        </propertyContributor>
     </extension>
     <extension
           point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
        <propertyTabs contributorId="org.eclipse.ui.navigator.ProjectExplorer">
           <propertyTab
-                category="mde"
-                id="CommonNavigator.tab.Resource3"
-                image="icons/s-case_16x16.png"
+                category="eu.scasefp7.eclipse.category"
+                id="eu.scasefp7.eclipse.mde.ui.properties.codegentab"
+                image="icons/s-case_16.png"
                 label="Code generation">
           </propertyTab>
        </propertyTabs>
     </extension>
+
     <extension
           point="org.eclipse.ui.views.properties.tabbed.propertySections">
        <propertySections contributorId="org.eclipse.ui.navigator.ProjectExplorer">
           <propertySection
                 class="eu.scasefp7.eclipse.mde.ui.preferences.CodeGenerationPropertySection"
-                id="CommonNavigator.section.Resource3"
-                tab="CommonNavigator.tab.Resource3">
-             <input type="java.lang.Object"/>
+                id="eu.scasefp7.eclipse.mde.ui.properties.codegensection"
+                tab="eu.scasefp7.eclipse.mde.ui.properties.codegentab">
+             <input type="org.eclipse.core.resources.IResource"/>
           </propertySection>
        </propertySections>
     </extension>
+-->
 </plugin>

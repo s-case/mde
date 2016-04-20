@@ -2,10 +2,6 @@
  */
 package ServiceCIM.impl;
 
-import AuthenticationLayerCIM.AuthenticationLayerCIMPackage;
-
-import AuthenticationLayerCIM.impl.AuthenticationLayerCIMPackageImpl;
-
 import ServiceCIM.CRUDActivity;
 import ServiceCIM.CRUDVerb;
 import ServiceCIM.InputRepresentation;
@@ -137,16 +133,11 @@ public class ServiceCIMPackageImpl extends EPackageImpl implements ServiceCIMPac
 
 		isInited = true;
 
-		// Obtain or create and register interdependencies
-		AuthenticationLayerCIMPackageImpl theAuthenticationLayerCIMPackage = (AuthenticationLayerCIMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AuthenticationLayerCIMPackage.eNS_URI) instanceof AuthenticationLayerCIMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AuthenticationLayerCIMPackage.eNS_URI) : AuthenticationLayerCIMPackage.eINSTANCE);
-
 		// Create package meta-data objects
 		theServiceCIMPackage.createPackageContents();
-		theAuthenticationLayerCIMPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theServiceCIMPackage.initializePackageContents();
-		theAuthenticationLayerCIMPackage.initializePackageContents();
 
 		// Register package validator
 		EValidator.Registry.INSTANCE.put
@@ -423,6 +414,15 @@ public class ServiceCIMPackageImpl extends EPackageImpl implements ServiceCIMPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getRESTfulServiceCIM_ServiceDatabaseType() {
+		return (EAttribute)resTfulServiceCIMEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getMediaType() {
 		return mediaTypeEEnum;
 	}
@@ -497,6 +497,7 @@ public class ServiceCIMPackageImpl extends EPackageImpl implements ServiceCIMPac
 		createEAttribute(resTfulServiceCIMEClass, RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_PORT);
 		createEAttribute(resTfulServiceCIMEClass, RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_USERNAME);
 		createEAttribute(resTfulServiceCIMEClass, RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_PASSWORD);
+		createEAttribute(resTfulServiceCIMEClass, RES_TFUL_SERVICE_CIM__SERVICE_DATABASE_TYPE);
 
 		// Create enums
 		mediaTypeEEnum = createEEnum(MEDIA_TYPE);
@@ -566,6 +567,7 @@ public class ServiceCIMPackageImpl extends EPackageImpl implements ServiceCIMPac
 		initEAttribute(getRESTfulServiceCIM_ServiceDatabasePort(), ecorePackage.getEString(), "serviceDatabasePort", null, 1, 1, RESTfulServiceCIM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRESTfulServiceCIM_ServiceDatabaseUsername(), ecorePackage.getEString(), "serviceDatabaseUsername", null, 1, 1, RESTfulServiceCIM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRESTfulServiceCIM_ServiceDatabasePassword(), ecorePackage.getEString(), "serviceDatabasePassword", null, 1, 1, RESTfulServiceCIM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRESTfulServiceCIM_ServiceDatabaseType(), ecorePackage.getEString(), "serviceDatabaseType", null, 1, 1, RESTfulServiceCIM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(mediaTypeEEnum, MediaType.class, "MediaType");

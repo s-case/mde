@@ -19,14 +19,10 @@ public interface RESTfulServiceCIMValidator {
 
 	boolean validateName(String value);
 	boolean validateHasResources(EList<Resource> value);
-
 	boolean validateServiceOutputPath(String value);
-
 	boolean validateServiceDatabaseIP(String value);
-
 	boolean validateServiceDatabasePort(String value);
-
 	boolean validateServiceDatabaseUsername(String value);
-
 	boolean validateServiceDatabasePassword(String value);
+	boolean validateServiceDatabaseType(String value);
 }

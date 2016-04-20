@@ -5,7 +5,6 @@
 package AuthenticationLayerCIM.validation;
 
 import AuthenticationLayerCIM.AnnCRUDActivity;
-import AuthenticationLayerCIM.CRUDActivity;
 
 /**
  * A sample validator interface for {@link AuthenticationLayerCIM.AuthenticationMode}.
@@ -17,6 +16,4 @@ public interface AuthenticationModeValidator {
 	boolean validate();
 
 	boolean validateCRUDActivityAuthenticationMode(AnnCRUDActivity value);
-
-	boolean validateCRUDActivityAuthenticationMode(CRUDActivity value);
 }

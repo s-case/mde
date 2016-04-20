@@ -5,7 +5,6 @@
 package AuthenticationLayerCIM.validation;
 
 import AuthenticationLayerCIM.AnnProperty;
-import AuthenticationLayerCIM.Property;
 
 /**
  * A sample validator interface for {@link AuthenticationLayerCIM.AuthenticationToken}.
@@ -16,10 +15,8 @@ import AuthenticationLayerCIM.Property;
 public interface AuthenticationTokenValidator {
 	boolean validate();
 
-	boolean validatePropertyAuthenticationToken(Property value);
 	boolean validateName(String value);
 	boolean validateType(String value);
 	boolean validateBIsUnique(boolean value);
-
 	boolean validatePropertyAuthenticationToken(AnnProperty value);
 }

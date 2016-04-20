@@ -302,6 +302,7 @@ rule PIMToPSMService{
 			serviceDatabasePort <- PIMService.serviceDatabasePort,
 			serviceDatabaseUsername <- PIMService.serviceDatabaseUsername,
 			serviceDatabasePassword <- PIMService.serviceDatabasePassword,
+			serviceDatabaseType     <- PIMService.serviceDatabaseType,
 			hasJavaRModel <- PIMService.hasResourceModel->collect(PIMResourceModel | thisModule.createJavaRModel(PIMResourceModel)),
 			hasJavaRController <- PIMService.hasResourceController->collect(PIMResourceController | thisModule.createJavaRController(PIMResourceController)),
 			hasJavaRCManager <- PIMService.hasResourceControllerManager->collect(PIMRCManager | thisModule.createJavaRCManager(PIMRCManager)),
@@ -432,7 +433,7 @@ unique lazy rule createPSMComponentProperty{
 											  then
 											  		Sequence{thisModule.createHibernateAnnotation('@Id'), 
 															 thisModule.createHibernateAnnotation('@GeneratedValue'),
-															 thisModule.createHibernateAnnotation('@Column(name = "' + PIMComponentProperty.name + '")')}
+															 thisModule.createHibernateAnnotation('@Column(name = "\\"' + PIMComponentProperty.name.toLower() + '\\"")')}
 											  else
 											  		if PIMComponentProperty.name = 'linklist'-- if this is a linklist property
 													then
@@ -440,11 +441,11 @@ unique lazy rule createPSMComponentProperty{
 													else
 														if PIMComponentProperty.isUnique = true
 														then
-															thisModule.createHibernateAnnotation('@Column(name = "' + PIMComponentProperty.name + '")')
+															thisModule.createHibernateAnnotation('@Column(name = "\\"' + PIMComponentProperty.name.toLower() + '\\"")')
 														else
 											  				Sequence{thisModule.createHibernateAnnotation('@ElementCollection(fetch = FetchType.EAGER)'),
 																	 thisModule.createHibernateAnnotation('@CollectionTable(name="' + PIMComponentProperty.getResourceByProperty->at(1).parentName + PIMComponentProperty.name +'", joinColumns=@JoinColumn(name="' + PIMComponentProperty.getResourceByProperty->at(1).getResourcePrimaryIdentifier->at(1).name + '"))'),
-																	 thisModule.createHibernateAnnotation('@Column(name = "' + PIMComponentProperty.name + '")'),
+																	 thisModule.createHibernateAnnotation('@Column(name = "\\"' + PIMComponentProperty.name.toLower() + '\\"")'),
 																	 thisModule.createHibernateAnnotation('@ForeignKey(name = "fk_' + PIMComponentProperty.getResourceByProperty->at(1).parentName + '_' + PIMComponentProperty.name + '")')}
 											  			endif
 													endif
