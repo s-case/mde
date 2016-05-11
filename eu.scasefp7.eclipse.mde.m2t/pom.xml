@@ -13,7 +13,6 @@
 	<packaging>eclipse-plugin</packaging>
 
 	<build>
-	<pluginManagement>
 	   <plugins>
 	     <plugin>
 	       <groupId>org.eclipse.acceleo</groupId>
@@ -52,7 +51,6 @@
 	       </configuration>
 	     </plugin>
 	   </plugins>
-	   </pluginManagement>
 	 </build>
 
 	<dependencies>

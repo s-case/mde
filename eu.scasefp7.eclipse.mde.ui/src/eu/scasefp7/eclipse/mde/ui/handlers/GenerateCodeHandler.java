@@ -59,7 +59,6 @@ public class GenerateCodeHandler extends AbstractHandler {
     // Ontology
     private static final String CMD_STATIC = "eu.scasefp7.eclipse.core.commands.compileStaticRequirements"; //$NON-NLS-1$
     private static final String CMD_DYNAMIC = "eu.scasefp7.eclipse.core.commands.compileDynamicRequirements"; //$NON-NLS-1$
-    private static final String CMD_COMPOSITION = "eu.scasefp7.eclipse.core.commands.compileServiceCompositions"; //$NON-NLS-1$
     private static final String CMD_LINK = "eu.scasefp7.eclipse.core.commands.linkOntologies"; //$NON-NLS-1$
     private static final String CMD_YAML = "eu.scasefp7.eclipse.core.commands.exportToYaml"; //$NON-NLS-1$
     
@@ -89,7 +88,7 @@ public class GenerateCodeHandler extends AbstractHandler {
         if(project == null) {
             return null;
         }
-       
+        
         // Get the preferences
         @SuppressWarnings("unchecked")
         Map<String, String> mdePreferences = getCoreMDEPreferences(project, event.getParameters());
@@ -111,7 +110,6 @@ public class GenerateCodeHandler extends AbstractHandler {
             for(Map.Entry<String, String> entry : mdePreferences.entrySet()) {
                 IParameter p = commandCIM.getParameter(entry.getKey());
                 if(p != null) {
-                	Activator.TRACE.trace("/codegen/parameters", "Parameter: " + entry.getKey()+ ", value: " + entry.getValue());
                     Parameterization param = new Parameterization(p, entry.getValue());
                     params.add(param);
                 } else {
@@ -123,7 +121,6 @@ public class GenerateCodeHandler extends AbstractHandler {
             for(Map.Entry<String, String> entry : mdePreferences.entrySet()) {
                 IParameter p = commandImport.getParameter(entry.getKey());
                 if(p != null) {
-                	Activator.TRACE.trace("/codegen/parameters", "Parameter: " + entry.getKey()+ ", value: " + entry.getValue());
                     Parameterization param = new Parameterization(p, entry.getValue());
                     paramsImport.add(param);
                 } else {
@@ -156,19 +153,9 @@ public class GenerateCodeHandler extends AbstractHandler {
                             }
                             
                             try {
-                            	Activator.TRACE.trace("/codegen", "Compiling static requirements");
                                 handlerService.executeCommand(CMD_STATIC, null);
-                                
-                                Activator.TRACE.trace("/codegen", "Compiling dynamic requirements");
                                 handlerService.executeCommand(CMD_DYNAMIC, null);
-                                
-                                Activator.TRACE.trace("/codegen", "Linking ontologies");
                                 handlerService.executeCommand(CMD_LINK, null);
-                                
-                                Activator.TRACE.trace("/codegen", "Adding service compositions");
-                                handlerService.executeCommand(CMD_COMPOSITION, null);
-                                
-                                Activator.TRACE.trace("/codegen", "Exporting to YAML");
                                 handlerService.executeCommand(CMD_YAML, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
                                 if(e.getCause()!=null && e.getCause().getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
@@ -195,7 +182,6 @@ public class GenerateCodeHandler extends AbstractHandler {
                             }
                             
                             try {
-                            	Activator.TRACE.trace("/codegen", "Executing CIM generator");
                                 handlerService.executeCommand(parametrizedCommandCIM, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
                                 if(e.getCause().getClass().getName().endsWith(CANCEL_EX_CLASSNAME)) {
@@ -222,7 +208,6 @@ public class GenerateCodeHandler extends AbstractHandler {
                             }
                             
                             try {
-                            	Activator.TRACE.trace("/codegen", "Executing M2M transformation");
                                 handlerService.executeCommand(parametrizedCommandM2M, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
                                 Activator.log("Failed to execute M2M transformation.", e);
@@ -245,7 +230,6 @@ public class GenerateCodeHandler extends AbstractHandler {
                             }
                             
                             try {
-                            	Activator.TRACE.trace("/codegen", "Executing annotator");
                                 handlerService.executeCommand(parametrizedCommandANN, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
                                 Activator.log("Failed to execute annotator.", e);
@@ -268,7 +252,6 @@ public class GenerateCodeHandler extends AbstractHandler {
                             }
                             
                             try {
-                            	Activator.TRACE.trace("/codegen", "Executing M2T generator");
                                 handlerService.executeCommand(parametrizedCommandM2T, null);
                             } catch (ExecutionException | NotDefinedException | NotEnabledException | NotHandledException e) {
                                 Activator.log("Failed to execute M2T generator.", e);
@@ -336,7 +319,6 @@ public class GenerateCodeHandler extends AbstractHandler {
                                     && shouldRun.equals("yes")) {
                                 monitor.beginTask("Importing generated project", 1);
                                 try {
-                                	Activator.TRACE.trace("/codegen", "Importing generated Maven project");
                                     handlerService.executeCommand(parametrizedCommandImport, null);
                                 } catch (ExecutionException | NotDefinedException | NotEnabledException
                                         | NotHandledException e) {
@@ -405,4 +387,3 @@ public class GenerateCodeHandler extends AbstractHandler {
     }
     
 }
-
