@@ -59,6 +59,7 @@ public class GenerateCodeHandler extends AbstractHandler {
     // Ontology
     private static final String CMD_STATIC = "eu.scasefp7.eclipse.core.commands.compileStaticRequirements"; //$NON-NLS-1$
     private static final String CMD_DYNAMIC = "eu.scasefp7.eclipse.core.commands.compileDynamicRequirements"; //$NON-NLS-1$
+    private static final String CMD_COMPOSITION = "eu.scasefp7.eclipse.core.commands.compileServiceCompositions"; //$NON-NLS-1$
     private static final String CMD_LINK = "eu.scasefp7.eclipse.core.commands.linkOntologies"; //$NON-NLS-1$
     private static final String CMD_YAML = "eu.scasefp7.eclipse.core.commands.exportToYaml"; //$NON-NLS-1$
     
@@ -163,6 +164,9 @@ public class GenerateCodeHandler extends AbstractHandler {
                                 
                                 Activator.TRACE.trace("/codegen", "Linking ontologies");
                                 handlerService.executeCommand(CMD_LINK, null);
+                                
+                                Activator.TRACE.trace("/codegen", "Adding service compositions");
+                                handlerService.executeCommand(CMD_COMPOSITION, null);
                                 
                                 Activator.TRACE.trace("/codegen", "Exporting to YAML");
                                 handlerService.executeCommand(CMD_YAML, null);
