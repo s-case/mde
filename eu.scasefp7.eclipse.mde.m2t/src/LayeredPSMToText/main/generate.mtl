@@ -18,6 +18,7 @@
 [import LayeredPSMToText::files::javaPersistenceUtil /]
 [import LayeredPSMToText::files::javaLuceneStringSetBridge /]
 [import LayeredPSMToText::files::persistenceXML /]
+[import LayeredPSMToText::files::javaAuthorizationFiles /]
 
 [template public generateElement(anAnnotationStack : AnnotationStack)]
 [comment @main/]
@@ -40,5 +41,7 @@
 [javaLuceneStringSetBridge() /]
 [persistenceXML() /]
 [/if]
-
+[if (anAnnotationStack.bHasAuthorizationLayer)]
+[javaAuthorizationFiles() /]
+[/if]
 [/template]

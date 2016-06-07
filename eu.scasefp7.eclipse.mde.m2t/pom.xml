@@ -44,6 +44,7 @@
 <!-- 	           <packageToRegister>org.eclipse.emf.ecore.EcorePackage</packageToRegister> -->
 	           <packageToRegister>AnnotationLayerStack.AnnotationLayerStackPackage</packageToRegister>
 	           <packageToRegister>AuthenticationLayerPSM.AuthenticationLayerPSMPackage</packageToRegister>
+               <packageToRegister>AuthorizationLayerPSM.AuthorizationLayerPSMPackage</packageToRegister>
 	           <packageToRegister>SearchLayerPSM.SearchLayerPSMPackage</packageToRegister>
 	           <packageToRegister>ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage</packageToRegister>
 	           <packageToRegister>RESTfulServicePSM.RESTfulServicePSMPackage</packageToRegister>

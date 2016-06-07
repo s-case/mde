@@ -6,7 +6,7 @@
 
 [file (anAnnotationStack.hasCorePSM.name  + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/utilities/JAXRSPublisher.java' , false, 'UTF-8')]
 /*
- * ARISTOSTLE UNIVERSITY OF THESSALONIKI
+ * ARISTOTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015
  * Aristotle University of Thessaloniki
  * Department of Electrical & Computer Engineering

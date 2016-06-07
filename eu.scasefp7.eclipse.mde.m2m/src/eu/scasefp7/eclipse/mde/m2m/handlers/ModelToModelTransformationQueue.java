@@ -7,6 +7,8 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.m2m.atl.AuthenticationCIMToPIM.files.AuthenticationCIMToPIMTransformation;
 import org.eclipse.m2m.atl.AuthenticationPIMToPSMTransformation.files.AuthenticationPIMToPSMTransformation;
+import org.eclipse.m2m.atl.AuthorizationCIMToPIM.files.ABACAuthorizationCIMToPIMTransformation;
+import org.eclipse.m2m.atl.AuthorizationPIMToPSM.files.ABACAuthorizationPIMToPSMTransformation;
 import org.eclipse.m2m.atl.CoreCIMToPIM.files.CIMToPIMTransformation;
 import org.eclipse.m2m.atl.CorePIMToPSM.files.PIMToPSMTransformation;
 import org.eclipse.m2m.atl.DatabaseSearchingCIMToPIM.files.SearchLayerCIMToPIMTransformation;
@@ -42,6 +44,11 @@ public class ModelToModelTransformationQueue extends AbstractHandler {
 				if(event.getParameter("Authentication").equalsIgnoreCase("yes")){
 					exucuteAuthenticationModelToModelTransformations(event);
 				}
+                
+                //execute Authorization Layer M2M transformations
+                if(event.getParameter("Authorization").equalsIgnoreCase("yes")){
+                    executeAuthorizationModelToModelTransformations(event);
+                }
 				
 				//execute Database Searching Layer M2M transformations
 				if(event.getParameter("DatabaseSearching").equalsIgnoreCase("yes")){
@@ -103,6 +110,29 @@ public class ModelToModelTransformationQueue extends AbstractHandler {
 		strInputArguments[3] = "file:/" + event.getParameter("MDEOutputFolder") + "/PSMModels/" + event.getParameter("WebServiceName") + "AuthenticationPSM.xmi";
 		AuthenticationPIMToPSMTransformation.main(strInputArguments);
 	}
+    
+    private void executeAuthorizationModelToModelTransformations(ExecutionEvent event) {
+        executeAuthorizationCIMToPIMTransformation(event);
+        executeAuthorizationPIMToPSMTransformation(event);
+    }
+    
+    private void executeAuthorizationCIMToPIMTransformation(ExecutionEvent event) {
+        String[] strInputArguments = new String[4];
+        strInputArguments[0] = "file:/" + event.getParameter("MDEOutputFolder") + "/CIMModels/" + event.getParameter("WebServiceName") + "ABACAuthorizationCIM.xmi";
+        strInputArguments[1] = "file:/" + event.getParameter("MDEOutputFolder") + "/CIMModels/" + event.getParameter("WebServiceName") + "CIM.xmi";
+        strInputArguments[2] = "file:/" + event.getParameter("MDEOutputFolder") + "/PIMModels/" + event.getParameter("WebServiceName") + "PIM.xmi";
+        strInputArguments[3] = "file:/" + event.getParameter("MDEOutputFolder") + "/PIMModels/" + event.getParameter("WebServiceName") + "ABACAuthorizationPIM.xmi";
+        ABACAuthorizationCIMToPIMTransformation.main(strInputArguments);
+    }
+    
+    private void executeAuthorizationPIMToPSMTransformation(ExecutionEvent event) {
+        String[] strInputArguments = new String[4];
+        strInputArguments[0] = "file:/" + event.getParameter("MDEOutputFolder") + "/PIMModels/" + event.getParameter("WebServiceName") + "ABACAuthorizationPIM.xmi";
+        strInputArguments[1] = "file:/" + event.getParameter("MDEOutputFolder") + "/PIMModels/" + event.getParameter("WebServiceName") + "PIM.xmi";
+        strInputArguments[2] = "file:/" + event.getParameter("MDEOutputFolder") + "/PSMModels/" + event.getParameter("WebServiceName") + "PSM.xmi";
+        strInputArguments[3] = "file:/" + event.getParameter("MDEOutputFolder") + "/PSMModels/" + event.getParameter("WebServiceName") + "ABACAuthorizationPSM.xmi";
+        ABACAuthorizationPIMToPSMTransformation.main(strInputArguments);
+    }
 	
 	private void executeDatabaseSearchingModelToModelTransformations(ExecutionEvent event){
 		executeDatabaseSearchingCIMToPIMTransformation(event);

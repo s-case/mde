@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AnnotationLayerStack.AnnotationStack#getHasAuthenticationLayer <em>Has Authentication Layer</em>}</li>
  *   <li>{@link AnnotationLayerStack.AnnotationStack#isBHasAuthenticationAnnotation <em>BHas Authentication Annotation</em>}</li>
@@ -23,8 +24,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link AnnotationLayerStack.AnnotationStack#isBHasSearchLayer <em>BHas Search Layer</em>}</li>
  *   <li>{@link AnnotationLayerStack.AnnotationStack#isBHasExternalServiceLayer <em>BHas External Service Layer</em>}</li>
  *   <li>{@link AnnotationLayerStack.AnnotationStack#getHasExternalServiceLayer <em>Has External Service Layer</em>}</li>
+ *   <li>{@link AnnotationLayerStack.AnnotationStack#getHasAuthorizationLayer <em>Has Authorization Layer</em>}</li>
+ *   <li>{@link AnnotationLayerStack.AnnotationStack#isBHasAuthorizationLayer <em>BHas Authorization Layer</em>}</li>
  * </ul>
- * </p>
  *
  * @see AnnotationLayerStack.AnnotationLayerStackPackage#getAnnotationStack()
  * @model
@@ -212,5 +214,57 @@ public interface AnnotationStack extends EObject {
 	 * @generated
 	 */
 	void setHasExternalServiceLayer(ExternalServiceLayerPSM.AnnotationModel value);
+
+	/**
+	 * Returns the value of the '<em><b>Has Authorization Layer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Has Authorization Layer</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Has Authorization Layer</em>' reference.
+	 * @see #setHasAuthorizationLayer(AuthorizationLayerPSM.AnnotationModel)
+	 * @see AnnotationLayerStack.AnnotationLayerStackPackage#getAnnotationStack_HasAuthorizationLayer()
+	 * @model
+	 * @generated
+	 */
+	AuthorizationLayerPSM.AnnotationModel getHasAuthorizationLayer();
+
+	/**
+	 * Sets the value of the '{@link AnnotationLayerStack.AnnotationStack#getHasAuthorizationLayer <em>Has Authorization Layer</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Has Authorization Layer</em>' reference.
+	 * @see #getHasAuthorizationLayer()
+	 * @generated
+	 */
+	void setHasAuthorizationLayer(AuthorizationLayerPSM.AnnotationModel value);
+
+	/**
+	 * Returns the value of the '<em><b>BHas Authorization Layer</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>BHas Authorization Layer</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>BHas Authorization Layer</em>' attribute.
+	 * @see #setBHasAuthorizationLayer(boolean)
+	 * @see AnnotationLayerStack.AnnotationLayerStackPackage#getAnnotationStack_BHasAuthorizationLayer()
+	 * @model
+	 * @generated
+	 */
+	boolean isBHasAuthorizationLayer();
+
+	/**
+	 * Sets the value of the '{@link AnnotationLayerStack.AnnotationStack#isBHasAuthorizationLayer <em>BHas Authorization Layer</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>BHas Authorization Layer</em>' attribute.
+	 * @see #isBHasAuthorizationLayer()
+	 * @generated
+	 */
+	void setBHasAuthorizationLayer(boolean value);
 
 } // AnnotationStack

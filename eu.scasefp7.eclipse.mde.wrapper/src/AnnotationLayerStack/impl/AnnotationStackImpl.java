@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AnnotationLayerStack.impl.AnnotationStackImpl#getHasAuthenticationLayer <em>Has Authentication Layer</em>}</li>
  *   <li>{@link AnnotationLayerStack.impl.AnnotationStackImpl#isBHasAuthenticationAnnotation <em>BHas Authentication Annotation</em>}</li>
@@ -31,8 +32,9 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link AnnotationLayerStack.impl.AnnotationStackImpl#isBHasSearchLayer <em>BHas Search Layer</em>}</li>
  *   <li>{@link AnnotationLayerStack.impl.AnnotationStackImpl#isBHasExternalServiceLayer <em>BHas External Service Layer</em>}</li>
  *   <li>{@link AnnotationLayerStack.impl.AnnotationStackImpl#getHasExternalServiceLayer <em>Has External Service Layer</em>}</li>
+ *   <li>{@link AnnotationLayerStack.impl.AnnotationStackImpl#getHasAuthorizationLayer <em>Has Authorization Layer</em>}</li>
+ *   <li>{@link AnnotationLayerStack.impl.AnnotationStackImpl#isBHasAuthorizationLayer <em>BHas Authorization Layer</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -136,6 +138,36 @@ public class AnnotationStackImpl extends MinimalEObjectImpl.Container implements
 	 * @ordered
 	 */
 	protected ExternalServiceLayerPSM.AnnotationModel hasExternalServiceLayer;
+
+	/**
+	 * The cached value of the '{@link #getHasAuthorizationLayer() <em>Has Authorization Layer</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHasAuthorizationLayer()
+	 * @generated
+	 * @ordered
+	 */
+	protected AuthorizationLayerPSM.AnnotationModel hasAuthorizationLayer;
+
+	/**
+	 * The default value of the '{@link #isBHasAuthorizationLayer() <em>BHas Authorization Layer</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isBHasAuthorizationLayer()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean BHAS_AUTHORIZATION_LAYER_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isBHasAuthorizationLayer() <em>BHas Authorization Layer</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isBHasAuthorizationLayer()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean bHasAuthorizationLayer = BHAS_AUTHORIZATION_LAYER_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -376,6 +408,65 @@ public class AnnotationStackImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AuthorizationLayerPSM.AnnotationModel getHasAuthorizationLayer() {
+		if (hasAuthorizationLayer != null && hasAuthorizationLayer.eIsProxy()) {
+			InternalEObject oldHasAuthorizationLayer = (InternalEObject)hasAuthorizationLayer;
+			hasAuthorizationLayer = (AuthorizationLayerPSM.AnnotationModel)eResolveProxy(oldHasAuthorizationLayer);
+			if (hasAuthorizationLayer != oldHasAuthorizationLayer) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AnnotationLayerStackPackage.ANNOTATION_STACK__HAS_AUTHORIZATION_LAYER, oldHasAuthorizationLayer, hasAuthorizationLayer));
+			}
+		}
+		return hasAuthorizationLayer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AuthorizationLayerPSM.AnnotationModel basicGetHasAuthorizationLayer() {
+		return hasAuthorizationLayer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHasAuthorizationLayer(AuthorizationLayerPSM.AnnotationModel newHasAuthorizationLayer) {
+		AuthorizationLayerPSM.AnnotationModel oldHasAuthorizationLayer = hasAuthorizationLayer;
+		hasAuthorizationLayer = newHasAuthorizationLayer;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AnnotationLayerStackPackage.ANNOTATION_STACK__HAS_AUTHORIZATION_LAYER, oldHasAuthorizationLayer, hasAuthorizationLayer));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isBHasAuthorizationLayer() {
+		return bHasAuthorizationLayer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBHasAuthorizationLayer(boolean newBHasAuthorizationLayer) {
+		boolean oldBHasAuthorizationLayer = bHasAuthorizationLayer;
+		bHasAuthorizationLayer = newBHasAuthorizationLayer;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AnnotationLayerStackPackage.ANNOTATION_STACK__BHAS_AUTHORIZATION_LAYER, oldBHasAuthorizationLayer, bHasAuthorizationLayer));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -397,6 +488,11 @@ public class AnnotationStackImpl extends MinimalEObjectImpl.Container implements
 			case AnnotationLayerStackPackage.ANNOTATION_STACK__HAS_EXTERNAL_SERVICE_LAYER:
 				if (resolve) return getHasExternalServiceLayer();
 				return basicGetHasExternalServiceLayer();
+			case AnnotationLayerStackPackage.ANNOTATION_STACK__HAS_AUTHORIZATION_LAYER:
+				if (resolve) return getHasAuthorizationLayer();
+				return basicGetHasAuthorizationLayer();
+			case AnnotationLayerStackPackage.ANNOTATION_STACK__BHAS_AUTHORIZATION_LAYER:
+				return isBHasAuthorizationLayer();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -429,6 +525,12 @@ public class AnnotationStackImpl extends MinimalEObjectImpl.Container implements
 				return;
 			case AnnotationLayerStackPackage.ANNOTATION_STACK__HAS_EXTERNAL_SERVICE_LAYER:
 				setHasExternalServiceLayer((ExternalServiceLayerPSM.AnnotationModel)newValue);
+				return;
+			case AnnotationLayerStackPackage.ANNOTATION_STACK__HAS_AUTHORIZATION_LAYER:
+				setHasAuthorizationLayer((AuthorizationLayerPSM.AnnotationModel)newValue);
+				return;
+			case AnnotationLayerStackPackage.ANNOTATION_STACK__BHAS_AUTHORIZATION_LAYER:
+				setBHasAuthorizationLayer((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -463,6 +565,12 @@ public class AnnotationStackImpl extends MinimalEObjectImpl.Container implements
 			case AnnotationLayerStackPackage.ANNOTATION_STACK__HAS_EXTERNAL_SERVICE_LAYER:
 				setHasExternalServiceLayer((ExternalServiceLayerPSM.AnnotationModel)null);
 				return;
+			case AnnotationLayerStackPackage.ANNOTATION_STACK__HAS_AUTHORIZATION_LAYER:
+				setHasAuthorizationLayer((AuthorizationLayerPSM.AnnotationModel)null);
+				return;
+			case AnnotationLayerStackPackage.ANNOTATION_STACK__BHAS_AUTHORIZATION_LAYER:
+				setBHasAuthorizationLayer(BHAS_AUTHORIZATION_LAYER_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -489,6 +597,10 @@ public class AnnotationStackImpl extends MinimalEObjectImpl.Container implements
 				return bHasExternalServiceLayer != BHAS_EXTERNAL_SERVICE_LAYER_EDEFAULT;
 			case AnnotationLayerStackPackage.ANNOTATION_STACK__HAS_EXTERNAL_SERVICE_LAYER:
 				return hasExternalServiceLayer != null;
+			case AnnotationLayerStackPackage.ANNOTATION_STACK__HAS_AUTHORIZATION_LAYER:
+				return hasAuthorizationLayer != null;
+			case AnnotationLayerStackPackage.ANNOTATION_STACK__BHAS_AUTHORIZATION_LAYER:
+				return bHasAuthorizationLayer != BHAS_AUTHORIZATION_LAYER_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -509,6 +621,8 @@ public class AnnotationStackImpl extends MinimalEObjectImpl.Container implements
 		result.append(bHasSearchLayer);
 		result.append(", bHasExternalServiceLayer: ");
 		result.append(bHasExternalServiceLayer);
+		result.append(", bHasAuthorizationLayer: ");
+		result.append(bHasAuthorizationLayer);
 		result.append(')');
 		return result.toString();
 	}

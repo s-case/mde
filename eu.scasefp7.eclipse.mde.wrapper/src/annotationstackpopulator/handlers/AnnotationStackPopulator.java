@@ -3,6 +3,7 @@ package annotationstackpopulator.handlers;
 import AnnotationLayerStack.AnnotationStack;
 import AnnotationLayerStack.AnnotationLayerStackFactory;
 import AuthenticationLayerPSM.AuthenticationLayerPSMPackage;
+import AuthorizationLayerPSM.AuthorizationLayerPSMPackage;
 import ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage;
 
 import java.io.File;
@@ -38,6 +39,7 @@ public class AnnotationStackPopulator extends AbstractHandler {
 	
 	private ServicePSM oRESTfulServicePSM;
 	private AuthenticationLayerPSM.AnnotationModel oAuthenticationLayerPSM;
+	private AuthorizationLayerPSM.AnnotationModel oAuthorizationLayerPSM;
 	private SearchLayerPSM.AnnotationModel oSearchLayerPSM;
 	private ExternalServiceLayerPSM.AnnotationModel oExternalServiceLayerPSM;
 	private AnnotationStack oAnnotationStack;
@@ -79,6 +81,17 @@ public class AnnotationStackPopulator extends AbstractHandler {
 		}
 		else{
 			oAnnotationStack.setBHasAuthenticationAnnotation(false);
+		}
+		
+		//if there is an authorization layer to load, load it
+		
+		if(event.getParameter("Authorization").equalsIgnoreCase("yes")){
+			oAuthorizationLayerPSM = loadAuthorizationPSM(event.getParameter("MDEOutputFolder") + "/PSMModels/" + event.getParameter("WebServiceName") + "ABACAuthorizationPSM.xmi");
+			oAnnotationStack.setBHasAuthorizationLayer(true);
+			oAnnotationStack.setHasAuthorizationLayer(oAuthorizationLayerPSM);
+		}
+		else{
+			oAnnotationStack.setBHasAuthorizationLayer(false);
 		}
 		
 		//if there is a Search Layer to load, load it
@@ -168,6 +181,38 @@ public class AnnotationStackPopulator extends AbstractHandler {
 	    // Get the first model element and cast it to the right type, in my
 	    // example everything is hierarchical included in this first node
 	    AuthenticationLayerPSM.AnnotationModel oAnnotationModel = (AuthenticationLayerPSM.AnnotationModel) resource.getContents().get(0);
+	    return oAnnotationModel;
+	}
+	
+	private AuthorizationLayerPSM.AnnotationModel loadAuthorizationPSM(String strAuthorizationPSMPath){
+		
+		ResourceSet oResourceSet;
+		URI oURI;
+		
+		AuthorizationLayerPSMPackage.eINSTANCE.getClass();
+		
+		// Create a resource set.
+		oResourceSet = new ResourceSetImpl();
+
+		// Register the default resource factory -- only needed for stand-alone!
+		oResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(org.eclipse.emf.ecore.resource.Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+		
+		// Get the URI of the model file.
+		oURI = URI.createFileURI(new File(strAuthorizationPSMPath).getAbsolutePath());
+		out.println(oURI.devicePath());
+
+	    // Get the resource
+	    Resource resource = oResourceSet.getResource(oURI, true);
+	    
+	    try {
+			resource.load(null);
+		} catch (IOException e) {
+			Activator.log("Could not load Authorization PSM file", e);
+		}
+	    
+	    // Get the first model element and cast it to the right type, in my
+	    // example everything is hierarchical included in this first node
+	    AuthorizationLayerPSM.AnnotationModel oAnnotationModel = (AuthorizationLayerPSM.AnnotationModel) resource.getContents().get(0);
 	    return oAnnotationModel;
 	}
 

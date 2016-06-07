@@ -130,13 +130,31 @@ public interface AnnotationLayerStackPackage extends EPackage {
 	int ANNOTATION_STACK__HAS_EXTERNAL_SERVICE_LAYER = 6;
 
 	/**
+	 * The feature id for the '<em><b>Has Authorization Layer</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_STACK__HAS_AUTHORIZATION_LAYER = 7;
+
+	/**
+	 * The feature id for the '<em><b>BHas Authorization Layer</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_STACK__BHAS_AUTHORIZATION_LAYER = 8;
+
+	/**
 	 * The number of structural features of the '<em>Annotation Stack</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ANNOTATION_STACK_FEATURE_COUNT = 7;
+	int ANNOTATION_STACK_FEATURE_COUNT = 9;
 
 	/**
 	 * The number of operations of the '<em>Annotation Stack</em>' class.
@@ -236,6 +254,28 @@ public interface AnnotationLayerStackPackage extends EPackage {
 	EReference getAnnotationStack_HasExternalServiceLayer();
 
 	/**
+	 * Returns the meta object for the reference '{@link AnnotationLayerStack.AnnotationStack#getHasAuthorizationLayer <em>Has Authorization Layer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Has Authorization Layer</em>'.
+	 * @see AnnotationLayerStack.AnnotationStack#getHasAuthorizationLayer()
+	 * @see #getAnnotationStack()
+	 * @generated
+	 */
+	EReference getAnnotationStack_HasAuthorizationLayer();
+
+	/**
+	 * Returns the meta object for the attribute '{@link AnnotationLayerStack.AnnotationStack#isBHasAuthorizationLayer <em>BHas Authorization Layer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>BHas Authorization Layer</em>'.
+	 * @see AnnotationLayerStack.AnnotationStack#isBHasAuthorizationLayer()
+	 * @see #getAnnotationStack()
+	 * @generated
+	 */
+	EAttribute getAnnotationStack_BHasAuthorizationLayer();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -323,6 +363,22 @@ public interface AnnotationLayerStackPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ANNOTATION_STACK__HAS_EXTERNAL_SERVICE_LAYER = eINSTANCE.getAnnotationStack_HasExternalServiceLayer();
+
+		/**
+		 * The meta object literal for the '<em><b>Has Authorization Layer</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ANNOTATION_STACK__HAS_AUTHORIZATION_LAYER = eINSTANCE.getAnnotationStack_HasAuthorizationLayer();
+
+		/**
+		 * The meta object literal for the '<em><b>BHas Authorization Layer</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ANNOTATION_STACK__BHAS_AUTHORIZATION_LAYER = eINSTANCE.getAnnotationStack_BHasAuthorizationLayer();
 
 	}
 

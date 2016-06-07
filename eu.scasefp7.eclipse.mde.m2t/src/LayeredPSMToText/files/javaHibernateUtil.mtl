@@ -6,7 +6,7 @@
 
 [file (anAnnotationStack.hasCorePSM.name  + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/utilities/HibernateUtil.java', false, 'UTF-8')]
 /*
- * ARISTOSTLE UNIVERSITY OF THESSALONIKI
+ * ARISTOTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015
  * Aristotle University of Thessaloniki
  * Department of Electrical & Computer Engineering
@@ -37,6 +37,13 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jRModel.
 [if (anAnnotationStack.hasCorePSM.serviceDatabaseType = 'PostgreSQL')]
 import java.sql.*;
 [/if]
+[if (anAnnotationStack.bHasAuthorizationLayer)]
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.authorization.core.ResourceAccessAttribute;
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.authorization.core.ResourceAccessCondition;
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.authorization.core.ResourceAccessPolicy;
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.authorization.core.ResourceAccessPolicySet;
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.authorization.core.ResourceAccessRule;
+[/if]
 
 /* This class follows the singleton pattern in order to build once and provide a unique hibernate session instance*/
 
@@ -55,6 +62,13 @@ public class HibernateUtil{
 [for (jRModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel)]
 					.addAnnotatedClass([jRModel.name/].class)
 [/for]
+[if (anAnnotationStack.bHasAuthorizationLayer)]
+					.addAnnotatedClass(ResourceAccessPolicySet.class)
+					.addAnnotatedClass(ResourceAccessPolicy.class)
+					.addAnnotatedClass(ResourceAccessRule.class)
+					.addAnnotatedClass(ResourceAccessCondition.class)
+					.addAnnotatedClass(ResourceAccessAttribute.class)
+[/if]
                     .buildSessionFactory();
         }
         catch (Throwable ex){

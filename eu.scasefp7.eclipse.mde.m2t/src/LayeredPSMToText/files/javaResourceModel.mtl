@@ -1,13 +1,12 @@
 [comment encoding = UTF-8 /]
-[module javaResourceModel('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore','platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore')]
-
+[module javaResourceModel('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthorizationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore','platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore')]
 
 [template public javaResourceModel(anAnnotationStack : AnnotationStack)]
 
 [for (jRModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel)]
 [file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jRModel.parentName + '/' + jRModel.name + '.java', false, 'UTF-8')]
 /*
- * ARISTOSTLE UNIVERSITY OF THESSALONIKI
+ * ARISTOTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015
  * Aristotle University of Thessaloniki
  * Department of Electrical & Computer Engineering
@@ -38,7 +37,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Date;
 
-[if (jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | (property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@Transient') = -1) and (property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') = -1) and (property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') = -1) and (property.name <> 'linklist'))->exists(property : PSMComponentProperty | property.bIsUnique = false))]
+[if (anAnnotationStack.hasNonUniqueNewProperty(jRModel) or jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | (property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@Transient') = -1) and (property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') = -1) and (property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') = -1) and (property.name <> 'linklist'))->exists(property : PSMComponentProperty | property.bIsUnique = false))]
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 [/if]
@@ -47,13 +46,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-[if (jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') <> -1)->size() > 0)]
+[if (anAnnotationStack.bHasAuthorizationLayer or jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') <> -1)->size() > 0)]
 import javax.persistence.ManyToOne;
 [/if]
-[if (jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') <> -1 or property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ElementCollection') <> -1)->size() > 0 )]
+[if (anAnnotationStack.bHasAuthorizationLayer or anAnnotationStack.hasNonUniqueNewProperty(jRModel) or jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') <> -1 or property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ElementCollection') <> -1)->size() > 0 )]
 import javax.persistence.JoinColumn;
 [/if]
-[if (jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') <> -1)->size() > 0)]
+[if (anAnnotationStack.getAuthorizationSubjectModel() = jRModel or jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') <> -1)->size() > 0)]
 import javax.persistence.OneToMany;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -76,7 +75,7 @@ import org.hibernate.Query;
 ]
 import org.hibernate.Session;
 [/if]
-[if (jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ElementCollection') <> -1 or property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') <> -1)->size() > 0 )]
+[if (anAnnotationStack.bHasAuthorizationLayer or anAnnotationStack.hasNonUniqueNewProperty(jRModel) or jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ElementCollection') <> -1 or property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') <> -1)->size() > 0 )]
 import org.hibernate.annotations.ForeignKey;
 [/if]
 
@@ -86,6 +85,14 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jRRModel.parentName/].[jRRModel.name/];
 [/if]
 [/for]
+[if(anAnnotationStack.getAuthorizationSubjectModel() = jRModel)]
+[for(jRRModel : JavaResourceModel | anAnnotationStack.getTrackOwnershipResources(jRModel))]
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jRRModel.parentName/].[jRRModel.name/];
+[/for]
+[/if]
+[if(anAnnotationStack.bHasAuthorizationLayer)]
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[anAnnotationStack.getAuthorizationSubjectModel().parentName/].[anAnnotationStack.getAuthorizationSubjectModel().name/];
+[/if]
 [for (jPRModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel)]
 [if (jPRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRModel) and jPRModel <> jRModel)]
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jPRModel.parentName/].[jPRModel.name/];
@@ -161,6 +168,38 @@ public class [jRModel.name/]{
 	[/if]
 [/for]
 
+[if(anAnnotationStack.bHasAuthorizationLayer)]
+[if(jRModel = anAnnotationStack.getAuthorizationSubjectModel())]
+[for(jRM : JavaResourceModel | anAnnotationStack.getTrackOwnershipResources(jRModel))]
+		@OneToMany(fetch = FetchType.LAZY, mappedBy="[jRModel.parentName/]",orphanRemoval=true)
+		@OnDelete(action=OnDeleteAction.CASCADE)
+		private Set<[jRM.name/]> SetOf[jRM.name/] = new HashSet<[jRM.name/]>();
+
+[/for]
+[elseif(anAnnotationStack.getTrackOwnershipResources(anAnnotationStack.getAuthorizationSubjectModel())->exists(r|r=jRModel))]
+		@ManyToOne(fetch = FetchType.EAGER)
+		@JoinColumn(name="[anAnnotationStack.getAuthorizationSubjectModel().parentName/]Id")
+		@ForeignKey(name = "fk_[anAnnotationStack.getAuthorizationSubjectModel().parentName/]_[jRModel.parentName/]")
+		private [anAnnotationStack.getAuthorizationSubjectModel().name/] [anAnnotationStack.getAuthorizationSubjectModel().parentName/];
+
+[/if]	
+[for(aNewProperty : NewProperty | anAnnotationStack.getNewProperties(jRModel))]	
+		[if(aNewProperty.bIsUnique)]
+		@Column(name = "[aNewProperty.name/]")
+		private [aNewProperty.type/] [aNewProperty.name/];
+
+		[else]
+		@ElementCollection(fetch = FetchType.EAGER)
+		@CollectionTable(name="[jRModel.name/][aNewProperty.name/]", joinColumns=@JoinColumn(name="[jRModel.JavaRModelHasProperty->select(p | p.bIsPrimaryIdentifier)->first().name/]"))
+		@Column(name = "[aNewProperty.name/]")
+		@ForeignKey(name = "fk_[jRModel.parentName/]_[aNewProperty.name/]")
+		private Set<[if (aNewProperty.type.equalsIgnoreCase('int'))]Integer[elseif(aNewProperty.type.equalsIgnoreCase('double'))]Double[else][aNewProperty.type/][/if]> [aNewProperty.name/] = new HashSet<[if (aNewProperty.type.equalsIgnoreCase('int'))]Integer[elseif(aNewProperty.type.equalsIgnoreCase('double'))]Double[else][aNewProperty.type/][/if]>();
+		
+		[/if]
+[/for]
+[/if]
+
+
     /* There follows a list of setter and getter functions.*/
 [for (javaSetterFunction : JavaSetterFunction | jRModel.JavaRModelHasSetter)]
 	[if (javaSetterFunction.SetterFunctionHasJAXBAnnotation.oclIsUndefined() = false)]
@@ -181,6 +220,36 @@ public class [jRModel.name/]{
 	[/if]
 
 [/for]
+
+[if(anAnnotationStack.bHasAuthorizationLayer)]
+[if(jRModel = anAnnotationStack.getAuthorizationSubjectModel())]
+[for(jRM : JavaResourceModel | anAnnotationStack.getTrackOwnershipResources(jRModel))]
+		@XmlTransient
+		public void setSetOf[jRM.name/](Set<[jRM.name/]> SetOf[jRM.name/]){
+	    	this.SetOf[jRM.name/] = SetOf[jRM.name/];
+		}
+
+[/for]
+[elseif(anAnnotationStack.getTrackOwnershipResources(anAnnotationStack.getAuthorizationSubjectModel())->exists(r|r=jRModel))]
+		@XmlTransient
+		public void set[anAnnotationStack.getAuthorizationSubjectModel().parentName/]([anAnnotationStack.getAuthorizationSubjectModel().name/] [anAnnotationStack.getAuthorizationSubjectModel().parentName/]){
+	    	this.[anAnnotationStack.getAuthorizationSubjectModel().parentName/] = [anAnnotationStack.getAuthorizationSubjectModel().parentName/];
+		}
+
+[/if]	
+[for(aNewProperty : NewProperty | anAnnotationStack.getNewProperties(jRModel))]
+		[if(aNewProperty.bIsUnique)]
+		public void set[aNewProperty.name/]([aNewProperty.type/] [aNewProperty.name/]){
+	    	this.[aNewProperty.name/] = [aNewProperty.name/];
+		}
+		[else]
+		public void set[aNewProperty.name/](Set<[if (aNewProperty.type.equalsIgnoreCase('int'))]Integer[elseif (aNewProperty.type.equalsIgnoreCase('double'))]Double[else][aNewProperty.type/][/if]> [aNewProperty.name/]){
+	    	this.[aNewProperty.name/] = [aNewProperty.name/];
+		}
+		[/if]
+[/for]
+[/if]
+
 [for (javaGetterFunction : JavaGetterFunction | jRModel.JavaRModelHasGetter)]
 	[if (javaGetterFunction.hasFunctionParameter->at(1).name = 'linklist')]
 	    public List<[javaGetterFunction.hasFunctionParameter->at(1).type/]> [javaGetterFunction.name/](){
@@ -197,6 +266,31 @@ public class [jRModel.name/]{
 	[/if]
 
 [/for]
+
+[if(anAnnotationStack.bHasAuthorizationLayer)]
+[if(jRModel = anAnnotationStack.getAuthorizationSubjectModel())]
+[for(jRM : JavaResourceModel | anAnnotationStack.getTrackOwnershipResources(jRModel))]
+		public Set<[jRM.name/]> getSetOf[jRM.name/](){
+	    	return SetOf[jRM.name/];
+		}
+[/for]
+[elseif(anAnnotationStack.getTrackOwnershipResources(anAnnotationStack.getAuthorizationSubjectModel())->exists(r|r=jRModel))]
+		public [anAnnotationStack.getAuthorizationSubjectModel().name/] get[anAnnotationStack.getAuthorizationSubjectModel().parentName/](){
+	    	return [anAnnotationStack.getAuthorizationSubjectModel().parentName/];
+		}
+[/if]	
+		[for(aNewProperty : NewProperty | anAnnotationStack.getNewProperties(jRModel))]
+		[if(aNewProperty.bIsUnique)]
+		public [aNewProperty.type/] get[aNewProperty.name/](){
+	    	return this.[aNewProperty.name/];
+		}
+		[else]
+		public Set<[if (aNewProperty.type.equalsIgnoreCase('int'))]Integer[elseif (aNewProperty.type.equalsIgnoreCase('double'))]Double[else][aNewProperty.type/][/if]> get[aNewProperty.name/](){
+	    	return this.[aNewProperty.name/];
+		}
+		[/if]
+	 	[/for]
+[/if]
 
 	[if (jRModel.hasRelatedJavaRMManager->size() > 0 or jRModel.JavaRModelHasProperty->select( property : PSMComponentProperty | property.bIsUnique = false)->
 														select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->excludes('@Transient')
@@ -255,4 +349,85 @@ public class [jRModel.name/]{
 
 [query private getSearchablePropertyAnnotations(anAnnotationStack : AnnotationStack) : Sequence(SearchableProperty) =
 	getSearchableJavaResourceModelAnnotations(anAnnotationStack).hasSearchableProperty
+/]
+
+[query private getNewProperties(anAnnotationStack : AnnotationStack, jRM : JavaResourceModel) : Set(NewProperty) =
+	anAnnotationStack.hasAuthorizationLayer.hasAnnotation->selectByType(NewProperty)->select(newProperty | newProperty.belongsToResource.annotatesJavaResourceModel = jRM)
+/]
+
+[query private hasNonUniqueNewProperty(anAnnotationStack : AnnotationStack, jRM : JavaResourceModel) : Boolean =
+if anAnnotationStack.bHasAuthorizationLayer
+then	
+	anAnnotationStack.getNewProperties(jRM)->exists(p |not p.bIsUnique)
+else
+	false
+endif
+/]
+
+[query private getTrackOwnershipResources(anAnnotationStack : AnnotationStack, jRModel : JavaResourceModel) : Set(JavaResourceModel) =
+let children : Set(JavaResourceModel) = jRModel.hasRelatedJavaRMManager -> collect(jrmm | jrmm.hasRelatedJavaRModel) -> asSet() 
+in	
+anAnnotationStack.hasCorePSM.hasJavaRModel 
+-> select (jrm | not children -> one(r | r=jrm) 
+			and not (jrm = jRModel) 
+			and rTracksOwnership(jrm))
+/]
+
+[query private rTracksOwnership(anAnnotationStack : AnnotationStack,jRModel : JavaResourceModel) : Boolean =
+if anAnnotationStack.isAuthtorizableResource(jRModel) then 
+anAnnotationStack.getAuthorizableResourceModel(jRModel).bTrackOwnership
+else 
+isDescendant(jRModel, jRModel.oclAsSet()->asOrderedSet())
+endif
+/]
+
+[query private isDescendant(anAnnotationStack : AnnotationStack, r : JavaResourceModel, visited : OrderedSet(JavaResourceModel)) : Boolean = 
+if visited->size() = 1 then
+	visited -> first() = getAuthorizationSubjectModel() else
+	if r = getAuthorizationSubjectModel() then
+		true
+	else
+		if (visited -> exists(rm | rm = r)) then
+			false
+		else
+			let newVisited : OrderedSet(JavaResourceModel) = visited -> append(r) in
+			getResourceModelParents(r) -> exists (rm | isDescendant(rm,newVisited))
+		endif
+	endif
+endif
+/]
+
+[query private getResourceModelParents(anAnnotationStack : AnnotationStack, aJavaResourceModel : JavaResourceModel) : Set(JavaResourceModel) =
+	anAnnotationStack.hasCorePSM.hasJavaRModel
+	->select(r | r.hasRelatedJavaRMManager
+				->collect(rm | rm.hasRelatedJavaRModel)->exists(r2 | r2 = aJavaResourceModel))
+/]
+
+[query private getAuthorizationSubjectModel(anAnnotationStack : AnnotationStack) : JavaResourceModel =
+if anAnnotationStack.bHasAuthorizationLayer and anAnnotationStack.bHasAuthenticationAnnotation
+then	
+	anAnnotationStack.hasAuthorizationLayer.hasAnnotation->selectByType(AuthorizationSubject)->first().isAuthorizationSubject.annotatesJavaResourceModel
+else
+	null
+endif	
+/]
+
+[query private getAuthorizableResourceModel(anAnnotationStack : AnnotationStack, jRM : JavaResourceModel) : AuthorizableResource =
+if anAnnotationStack.bHasAuthorizationLayer
+then	
+	anAnnotationStack.hasAuthorizationLayer.hasAnnotation->selectByType(AuthorizableResource)->select(authResource | not authResource.isAuthorizableResourceModel.oclIsUndefined())->select(authResource | authResource.isAuthorizableResourceModel.annotatesJavaResourceModel = jRM)->first()
+else
+	null
+endif	
+/]
+
+[query private isAuthtorizableResource(anAnnotationStack : AnnotationStack, jRM : JavaResourceModel) : Boolean =
+if anAnnotationStack.bHasAuthorizationLayer
+then	
+	anAnnotationStack.hasAuthorizationLayer.hasAnnotation->selectByType(AuthorizableResource)
+	->select(authResource | not authResource.isAuthorizableResourceModel.oclIsUndefined())
+	->one(authResource | authResource.isAuthorizableResourceModel.annotatesJavaResourceModel = jRM)
+else
+	false
+endif	
 /]

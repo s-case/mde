@@ -917,7 +917,30 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				oUniquePropertyButton.setSelection((oProperty.isIsUnique() == true ? false : true));
 				oNamingPropertyButton.setSelection((oProperty.isIsNamingProperty() == true ? true : false));
 				if(oProperty.getType() != null){
-					oTypeList.setSelection(oTypeList.indexOf((oProperty.getType().equalsIgnoreCase("String") ? "String" : (oProperty.getType().equalsIgnoreCase("int") ? "Integer" : "Double"))));
+					if(oProperty.getType().equalsIgnoreCase("String")){
+						oTypeList.setSelection(oTypeList.indexOf("String"));
+					}
+					else if(oProperty.getType().equalsIgnoreCase("int")){
+						oTypeList.setSelection(oTypeList.indexOf("Integer"));
+					}
+					else if(oProperty.getType().equalsIgnoreCase("double")){
+						oTypeList.setSelection(oTypeList.indexOf("Double"));
+					}
+					else if(oProperty.getType().equalsIgnoreCase("float")){
+						oTypeList.setSelection(oTypeList.indexOf("Float"));
+					}
+					else if(oProperty.getType().equalsIgnoreCase("long")){
+						oTypeList.setSelection(oTypeList.indexOf("Long"));
+					}
+					else if(oProperty.getType().equalsIgnoreCase("boolean")){
+						oTypeList.setSelection(oTypeList.indexOf("Boolean"));
+					}
+					else if(oProperty.getType().equalsIgnoreCase("Date")){
+						oTypeList.setSelection(oTypeList.indexOf("Date"));
+					}
+					else{
+						oTypeList.deselectAll();
+					}
 				}
 				else{
 					oTypeList.deselectAll();
@@ -932,7 +955,30 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				oUniquePropertyButton.setSelection((oProperty.isIsUnique() == true ? false : true));
 				oNamingPropertyButton.setSelection((oProperty.isIsNamingProperty() == true ? true : false));
 				if(oProperty.getType() != null){
-					oTypeList.setSelection(oTypeList.indexOf((oProperty.getType().equalsIgnoreCase("String") ? "String" : (oProperty.getType().equalsIgnoreCase("int") ? "Integer" : "Double"))));
+					if(oProperty.getType().equalsIgnoreCase("String")){
+						oTypeList.setSelection(oTypeList.indexOf("String"));
+					}
+					else if(oProperty.getType().equalsIgnoreCase("int")){
+						oTypeList.setSelection(oTypeList.indexOf("Integer"));
+					}
+					else if(oProperty.getType().equalsIgnoreCase("double")){
+						oTypeList.setSelection(oTypeList.indexOf("Double"));
+					}
+					else if(oProperty.getType().equalsIgnoreCase("float")){
+						oTypeList.setSelection(oTypeList.indexOf("Float"));
+					}
+					else if(oProperty.getType().equalsIgnoreCase("long")){
+						oTypeList.setSelection(oTypeList.indexOf("Long"));
+					}
+					else if(oProperty.getType().equalsIgnoreCase("boolean")){
+						oTypeList.setSelection(oTypeList.indexOf("Boolean"));
+					}
+					else if(oProperty.getType().equalsIgnoreCase("Date")){
+						oTypeList.setSelection(oTypeList.indexOf("Date"));
+					}
+					else{
+						oTypeList.deselectAll();
+					}
 				}
 				else{
 					oTypeList.deselectAll();
@@ -1529,13 +1575,10 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 					}
 				}
 				
-				if(bHasCreateActivity && bHasReadActivity){
-					return true;
-				}
-				else{
+				if(!bHasCreateActivity || !bHasReadActivity){
 					setErrorMessage("CRUD resources must have CREATE and READ activities. However resource " + this.oRESTfulServiceCIM.getHasResources().get(n).getName()
 							+ " does not have one or either of them.");
-					return false;
+					return false;				
 				}
 			}
 		}

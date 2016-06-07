@@ -22,6 +22,8 @@ import java.util.ArrayList;
 
 import AuthenticationLayerCIM.AuthenticationLayerCIMFactory;
 import AuthenticationLayerCIM.AuthenticationLayerCIMPackage;
+import AuthorizationLayerCIM.AuthorizationLayerCIMFactory;
+import AuthorizationLayerCIM.AuthorizationLayerCIMPackage;
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMFactory;
 import ExternalServiceLayerCIM.ExternalServiceLayerCIMPackage;
 import SearchLayerCIM.AnnAlgoResource;
@@ -34,6 +36,7 @@ import eu.fp7.scase.inputParser.YamlResource;
 import eu.fp7.scase.launcher.cimgenerator.Activator;
 import eu.fp7.scase.searchWizard.SearchCIMWizard;
 import eu.fp7.scase.authenticationWizard.AuthenticationCIMWizard;
+import eu.fp7.scase.abacAuthorizationWizard.ABACAuthorizationCIMWizard;
 import eu.fp7.scase.cimGenerator.ACIMProducer;
 import eu.fp7.scase.cimGenerator.CoreCIMProducer;
 import eu.fp7.scase.cimGenerator.EcoreXMIExtractor;
@@ -52,8 +55,11 @@ public class CIMGenerator extends AbstractHandler{
 	private ACIMProducer oACIMProducer;
 	private AuthenticationLayerCIM.AnnotationModel oAuthenticationLayerCIM;
 	private AuthenticationLayerCIM.AnnotationModel oExistingAuthenticationLayerCIM;
+	private AuthorizationLayerCIM.AnnotationModel oAuthorizationLayerCIM;
+	private AuthorizationLayerCIM.AnnotationModel oExistingAuthorizationLayerCIM;
 	private RESTfulServiceCIM oRESTfulServiceCIM;
 	private AuthenticationLayerCIMFactory oAuthenticationLayerCIMFactory;
+	private AuthorizationLayerCIMFactory oAuthorizationLayerCIMFactory;
 	private SearchLayerCIMFactory oSearchLayerCIMFactory;
 	private SearchLayerCIM.AnnotationModel oSearchLayerCIM;
 	private SearchLayerCIM.AnnotationModel oExistingSearchLayerCIM;
@@ -64,6 +70,7 @@ public class CIMGenerator extends AbstractHandler{
 	private ExecutionEvent oEvent;
 	private boolean bReloadExistingModels;
 	private AuthenticationCIMWizard oAuthenticationCIMWizard;
+	private ABACAuthorizationCIMWizard oABACAuthoriaztionWizard;
 	private SearchCIMWizard oSearchCIMWizard;
 	private ExternalCompositionWizard oExternalCompositionWizard;
 	private ExternalCompositionInputParser oExternalCompositionInputParser;
@@ -117,6 +124,12 @@ public class CIMGenerator extends AbstractHandler{
 			this.oAuthenticationCIMWizard.exportAuthenticationModelBackUp();
 		}
 		
+		//if the authorization flag is true
+		if(event.getParameter("Authorization").equalsIgnoreCase("yes")){
+			//extract a Search CIM backup
+			this.oABACAuthoriaztionWizard.exportABACAuthorizationCIMBackUp();
+		}
+		
 		//if the searching flag is true
 		if(event.getParameter("DatabaseSearching").equalsIgnoreCase("yes")){
 			//extract a Search CIM backup
@@ -166,6 +179,16 @@ public class CIMGenerator extends AbstractHandler{
 		}
 		else{
 			this.oAuthenticationLayerCIM = null;
+		}
+		
+		//if the authorization flag is true
+		if(event.getParameter("Authorization").equalsIgnoreCase("yes")){//instantiate an empty authorization model
+			this.oAuthorizationLayerCIMFactory = AuthorizationLayerCIMFactory.eINSTANCE;
+			this.oAuthorizationLayerCIM = this.oAuthorizationLayerCIMFactory.createAnnotationModel();
+			this.oAuthorizationLayerCIM.setName(oRESTfulServiceCIM.getName() + "AuthorizationModel");
+		}
+		else{
+			this.oAuthorizationLayerCIM = null;
 		}
 		
 		//if the searching flag is true
@@ -229,6 +252,26 @@ public class CIMGenerator extends AbstractHandler{
 			this.oAuthenticationLayerCIM = null;
 		}
 		
+		//if the authorization flag is true
+		if(event.getParameter("Authorization").equalsIgnoreCase("yes")){
+			oFile = new File(event.getParameter("MDEOutputFolder") + "/CIMModels/BackUp/" + event.getParameter("WebServiceName") + "ABACAuthorizationCIMBackUp.xmi");
+			//load the existing authorization layer CIM object in case it is needed
+			if(oFile.exists() && oFile.isFile()){
+				this.oAuthorizationLayerCIM = this.loadAuthorizationCIM(event.getParameter("MDEOutputFolder") + "/CIMModels/BackUp/" + event.getParameter("WebServiceName") + "ABACAuthorizationCIMBackUp.xmi");
+				System.out.println("Loaded existing Authorization CIM Model.");
+			}
+			else{//if the authentication file cannot be found, create a new, empty one.
+				System.out.println("Existing Authorization CIM Model was not found. Creating a new, empty one!");
+				this.oAuthorizationLayerCIMFactory = AuthorizationLayerCIMFactory.eINSTANCE;
+				this.oAuthorizationLayerCIM = this.oAuthorizationLayerCIMFactory.createAnnotationModel();
+				this.oAuthorizationLayerCIM.setName(oRESTfulServiceCIM.getName() + "AuthorizationModel");			
+			}
+		}
+		else{
+			this.oAuthorizationLayerCIM = null;
+		}
+			
+		
 		//if the searching flag is true
 		if(event.getParameter("DatabaseSearching").equalsIgnoreCase("yes")){
 			oFile = new File(event.getParameter("MDEOutputFolder") + "/CIMModels/BackUp/" + event.getParameter("WebServiceName") + "SearchLayerCIMBackUp.xmi");
@@ -289,6 +332,12 @@ public class CIMGenerator extends AbstractHandler{
 		//if the external Service flag is true
 		if(event.getParameter("ExternalComposition").equalsIgnoreCase("yes") && existsNonSearchAlgoResource()){
 			createExternalServiceLayerCIM(event);
+		}
+		
+		//if the authorization flag is true
+		if(event.getParameter("Authorization").equalsIgnoreCase("yes") && event.getParameter("Authentication").equalsIgnoreCase("yes")){
+			//initialize an authentication layer CIM object in case it is needed
+			createABACAuthorizationCIM(event);
 		}
 	}
 
@@ -367,6 +416,21 @@ public class CIMGenerator extends AbstractHandler{
 		WizardDialog oAuthenticationWizardDialog = new WizardDialog(null, oAuthenticationCIMWizard);
 		if(oAuthenticationWizardDialog.open() == Window.OK){
 			oAuthenticationCIMWizard.createAuthenticationCIM();
+		}
+		else{
+			throw new ExecutionException("Code generation process canceled by user.", new CanceledExecutionException("canceled exception"));
+		}
+		
+		return true;
+	}
+	
+	private boolean createABACAuthorizationCIM(ExecutionEvent event) throws ExecutionException{
+		
+		//setup the authorization CIM wizard
+		oABACAuthoriaztionWizard = new ABACAuthorizationCIMWizard(this.oEvent.getParameter("MDEOutputFolder"), oRESTfulServiceCIM, oAuthorizationLayerCIM, oAuthenticationLayerCIM, this.bReloadExistingModels);
+		WizardDialog oABACAuthoriaztionWizardDialog = new WizardDialog(null, oABACAuthoriaztionWizard);
+		if(oABACAuthoriaztionWizardDialog.open() == Window.OK){
+			oABACAuthoriaztionWizard.createABACAuthorizationCIM();
 		}
 		else{
 			throw new ExecutionException("Code generation process canceled by user.", new CanceledExecutionException("canceled exception"));
@@ -494,6 +558,39 @@ public class CIMGenerator extends AbstractHandler{
 	    // Get the first model element and cast it to the right type, in my
 	    // example everything is hierarchical included in this first node
 	    AuthenticationLayerCIM.AnnotationModel oAnnotationModel = (AuthenticationLayerCIM.AnnotationModel) resource.getContents().get(0);
+	    return oAnnotationModel;
+	}
+	
+	private AuthorizationLayerCIM.AnnotationModel loadAuthorizationCIM(String strAuthorizationCIMPath){
+		
+		ResourceSet oResourceSet;
+		URI oURI;
+		
+		AuthorizationLayerCIMPackage.eINSTANCE.getClass();
+		
+		// Create a resource set.
+		oResourceSet = new ResourceSetImpl();
+
+		// Register the default resource factory -- only needed for stand-alone!
+		oResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(org.eclipse.emf.ecore.resource.Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+		
+		// Get the URI of the model file.
+		oURI = URI.createFileURI(new File(strAuthorizationCIMPath).getAbsolutePath());
+		out.println(oURI.devicePath());
+
+	    // Get the resource
+	    Resource resource = oResourceSet.getResource(oURI, true);
+	    
+	    try {
+			resource.load(null);
+		} catch (IOException e) {
+			Activator.log("Could not load Authorization CIM file", e);
+
+		}
+	    
+	    // Get the first model element and cast it to the right type, in my
+	    // example everything is hierarchical included in this first node
+	    AuthorizationLayerCIM.AnnotationModel oAnnotationModel = (AuthorizationLayerCIM.AnnotationModel) resource.getContents().get(0);
 	    return oAnnotationModel;
 	}
 

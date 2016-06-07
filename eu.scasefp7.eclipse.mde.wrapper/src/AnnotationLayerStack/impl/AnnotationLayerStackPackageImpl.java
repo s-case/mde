@@ -8,11 +8,23 @@ import AnnotationLayerStack.AnnotationStack;
 
 import AuthenticationLayerPSM.AuthenticationLayerPSMPackage;
 
+import AuthenticationLayerPSM.impl.AuthenticationLayerPSMPackageImpl;
+
+import AuthorizationLayerPSM.AuthorizationLayerPSMPackage;
+
+import AuthorizationLayerPSM.impl.AuthorizationLayerPSMPackageImpl;
+
 import ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage;
+
+import ExternalServiceLayerPSM.impl.ExternalServiceLayerPSMPackageImpl;
 
 import RESTfulServicePSM.RESTfulServicePSMPackage;
 
+import RESTfulServicePSM.impl.RESTfulServicePSMPackageImpl;
+
 import SearchLayerPSM.SearchLayerPSMPackage;
+
+import SearchLayerPSM.impl.SearchLayerPSMPackageImpl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -81,16 +93,28 @@ public class AnnotationLayerStackPackageImpl extends EPackageImpl implements Ann
 
 		isInited = true;
 
-		// Initialize simple dependencies
-		AuthenticationLayerPSMPackage.eINSTANCE.eClass();
-		ExternalServiceLayerPSMPackage.eINSTANCE.eClass();
-		SearchLayerPSMPackage.eINSTANCE.eClass();
+		// Obtain or create and register interdependencies
+		AuthenticationLayerPSMPackageImpl theAuthenticationLayerPSMPackage = (AuthenticationLayerPSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AuthenticationLayerPSMPackage.eNS_URI) instanceof AuthenticationLayerPSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AuthenticationLayerPSMPackage.eNS_URI) : AuthenticationLayerPSMPackage.eINSTANCE);
+		RESTfulServicePSMPackageImpl theRESTfulServicePSMPackage = (RESTfulServicePSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(RESTfulServicePSMPackage.eNS_URI) instanceof RESTfulServicePSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(RESTfulServicePSMPackage.eNS_URI) : RESTfulServicePSMPackage.eINSTANCE);
+		SearchLayerPSMPackageImpl theSearchLayerPSMPackage = (SearchLayerPSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(SearchLayerPSMPackage.eNS_URI) instanceof SearchLayerPSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(SearchLayerPSMPackage.eNS_URI) : SearchLayerPSMPackage.eINSTANCE);
+		ExternalServiceLayerPSMPackageImpl theExternalServiceLayerPSMPackage = (ExternalServiceLayerPSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ExternalServiceLayerPSMPackage.eNS_URI) instanceof ExternalServiceLayerPSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ExternalServiceLayerPSMPackage.eNS_URI) : ExternalServiceLayerPSMPackage.eINSTANCE);
+		AuthorizationLayerPSMPackageImpl theAuthorizationLayerPSMPackage = (AuthorizationLayerPSMPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(AuthorizationLayerPSMPackage.eNS_URI) instanceof AuthorizationLayerPSMPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(AuthorizationLayerPSMPackage.eNS_URI) : AuthorizationLayerPSMPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theAnnotationLayerStackPackage.createPackageContents();
+		theAuthenticationLayerPSMPackage.createPackageContents();
+		theRESTfulServicePSMPackage.createPackageContents();
+		theSearchLayerPSMPackage.createPackageContents();
+		theExternalServiceLayerPSMPackage.createPackageContents();
+		theAuthorizationLayerPSMPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theAnnotationLayerStackPackage.initializePackageContents();
+		theAuthenticationLayerPSMPackage.initializePackageContents();
+		theRESTfulServicePSMPackage.initializePackageContents();
+		theSearchLayerPSMPackage.initializePackageContents();
+		theExternalServiceLayerPSMPackage.initializePackageContents();
+		theAuthorizationLayerPSMPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theAnnotationLayerStackPackage.freeze();
@@ -178,6 +202,24 @@ public class AnnotationLayerStackPackageImpl extends EPackageImpl implements Ann
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getAnnotationStack_HasAuthorizationLayer() {
+		return (EReference)annotationStackEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAnnotationStack_BHasAuthorizationLayer() {
+		return (EAttribute)annotationStackEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public AnnotationLayerStackFactory getAnnotationLayerStackFactory() {
 		return (AnnotationLayerStackFactory)getEFactoryInstance();
 	}
@@ -209,6 +251,8 @@ public class AnnotationLayerStackPackageImpl extends EPackageImpl implements Ann
 		createEAttribute(annotationStackEClass, ANNOTATION_STACK__BHAS_SEARCH_LAYER);
 		createEAttribute(annotationStackEClass, ANNOTATION_STACK__BHAS_EXTERNAL_SERVICE_LAYER);
 		createEReference(annotationStackEClass, ANNOTATION_STACK__HAS_EXTERNAL_SERVICE_LAYER);
+		createEReference(annotationStackEClass, ANNOTATION_STACK__HAS_AUTHORIZATION_LAYER);
+		createEAttribute(annotationStackEClass, ANNOTATION_STACK__BHAS_AUTHORIZATION_LAYER);
 	}
 
 	/**
@@ -239,6 +283,7 @@ public class AnnotationLayerStackPackageImpl extends EPackageImpl implements Ann
 		RESTfulServicePSMPackage theRESTfulServicePSMPackage = (RESTfulServicePSMPackage)EPackage.Registry.INSTANCE.getEPackage(RESTfulServicePSMPackage.eNS_URI);
 		SearchLayerPSMPackage theSearchLayerPSMPackage = (SearchLayerPSMPackage)EPackage.Registry.INSTANCE.getEPackage(SearchLayerPSMPackage.eNS_URI);
 		ExternalServiceLayerPSMPackage theExternalServiceLayerPSMPackage = (ExternalServiceLayerPSMPackage)EPackage.Registry.INSTANCE.getEPackage(ExternalServiceLayerPSMPackage.eNS_URI);
+		AuthorizationLayerPSMPackage theAuthorizationLayerPSMPackage = (AuthorizationLayerPSMPackage)EPackage.Registry.INSTANCE.getEPackage(AuthorizationLayerPSMPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -255,6 +300,8 @@ public class AnnotationLayerStackPackageImpl extends EPackageImpl implements Ann
 		initEAttribute(getAnnotationStack_BHasSearchLayer(), ecorePackage.getEBoolean(), "bHasSearchLayer", null, 1, 1, AnnotationStack.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAnnotationStack_BHasExternalServiceLayer(), ecorePackage.getEBoolean(), "bHasExternalServiceLayer", null, 1, 1, AnnotationStack.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAnnotationStack_HasExternalServiceLayer(), theExternalServiceLayerPSMPackage.getAnnotationModel(), null, "hasExternalServiceLayer", null, 0, 1, AnnotationStack.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAnnotationStack_HasAuthorizationLayer(), theAuthorizationLayerPSMPackage.getAnnotationModel(), null, "hasAuthorizationLayer", null, 0, 1, AnnotationStack.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAnnotationStack_BHasAuthorizationLayer(), ecorePackage.getEBoolean(), "bHasAuthorizationLayer", null, 0, 1, AnnotationStack.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

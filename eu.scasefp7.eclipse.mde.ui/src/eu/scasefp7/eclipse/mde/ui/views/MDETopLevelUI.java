@@ -116,9 +116,6 @@ public class MDETopLevelUI extends ScrolledComposite {
 		initializeAllUIWidgets();
 		initializeUILayout();
 		
-		oStartFromScratchButton = new Button(oYamlFileGrid, SWT.CHECK);
-		oStartFromScratchButton.setText("From Scratch");
-		
 		//TODO remove the following lines in production code
 //		this.oYamlFileText.setText("/Users/IMG/Desktop/Dropbox/S-CASE-Int/Work/WP2/Task_2.2-2.3/MDEModelToModelTransformations/MDEArtefacts/RESTMarks.yml");
 		this.oWSNameText.setText("RESTMarks");
@@ -128,9 +125,8 @@ public class MDETopLevelUI extends ScrolledComposite {
 		this.oDatabaseUsernameText.setText("postgres");
 		this.oDatabasePasswordText.setText("fp7s-case");
 		this.oDatabaseTypeList.select(0);
-		this.oStartFromScratchButton.setSelection(true);
 //		this.oDatabaseSearchingCheckBoxButton.setSelection(false);
-		this.oAuthorizationCheckBoxButton.setEnabled(false);
+//		this.oAuthorizationCheckBoxButton.setEnabled(false);
 //		this.oAuthenticationCheckBoxButton.setSelection(true);
 //		this.oExternalCompositionCheckBoxButton.setEnabled(true);
 //		this.oExternalCompositionCheckBoxButton.setSelection(true);
@@ -160,6 +156,10 @@ public class MDETopLevelUI extends ScrolledComposite {
 		oReloadModelsCheckButton.setText("Reload previous service models");
 		addReloadCheckBoxButtonListener();
 		
+		oStartFromScratchButton = new Button(oYamlFileGrid, SWT.CHECK);
+		oStartFromScratchButton.setText("From Scratch");
+		addStartFromScratchButtonListener();
+
 		//initialize envisioned web service's SWTs
 		oWSNameLabel = new Label(this.oWSNameGrid, SWT.NULL);
 		oWSNameLabel.setText("Web Service Name: ");
@@ -219,6 +219,37 @@ public class MDETopLevelUI extends ScrolledComposite {
 		
 	}
 
+	private void addStartFromScratchButtonListener() {
+		this.oStartFromScratchButton.addSelectionListener(new SelectionListener(){
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if(oStartFromScratchButton.getSelection() == true){
+					oYamlFileText.setEnabled(false);
+					oBrowseYamlFileButton.setEnabled(false);
+					oReloadModelsCheckButton.setSelection(false);
+				}
+				else{
+					oYamlFileText.setEnabled(true);
+					oBrowseYamlFileButton.setEnabled(true);
+				}
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				if(oStartFromScratchButton.getSelection() == true){
+					oYamlFileText.setEnabled(false);
+					oBrowseYamlFileButton.setEnabled(false);
+					oReloadModelsCheckButton.setSelection(false);
+				}
+				else{
+					oYamlFileText.setEnabled(true);
+					oBrowseYamlFileButton.setEnabled(true);
+				}
+			}
+		});		
+	}
+
 	private void addGenerateCodeButtonListener() {
 		this.oGenerateCodeButton.addListener(SWT.Selection, new Listener() {
 
@@ -255,6 +286,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 				if(oReloadModelsCheckButton.getSelection() == true){
 					oYamlFileText.setEnabled(false);
 					oBrowseYamlFileButton.setEnabled(false);
+					oStartFromScratchButton.setSelection(false);
 				}
 				else{
 					oYamlFileText.setEnabled(true);
@@ -267,6 +299,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 				if(oReloadModelsCheckButton.getSelection() == true){
 					oYamlFileText.setEnabled(false);
 					oBrowseYamlFileButton.setEnabled(false);
+					oStartFromScratchButton.setSelection(false);
 				}
 				else{
 					oYamlFileText.setEnabled(true);
@@ -348,7 +381,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 	}
 	
 	private boolean validateInputPreferences(){
-		if( (oYamlFileText.getText().isEmpty() && !this.oStartFromScratchButton.getSelection())        ||
+		if( (oYamlFileText.getText().isEmpty() && !this.oStartFromScratchButton.getSelection() && !this.oReloadModelsCheckButton.getSelection())        ||
 			oWSNameText.getText().isEmpty()           ||
 			oMDEOutputText.getText().isEmpty()        ||
 			oDatabaseIPText.getText().isEmpty()       ||
