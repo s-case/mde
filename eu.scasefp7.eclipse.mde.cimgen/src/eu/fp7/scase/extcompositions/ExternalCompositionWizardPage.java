@@ -2040,6 +2040,10 @@ public class ExternalCompositionWizardPage extends WizardPage{
 						return false;
 					}
 				}
+				
+				if(!RESTClientHasValidVerbIOCombination(n)){
+					return false;
+				}
 			}
 		}
 		
@@ -2049,6 +2053,53 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			return false;
 		}
 		setErrorMessage(null);
+		return true;
+	}
+
+	private boolean RESTClientHasValidVerbIOCombination(int iRESTClientIndex) {
+		
+		//if the RESTClient has CREATE Activity
+		if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getCRUDVerb().equalsIgnoreCase("CREATE")){
+			//it must have both input and output model
+			if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasInputDataModel() == null ||
+			   this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel() == null){
+				setErrorMessage("When interacting with an external service through CREATE activity, the selected RESTClient must have both Input and Output model. The RESTClient " 
+						+ this.oRESTClientModelingArray[iRESTClientIndex].getIsRESTClientResource().getAnnotatesAlgoResource().getName() 
+						+ " does not have either Input, Output or both of them.");
+				return false;
+			}
+		}
+		else if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getCRUDVerb().equalsIgnoreCase("READ")){ //if the RESTClient has READ Activity
+			//it must have output but not input model
+			if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasInputDataModel() != null ||
+					   this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel() == null){
+						setErrorMessage("When interacting with an external service through READ activity, the selected RESTClient must not have Input model but must have Output model. The RESTClient " 
+								+ this.oRESTClientModelingArray[iRESTClientIndex].getIsRESTClientResource().getAnnotatesAlgoResource().getName() 
+								+ " violates this condition.");
+						return false;
+			}
+		}
+		else if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getCRUDVerb().equalsIgnoreCase("UPDATE")){ //if the RESTClient has UPDATE Activity
+			//it must have both input and output model
+			if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasInputDataModel() == null ||
+					   this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel() == null){
+						setErrorMessage("When interacting with an external service through UPDATE activity, the selected RESTClient must have both Input and Output model. The RESTClient " 
+								+ this.oRESTClientModelingArray[iRESTClientIndex].getIsRESTClientResource().getAnnotatesAlgoResource().getName() 
+								+ " does not have either Input, Output or both of them.");
+						return false;
+			}
+		}
+		else if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getCRUDVerb().equalsIgnoreCase("DELETE")){ //if the RESTClient has DELETE Activity
+			//it must have neither input nor output model
+			if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasInputDataModel() != null ||
+					   this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel() != null){
+						setErrorMessage("When interacting with an external service through DELETE activity, the selected RESTClient must have neither Input nor Output model. The RESTClient " 
+								+ this.oRESTClientModelingArray[iRESTClientIndex].getIsRESTClientResource().getAnnotatesAlgoResource().getName() 
+								+ " however violates this.");
+						return false;
+			}
+		}
+		
 		return true;
 	}
 
