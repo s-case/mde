@@ -8,15 +8,19 @@ import org.apache.maven.model.Model;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.project.IProjectConfigurationManager;
 import org.eclipse.m2e.core.project.MavenProjectInfo;
 import org.eclipse.m2e.core.project.ProjectImportConfiguration;
+import org.eclipse.m2e.core.ui.internal.UpdateMavenProjectJob;
 
 import eu.scasefp7.eclipse.mde.ui.Activator;
 
@@ -39,53 +43,103 @@ public class ImportMavenProjectHandler extends AbstractHandler {
             throw new ExecutionException("Unable to find generated project.");
         }
         
-        String mdeOutput = mdeFolder + "/MDEGeneratedCode/"; //$NON-NLS-1$
-	    String pomFilename = mdeOutput + serviceName + "/pom.xml"; //$NON-NLS-1$
-	    
-	    WorkspaceJob job = new WorkspaceJob("Importing generated code for " + serviceName) {
-            @Override
-            public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
-                monitor.beginTask(this.getName(), 1);
-                
-                if(monitor.isCanceled()) {
-                    return Status.CANCEL_STATUS;
-                }
-                        
-                try {
-                    File pomFile = new File(pomFilename);
-                    if(!pomFile.exists()) {
-                        return new Status(Status.ERROR, Activator.PLUGIN_ID, "Unable to find Maven project.");
+        // Job reference
+        WorkspaceJob job = null;
+        
+        // Check if project already exists
+        IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(serviceName);
+        if(project != null && project.exists()) {
+            //try {
+                //project.refreshLocal(IProject.DEPTH_INFINITE, null);    
+                job = new UpdateMavenProjectJob(new IProject[]{ project });
+            //} catch (CoreException e) {
+            //    Activator.log("Update maven project command failed.", e);
+            //}
+            /*job = new WorkspaceJob("Refreshing configuration for " + serviceName) {
+
+                @Override
+                public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
+                    monitor.beginTask(this.getName(), 2);
+                    
+                    if(monitor.isCanceled()) {
+                        return Status.CANCEL_STATUS;
                     }
-                                        
-                    Model model  = new Model(); 
-                    ProjectImportConfiguration config    = new ProjectImportConfiguration();
-                    Collection<MavenProjectInfo> infos   = new ArrayList<MavenProjectInfo>();
-                    IProjectConfigurationManager manager = MavenPlugin.getProjectConfigurationManager();
+                            
+                    try {
+                        // Refresh the project
+                        //project.refreshLocal(IProject.DEPTH_INFINITE, new SubProgressMonitor(monitor, 1));                       
+                        
+                        // Import maven project
+                        WorkspaceJob job = new UpdateMavenProjectJob(new IProject[]{ project });
+    
+                        job.schedule();                       
+                        job.join();
+                        monitor.worked(1);
+                        
+                    } catch (InterruptedException e) {
+                        Activator.log("Import maven project command failed.", e);
+                        return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to import Maven project.", e);
+                    } finally {
+                        monitor.done();
+                    }
+                    return Status.OK_STATUS;
+                }          
+                
+            };
+*/            
+            // Set scheduling rule only on the project
+           // job.setRule(project);
+        } else {
+        
+            String mdeOutput = mdeFolder + "/MDEGeneratedCode/"; //$NON-NLS-1$
+    	    String pomFilename = mdeOutput + serviceName + "/pom.xml"; //$NON-NLS-1$
+    	    
+    	    job = new WorkspaceJob("Importing generated code for " + serviceName) {
+                @Override
+                public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
+                    monitor.beginTask(this.getName(), 1);
                     
-                    String version = "1.0-SNAPSHOT"; //$NON-NLS-1$ // Defined in M2T
-                    String groupId = "scase-auto-generated"; //$NON-NLS-1$ // Defined in M2T
-                    String artifactId  = serviceName;
-                    String projectName = serviceName;
-                    
-                    model.setGroupId(groupId);
-                    model.setArtifactId(artifactId);
-                    model.setVersion(version);
-                    model.setPomFile(pomFile);
-                    
-                    MavenProjectInfo info = new MavenProjectInfo(projectName, pomFile, model, null);
-                    infos.add(info);
-                    manager.importProjects(infos, config , monitor);
-                } catch (CoreException e) {
-                    Activator.log("Import maven project command failed.", e);
-                    return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to import Maven project.", e);
-                } finally {
-                    monitor.done();
-                }
-                return Status.OK_STATUS;
-            }  
-	    };           
-	    
-	    job.schedule();
+                    if(monitor.isCanceled()) {
+                        return Status.CANCEL_STATUS;
+                    }
+                            
+                    try {
+                        File pomFile = new File(pomFilename);
+                        if(!pomFile.exists()) {
+                            return new Status(Status.ERROR, Activator.PLUGIN_ID, "Unable to find Maven project.");
+                        }
+                                            
+                        Model model  = new Model(); 
+                        ProjectImportConfiguration config    = new ProjectImportConfiguration();
+                        Collection<MavenProjectInfo> infos   = new ArrayList<MavenProjectInfo>();
+                        IProjectConfigurationManager manager = MavenPlugin.getProjectConfigurationManager();
+                        
+                        String version = "1.0-SNAPSHOT"; //$NON-NLS-1$ // Defined in M2T
+                        String groupId = "scase-auto-generated"; //$NON-NLS-1$ // Defined in M2T
+                        String artifactId  = serviceName;
+                        String projectName = serviceName;
+                        
+                        model.setGroupId(groupId);
+                        model.setArtifactId(artifactId);
+                        model.setVersion(version);
+                        model.setPomFile(pomFile);
+                        
+                        MavenProjectInfo info = new MavenProjectInfo(projectName, pomFile, model, null);
+                        infos.add(info);
+                        manager.importProjects(infos, config , monitor);
+                    } catch (CoreException e) {
+                        Activator.log("Import maven project command failed.", e);
+                        return new Status(Status.ERROR, Activator.PLUGIN_ID, "Failed to import Maven project.", e);
+                    } finally {
+                        monitor.done();
+                    }
+                    return Status.OK_STATUS;
+                }  
+    	    };
+    	    job.schedule();
+	    }   
+        
+
 	    return null;
 	}
 
