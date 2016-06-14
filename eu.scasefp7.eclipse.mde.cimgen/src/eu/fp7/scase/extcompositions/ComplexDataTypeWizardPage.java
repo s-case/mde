@@ -547,7 +547,7 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 	}
 
 	private boolean loadExistantComplexTypes(String strRESTClientName, int iNewRESTClientIndex) {
-		for(int n = 0; n < this.oExternalServiceLayerCIM.getHasAnnotatedElement().size(); n++){
+		for(int n = 0; n < this.oExternalServiceLayerCIM.getHasAnnotation().size(); n++){
 			if(this.oExternalServiceLayerCIM.getHasAnnotation().get(n) instanceof RESTClientResource){
 				if(((RESTClientResource)this.oExternalServiceLayerCIM.getHasAnnotation().get(n)).getIsRESTClientResource().getAnnotatesAlgoResource().getName().equalsIgnoreCase(strRESTClientName)){
 					this.oComplexTypes[iNewRESTClientIndex].addAll(((RESTClientResource)this.oExternalServiceLayerCIM.getHasAnnotation().get(n)).getIsRESTClientComplexType());
