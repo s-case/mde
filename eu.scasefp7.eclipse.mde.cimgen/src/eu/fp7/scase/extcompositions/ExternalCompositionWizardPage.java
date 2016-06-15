@@ -2116,12 +2116,14 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			}
 			
 			//check if it has at least one output property
-			if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel().getHasOutputProperties().size() <= 0){
-				setErrorMessage("All RESTClient Resources that have an output data model, must have at least one output property. RESTClient Resource " +
+			if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel().getHasOutputProperties().size() <= 0
+				&& !(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel() instanceof ExistentCRUDPersistentOutput)){
+				setErrorMessage("All RESTClient Resources that have a non Existing CRUD output data model, must have at least one output property. RESTClient Resource " +
 					       this.oRESTClientModelingArray[iRESTClientIndex].getIsRESTClientResource().getAnnotatesAlgoResource().getName() + " does not have one.");
 				return false;
 			}
-			else{
+			else if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel().getHasOutputProperties().size() > 0
+					&& !(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel() instanceof ExistentCRUDPersistentOutput)){
 				//check if each property has a Type
 				for(int n = 0; n < this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel().getHasOutputProperties().size(); n++){
 					if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(n).getType() == null){
@@ -2130,6 +2132,15 @@ public class ExternalCompositionWizardPage extends WizardPage{
 								this.oRESTClientModelingArray[iRESTClientIndex].getIsRESTClientResource().getAnnotatesAlgoResource().getName() + " does not have one.");
 						return false;
 					}
+				}
+			}
+			else if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel().getHasOutputProperties().size() > 0
+					&& (this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel() instanceof ExistentCRUDPersistentOutput)){
+				//check if the RESTClient is set to persist the output with an existing CRUD model 
+				if(this.oRESTClientModelingArray[iRESTClientIndex].getTargetsService().getHasOutputDataModel() instanceof ExistentCRUDPersistentOutput){
+					setErrorMessage("All RESTClient Resources can have a custom output model or use an existing CRUD model for it as well as for persistence but not both. RESTClient Resource " +
+						       this.oRESTClientModelingArray[iRESTClientIndex].getIsRESTClientResource().getAnnotatesAlgoResource().getName() + " has both.");
+					return false;
 				}
 			}
 		}
