@@ -1,5 +1,5 @@
 [comment encoding = UTF-8 /]
-[module javaResourceModel('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthorizationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore','platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore')]
+[module javaResourceModel('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthorizationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore','platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/ExternalServiceLayerPSMMetamodel.ecore')]
 
 [template public javaResourceModel(anAnnotationStack : AnnotationStack)]
 
@@ -113,9 +113,21 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].utilities.Set
 [/if]
 [/if]
 
+[if (anAnnotationStack.bHasExternalServiceLayer and hasExistentOutputDataModels(anAnnotationStack) and hasExistingPersistenceCRUDModelAnnotations(anAnnotationStack))]
+[if (jRModel.isExistingPersistentCRUDModel(anAnnotationStack))]
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+[/if]
+[/if]
+
 /* This class models the data of a [jRModel.parentName/] resource. It is enhanced with JAXB annotations for automated representation
 parsing/marshalling as well as with Hibernate annotations for ORM transformations.*/
 @XmlRootElement
+[if (anAnnotationStack.bHasExternalServiceLayer and hasExistentOutputDataModels(anAnnotationStack) and hasExistingPersistenceCRUDModelAnnotations(anAnnotationStack))]
+[if (jRModel.isExistingPersistentCRUDModel(anAnnotationStack))]
+@JsonIgnoreProperties(ignoreUnknown = true)
+[/if]
+[/if]
 @Entity
 @Table(name="\"[jRModel.parentName.toLower()/]\"")
 [if (anAnnotationStack.bHasSearchLayer)]
@@ -430,4 +442,28 @@ then
 else
 	false
 endif	
+/]
+
+[query private hasExistingPersistenceCRUDModelAnnotations(anAnnotationStack : AnnotationStack) : Boolean =
+	getJavaRESTClientControllerAnnotations(anAnnotationStack)->exists(javaRESTController | javaRESTController.hasAssociatedModel.hasJavaOutputModel.oclIsTypeOf(ExistentJavaModelPersistentOutput))
+/]
+
+[query private getJavaRESTControllersWithOutputModel(anAnnotationStack : AnnotationStack) : Sequence(JavaRESTClientController) =
+	getJavaRESTClientControllerAnnotations(anAnnotationStack)->select(javaRESTController | javaRESTController.hasAssociatedModel.hasJavaOutputModel.oclIsUndefined() = false)->asSequence()
+/]
+
+[query private hasExistentOutputDataModels(anAnnotationStack : AnnotationStack) : Boolean =
+	getJavaRESTClientControllerAnnotations(anAnnotationStack)->exists(javaRESTController | javaRESTController.hasAssociatedModel.hasJavaOutputModel.oclIsUndefined() = false)
+/]
+
+[query private getJavaRESTClientControllerAnnotations(anAnnotationStack : AnnotationStack) : Sequence(JavaRESTClientController) =
+	anAnnotationStack.hasExternalServiceLayer.hasAnnotation->select(annotation | annotation.oclIsTypeOf(JavaRESTClientController))->asSequence()
+/]
+
+[query private isExistingPersistentCRUDModel(jRModel : JavaResourceModel, anAnnotationStack : AnnotationStack) : Boolean =
+	getExistingPersistenceCRUDModelAnnotations(anAnnotationStack)->exists(existentCRUDModel | existentCRUDModel.isExistentJavaModelPersistentOutput.annotatesJavaResourceModel->includes(jRModel))
+/]
+
+[query private getExistingPersistenceCRUDModelAnnotations(anAnnotationStack : AnnotationStack) : Sequence(ExistentJavaModelPersistentOutput) =
+	getJavaRESTClientControllerAnnotations(anAnnotationStack).hasAssociatedModel.hasJavaOutputModel->select(existentCRUDModel | existentCRUDModel.oclIsTypeOf(ExistentJavaModelPersistentOutput))->asSequence()
 /]
