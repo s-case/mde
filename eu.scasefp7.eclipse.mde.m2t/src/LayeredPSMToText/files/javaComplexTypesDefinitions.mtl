@@ -41,7 +41,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 @XmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class [complexType.complexTypeName/]{
+public class [complexType.complexTypeName.toUpperFirst()/]{
 
     /* There follows a list with the properties that model the [complexType.complexTypeName/] Complex Type, as prescribed in the External service layer CIM*/
 [for (property : ComplexTypeProperty | complexType.hasComplexTypeProperties)]
