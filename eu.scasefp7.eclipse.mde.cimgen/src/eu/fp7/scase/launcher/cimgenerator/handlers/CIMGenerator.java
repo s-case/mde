@@ -91,27 +91,13 @@ public class CIMGenerator extends AbstractHandler{
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		this.oEvent = event;
 		this.bReloadExistingModels = (event.getParameter("ReloadExistingModels") == null ? false : (event.getParameter("ReloadExistingModels").equalsIgnoreCase("yes") ? true : false));
-		//delete any existing source files
-		deleteExistingSourceFiles();
 		initializeAllCIMModels(event);
 		executeMDE(event);
 		exportBackUpXMIs(event);
 		return null;
 	}
 
-	private void deleteExistingSourceFiles() {
-		File oMdeOutputDirectory = new  File(this.oEvent.getParameter("MDEOutputFolder") + "/MDEGeneratedCode/" + this.oEvent.getParameter("WebServiceName"));
-		this.deleteFile(oMdeOutputDirectory);
-	}
 
-	private void deleteFile(File element) {
-	    if (element.isDirectory()) {
-	        for (File sub : element.listFiles()) {
-	            deleteFile(sub);
-	        }
-	    }
-	    element.delete();
-	}
 	
 	private void exportBackUpXMIs(ExecutionEvent event) {
 		//extract Core to a backup file as well to support 2nd run logic

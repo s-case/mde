@@ -1,5 +1,7 @@
 package eu.scasefp7.eclipse.mde.m2t.handlers;
 
+import java.io.File;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -33,12 +35,29 @@ public class MDEModelToTextTransformation extends AbstractHandler {
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 
+		//delete any existing source files
+		deleteExistingSourceFiles(event);
+		
 		String[] acceleoArguments = new String[2];
 		acceleoArguments[0] = event.getParameter("MDEOutputFolder") + "/AnnotationStack/" + event.getParameter("WebServiceName") + "AnnotationStack.xmi";
 		acceleoArguments[1] = event.getParameter("MDEOutputFolder") + "/MDEGeneratedCode/";		
 
 		Generate.main(acceleoArguments);
 		return null;
+	}
+	
+	private void deleteExistingSourceFiles(ExecutionEvent oEvent) {
+		File oMdeOutputDirectory = new  File(oEvent.getParameter("MDEOutputFolder") + "/MDEGeneratedCode/" + oEvent.getParameter("WebServiceName"));
+		this.deleteFile(oMdeOutputDirectory);
+	}
+
+	private void deleteFile(File element) {
+	    if (element.isDirectory()) {
+	        for (File sub : element.listFiles()) {
+	            deleteFile(sub);
+	        }
+	    }
+	    element.delete();
 	}
 	
 	private static MessageConsole findConsole(String name) {
