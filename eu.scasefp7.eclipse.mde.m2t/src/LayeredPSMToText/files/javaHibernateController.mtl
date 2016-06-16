@@ -52,6 +52,7 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities
 
 import java.util.Set;
 import java.util.HashSet;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -232,6 +233,7 @@ public class HibernateController{
 
         /* Find the [jPRModel.parentName/] of which the [jRM.parentName/] resource list is needed*/
         o[jPRModel.name/] = ([jPRModel.name/]) hibernateSession.get([jPRModel.name/].class, o[jPRModel.name/].get[jPRModel.parentName/]Id());
+		Hibernate.initialize(o[jPRModel.name/].getSetOf[jRM.name/]());
 
         /* Commit and terminate the session*/
         hibernateTransaction.commit();

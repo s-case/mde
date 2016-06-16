@@ -765,7 +765,7 @@ rule createOneToManyHibernateProperty(PIMRelatedModel : PIM!ResourceModel, PIMRe
 			bIsUnique <- false,
 			bIsNamingProperty <- false,
 			bIsPrimaryIdentifier <- false,
-			PropertyHasHibernateAnnotation <- Sequence{thisModule.createHibernateAnnotation('@OneToMany(fetch = FetchType.EAGER, mappedBy="' + PIMResourceModel.parentName + '",orphanRemoval=true)'),
+			PropertyHasHibernateAnnotation <- Sequence{thisModule.createHibernateAnnotation('@OneToMany(fetch = FetchType.LAZY, mappedBy="' + PIMResourceModel.parentName + '",orphanRemoval=true)'),
 													   thisModule.createHibernateAnnotation('@OnDelete(action=OnDeleteAction.CASCADE)')}
 		)
 	do{
