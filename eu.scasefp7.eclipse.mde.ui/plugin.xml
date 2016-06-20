@@ -112,6 +112,36 @@
        </propertyTabs>
     </extension>
 
+	<extension
+        point="eu.scasefp7.eclipse.core.ui.dashboardItem">
+                
+     	<group
+           id="eu.scasefp7.eclipse.core.ui.dashboard.groups.code"
+           appearsBefore="eu.scasefp7.eclipse.core.ui.dashboard.groups.run"
+           name="Code" />
+        <command
+              buttonId="eu.scasefp7.eclipse.core.ui.dashboard.buttons.gencode"
+              commandId="eu.scasefp7.eclipse.mde.ui.generateCode"
+              error="Code generation failed."
+              groupId="eu.scasefp7.eclipse.core.ui.dashboard.groups.code"
+              label="Generate code"
+              tooltip="Generate code for the web service">
+        </command>
+        <command
+              appearsBefore="eu.scasefp7.eclipse.core.ui.dashboard.buttons.gencode"
+              buttonId="eu.scasefp7.eclipse.core.ui.dashboard.buttons.regencode"
+              commandId="eu.scasefp7.eclipse.mde.ui.generateCode"
+              error="Code generation failed."
+              groupId="eu.scasefp7.eclipse.core.ui.dashboard.groups.code"
+              label="Re-generate code"
+              tooltip="Generate code for the web service using previous settings">
+           <parameter
+                 name="eu.scasefp7.eclipse.mde.ui.generateCode.reload"
+                 value="yes">
+           </parameter>
+        </command>
+    </extension>
+
     <extension
           point="org.eclipse.ui.views.properties.tabbed.propertySections">
        <propertySections contributorId="org.eclipse.ui.navigator.ProjectExplorer">
@@ -123,5 +153,5 @@
           </propertySection>
        </propertySections>
     </extension>
--->
+    
 </plugin>
