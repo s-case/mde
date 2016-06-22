@@ -52,12 +52,19 @@ public class MDEModelToTextTransformation extends AbstractHandler {
 	}
 
 	private void deleteFile(File element) {
-	    if (element.isDirectory()) {
-	        for (File sub : element.listFiles()) {
-	            deleteFile(sub);
-	        }
-	    }
-	    element.delete();
+		String filename = element.getName();
+		int pos = filename.lastIndexOf(".");
+		String filenameWithoutExtension = "_";
+		if (pos >= 0)
+			filenameWithoutExtension = filename.substring(0, pos);
+		if (element.isDirectory()) {
+			for (File sub : element.listFiles()) {
+				if (!filenameWithoutExtension.equals(""))
+					deleteFile(sub);
+			}
+		}
+		if (!filenameWithoutExtension.equals(""))
+			element.delete();
 	}
 	
 	private static MessageConsole findConsole(String name) {
