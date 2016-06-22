@@ -3,6 +3,8 @@ package eu.fp7.scase.extcompositions;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.jface.dialogs.Dialog;
@@ -11,6 +13,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PlatformUI;
 
 public class SimpleDialogBox extends Dialog{
 
@@ -28,6 +31,18 @@ public class SimpleDialogBox extends Dialog{
 		oParentShell.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
 		this.strArtefactType = strArtefactType;
+	}
+
+	private Point getCenterPoint() {
+		Shell parentShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+		Rectangle shellBounds = parentShell.getBounds();
+		return new Point(shellBounds.x + shellBounds.width / 2, shellBounds.y + shellBounds.height / 2);
+	}
+
+	@Override
+	protected Point getInitialLocation(Point initialSize) {
+		Point shellCenter = getCenterPoint();
+		return new Point(shellCenter.x - initialSize.x / 2, shellCenter.y - initialSize.y / 2);
 	}
 
 	@Override
