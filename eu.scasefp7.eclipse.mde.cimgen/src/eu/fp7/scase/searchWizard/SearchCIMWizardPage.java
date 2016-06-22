@@ -136,7 +136,12 @@ public class SearchCIMWizardPage extends WizardPage{
 	private boolean isAlreadySearchResource(int iAlgoResourceIndex) {
 		for(int n = 0; n < this.oSearchLayerCIM.getHasAnnotation().size(); n++){
 			if(this.oSearchLayerCIM.getHasAnnotation().get(n) instanceof SearchResource){
-				if(((SearchResource)this.oSearchLayerCIM.getHasAnnotation().get(n)).getAlgoResourceIsSearchResource().getAnnotatesAlgoResource().getName().equalsIgnoreCase(this.getAlgoResourceByIndex(iAlgoResourceIndex).getName())){
+				//check if the reference to CORE model is still valid
+				Resource oCoreResource = ((SearchResource)this.oSearchLayerCIM.getHasAnnotation().get(n)).getAlgoResourceIsSearchResource().getAnnotatesAlgoResource();
+				if(oCoreResource.getName() == null){
+					return false;
+				}
+				else if(((SearchResource)this.oSearchLayerCIM.getHasAnnotation().get(n)).getAlgoResourceIsSearchResource().getAnnotatesAlgoResource().getName().equalsIgnoreCase(this.getAlgoResourceByIndex(iAlgoResourceIndex).getName())){
 					return true;
 				}
 			}
