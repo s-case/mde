@@ -42,15 +42,22 @@ public class ImportMavenProjectHandler extends AbstractHandler {
 			throw new ExecutionException("Unable to find generated project.");
 		}
 
-		String mdeOutput = mdeFolder + "/MDEGeneratedCode/"; //$NON-NLS-1$
-		String pomFilename = mdeOutput + serviceName + "/pom.xml"; //$NON-NLS-1$
-
+		// Job reference
 		WorkspaceJob job = null;
 
+		// Check if project already exists
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(serviceName);
 		if (project != null && project.exists()) {
-			job = new UpdateMavenProjectJob(new IProject[] { project });
+			try {
+				project.refreshLocal(IProject.DEPTH_INFINITE, null);
+				job = new UpdateMavenProjectJob(new IProject[] { project });
+			} catch (CoreException e) {
+				Activator.log("Update maven project command failed.", e);
+			}
 		} else {
+			String mdeOutput = mdeFolder + "/MDEGeneratedCode/"; //$NON-NLS-1$
+			String pomFilename = mdeOutput + serviceName + "/pom.xml"; //$NON-NLS-1$
+
 			job = new WorkspaceJob("Importing generated code for " + serviceName) {
 				@Override
 				public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
