@@ -120,6 +120,7 @@
            appearsBefore="eu.scasefp7.eclipse.core.ui.dashboard.groups.run"
            name="Code" />
         <command
+              appearsBefore="eu.scasefp7.eclipse.core.ui.dashboard.buttons.regencode"
               buttonId="eu.scasefp7.eclipse.core.ui.dashboard.buttons.gencode"
               commandId="eu.scasefp7.eclipse.mde.ui.generateCode"
               error="Code generation failed."
@@ -128,7 +129,6 @@
               tooltip="Generate code for the web service">
         </command>
         <command
-              appearsBefore="eu.scasefp7.eclipse.core.ui.dashboard.buttons.gencode"
               buttonId="eu.scasefp7.eclipse.core.ui.dashboard.buttons.regencode"
               commandId="eu.scasefp7.eclipse.mde.ui.generateCode"
               error="Code generation failed."
