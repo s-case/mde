@@ -53,7 +53,7 @@ public class CodeGenerationPreferencePage extends FieldEditorOverlayPage impleme
         addField(new StringFieldEditor(PreferenceConstants.P_DATABASE_PASSWORD, "Database pass&word:", getFieldEditorParent()));
         
 		addField(new BooleanFieldEditor(PreferenceConstants.P_FACET_BASIC_AUTHENTICATION, "Add &Basic authentication", getFieldEditorParent()));
-		addField(new BooleanFieldEditor(PreferenceConstants.P_FACET_ABAC_AUTHORIZATION, "Add &ABAC authentication", getFieldEditorParent()));
+		addField(new BooleanFieldEditor(PreferenceConstants.P_FACET_ABAC_AUTHORIZATION, "Add &ABAC authorization", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(PreferenceConstants.P_FACET_SEARCH, "Add database &searching", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(PreferenceConstants.P_FACET_EXT_COMPOSITIONS, "Add &External compositions", getFieldEditorParent()));
 		
