@@ -45,20 +45,20 @@ public class [jAlgoRM.name/]{
     /* There follows a list with the properties that model the [jAlgoRM.parentName/] resource, as prescribed in the External service layer CIM*/
 [for (property : Property | jAlgoRM.getJavaRESTClientModelAnnotation(anAnnotationStack).hasJavaInputModel.hasInputProperty)]
 	[if (property.isUnique = true)]
-	private [if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if] [property.name/];
+	private [if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if] [property.name/];
 	[else]
-	private List<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if]> [property.name/] = new ArrayList<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if]>();
+	private List<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if]> [property.name/] = new ArrayList<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if]>();
 	[/if]
 [/for]
 
 	/* There follows a list of setter and getter functions.*/
 [for (property : Property | jAlgoRM.getJavaRESTClientModelAnnotation(anAnnotationStack).hasJavaInputModel.hasInputProperty) separator('\n')]
 	[if (property.isUnique = false)]
-	public void set[property.name.toUpperFirst()/](List<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if]> [property.name/]){
+	public void set[property.name.toUpperFirst()/](List<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if]> [property.name/]){
     	this.[property.name/] = [property.name/];
     }
 	[else]
-	public void set[property.name.toUpperFirst()/]([if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if] [property.name/]){
+	public void set[property.name.toUpperFirst()/]([if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if] [property.name/]){
     	this.[property.name/] = [property.name/];
     }
 	[/if]
@@ -66,11 +66,11 @@ public class [jAlgoRM.name/]{
 
 [for (property : Property | jAlgoRM.getJavaRESTClientModelAnnotation(anAnnotationStack).hasJavaInputModel.hasInputProperty) separator('\n')]
 	[if (property.isUnique = false)]
-	public List<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if]> get[property.name.toUpperFirst()/](){
+	public List<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if]> get[property.name.toUpperFirst()/](){
         return this.[property.name/];
     }
 	[else]
-	public [if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if] get[property.name.toUpperFirst()/](){
+	public [if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if] get[property.name.toUpperFirst()/](){
         return this.[property.name/];
     }
 	[/if]

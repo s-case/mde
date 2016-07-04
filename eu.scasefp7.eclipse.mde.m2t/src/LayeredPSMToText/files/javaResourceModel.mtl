@@ -113,19 +113,27 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].utilities.Set
 [/if]
 [/if]
 
-[if (anAnnotationStack.bHasExternalServiceLayer and hasExistentOutputDataModels(anAnnotationStack) and hasExistingPersistenceCRUDModelAnnotations(anAnnotationStack))]
+[if (anAnnotationStack.bHasExternalServiceLayer)]
+[if (hasExistentOutputDataModels(anAnnotationStack))]
+[if (hasExistingPersistenceCRUDModelAnnotations(anAnnotationStack))]
 [if (jRModel.isExistingPersistentCRUDModel(anAnnotationStack))]
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
+[/if]
+[/if]
 [/if]
 [/if]
 
 /* This class models the data of a [jRModel.parentName/] resource. It is enhanced with JAXB annotations for automated representation
 parsing/marshalling as well as with Hibernate annotations for ORM transformations.*/
 @XmlRootElement
-[if (anAnnotationStack.bHasExternalServiceLayer and hasExistentOutputDataModels(anAnnotationStack) and hasExistingPersistenceCRUDModelAnnotations(anAnnotationStack))]
+[if (anAnnotationStack.bHasExternalServiceLayer)]
+[if (hasExistentOutputDataModels(anAnnotationStack))]
+[if (hasExistingPersistenceCRUDModelAnnotations(anAnnotationStack))]
 [if (jRModel.isExistingPersistentCRUDModel(anAnnotationStack))]
 @JsonIgnoreProperties(ignoreUnknown = true)
+[/if]
+[/if]
 [/if]
 [/if]
 @Entity
@@ -175,7 +183,7 @@ public class [jRModel.name/]{
 		@FieldBridge(impl=SetStringFieldBridge.class)
 		[/if]
 		[/if]
-		private Set<[if (jRMProperty.type.equalsIgnoreCase('int'))]Integer[elseif(jRMProperty.type.equalsIgnoreCase('double'))]Double[else][jRMProperty.type/][/if]> [jRMProperty.name/] = new HashSet<[if (jRMProperty.type.equalsIgnoreCase('int'))]Integer[elseif(jRMProperty.type.equalsIgnoreCase('double'))]Double[else][jRMProperty.type/][/if]>();
+		private Set<[if (jRMProperty.type.equalsIgnoreCase('int'))]Integer[elseif(jRMProperty.type.equalsIgnoreCase('double'))]Double[elseif(jRMProperty.type.equalsIgnoreCase('float'))]Float[elseif(jRMProperty.type.equalsIgnoreCase('long'))]Long[elseif(jRMProperty.type.equalsIgnoreCase('boolean'))]Boolean[else][jRMProperty.type/][/if]> [jRMProperty.name/] = new HashSet<[if (jRMProperty.type.equalsIgnoreCase('int'))]Integer[elseif(jRMProperty.type.equalsIgnoreCase('double'))]Double[elseif(jRMProperty.type.equalsIgnoreCase('float'))]Float[elseif(jRMProperty.type.equalsIgnoreCase('long'))]Long[elseif(jRMProperty.type.equalsIgnoreCase('boolean'))]Boolean[else][jRMProperty.type/][/if]>();
 		[/if]
 	[/if]
 [/for]
@@ -222,7 +230,7 @@ public class [jRModel.name/]{
         	this.[javaSetterFunction.hasFunctionParameter->at(1).name/] = [javaSetterFunction.hasFunctionParameter->at(1).name/];
     	}
 	[elseif (javaSetterFunction.hasFunctionParameter->at(1).bIsUnique = false)]
-	    public void [javaSetterFunction.name/](Set<[if (javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('int'))]Integer[elseif (javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('double'))]Double[else][javaSetterFunction.hasFunctionParameter->at(1).type/][/if]> [javaSetterFunction.hasFunctionParameter->at(1).name/]){
+	    public void [javaSetterFunction.name/](Set<[if (javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('int'))]Integer[elseif (javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('double'))]Double[elseif(javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('float'))]Float[elseif(javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('long'))]Long[elseif(javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('boolean'))]Boolean[else][javaSetterFunction.hasFunctionParameter->at(1).type/][/if]> [javaSetterFunction.hasFunctionParameter->at(1).name/]){
         	this.[javaSetterFunction.hasFunctionParameter->at(1).name/] = [javaSetterFunction.hasFunctionParameter->at(1).name/];
     	}
 	[else]
@@ -268,7 +276,7 @@ public class [jRModel.name/]{
         	return this.[javaGetterFunction.hasFunctionParameter->at(1).name/];
     	}
 	[elseif (javaGetterFunction.hasFunctionParameter->at(1).bIsUnique = false)]
-	    public Set<[if (javaGetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('int'))]Integer[elseif (javaGetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('double'))]Double[else][javaGetterFunction.hasFunctionParameter->at(1).type/][/if]> [javaGetterFunction.name/](){
+	    public Set<[if (javaGetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('int'))]Integer[elseif (javaGetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('double'))]Double[elseif(javaGetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('float'))]Float[elseif(javaGetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('long'))]Long[elseif(javaGetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('boolean'))]Boolean[else][javaGetterFunction.hasFunctionParameter->at(1).type/][/if]> [javaGetterFunction.name/](){
         	return this.[javaGetterFunction.hasFunctionParameter->at(1).name/];
     	}
 	[else]

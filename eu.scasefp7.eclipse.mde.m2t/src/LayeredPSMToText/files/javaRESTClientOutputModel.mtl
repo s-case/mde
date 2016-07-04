@@ -50,9 +50,9 @@ public class Java[jAlgoRM.parentName.toUpperFirst()/]OutputModel{
 [if (jAlgoRM.getJavaRESTClientModelAnnotation(anAnnotationStack).hasJavaOutputModel.oclIsUndefined() = false)]
 [for (property : Property | jAlgoRM.getJavaRESTClientModelAnnotation(anAnnotationStack).hasJavaOutputModel.hasOutputProperty)]
 	[if (property.isUnique = true)]
-	private [if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if] [property.name/];
+	private [if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if] [property.name/];
 	[else]
-	private List<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if]> [property.name/] = new ArrayList<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if]>();
+	private List<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if]> [property.name/] = new ArrayList<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if]>();
 	[/if]
 [/for]
 [/if]
@@ -65,11 +65,11 @@ public class Java[jAlgoRM.parentName.toUpperFirst()/]OutputModel{
 [if (jAlgoRM.getJavaRESTClientModelAnnotation(anAnnotationStack).hasJavaOutputModel.oclIsUndefined() = false)]
 [for (property : Property | jAlgoRM.getJavaRESTClientModelAnnotation(anAnnotationStack).hasJavaOutputModel.hasOutputProperty) separator('\n')]
 	[if (property.isUnique = false)]
-	public void set[property.name.toUpperFirst()/](List<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if]> [property.name/]){
+	public void set[property.name.toUpperFirst()/](List<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if]> [property.name/]){
     	this.[property.name/] = [property.name/];
     }
 	[else]
-	public void set[property.name.toUpperFirst()/]([if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if] [property.name/]){
+	public void set[property.name.toUpperFirst()/]([if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if] [property.name/]){
     	this.[property.name/] = [property.name/];
     }
 	[/if]
@@ -83,11 +83,11 @@ public class Java[jAlgoRM.parentName.toUpperFirst()/]OutputModel{
 [if (jAlgoRM.getJavaRESTClientModelAnnotation(anAnnotationStack).hasJavaOutputModel.oclIsUndefined() = false)]
 [for (property : Property | jAlgoRM.getJavaRESTClientModelAnnotation(anAnnotationStack).hasJavaOutputModel.hasOutputProperty) separator('\n')]
 	[if (property.isUnique = false)]
-	public List<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if]> get[property.name.toUpperFirst()/](){
+	public List<[if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if]> get[property.name.toUpperFirst()/](){
         return this.[property.name/];
     }
 	[else]
-	public [if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName/][/if] get[property.name.toUpperFirst()/](){
+	public [if (property.hasPrimitiveType = true)][property.type/][else][property.hasComplexType.complexTypeName.toUpperFirst()/][/if] get[property.name.toUpperFirst()/](){
         return this.[property.name/];
     }
 	[/if]
