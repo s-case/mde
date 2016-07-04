@@ -23,9 +23,12 @@ public class SimpleDialogBox extends Dialog{
 	private String strArtefactName;
 	private String strArtefactType;
 	private Shell oParentShell;
+	private String strInitialArtefactName;
 	
-	public SimpleDialogBox(Shell parent, String strArtefactType) {
+	public SimpleDialogBox(Shell parent, String strArtefactType, String strInitialArtefactName) {
 		super(parent);
+		this.strInitialArtefactName = strInitialArtefactName;
+		this.strArtefactName = this.strInitialArtefactName;
 		this.oParentShell = parent;
 		oParentShell.setLayout(new GridLayout(2, false));
 		oParentShell.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
@@ -53,6 +56,8 @@ public class SimpleDialogBox extends Dialog{
 		
 		oInputText = new Text(container, SWT.None);
 		oInputText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		oInputText.setText(strInitialArtefactName);
+		
 		addInputTextListener();
 		
 	    return container;
@@ -63,7 +68,12 @@ public class SimpleDialogBox extends Dialog{
 
 			@Override
 			public void modifyText(ModifyEvent e) {
-				strArtefactName = oInputText.getText();
+				if(!oInputText.getText().isEmpty()){
+					strArtefactName = oInputText.getText();
+				}
+				else{
+					strArtefactName = strInitialArtefactName;
+				}
 			}
 		});
 	}

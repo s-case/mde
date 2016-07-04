@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
-import eu.fp7.scase.extcompositions.SimpleDialogBox;
+import eu.fp7.scase.cimeditor.SimpleDialogBox;
 import eu.fp7.scase.launcher.cimgenerator.Activator;
 import ServiceCIM.CRUDActivity;
 import ServiceCIM.CRUDVerb;
@@ -316,7 +316,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				//rename an existing Resource
 				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
 				oShell.setSize(0,0);
-				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "Resource");
+				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "Resource", oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])).getName());
 				if(oSimpleDialogBox.open() == Window.OK){
 					oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])).setName(oSimpleDialogBox.getArtefactName());
 					oResourceList.remove(oResourceList.getSelectionIndex());
@@ -339,9 +339,9 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				//rename an existing Resource
 				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
 				oShell.setSize(0,0);
-				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "Property's name");
+				Resource oResource = oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0]));
+				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "Property's name", oResource.getHasProperty().get(getPropertyIndexByName(oResource, oPropertiesList.getSelection()[0])).getName());
 				if(oSimpleDialogBox.open() == Window.OK){
-					Resource oResource = oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0]));
 					oResource.getHasProperty().get(getPropertyIndexByName(oResource, oPropertiesList.getSelection()[0])).setName(oSimpleDialogBox.getArtefactName());;
 					oPropertiesList.remove(oPropertiesList.getSelectionIndex());
 					oPropertiesList.add(oSimpleDialogBox.getArtefactName());
@@ -393,7 +393,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 			public void handleEvent(Event event) {
 				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
 				oShell.setSize(0,0);
-				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "property");
+				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "property", "propertyName");
 				if(oSimpleDialogBox.open() == Window.OK){
 					Property oNewProperty = oRestServiceCIMFactory.createProperty();
 					oNewProperty.setName(oSimpleDialogBox.getArtefactName());
@@ -471,7 +471,7 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 			public void handleEvent(Event event) {
 				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
 				oShell.setSize(0,0);
-				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "resource");
+				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "resource", "resourceName");
 				if(oSimpleDialogBox.open() == Window.OK){ //if user did not press cancel
 					Resource oNewResource = oRestServiceCIMFactory.createResource();
 					oNewResource.setName(oSimpleDialogBox.getArtefactName());

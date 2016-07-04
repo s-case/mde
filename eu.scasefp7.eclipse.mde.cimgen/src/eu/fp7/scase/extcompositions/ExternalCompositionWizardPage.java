@@ -544,11 +544,13 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				//rename an existing Output Model Property 
 				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
 				oShell.setSize(0,0);
-				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "output model property");
+				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "output model property", oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().
+						getHasOutputDataModel().getHasOutputProperties().get(getOutputPropertyIndexByName(listRESTClientResources.getSelection()[0], listOutputProperties.getSelection()[0]))
+						.getName());
 				if(oSimpleDialogBox.open() == Window.OK){
 					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().
 					getHasOutputDataModel().getHasOutputProperties().get(getOutputPropertyIndexByName(listRESTClientResources.getSelection()[0], listOutputProperties.getSelection()[0]))
-					.setName(oSimpleDialogBox.getArtefactName());;
+					.setName(oSimpleDialogBox.getArtefactName());
 					listOutputProperties.removeAll();
 					populateAllRESTClientSWTs(listRESTClientResources.getSelection()[0]);
 				}
@@ -584,7 +586,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				//create a new Output Model Property 
 				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
 				oShell.setSize(0,0);
-				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "output model property");
+				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "output model property", "outputPropertyName");
 				if(oSimpleDialogBox.open() == Window.OK){
 					ModelProperty oOutputProperty = oExternalServiceLayerCIMFactory.createModelProperty();
 					oOutputProperty.setName(oSimpleDialogBox.getArtefactName());
@@ -748,11 +750,13 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				//rename an existing Input Model Property 
 				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
 				oShell.setSize(0,0);
-				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "input model property");
+				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "input model property", oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().
+						getHasInputDataModel().getHasInputProperties().get(getInputPropertyIndexByName(listRESTClientResources.getSelection()[0], listInputProperties.getSelection()[0]))
+						.getName());
 				if(oSimpleDialogBox.open() == Window.OK){
 					oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService().
 					getHasInputDataModel().getHasInputProperties().get(getInputPropertyIndexByName(listRESTClientResources.getSelection()[0], listInputProperties.getSelection()[0]))
-					.setName(oSimpleDialogBox.getArtefactName());;
+					.setName(oSimpleDialogBox.getArtefactName());
 					listInputProperties.removeAll();
 					populateAllRESTClientSWTs(listRESTClientResources.getSelection()[0]);
 				}
@@ -816,7 +820,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				//create a new Input Model Property 
 				Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
 				oShell.setSize(0,0);
-				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "input model property");
+				SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "input model property", "inputPropertyName");
 				if(oSimpleDialogBox.open() == Window.OK){
 					ModelProperty oInputProperty = oExternalServiceLayerCIMFactory.createModelProperty();
 					oInputProperty.setName(oSimpleDialogBox.getArtefactName());
@@ -928,7 +932,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			//create a new Query Parameter
 			Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
 			oShell.setSize(0,0);
-			SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "query parameter");
+			SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "query parameter", "queryParameterName");
 			if(oSimpleDialogBox.open() == Window.OK){
 				QueryParam oQueryParam = oExternalServiceLayerCIMFactory.createQueryParam();
 				oQueryParam.setName(oSimpleDialogBox.getArtefactName());
@@ -952,7 +956,9 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			//rename an existing Query Parameter
 			Shell oShell = new Shell(SWT.ON_TOP | SWT.SYSTEM_MODAL | SWT.NO_TRIM | SWT.RESIZE);
 			oShell.setSize(0,0);
-			SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "query parameter");
+			SimpleDialogBox oSimpleDialogBox = new SimpleDialogBox(oShell, "query parameter", oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService()
+					.getHasQueryParam().get(findQueryParmIndexByName(listRESTClientResources.getSelection()[0],listQueryParameters.getSelection()[0]))
+					.getName());
 			if(oSimpleDialogBox.open() == Window.OK){
 				oRESTClientModelingArray[getAlgoResourceIndexByName(listRESTClientResources.getSelection()[0])].getTargetsService()
 					.getHasQueryParam().get(findQueryParmIndexByName(listRESTClientResources.getSelection()[0],listQueryParameters.getSelection()[0]))
