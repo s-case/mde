@@ -49,6 +49,11 @@ public class MDEModelToTextTransformation extends AbstractHandler {
 	private void deleteExistingSourceFiles(ExecutionEvent oEvent) {
 		File oMdeOutputDirectory = new  File(oEvent.getParameter("MDEOutputFolder") + "/MDEGeneratedCode/" + oEvent.getParameter("WebServiceName"));
 		this.deleteFile(oMdeOutputDirectory);
+		
+		if(oEvent.getParameter("DBMigration").equalsIgnoreCase("yes")){//delete also the previous DBMigrator files
+			File oMdeDBMigrationOutputDirectory = new  File(oEvent.getParameter("MDEOutputFolder") + "/MDEGeneratedCode/" + oEvent.getParameter("WebServiceName") + "DBMigrator");
+			this.deleteFile(oMdeDBMigrationOutputDirectory);
+		}
 	}
 
 	private void deleteFile(File element) {

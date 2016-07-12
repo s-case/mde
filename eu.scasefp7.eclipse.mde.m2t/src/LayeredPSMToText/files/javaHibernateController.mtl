@@ -1,9 +1,9 @@
 [comment encoding = UTF-8 /]
 [module javaHibernateController('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthorizationPSMMetamodel.ecore','platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore')]
 
-[template public javaHibernateController(anAnnotationStack : AnnotationStack)]
+[template public javaHibernateController(anAnnotationStack : AnnotationStack, strDBMigrator : String)]
 
-[file (anAnnotationStack.hasCorePSM.name  + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/utilities/HibernateController.java', false, 'UTF-8')]
+[file (anAnnotationStack.hasCorePSM.name  + strDBMigrator + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/utilities/HibernateController.java', false, 'UTF-8')]
 /*
  * ARISTOTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015

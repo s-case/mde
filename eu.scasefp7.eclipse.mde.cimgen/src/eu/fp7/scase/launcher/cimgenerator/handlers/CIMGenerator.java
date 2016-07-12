@@ -43,6 +43,9 @@ import eu.fp7.scase.cimGenerator.EcoreXMIExtractor;
 import eu.fp7.scase.cimeditor.CoreCIMEditorWizard;
 import eu.fp7.scase.extcompositions.ExternalCompositionInputParser;
 import eu.fp7.scase.extcompositions.ExternalCompositionWizard;
+import MDEMigratorCIMMetamodel.AnnotationModel;
+import MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelFactory;
+import eu.fp7.scase.DBMigratorWizard.DBMigrationWizard;
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
@@ -74,6 +77,10 @@ public class CIMGenerator extends AbstractHandler{
 	private SearchCIMWizard oSearchCIMWizard;
 	private ExternalCompositionWizard oExternalCompositionWizard;
 	private ExternalCompositionInputParser oExternalCompositionInputParser;
+	private MDEMigratorCIMMetamodelFactory oMdeMigratorCIMMetamodelFactory;
+	private MDEMigratorCIMMetamodel.AnnotationModel oMdeDBMigratorCIM;
+	private MDEMigratorCIMMetamodel.AnnotationModel oExistingMdeDBMigratorCIM;
+	private DBMigrationWizard oDBMigrationWizard;
 	private static MessageConsole myConsole = findConsole("SCASE-UI");
 	private static MessageConsoleStream out = myConsole.newMessageStream();
 
@@ -198,6 +205,16 @@ public class CIMGenerator extends AbstractHandler{
 		else{
 			this.oExistingExternalServiceLayerCIM = null;
 		}
+		
+		//if the database migration flag is true
+		if(event.getParameter("DBMigration").equalsIgnoreCase("yes")){//instantiate an empty database migration  model
+			this.oMdeMigratorCIMMetamodelFactory = MDEMigratorCIMMetamodelFactory.eINSTANCE;
+			this.oMdeDBMigratorCIM = this.oMdeMigratorCIMMetamodelFactory.createAnnotationModel();
+			this.oMdeDBMigratorCIM.setName(this.oRESTfulServiceCIM.getName() + "DBMigrationLayer");
+		}
+		else{
+			this.oMdeDBMigratorCIM = null;
+		}
 	}
 
 	private void loadAllExistingCIMModels(ExecutionEvent event) {
@@ -296,6 +313,25 @@ public class CIMGenerator extends AbstractHandler{
 		else{
 			this.oExternalServiceLayerCIM = null;
 		}
+		
+		//if the database migration flag is true
+		if(event.getParameter("DBMigration").equalsIgnoreCase("yes")){
+			oFile = new File(event.getParameter("MDEOutputFolder") + "/CIMModels/BackUp/" + event.getParameter("WebServiceName") + "MDEDBMigrationCIMBackUp.xmi");
+			//load the existing database migration layer model in case it is needed
+			if(oFile.exists() && oFile.isFile()){
+				this.oMdeDBMigratorCIM = this.loadDBMigrationLayerCIM(event.getParameter("MDEOutputFolder") + "/CIMModels/BackUp/" + event.getParameter("WebServiceName") + "MDEDBMigrationCIMBackUp.xmi");
+				System.out.println("Loaded existing Database Migration CIM Model");
+			}
+			else{
+				System.out.println("Existing Database Migration CIM Model was not found. Creating a new, empty one!");
+				this.oMdeMigratorCIMMetamodelFactory = MDEMigratorCIMMetamodelFactory.eINSTANCE;
+				this.oMdeDBMigratorCIM = this.oMdeMigratorCIMMetamodelFactory.createAnnotationModel();
+				this.oMdeDBMigratorCIM.setName(this.oRESTfulServiceCIM.getName() + "DBMigrationLayer");	
+			}
+		}
+		else{
+			this.oExternalServiceLayerCIM = null;
+		}
 	}
 
 	private void executeMDE(ExecutionEvent event) throws ExecutionException {
@@ -324,6 +360,12 @@ public class CIMGenerator extends AbstractHandler{
 		if(event.getParameter("Authorization").equalsIgnoreCase("yes") && event.getParameter("Authentication").equalsIgnoreCase("yes")){
 			//initialize an authentication layer CIM object in case it is needed
 			createABACAuthorizationCIM(event);
+		}
+		
+		//if the database migration flag is true
+		if(event.getParameter("DBMigration").equalsIgnoreCase("yes")){
+			//initialize a database migration layer CIM object in case it is needed
+			createDBMigrationCIM(event);
 		}
 	}
 
@@ -473,6 +515,21 @@ public class CIMGenerator extends AbstractHandler{
 		
 		if(oExternalCompositionWizardDialog.open() == Window.OK){
 			oExternalCompositionWizard.createExternalServiceLayerCIM();
+		}
+		else{
+			throw new ExecutionException("Code generation process canceled by user.", new CanceledExecutionException("canceled exception"));
+		}
+
+		return true;
+	}
+	
+	private boolean createDBMigrationCIM(ExecutionEvent event) throws ExecutionException {
+		//setup the database migration CIM wizard
+		this.oDBMigrationWizard = new DBMigrationWizard(this.oEvent.getParameter("MDEOutputFolder"), this.oRESTfulServiceCIM, this.oMdeDBMigratorCIM, this.bReloadExistingModels);
+		WizardDialog oDBMigrationWizardDialog = new WizardDialog(null, oDBMigrationWizard);
+		
+		if(oDBMigrationWizardDialog.open() == Window.OK){
+			oDBMigrationWizard.createDBMigrationCIM();
 		}
 		else{
 			throw new ExecutionException("Code generation process canceled by user.", new CanceledExecutionException("canceled exception"));
@@ -643,6 +700,11 @@ public class CIMGenerator extends AbstractHandler{
 	    // example everything is hierarchical included in this first node
 	    ExternalServiceLayerCIM.AnnotationModel oAnnotationModel = (ExternalServiceLayerCIM.AnnotationModel) resource.getContents().get(0);
 	    return oAnnotationModel;
+	}
+	
+	private AnnotationModel loadDBMigrationLayerCIM(String string) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	private static MessageConsole findConsole(String name) {

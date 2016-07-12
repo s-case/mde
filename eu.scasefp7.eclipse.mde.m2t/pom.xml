@@ -48,6 +48,7 @@
 	           <packageToRegister>SearchLayerPSM.SearchLayerPSMPackage</packageToRegister>
 	           <packageToRegister>ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage</packageToRegister>
 	           <packageToRegister>RESTfulServicePSM.RESTfulServicePSMPackage</packageToRegister>
+	           <packageToRegister>MDEMigratorPSMMetamodel.MDEMigratorPSMMetamodelPackage</packageToRegister>
 	         </packagesToRegister>
 	       </configuration>
 	     </plugin>

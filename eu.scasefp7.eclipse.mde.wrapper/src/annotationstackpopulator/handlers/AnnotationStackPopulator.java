@@ -28,6 +28,7 @@ import annotationstackpopulator.Activator;
 import RESTfulServicePSM.ServicePSM;
 import RESTfulServicePSM.RESTfulServicePSMPackage;
 import SearchLayerPSM.SearchLayerPSMPackage;
+import MDEMigratorPSMMetamodel.MDEMigratorPSMMetamodelPackage;
 
 
 /**
@@ -42,6 +43,7 @@ public class AnnotationStackPopulator extends AbstractHandler {
 	private AuthorizationLayerPSM.AnnotationModel oAuthorizationLayerPSM;
 	private SearchLayerPSM.AnnotationModel oSearchLayerPSM;
 	private ExternalServiceLayerPSM.AnnotationModel oExternalServiceLayerPSM;
+	private MDEMigratorPSMMetamodel.AnnotationModel oDBMigratorPSM;
 	private AnnotationStack oAnnotationStack;
 	private String strOutputFolder;
 	private String strProjectName;
@@ -112,6 +114,16 @@ public class AnnotationStackPopulator extends AbstractHandler {
 		}
 		else{
 			oAnnotationStack.setBHasExternalServiceLayer(false);
+		}
+		
+		//if there is a DB Migration layer to load, load it
+		if(event.getParameter("DBMigration").equalsIgnoreCase("yes")){
+			this.oDBMigratorPSM = loadDBMigrationLayerPSM(event.getParameter("MDEOutputFolder") + "/PSMModels/" + event.getParameter("WebServiceName") + "DBMigratorPSM.xmi");
+			oAnnotationStack.setBHasDBMigrationLayer(true);
+			oAnnotationStack.setHasDBMigrationLayer(oDBMigratorPSM);
+		}
+		else{
+			oAnnotationStack.setBHasDBMigrationLayer(false);
 		}
 		
 		//export annotation layer stack
@@ -307,6 +319,37 @@ public class AnnotationStackPopulator extends AbstractHandler {
 		} catch (IOException e) {
 			Activator.log("Could not save the meta-model stack to an XMI file", e);
 		}
+	}
+	
+	private MDEMigratorPSMMetamodel.AnnotationModel loadDBMigrationLayerPSM(String strDBMigratorPath) {
+		ResourceSet oResourceSet;
+		URI oURI;
+		
+		MDEMigratorPSMMetamodelPackage.eINSTANCE.getClass();
+		
+		// Create a resource set.
+		oResourceSet = new ResourceSetImpl();
+
+		// Register the default resource factory -- only needed for stand-alone!
+		oResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(org.eclipse.emf.ecore.resource.Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+		
+		// Get the URI of the model file.
+		oURI = URI.createFileURI(new File(strDBMigratorPath).getAbsolutePath());
+		out.println(oURI.devicePath());
+
+	    // Get the resource
+	    Resource resource = oResourceSet.getResource(oURI, true);
+	    
+	    try {
+			resource.load(null);
+		} catch (IOException e) {
+			Activator.log("Could not load DB Migration Layer PSM file", e);
+		}
+	    
+	    // Get the first model element and cast it to the right type, in my
+	    // example everything is hierarchical included in this first node
+	    MDEMigratorPSMMetamodel.AnnotationModel oAnnotationModel = (MDEMigratorPSMMetamodel.AnnotationModel) resource.getContents().get(0);
+	    return oAnnotationModel;
 	}
 	
 	private static MessageConsole findConsole(String name) {

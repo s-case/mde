@@ -2,10 +2,10 @@
 [module javaResourceModelManager('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore')]
 
 
-[template public javaResourceModelManager(anAnnotationStack : AnnotationStack)]
+[template public javaResourceModelManager(anAnnotationStack : AnnotationStack, strDBMigrator : String)]
 
 [for (jRMManager : JavaResourceModelManager | anAnnotationStack.hasCorePSM.hasJavaRMManager)]
-[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jRMManager.parentName + '/' + jRMManager.name + '.java', false, 'UTF-8')]
+[file (anAnnotationStack.hasCorePSM.name + strDBMigrator + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jRMManager.parentName + '/' + jRMManager.name + '.java', false, 'UTF-8')]
 /*
  * ARISTOTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015

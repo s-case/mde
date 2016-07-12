@@ -106,6 +106,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 	private Button oGenerateCodeButton;
 	private Button oReloadModelsCheckButton;
 	private Button oStartFromScratchButton;
+	private Button oDBMigrationButton;
 	
 	/**
 	 * The constructor.
@@ -209,6 +210,8 @@ public class MDETopLevelUI extends ScrolledComposite {
 		oAuthorizationCheckBoxButton.setText("Add ABAC Authorization");
 		oDatabaseSearchingCheckBoxButton = new Button(this.oExtraFunctionalityGrid, SWT.CHECK);
 		oDatabaseSearchingCheckBoxButton.setText("Add Database Searching");
+		oDBMigrationButton = new Button(oExtraFunctionalityGrid, SWT.CHECK);
+		oDBMigrationButton.setText("Add Database Migration");
 		oExternalCompositionCheckBoxButton = new Button(this.oExtraFunctionalityGrid, SWT.CHECK);
 		oExternalCompositionCheckBoxButton.setText("Add External Compositions");
 		
@@ -376,6 +379,7 @@ public class MDETopLevelUI extends ScrolledComposite {
 		mapMDEPreferences.put("DatabaseSearching", (oDatabaseSearchingCheckBoxButton.getSelection() ? "yes" : "no"));
 		mapMDEPreferences.put("ExternalComposition", (oExternalCompositionCheckBoxButton.getSelection() ? "yes" : "no"));
 		mapMDEPreferences.put("ReloadExistingModels", (oReloadModelsCheckButton.getSelection() ? "yes" : "no"));
+		mapMDEPreferences.put("DBMigration", (oDBMigrationButton.getSelection() ? "yes" : "no"));
 		
 		return mapMDEPreferences;
 	}

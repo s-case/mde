@@ -1,10 +1,10 @@
 [comment encoding = UTF-8 /]
 [module javaResourceModel('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthorizationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore','platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/ExternalServiceLayerPSMMetamodel.ecore')]
 
-[template public javaResourceModel(anAnnotationStack : AnnotationStack)]
+[template public javaResourceModel(anAnnotationStack : AnnotationStack, strDBMigrator : String)]
 
 [for (jRModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel)]
-[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jRModel.parentName + '/' + jRModel.name + '.java', false, 'UTF-8')]
+[file (anAnnotationStack.hasCorePSM.name + strDBMigrator + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jRModel.parentName + '/' + jRModel.name + '.java', false, 'UTF-8')]
 /*
  * ARISTOTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015
@@ -42,6 +42,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 [/if]
 import javax.persistence.Column;
+import javax.persistence.Lob;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -176,6 +177,9 @@ public class [jRModel.name/]{
 		[/if]
 		[/if]
 		[if (jRMProperty.bIsUnique = true)]
+		[if (jRMProperty.type.equalsIgnoreCase('String'))]
+		@Lob
+		[/if]
 		private [jRMProperty.type/] [jRMProperty.name/];
 		[else]
 		[if (anAnnotationStack.bHasSearchLayer)]

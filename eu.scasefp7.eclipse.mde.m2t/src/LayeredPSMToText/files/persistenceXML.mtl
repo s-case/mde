@@ -2,9 +2,9 @@
 [module persistenceXML('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore')]
 
 
-[template public persistenceXML(anAnnotationStack : AnnotationStack)]
+[template public persistenceXML(anAnnotationStack : AnnotationStack, strDBMigrator : String)]
 
-[file (anAnnotationStack.hasCorePSM.name + '/src/main/webapp/WEB-INF/classes/META-INF/persistence.xml', false, 'UTF-8')]
+[file (anAnnotationStack.hasCorePSM.name + strDBMigrator + '/src/main/webapp/WEB-INF/classes/META-INF/persistence.xml', false, 'UTF-8')]
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0"
     xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
