@@ -1,5 +1,6 @@
 package eu.fp7.scase.DBMigratorWizard;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
@@ -363,26 +364,42 @@ public class DBMigratorWizardPage extends WizardPage{
 	private void populateRelationMappingList(){
 		//clear the relation mapping list
 		oRelationMappingList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
 		
 		for(int i = 0; i < this.oMdeDBMigratorCIM.getHasAnnotation().size(); i++){
 			if(this.oMdeDBMigratorCIM.getHasAnnotation().get(i) instanceof TargetRelation){
-				this.oRelationMappingList.add(((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getRelationMappingName());
+				listOfStrings.add(((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getRelationMappingName());
 			}
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oRelationMappingList.add(iterator.next());
 		}
 	}
 	
 	private void populateColumnMappingList(){
 		//clear the relation mapping list
 		this.oColumnMappingList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
 		
 		for(int i = 0; i < this.oMdeDBMigratorCIM.getHasAnnotation().size(); i++){
 			if(this.oMdeDBMigratorCIM.getHasAnnotation().get(i) instanceof TargetRelation){
 				if(this.oRelationMappingList.getSelection()[0].equalsIgnoreCase(((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getRelationMappingName())){
 					for(int n = 0; n < ((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getHasTargetColumn().size(); n++){
-						this.oColumnMappingList.add(((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getHasTargetColumn().get(n).getColumnMappingName());
+						listOfStrings.add(((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getHasTargetColumn().get(n).getColumnMappingName());
 					}
 				}
 			}
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oColumnMappingList.add(iterator.next());
 		}
 	}
 	
@@ -457,22 +474,41 @@ public class DBMigratorWizardPage extends WizardPage{
 	
 	private void populateSourceRelationColumnsList(String strSourceRelationName){
 		this.oSourceColumnList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int i = 0; i < this.oDBSchemaLoader.getSourceDatabase().getRelation().size(); i++){
 			if(this.oDBSchemaLoader.getSourceDatabase().getRelation().get(i).getName().equalsIgnoreCase(strSourceRelationName)){
 				for(int  n = 0; n < this.oDBSchemaLoader.getSourceDatabase().getRelation().get(i).getHasColumns().size(); n++){
-					this.oSourceColumnList.add(this.oDBSchemaLoader.getSourceDatabase().getRelation().get(i).getHasColumns().get(n).getName());					
+					listOfStrings.add(this.oDBSchemaLoader.getSourceDatabase().getRelation().get(i).getHasColumns().get(n).getName());					
 				}
 			}
 		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oSourceColumnList.add(iterator.next());
+		}
+		
 	}
 	
 	private void populateTargetResroucePropertiesList(String strTargetResourceName){
 		this.oTargetPropertyList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
 		
 		Resource oSelectedResource = this.oRESTfulServiceCIM.getHasResources().get(this.getCRUDResourceIndexByName(strTargetResourceName));
 		for(int i = 0; i < oSelectedResource.getHasProperty().size(); i++){
-			this.oTargetPropertyList.add(oSelectedResource.getHasProperty().get(i).getName());
+			listOfStrings.add(oSelectedResource.getHasProperty().get(i).getName());
 		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oTargetPropertyList.add(iterator.next());
+		}
+		
 	}
 
 	private void createAddRelationMappingButtonListener() {
@@ -559,8 +595,10 @@ public class DBMigratorWizardPage extends WizardPage{
 				oTargetRelation.getHasTargetColumn().add(oTargetColumn);
 				oTargetRelation.getIsMappedFromRelation().getHasSourceColumn().add(oSourceColumn);
 				
-				//display the new List
+				//add it to the new List
 				oColumnMappingList.add(oTargetColumn.getColumnMappingName());
+				//re-populate it
+				populateColumnMappingList();
 				
 				updateWidgetStatus();
 				setPageComplete(isPageCompleted());
@@ -569,10 +607,19 @@ public class DBMigratorWizardPage extends WizardPage{
 	}
 
 	private void populateTargetRelationsList() {
+		ArrayList<String> listOfTargetResource = new ArrayList<String>();
+		
 		for(int i = 0 ; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
 			if(this.oRESTfulServiceCIM.getHasResources().get(i).isIsAlgorithmic() == false){
-				this.oTargetResourceList.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
+				listOfTargetResource.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
 			}
+		}
+		
+		java.util.Collections.sort(listOfTargetResource, Collator.getInstance());
+		Iterator<String> targetResourceListIterator = listOfTargetResource.iterator();
+		
+		while(targetResourceListIterator.hasNext()){
+			this.oTargetResourceList.add(targetResourceListIterator.next());
 		}
 	}
 
@@ -597,8 +644,17 @@ public class DBMigratorWizardPage extends WizardPage{
 
 	private void populateSourceDatabaseRelations(){
 		this.oSourceDBRelationList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int  i = 0; i < this.oDBSchemaLoader.getSourceDatabase().getRelation().size(); i++){
-			this.oSourceDBRelationList.add(this.oDBSchemaLoader.getSourceDatabase().getRelation().get(i).getName());
+			listOfStrings.add(this.oDBSchemaLoader.getSourceDatabase().getRelation().get(i).getName());
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oSourceDBRelationList.add(iterator.next());
 		}
 	}
 	  

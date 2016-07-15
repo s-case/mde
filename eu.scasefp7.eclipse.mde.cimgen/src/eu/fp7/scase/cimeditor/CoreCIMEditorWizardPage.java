@@ -1,5 +1,8 @@
 package eu.fp7.scase.cimeditor;
 
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 import org.eclipse.jface.window.Window;
@@ -321,6 +324,8 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 					oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])).setName(oSimpleDialogBox.getArtefactName());
 					oResourceList.remove(oResourceList.getSelectionIndex());
 					oResourceList.add(oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oSimpleDialogBox.getArtefactName())).getName());
+					//re-populate the list to sort it.
+					populateResourceList();
 					oResourceList.setSelection(oResourceList.indexOf(oSimpleDialogBox.getArtefactName()));
 				}
 				oSimpleDialogBox.close();
@@ -345,6 +350,8 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 					oResource.getHasProperty().get(getPropertyIndexByName(oResource, oPropertiesList.getSelection()[0])).setName(oSimpleDialogBox.getArtefactName());;
 					oPropertiesList.remove(oPropertiesList.getSelectionIndex());
 					oPropertiesList.add(oSimpleDialogBox.getArtefactName());
+					//re-populate it
+					populatePropertiesList();
 					oPropertiesList.setSelection(oPropertiesList.indexOf(oSimpleDialogBox.getArtefactName()));
 				}
 				oSimpleDialogBox.close();
@@ -400,6 +407,8 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 					oNewProperty.setIsUnique(true);
 					oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(oResourceList.getSelection()[0])).getHasProperty().add(oNewProperty);
 					oPropertiesList.add(oNewProperty.getName());
+					//re-populate the list
+					populatePropertiesList();
 				}
 				oSimpleDialogBox.close();
 				oShell.close();
@@ -435,6 +444,8 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 				oResource.getHasRelatedResource().add(oRelatedResource);
 				oRelatedResource.getIsRelatedResource().add(oResource);
 				oRelationsList.add(oRelatedResource.getName());
+				//re-populate the list
+				populateResourceRelations();
 				
 				//delete the resource from the unrelated resources list
 				oUnrelatedResourcesList.remove(oUnrelatedResourcesList.indexOf(oUnrelatedResourcesList.getSelection()[0]));
@@ -477,6 +488,8 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 					oNewResource.setName(oSimpleDialogBox.getArtefactName());
 					oRESTfulServiceCIM.getHasResources().add(oNewResource);
 					oResourceList.add(oNewResource.getName());
+					//re-populate it
+					populateResourceList();
 				}
 				oSimpleDialogBox.close();
 				oShell.close();
@@ -1067,32 +1080,68 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 
 	private void populateResourceList(){
 		this.oResourceList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
-			this.oResourceList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+			listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oResourceList.add(iterator.next());
 		}
 	}
 	
 	private void populateUnrelatedResourcesList() {
 		this.oUnrelatedResourcesList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			if(!resourceHasRelatedResource(this.oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(this.oResourceList.getSelection()[0])),
 					this.oRESTfulServiceCIM.getHasResources().get(n))){
-				this.oUnrelatedResourcesList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+				listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 			}
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oUnrelatedResourcesList.add(iterator.next());
 		}
 	}
 	
 	private void populatePropertiesList(){
 		this.oPropertiesList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(this.oResourceList.getSelection()[0])).getHasProperty().size(); n++){
-			this.oPropertiesList.add(this.oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(this.oResourceList.getSelection()[0])).getHasProperty().get(n).getName());
+			listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(this.oResourceList.getSelection()[0])).getHasProperty().get(n).getName());
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oPropertiesList.add(iterator.next());
 		}
 	}
 	
 	private void populateResourceRelations(){
 		this.oRelationsList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(this.oResourceList.getSelection()[0])).getHasRelatedResource().size(); n++){
-			this.oRelationsList.add(this.oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(this.oResourceList.getSelection()[0])).getHasRelatedResource().get(n).getName());
+			listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(getResourceIndexByName(this.oResourceList.getSelection()[0])).getHasRelatedResource().get(n).getName());
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oRelationsList.add(iterator.next());
 		}
 	}
 	
