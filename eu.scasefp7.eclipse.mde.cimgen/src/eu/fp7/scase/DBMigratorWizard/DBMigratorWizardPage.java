@@ -35,6 +35,7 @@ import MDEMigratorCIMMetamodel.TargetRelation;
 
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class DBMigratorWizardPage extends WizardPage{
 
@@ -152,7 +153,8 @@ public class DBMigratorWizardPage extends WizardPage{
 		  addSourceDBRelationListListener();
 		  
 		  oAddRelationMappingButton = new Button(oWizardPageGrid, SWT.NONE);
-		  oAddRelationMappingButton.setBounds(226, 122, 129, 35);
+		  oAddRelationMappingButton.setFont(SWTResourceManager.getFont(".SF NS Text", 10, SWT.NORMAL));
+		  oAddRelationMappingButton.setBounds(238, 128, 105, 28);
 		  oAddRelationMappingButton.setText("Add Mapping");
 		  createAddRelationMappingButtonListener();
 		  
@@ -168,6 +170,7 @@ public class DBMigratorWizardPage extends WizardPage{
 		  addRelationMappingListener();
 		  
 		  oDeleteRelationMappingButton = new Button(oWizardPageGrid, SWT.NONE);
+		  oDeleteRelationMappingButton.setFont(SWTResourceManager.getFont(".SF NS Text", 10, SWT.NORMAL));
 		  oDeleteRelationMappingButton.setBounds(469, 224, 111, 28);
 		  oDeleteRelationMappingButton.setText("Delete Mapping");
 		  createDeleteRelationMappingButtonListener();
@@ -192,6 +195,7 @@ public class DBMigratorWizardPage extends WizardPage{
 		  addTargetPropertyListListener();
 		  
 		  oAddColumnMappingButton = new Button(oWizardPageGrid, SWT.NONE);
+		  oAddColumnMappingButton.setFont(SWTResourceManager.getFont(".SF NS Text", 10, SWT.NORMAL));
 		  oAddColumnMappingButton.setBounds(245, 316, 94, 28);
 		  oAddColumnMappingButton.setText("Add Mapping");
 		  createAddColumnMappingButtonListener();
@@ -208,11 +212,13 @@ public class DBMigratorWizardPage extends WizardPage{
 		  addColumnMappingListListener();
 		  
 		  oDeleteColumnMappingButton = new Button(oWizardPageGrid, SWT.NONE);
+		  oDeleteColumnMappingButton.setFont(SWTResourceManager.getFont(".SF NS Text", 10, SWT.NORMAL));
 		  oDeleteColumnMappingButton.setText("Delete Mapping");
 		  oDeleteColumnMappingButton.setBounds(469, 413, 111, 28);
 		  addDeleteColumnMappingButtonListener();
 		  
 		  oFetchDBSchemaButton = new Button(oWizardPageGrid, SWT.NONE);
+		  oFetchDBSchemaButton.setFont(SWTResourceManager.getFont(".SF NS Text", 10, SWT.NORMAL));
 		  oFetchDBSchemaButton.setBounds(457, 52, 123, 28);
 		  oFetchDBSchemaButton.setText("Fetch DB Schema");
 		  addFetchDBSchemaButton();
@@ -894,10 +900,11 @@ public class DBMigratorWizardPage extends WizardPage{
 						return false;
 					}
 					
-					if(!strSourceColumnDataType.equalsIgnoreCase(((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getHasTargetColumn().get(n).getIsAnnotatedProperty().getType())){
+					if(doDataTypesMatch(strSourceColumnDataType, ((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getHasTargetColumn().get(n).getIsAnnotatedProperty().getType()) == false){
 						this.setErrorMessage("The datatype between source relation columns and target resource properties must match. The data type of column " + 
 								((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getHasTargetColumn().get(n).getIsMappedFromColumn().getName() + " of mapping " + 
 								((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getRelationMappingName() + " does not match.");
+						System.out.println("Incompatible Data types detected! Source column data type is " + strSourceColumnDataType + " while target property datatype is " + ((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getHasTargetColumn().get(n).getIsAnnotatedProperty().getType());
 						return false;
 					}
 				}
@@ -905,6 +912,33 @@ public class DBMigratorWizardPage extends WizardPage{
 		}
 		
 		return true;
+	}
+
+	private boolean doDataTypesMatch(String strSourceColumnDataType, String strPropertyDataType) {
+		if(strSourceColumnDataType.equalsIgnoreCase(strPropertyDataType)){//if the match 
+			return true;
+		} //otherwise check if they are different types of integers, or a type of integer is going to be a type of float/double
+		else if((strSourceColumnDataType.equalsIgnoreCase("int") ||
+				strSourceColumnDataType.equalsIgnoreCase("Long")) &&
+				(strPropertyDataType.equalsIgnoreCase("int") ||
+			    strPropertyDataType.equalsIgnoreCase("Long") ||
+			    strPropertyDataType.equalsIgnoreCase("Double") ||
+			    strPropertyDataType.equalsIgnoreCase("Float")
+		)){
+			return true;
+		} //otherwise check if they are different types of doubles/floats
+		else if((strSourceColumnDataType.equalsIgnoreCase("Double") ||
+				strSourceColumnDataType.equalsIgnoreCase("Float")) &&
+				(strPropertyDataType.equalsIgnoreCase("Double") ||
+			    strPropertyDataType.equalsIgnoreCase("Float")
+		)){
+			return true;
+		} //otherwise check if it is any type that is mapped to String
+		else if(strPropertyDataType.equalsIgnoreCase("String")){
+			return true;
+		}
+		
+		return false;
 	}
 
 	private boolean allRelationMappingsHaveColumnMapping() {

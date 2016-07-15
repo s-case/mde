@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -165,8 +166,8 @@ public class DBSchemaLoader {
 		   		    String pkColumnName = result.getString("PKCOLUMN_NAME");
 		   		    System.out.println(fkTableName + "." + fkColumnName + " -> " + pkTableName + "." + pkColumnName);
 		   		    if(addForeignKey(i, fkTableName, fkColumnName, pkTableName, pkColumnName) == false){
-		   		    	System.out.println("Failed to add foreign keys of " + fkTableName);
-		   		    	return false;
+		   		    	System.out.println("Failed to add foreign key " + fkColumnName + " of " + fkTableName + ". Skipping this foreign key.");
+		   		    	continue;
 		   		    }
 		   		}	
 			} catch (SQLException e) {
@@ -199,7 +200,7 @@ public class DBSchemaLoader {
 							}
 						}
 					}
-				}
+				}				
 			}
 		}
 		
@@ -250,10 +251,13 @@ public class DBSchemaLoader {
 		   		    oColumn.setName(result.getString(4));
 		   		    oColumn.setType(getDatatypeByIntCode(result.getInt(5)));
 		   		    if(oColumn.getType() == null){
-		   		    	return false;
+		   		    	System.out.println("Could not retrieve datatype of column " + oColumn.getName());
+		   		    	System.out.println("The returned data type number was " + result.getInt(5) + " but did not match any known type!");
+		   		    	System.out.println("Skipping this column.");
+		   		    	continue;
 		   		    }
 		   		    this.oSourceDatabase.getRelation().get(i).getHasColumns().add(oColumn);
-		   		    System.out.println("Column name = " + oColumn.getName() + " column type = " + oColumn.getType());
+		   		    System.out.println("Added Column name = " + oColumn.getName() + " column type = " + oColumn.getType() + " in relation " + this.oSourceDatabase.getRelation().get(i).getName());
 		   		}	
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -277,7 +281,7 @@ public class DBSchemaLoader {
 		return true;
 	}
 	
-	private String getDatatypeByIntCode(int iDatatypeCode){
+/*	private String getDatatypeByIntCode(int iDatatypeCode){
 		switch(iDatatypeCode){
 		case 4: return "Integer";
 		case -7: return "Boolean";
@@ -286,6 +290,52 @@ public class DBSchemaLoader {
 		case 7: return "Float";
 		case -5: return "Long";
 		case 12: return "String";
+		default: return null;
+		}		
+	}
+	*/
+	
+	private String getDatatypeByIntCode(int iDatatypeCode){
+		switch(iDatatypeCode){
+		case java.sql.Types.ARRAY: return null;
+		case java.sql.Types.BIGINT: return "Long";
+		case java.sql.Types.BINARY: return null;
+		case java.sql.Types.BIT: return "Boolean";
+		case java.sql.Types.BLOB: return null;
+		case java.sql.Types.BOOLEAN: return "Boolean";
+		case java.sql.Types.CHAR: return "String";
+		case java.sql.Types.CLOB: return null;
+		case java.sql.Types.DATALINK: return null;
+		case java.sql.Types.DATE: return "Date";
+		case java.sql.Types.DECIMAL: return null;
+		case java.sql.Types.DISTINCT: return null;
+		case java.sql.Types.DOUBLE: return "Double";
+		case java.sql.Types.FLOAT: return "Float";
+		case java.sql.Types.INTEGER: return "int";
+		case java.sql.Types.JAVA_OBJECT: return null;
+		case java.sql.Types.LONGNVARCHAR: return "String";
+		case java.sql.Types.LONGVARBINARY: return null;
+		case java.sql.Types.LONGVARCHAR: return "String";
+		case java.sql.Types.NCHAR: return "String";
+		case java.sql.Types.NCLOB: return null;
+		case java.sql.Types.NULL: return null;
+		case java.sql.Types.NUMERIC: return "Double";
+		case java.sql.Types.NVARCHAR: return "String";
+		case java.sql.Types.OTHER: return null;
+		case java.sql.Types.REAL: return "Double";
+		case java.sql.Types.REF: return null;
+		case java.sql.Types.REF_CURSOR: return null;
+		case java.sql.Types.ROWID: return null;
+		case java.sql.Types.SMALLINT: return "int";
+		case java.sql.Types.SQLXML: return null;
+		case java.sql.Types.STRUCT: return null;
+		case java.sql.Types.TIME: return null;
+		case java.sql.Types.TIME_WITH_TIMEZONE: return null;
+		case java.sql.Types.TIMESTAMP: return "Date";
+		case java.sql.Types.TIMESTAMP_WITH_TIMEZONE: return null;
+		case java.sql.Types.TINYINT: return "int";
+		case java.sql.Types.VARBINARY: return null;
+		case java.sql.Types.VARCHAR: return "String";
 		default: return null;
 		}		
 	}
