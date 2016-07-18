@@ -36,7 +36,6 @@ import MDEMigratorCIMMetamodel.TargetRelation;
 
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.wb.swt.SWTResourceManager;
 
 public class DBMigratorWizardPage extends WizardPage{
 
@@ -67,7 +66,6 @@ public class DBMigratorWizardPage extends WizardPage{
 	private Label lblCreatedColumnMappins;
 	private List oTargetResourceList;
 	private List oSourceDBRelationList;
-	private Button oAddRelationMappingButton;
 	private Label label;
 	private Label lblCreatedRelationsMappins;
 	private List oRelationMappingList;
@@ -83,6 +81,7 @@ public class DBMigratorWizardPage extends WizardPage{
 	private Label lblDbName;
 	private Text oDBName;
 	private Label label_3;
+	private Button oAddRelationMappingButton;
 
 	  public DBMigratorWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, MDEMigratorCIMMetamodel.AnnotationModel oMdeDBMigratorCIM, boolean bReloadExistingModels) {
 		  super("Select MDE Database Migrator Model");
@@ -143,7 +142,7 @@ public class DBMigratorWizardPage extends WizardPage{
 		  
 		  lblSourceDatabaseRelations = new Label(oWizardPageGrid, SWT.NONE);
 		  lblSourceDatabaseRelations.setText("Source Database Relations:");
-		  lblSourceDatabaseRelations.setBounds(62, 86, 168, 14);
+		  lblSourceDatabaseRelations.setBounds(10, 86, 168, 14);
 		  
 		  oTargetResourceList = new List(oWizardPageGrid, SWT.BORDER | SWT.V_SCROLL);
 		  oTargetResourceList.setBounds(356, 106, 210, 66);
@@ -153,9 +152,8 @@ public class DBMigratorWizardPage extends WizardPage{
 		  oSourceDBRelationList.setBounds(10, 106, 210, 66);
 		  addSourceDBRelationListListener();
 		  
-		  oAddRelationMappingButton = new Button(oWizardPageGrid, SWT.NONE);
-		  oAddRelationMappingButton.setFont(SWTResourceManager.getFont(".SF NS Text", 10, SWT.NORMAL));
-		  oAddRelationMappingButton.setBounds(238, 128, 105, 28);
+		  oAddRelationMappingButton = new Button(oWizardPageGrid, SWT.CENTER);
+		  oAddRelationMappingButton.setBounds(233, 123, 113, 28);
 		  oAddRelationMappingButton.setText("Add Mapping");
 		  createAddRelationMappingButtonListener();
 		  
@@ -171,8 +169,7 @@ public class DBMigratorWizardPage extends WizardPage{
 		  addRelationMappingListener();
 		  
 		  oDeleteRelationMappingButton = new Button(oWizardPageGrid, SWT.NONE);
-		  oDeleteRelationMappingButton.setFont(SWTResourceManager.getFont(".SF NS Text", 10, SWT.NORMAL));
-		  oDeleteRelationMappingButton.setBounds(469, 224, 111, 28);
+		  oDeleteRelationMappingButton.setBounds(455, 224, 130, 28);
 		  oDeleteRelationMappingButton.setText("Delete Mapping");
 		  createDeleteRelationMappingButtonListener();
 		  
@@ -196,8 +193,7 @@ public class DBMigratorWizardPage extends WizardPage{
 		  addTargetPropertyListListener();
 		  
 		  oAddColumnMappingButton = new Button(oWizardPageGrid, SWT.NONE);
-		  oAddColumnMappingButton.setFont(SWTResourceManager.getFont(".SF NS Text", 10, SWT.NORMAL));
-		  oAddColumnMappingButton.setBounds(245, 316, 94, 28);
+		  oAddColumnMappingButton.setBounds(233, 316, 113, 28);
 		  oAddColumnMappingButton.setText("Add Mapping");
 		  createAddColumnMappingButtonListener();
 		  
@@ -213,14 +209,12 @@ public class DBMigratorWizardPage extends WizardPage{
 		  addColumnMappingListListener();
 		  
 		  oDeleteColumnMappingButton = new Button(oWizardPageGrid, SWT.NONE);
-		  oDeleteColumnMappingButton.setFont(SWTResourceManager.getFont(".SF NS Text", 10, SWT.NORMAL));
 		  oDeleteColumnMappingButton.setText("Delete Mapping");
-		  oDeleteColumnMappingButton.setBounds(469, 413, 111, 28);
+		  oDeleteColumnMappingButton.setBounds(455, 413, 130, 28);
 		  addDeleteColumnMappingButtonListener();
 		  
 		  oFetchDBSchemaButton = new Button(oWizardPageGrid, SWT.NONE);
-		  oFetchDBSchemaButton.setFont(SWTResourceManager.getFont(".SF NS Text", 10, SWT.NORMAL));
-		  oFetchDBSchemaButton.setBounds(457, 52, 123, 28);
+		  oFetchDBSchemaButton.setBounds(435, 52, 150, 28);
 		  oFetchDBSchemaButton.setText("Fetch DB Schema");
 		  addFetchDBSchemaButton();
 		  
@@ -512,7 +506,6 @@ public class DBMigratorWizardPage extends WizardPage{
 	}
 
 	private void createAddRelationMappingButtonListener() {
-	
 		this.oAddRelationMappingButton.addListener(SWT.Selection, new Listener() {
 
 			@Override

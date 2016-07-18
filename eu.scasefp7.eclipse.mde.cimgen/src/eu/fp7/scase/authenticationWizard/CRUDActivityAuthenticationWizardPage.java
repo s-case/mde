@@ -1,5 +1,8 @@
 package eu.fp7.scase.authenticationWizard;
 
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 import org.eclipse.jface.wizard.WizardPage;
@@ -404,8 +407,17 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 	}
 	
 	private void populateResourcePromtList(){
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
-			this.oResourcePromtList.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
+			listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oResourcePromtList.add(iterator.next());
 		}
 	}
 	

@@ -1,5 +1,8 @@
 package eu.fp7.scase.searchWizard;
 
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 import org.eclipse.jface.wizard.WizardPage;
@@ -59,13 +62,12 @@ public class SearchCIMWizardPage extends WizardPage{
 	private List oSearchableResourcesPromptList;
 	private List oSearchablePropertiesPromptList;
 	private List oSelectedPropertiesList;
-	private Button oAddSearchablePropertyButton;
-	private Button oRemoveSearchablePropertyButton;
 	private Composite oSearchablePropertiesGrid;
 	private Composite oSearchableResourceGrid;
 	private Composite oSearchablePropertyGrid;
-	private Composite oSearchablePropertiesAddRemoveButtonGrid;
 	private Composite oSelectedPropertiesGrid;
+	private Button oAddSearchablePropertyButton;
+	private Button oRemoveSearchablePropertyButton;
 
 	
 	public SearchCIMWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, SearchLayerCIM.AnnotationModel oSearchLayerCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM, int iMaxSearchResourcesAllowed, boolean bReloadExistingModels) {
@@ -116,19 +118,37 @@ public class SearchCIMWizardPage extends WizardPage{
 
 	private void reloadResourcesLists() {
 
+		ArrayList<String> listOfAvailableResources = new ArrayList<String>();
+		ArrayList<String> listOfSearchResources = new ArrayList<String>();
+
+		
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true){
 				//check if this algorithmic resource was a search resource in the loaded Search CIM Model
 				if(!isAlreadySearchResource(this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(n).getName()))){//if it is not
 					//it is an available resource, so it has to be added to that list
-					this.oSearchResourcePromptList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+					listOfAvailableResources.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 					this.oSelectedResourcesArray[this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(n).getName())] = false;
 				}
 				else{
-					this.oSelectedSearchResourceList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+					listOfSearchResources.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 					this.oSelectedResourcesArray[this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(n).getName())] = true;
 				}
 			}
+		}
+		
+		java.util.Collections.sort(listOfAvailableResources, Collator.getInstance());
+		Iterator<String> iterator = listOfAvailableResources.iterator();
+		
+		while(iterator.hasNext()){
+			this.oSearchResourcePromptList.add(iterator.next());
+		}
+		
+		java.util.Collections.sort(listOfSearchResources, Collator.getInstance());
+		Iterator<String> iteratorSearch = listOfSearchResources.iterator();
+		
+		while(iteratorSearch.hasNext()){
+			this.oSelectedSearchResourceList.add(iteratorSearch.next());
 		}
 	}
 
@@ -240,6 +260,9 @@ public class SearchCIMWizardPage extends WizardPage{
 		
 		//Resource selection composite initializaton
 		this.oSearchResourceGrid = new Composite(this.oWizardPageGrid, SWT.NONE);
+		GridData gd_oSearchResourceGrid = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_oSearchResourceGrid.widthHint = 585;
+		oSearchResourceGrid.setLayoutData(gd_oSearchResourceGrid);
 //		this.oSearchResourceGrid.setLayoutData(new GridData(GridData.FILL_BOTH));
 		this.oSearchResourceGrid.setLayout(new GridLayout(3, false));
 		
@@ -250,8 +273,10 @@ public class SearchCIMWizardPage extends WizardPage{
 		this.oAddSearchablePropertiesLabel.pack();
 			
 		this.oSearchablePropertiesGrid = new Composite(this.oWizardPageGrid, SWT.NONE);
-//		this.oSearchablePropertiesGrid.setLayoutData(new GridData(GridData.FILL_BOTH));
-		this.oSearchablePropertiesGrid.setLayout(new GridLayout(4, false));
+		GridData gd_oSearchablePropertiesGrid = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_oSearchablePropertiesGrid.heightHint = 152;
+		gd_oSearchablePropertiesGrid.widthHint = 582;
+		oSearchablePropertiesGrid.setLayoutData(gd_oSearchablePropertiesGrid);
 	}
 	
 	private void initializeSearchResourceGridSWTs(){
@@ -270,17 +295,20 @@ public class SearchCIMWizardPage extends WizardPage{
 	private void initializeAvailableAlgoResourcesSWTs(){
 		this.oSearchResourcePromptGrid = new Composite(this.oSearchResourceGrid, SWT.NONE);
 //		this.oSearchResourcePromptGrid.setLayout(new GridLayout(1,false));
-		this.oSearchResourcePromptGrid.setLayoutData(new GridData(GridData.FILL_BOTH));
+		GridData gd_oSearchResourcePromptGrid = new GridData(GridData.FILL_BOTH);
+		gd_oSearchResourcePromptGrid.widthHint = 230;
+		gd_oSearchResourcePromptGrid.heightHint = 155;
+		this.oSearchResourcePromptGrid.setLayoutData(gd_oSearchResourcePromptGrid);
 		
 		
 		this.oSearchResourcePromptLabel = new Label(this.oSearchResourcePromptGrid, SWT.NULL);
 		this.oSearchResourcePromptLabel.setText("Available Resources: ");
-		this.oSearchResourcePromptLabel.setLocation(20, 10);
+		this.oSearchResourcePromptLabel.setLocation(10, 10);
 		this.oSearchResourcePromptLabel.pack();
 		
 		this.oSearchResourcePromptList = new List(this.oSearchResourcePromptGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
-		this.oSearchResourcePromptList.setSize(this.oSearchResourcePromptLabel.getSize().x - 10, 100);
-		this.oSearchResourcePromptList.setLocation(20, 25);
+		this.oSearchResourcePromptList.setSize(210, 120);
+		this.oSearchResourcePromptList.setLocation(10, 25);
 		if(this.bReloadExistingModels == false){
 			populateSearchResourcePromptList();
 		}
@@ -293,6 +321,9 @@ public class SearchCIMWizardPage extends WizardPage{
 		this.oSearchResourceAddRemoveButtonsGrid.setLayout(new GridLayout(1, false));		
 		
 		this.oAddSearchResourceButton = new Button(this.oSearchResourceAddRemoveButtonsGrid, SWT.NONE);
+		GridData gd_oAddSearchResourceButton = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_oAddSearchResourceButton.widthHint = 75;
+		oAddSearchResourceButton.setLayoutData(gd_oAddSearchResourceButton);
 		this.oAddSearchResourceButton.setText("Add");
 		addAddSearchResourceButtonListener();
 		
@@ -308,35 +339,36 @@ public class SearchCIMWizardPage extends WizardPage{
 		
 		this.oSelectedSearchResourceLabel = new Label(this.oSelectedSearchResourceGrid, SWT.NULL);
 		this.oSelectedSearchResourceLabel.setText("Selected Search Resources: ");
-		this.oSelectedSearchResourceLabel.setLocation(30, 10);
+		this.oSelectedSearchResourceLabel.setLocation(10, 10);
 		this.oSelectedSearchResourceLabel.pack();
 		
 		this.oSelectedSearchResourceList = new List(this.oSelectedSearchResourceGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
-		this.oSelectedSearchResourceList.setSize(this.oSelectedSearchResourceLabel.getSize().x, 100);
-		this.oSelectedSearchResourceList.setLocation(30, 25);
+		this.oSelectedSearchResourceList.setSize(217, 120);
+		this.oSelectedSearchResourceList.setLocation(10, 25);
 		addSelectedSeaerchResourceListListener();
 	}
 	
 	private void initializeSearchableResourceSWTs(){
+		oSearchablePropertiesGrid.setLayout(null);
 		this.oSearchableResourceGrid = new Composite(this.oSearchablePropertiesGrid, SWT.NULL);
-		this.oSearchableResourceGrid.setLayoutData(new GridData(GridData.FILL_BOTH));
+		oSearchableResourceGrid.setBounds(5, 5, 125, 139);
 //		this.oSearchableResourceGrid.setLayout(new GridLayout(1, false));
 		
 		this.oSearchableResourcesLabel = new Label(this.oSearchableResourceGrid, SWT.NULL);
-		this.oSearchableResourcesLabel.setText("Select a Resorce: ");
-		this.oSearchableResourcesLabel.setLocation(20,10);
+		this.oSearchableResourcesLabel.setText("Select a Resource: ");
+		this.oSearchableResourcesLabel.setLocation(10,10);
 		this.oSearchableResourcesLabel.pack();
 		
 		this.oSearchableResourcesPromptList = new List(this.oSearchableResourceGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
-		this.oSearchableResourcesPromptList.setLocation(20, 25);
-		this.oSearchableResourcesPromptList.setSize(this.oSearchableResourcesLabel.getSize().x - 10, 100);
+		this.oSearchableResourcesPromptList.setLocation(10, 25);
+		this.oSearchableResourcesPromptList.setSize(105, 100);
 		populateSearchableResourcesPromptList();
 		addSearchableResourcePromptListListener();
 	}
 	
 	private void initializeSearchablePropertiesSWTs(){
 		this.oSearchablePropertyGrid = new Composite(this.oSearchablePropertiesGrid, SWT.NULL);
-		this.oSearchablePropertyGrid.setLayoutData(new GridData(GridData.FILL_BOTH));
+		oSearchablePropertyGrid.setBounds(135, 5, 102, 139);
 //		this.oSearchablePropertyGrid.setLayout(new GridLayout(1, false));
 		
 		this.oSearchablePropertiesLabel = new Label(this.oSearchablePropertyGrid, SWT.NULL);
@@ -345,78 +377,114 @@ public class SearchCIMWizardPage extends WizardPage{
 		this.oSearchablePropertiesLabel.pack();
 		
 		this.oSearchablePropertiesPromptList = new List(this.oSearchablePropertyGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
-		this.oSearchablePropertiesPromptList.setLocation(0, 25);
+		this.oSearchablePropertiesPromptList.setLocation(3, 25);
 		this.oSearchablePropertiesPromptList.setSize(this.oSearchablePropertiesLabel.getSize().x - 10, 100);
 		addSearchablePropertiesPromptListListener();
 	}
 	
 	private void initializeSearchablePropertiesAddRemoveButtonSWTs(){
-		this.oSearchablePropertiesAddRemoveButtonGrid = new Composite(this.oSearchablePropertiesGrid, SWT.NONE);
-//		this.oSearchablePropertiesAddRemoveButtonGrid.setLayoutData(new GridData(GridData.FILL_BOTH));
-		this.oSearchablePropertiesAddRemoveButtonGrid.setLayout(new GridLayout(1, false));
+		oAddSearchablePropertyButton = new Button(oSearchablePropertiesGrid, SWT.NONE);
+		oAddSearchablePropertyButton.setBounds(243, 41, 94, 28);
+		oAddSearchablePropertyButton.setText("Add");
 		
-		this.oAddSearchablePropertyButton = new Button(this.oSearchablePropertiesAddRemoveButtonGrid, SWT.NONE);
-		this.oAddSearchablePropertyButton.setText("Add");
+		oRemoveSearchablePropertyButton = new Button(oSearchablePropertiesGrid, SWT.NONE);
+		oRemoveSearchablePropertyButton.setBounds(244, 75, 94, 28);
+		oRemoveSearchablePropertyButton.setText("Remove");
+		
 		addAddSearchablePropertyButtonListener();
-		
-		this.oRemoveSearchablePropertyButton = new Button(this.oSearchablePropertiesAddRemoveButtonGrid, SWT.NONE);
-		this.oRemoveSearchablePropertyButton.setText("Remove");
 		addRemoveSearchablePropertyButtonListener();
 	}
 	
 	private void initializeSelectedPropertiesSWTs(){
 		this.oSelectedPropertiesGrid = new Composite(this.oSearchablePropertiesGrid, SWT.NONE);
-		this.oSelectedPropertiesGrid.setLayoutData(new GridData(GridData.FILL_BOTH));
+		oSelectedPropertiesGrid.setBounds(344, 5, 231, 139);
 //		this.oSelectedPropertiesGrid.setLayout(new GridLayout(1, false));
 		
 		this.oSelectedPropertiesLabel = new Label(this.oSelectedPropertiesGrid, SWT.NONE);
 		this.oSelectedPropertiesLabel.setText("Selected Properties:");
-		this.oSelectedPropertiesLabel.setLocation(0, 10);
+		this.oSelectedPropertiesLabel.setLocation(10, 10);
 		this.oSelectedPropertiesLabel.pack();
 		
 		this.oSelectedPropertiesList = new List(this.oSelectedPropertiesGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL | SWT.H_SCROLL);
-		this.oSelectedPropertiesList.setLocation(0, 25);
-		this.oSelectedPropertiesList.setSize(this.oSelectedPropertiesLabel.getSize().x - 10, 100);
+		this.oSelectedPropertiesList.setLocation(10, 25);
+		this.oSelectedPropertiesList.setSize(211, 100);
+		
 		addSelectedPropertiesListListener();
 	}
 	
 	private void populateSearchResourcePromptList(){
 		this.oSearchResourcePromptList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0 ; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			if((this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true) &&
 					(!isAlreadySelectedResource(this.oRESTfulServiceCIM.getHasResources().get(n).getName()))){
-				this.oSearchResourcePromptList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+				listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 			}
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oSearchResourcePromptList.add(iterator.next());
 		}
 	}
 	
 	private void populateSearchableResourcesPromptList(){
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0 ; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == false){
-				this.oSearchableResourcesPromptList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+				listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 			}
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oSearchableResourcesPromptList.add(iterator.next());
 		}
 	}
 	
 	private void populateSearchablePropertiesPromptList(){
 		this.oSearchablePropertiesPromptList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0 ; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			if(this.oRESTfulServiceCIM.getHasResources().get(n).getName().equalsIgnoreCase(this.oSearchableResourcesPromptList.getSelection()[0])){
 				for(int i = 0 ; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().size(); i++){
-					this.oSearchablePropertiesPromptList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName());
+					listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName());
 				}
 			}
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oSearchablePropertiesPromptList.add(iterator.next());
 		}
 	}
 	
 	private void populateSelectedProperties(){
 		this.oSelectedPropertiesList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0; n < getNumberOfCRUDResources(); n++){
 			for(int i = 0; i < getCRUDResourceByIndex(n).getHasProperty().size(); i++){
 				if(this.oSelectedSearchablePropertiesArray[getAlgoResourceIndexByName(this.oSelectedSearchResourceList.getSelection()[0])][n][i] == true){
-					this.oSelectedPropertiesList.add(getCRUDResourceByIndex(n).getName() + ":" + getPropertyByIndex(n, i).getName());
+					listOfStrings.add(getCRUDResourceByIndex(n).getName() + ":" + getPropertyByIndex(n, i).getName());
 				}
 			}
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oSelectedPropertiesList.add(iterator.next());
 		}
 	}
 	
@@ -465,7 +533,6 @@ public class SearchCIMWizardPage extends WizardPage{
 	}
 	
 	private void addAddSearchResourceButtonListener(){
-		
 		this.oAddSearchResourceButton.addListener(SWT.Selection, new Listener(){
 
 			@Override

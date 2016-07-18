@@ -1,5 +1,8 @@
 package eu.fp7.scase.authenticationWizard;
 
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 import org.eclipse.jface.wizard.WizardPage;
@@ -357,11 +360,20 @@ public class AuthenticationModelWizardPage extends WizardPage {
 	  }
 	  
 	  private void populateAuthenticationModelResourceList(){
+		  ArrayList<String> listOfStrings = new ArrayList<String>();
+		  
 		  for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
 			  if(this.oRESTfulServiceCIM.getHasResources().get(i).isIsAlgorithmic() == false){
-				  this.oAuthenticationModelResourceList.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
+				  listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
 			  }
 		  }
+		  
+			java.util.Collections.sort(listOfStrings, Collator.getInstance());
+			Iterator<String> iterator = listOfStrings.iterator();
+			
+			while(iterator.hasNext()){
+				this.oAuthenticationModelResourceList.add(iterator.next());
+			}
 	  }
 	  
 	  private void addAuthenticationModelListListener() {
@@ -433,15 +445,24 @@ public class AuthenticationModelWizardPage extends WizardPage {
 	  
 	  private void populateUsernameTokenList(String strAuthenticationModelName){
 		  this.oUsernameTokenPromtList.removeAll();
+		  ArrayList<String> listOfStrings = new ArrayList<String>();
+		  
 		  for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 				if(this.oRESTfulServiceCIM.getHasResources().get(n).getName().equalsIgnoreCase(strAuthenticationModelName)){
 					for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().size(); i++){
-						this.oUsernameTokenPromtList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName());
+						listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName());
 					}
 					this.oUsernameTokenPromtList.setEnabled(true);
 					this.oPasswordTokenPromtList.setEnabled(false);
 				}
 		  }
+		  
+			java.util.Collections.sort(listOfStrings, Collator.getInstance());
+			Iterator<String> iterator = listOfStrings.iterator();
+			
+			while(iterator.hasNext()){
+				this.oUsernameTokenPromtList.add(iterator.next());
+			}
 	  }
 	  
 	  private void addAuthenticationModelToCIM(String strAuthenticationModelName){
@@ -455,15 +476,24 @@ public class AuthenticationModelWizardPage extends WizardPage {
 	  
 	  private void populatePasswordTokenList(String strUsernameTokenName){
 		  this.oPasswordTokenPromtList.removeAll();
+		  ArrayList<String> listOfStrings = new ArrayList<String>();
+		  
 		  for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 				if(this.oRESTfulServiceCIM.getHasResources().get(n).getName().equalsIgnoreCase(this.oAuthenticationModelResourceList.getSelection()[0])){
 					for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().size(); i++){
 						if(!this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName().equalsIgnoreCase(strUsernameTokenName)){
-							this.oPasswordTokenPromtList.add(this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName());
+							listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName());
 						}
 					}
 					this.oPasswordTokenPromtList.setEnabled(true);
 				}
+		  }
+		  
+		  java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		  Iterator<String> iterator = listOfStrings.iterator();
+			
+		  while(iterator.hasNext()){
+			  this.oPasswordTokenPromtList.add(iterator.next());
 		  }
 	  }
 	  

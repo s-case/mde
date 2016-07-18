@@ -1,6 +1,8 @@
 package eu.fp7.scase.extcompositions;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 import org.eclipse.emf.common.util.EList;
@@ -600,8 +602,17 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 
 	private void populateComplexDataTypePropertiesList(String strRESTClientResourceName, String strComplexDataTypeName){
 		this.oComplexTypePropertiesList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0; n < this.oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].get(this.getComplexTypeIndexByResourceAndName(strRESTClientResourceName, strComplexDataTypeName)).getHasComplexTypeProperties().size(); n++){
-			this.oComplexTypePropertiesList.add(this.oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].get(this.getComplexTypeIndexByResourceAndName(strRESTClientResourceName, strComplexDataTypeName)).getHasComplexTypeProperties().get(n).getName());
+			listOfStrings.add(this.oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].get(this.getComplexTypeIndexByResourceAndName(strRESTClientResourceName, strComplexDataTypeName)).getHasComplexTypeProperties().get(n).getName());
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oComplexTypePropertiesList.add(iterator.next());
 		}
 	}
 
@@ -614,39 +625,66 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 
 	private void populateAvailableComplexTypesList(String strRESTClientResourceName) {
 		this.oAvailableComplexTypeList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0; n < oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].size(); n++){
-			this.oAvailableComplexTypeList.add(oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].get(n).getComplexTypeName());
+			listOfStrings.add(oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].get(n).getComplexTypeName());
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oAvailableComplexTypeList.add(iterator.next());
 		}
 	}
 
 	private void populateAvailableDataTypesList(String strRESTClientResourceName) {
 		
 		this.oTypeList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
 		
 		//always add at the top the primitive types
-		this.oTypeList.add("String");
-		this.oTypeList.add("Double");
-		this.oTypeList.add("Integer");
-		this.oTypeList.add("Float");
-		this.oTypeList.add("Boolean");
-		this.oTypeList.add("Long");
+		listOfStrings.add("String");
+		listOfStrings.add("Double");
+		listOfStrings.add("Integer");
+		listOfStrings.add("Float");
+		listOfStrings.add("Boolean");
+		listOfStrings.add("Long");
 		
 		//add the complex data types of this service
 		for(int n = 0; n < oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].size(); n++){
-			this.oTypeList.add(oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].get(n).getComplexTypeName());
+			listOfStrings.add(oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].get(n).getComplexTypeName());
 		}
 		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oTypeList.add(iterator.next());
+		}
 	}
 
 	private void populateComplexDataTypesList(String strRESTClientResourceName) {
 		this.oComplexDataTypesList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0; n < oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].size(); n++){
-			this.oComplexDataTypesList.add(oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].get(n).getComplexTypeName());
+			listOfStrings.add(oComplexTypes[this.getAlgoResourceIndexByName(strRESTClientResourceName)].get(n).getComplexTypeName());
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oComplexDataTypesList.add(iterator.next());
 		}
 	}
 
 	private void populateComplexPropertiesList(String strRESTClientResourceName) {
 		this.oComplexPropertiesList.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0; n < this.oExternalCompositionWizardPage.getRESTClientResourcesArray().length; n++){
 			if(this.oExternalCompositionWizardPage.getRESTClientResourcesArray()[n] == true){
 				if(this.oExternalCompositionWizardPage.getRESTClientResource()[n].getIsRESTClientResource().getAnnotatesAlgoResource().getName().equalsIgnoreCase(strRESTClientResourceName)){
@@ -654,7 +692,7 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 						//add any complex types of input data model
 						for(int i = 0; i < this.oExternalCompositionWizardPage.getRESTClientResource()[n].getTargetsService().getHasInputDataModel().getHasInputProperties().size(); i++){
 							if(this.oExternalCompositionWizardPage.getRESTClientResource()[n].getTargetsService().getHasInputDataModel().getHasInputProperties().get(i).getType().equalsIgnoreCase("Complex")){
-								this.oComplexPropertiesList.add("Input:" + this.oExternalCompositionWizardPage.getRESTClientResource()[n].getTargetsService().getHasInputDataModel().getHasInputProperties().get(i).getName());
+								listOfStrings.add("Input:" + this.oExternalCompositionWizardPage.getRESTClientResource()[n].getTargetsService().getHasInputDataModel().getHasInputProperties().get(i).getName());
 							}
 						}
 					}
@@ -662,20 +700,36 @@ public class ComplexDataTypeWizardPage extends WizardPage{
 						//add any complex types of output data model
 						for(int i = 0; i < this.oExternalCompositionWizardPage.getRESTClientResource()[n].getTargetsService().getHasOutputDataModel().getHasOutputProperties().size(); i++){
 							if(this.oExternalCompositionWizardPage.getRESTClientResource()[n].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(i).getType().equalsIgnoreCase("Complex")){
-								this.oComplexPropertiesList.add("Output:" + this.oExternalCompositionWizardPage.getRESTClientResource()[n].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(i).getName());
+								listOfStrings.add("Output:" + this.oExternalCompositionWizardPage.getRESTClientResource()[n].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(i).getName());
 							}
 						}
 					}	
 				}			
 			}
 		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oComplexPropertiesList.add(iterator.next());
+		}
 	}
 
 	private void initializeRESTClientResourcesSWTs() {
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0; n < this.oExternalCompositionWizardPage.getRESTClientResourcesArray().length; n++){
 			if(this.oExternalCompositionWizardPage.getRESTClientResourcesArray()[n] == true){
-				this.oRESTClientResourcesList.add(this.oExternalCompositionWizardPage.getRESTClientResource()[n].getIsRESTClientResource().getAnnotatesAlgoResource().getName());
+				listOfStrings.add(this.oExternalCompositionWizardPage.getRESTClientResource()[n].getIsRESTClientResource().getAnnotatesAlgoResource().getName());
 			}
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.oRESTClientResourcesList.add(iterator.next());
 		}
 	}
 

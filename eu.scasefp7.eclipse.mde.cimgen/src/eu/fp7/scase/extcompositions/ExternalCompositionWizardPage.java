@@ -1,6 +1,8 @@
 package eu.fp7.scase.extcompositions;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 import org.eclipse.emf.common.util.EList;
@@ -479,10 +481,19 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				else{//else it will be persisted through an existing CRUD Resource Model
 					convertOutputToExistentCRUDPersistent(listRESTClientResources.getSelection()[0]);
 					//populate the list of Existing CRUDResources
+					ArrayList<String> listOfStrings = new ArrayList<String>();
+					
 					for(int n = 0; n < oRESTfulServiceCIM.getHasResources().size(); n++){
 						if(oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == false){
-							listExistentCRUDResources.add(oRESTfulServiceCIM.getHasResources().get(n).getName());
+							listOfStrings.add(oRESTfulServiceCIM.getHasResources().get(n).getName());
 						}
+					}
+					
+					java.util.Collections.sort(listOfStrings, Collator.getInstance());
+					Iterator<String> iterator = listOfStrings.iterator();
+					
+					while(iterator.hasNext()){
+						listExistentCRUDResources.add(iterator.next());
 					}
 				}
 				populateAllRESTClientSWTs(listRESTClientResources.getSelection()[0]);
@@ -500,10 +511,19 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				else{//else it will be persisted through an existing CRUD Resource Model
 					convertOutputToExistentCRUDPersistent(listRESTClientResources.getSelection()[0]);
 					//populate the list of Existing CRUDResources
+					ArrayList<String> listOfStrings = new ArrayList<String>();
+					
 					for(int n = 0; n < oRESTfulServiceCIM.getHasResources().size(); n++){
 						if(oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == false){
-							listExistentCRUDResources.add(oRESTfulServiceCIM.getHasResources().get(n).getName());
+							listOfStrings.add(oRESTfulServiceCIM.getHasResources().get(n).getName());
 						}
+					}
+					
+					java.util.Collections.sort(listOfStrings, Collator.getInstance());
+					Iterator<String> iterator = listOfStrings.iterator();
+					
+					while(iterator.hasNext()){
+						listExistentCRUDResources.add(iterator.next());
 					}
 				}
 				populateAllRESTClientSWTs(listRESTClientResources.getSelection()[0]);
@@ -1126,11 +1146,20 @@ public class ExternalCompositionWizardPage extends WizardPage{
 
 	protected void populateRESTClientResourcesList() {
 		this.listRESTClientResources.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0 ; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			if((this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true) &&
 					(isRESTClientResource(this.oRESTfulServiceCIM.getHasResources().get(n).getName()))){
-				this.listRESTClientResources.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+				listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 			}
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.listRESTClientResources.add(iterator.next());
 		}
 	}
 
@@ -1189,8 +1218,17 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			if(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasOutputDataModel().getHasOutputProperties().size() > 0){
 				this.listOutputProperties.removeAll();
 				this.listOutputPropertyType.deselectAll();
+				ArrayList<String> listOfStrings = new ArrayList<String>();
+				
 				for(int n = 0; n < this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasOutputDataModel().getHasOutputProperties().size(); n++){
-					this.listOutputProperties.add(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(n).getName());
+					listOfStrings.add(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasOutputDataModel().getHasOutputProperties().get(n).getName());
+				}
+				
+				java.util.Collections.sort(listOfStrings, Collator.getInstance());
+				Iterator<String> iterator = listOfStrings.iterator();
+				
+				while(iterator.hasNext()){
+					this.listOutputProperties.add(iterator.next());
 				}
 			}
 			else{
@@ -1222,11 +1260,21 @@ public class ExternalCompositionWizardPage extends WizardPage{
 				this.listPersistenceType.setSelection(1); //existing CRUD
 				//populate existing CRUD Resources list
 				this.listExistentCRUDResources.removeAll();
+				ArrayList<String> listOfStrings = new ArrayList<String>();
+				
 				for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 					if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == false){
-						this.listExistentCRUDResources.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+						listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 					}
 				}
+				
+				java.util.Collections.sort(listOfStrings, Collator.getInstance());
+				Iterator<String> iterator = listOfStrings.iterator();
+				
+				while(iterator.hasNext()){
+					this.listExistentCRUDResources.add(iterator.next());
+				}
+				
 				ExistentCRUDPersistentOutput oExistentCRUDPersistentOutput = (ExistentCRUDPersistentOutput)this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasOutputDataModel();
 				if(oExistentCRUDPersistentOutput.getIsExistentCRUDPersistentOutput() != null){
 					this.listExistentCRUDResources.setSelection(this.listExistentCRUDResources.indexOf(oExistentCRUDPersistentOutput.getIsExistentCRUDPersistentOutput().getAnnotatesCRUDResource().getName()));
@@ -1277,8 +1325,17 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			if(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasInputDataModel().getHasInputProperties().size() > 0){
 				this.listInputProperties.removeAll();
 				this.listInputPropertyType.deselectAll();
+				ArrayList<String> listOfStrings = new ArrayList<String>();
+				
 				for(int n = 0; n < this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasInputDataModel().getHasInputProperties().size(); n++){
-					this.listInputProperties.add(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasInputDataModel().getHasInputProperties().get(n).getName());
+					listOfStrings.add(this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(strAlgoResourceName)].getTargetsService().getHasInputDataModel().getHasInputProperties().get(n).getName());
+				}
+				
+				java.util.Collections.sort(listOfStrings, Collator.getInstance());
+				Iterator<String> iterator = listOfStrings.iterator();
+				
+				while(iterator.hasNext()){
+					this.listInputProperties.add(iterator.next());
 				}
 			}
 			else{
@@ -1313,10 +1370,19 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			
 			//set up the query parameters list
 			this.listQueryParameters.removeAll();
+			ArrayList<String> listOfStrings = new ArrayList<String>();
+			
 			if(oTargetRESTService.getHasQueryParam() != null){
 				for(int n = 0; n < oTargetRESTService.getHasQueryParam().size(); n++){
-					this.listQueryParameters.add(oTargetRESTService.getHasQueryParam().get(n).getName());
+					listOfStrings.add(oTargetRESTService.getHasQueryParam().get(n).getName());
 				}
+			}
+			
+			java.util.Collections.sort(listOfStrings, Collator.getInstance());
+			Iterator<String> iterator = listOfStrings.iterator();
+			
+			while(iterator.hasNext()){
+				this.listQueryParameters.add(iterator.next());
 			}
 		}
 		else{
@@ -1392,11 +1458,20 @@ public class ExternalCompositionWizardPage extends WizardPage{
 
 	private void populateAvailableResourcesList(){
 		this.listAvailableResources.removeAll();
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0 ; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			if((this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true) && !isSearchResource(n) &&
 					(!isRESTClientResource(this.oRESTfulServiceCIM.getHasResources().get(n).getName()))){
-				this.listAvailableResources.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+				listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 			}
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.listAvailableResources.add(iterator.next());
 		}
 	}
 
@@ -1474,7 +1549,8 @@ public class ExternalCompositionWizardPage extends WizardPage{
 
 
 	private void reloadExternalServiceCIMModel() {
-
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == true){
 				//check if it is a valid existing RESTClient resource and is not a search resource
@@ -1482,7 +1558,7 @@ public class ExternalCompositionWizardPage extends WizardPage{
 					
 					//then add it to RESTClient Resources list
 					this.oRESTClientResourcesArray[this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(n).getName())] = true;
-					this.listRESTClientResources.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
+					listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 					this.oRESTClientModelingArray[this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(n).getName())] = loadRESTClientResource(this.oRESTfulServiceCIM.getHasResources().get(n).getName());
 				}
 				else if(!isSearchResource(n)){
@@ -1492,6 +1568,12 @@ public class ExternalCompositionWizardPage extends WizardPage{
 			}
 		}
 		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		
+		while(iterator.hasNext()){
+			this.listRESTClientResources.add(iterator.next());
+		}
 	}
 
 
@@ -1738,15 +1820,32 @@ public class ExternalCompositionWizardPage extends WizardPage{
 
 	private void initializeResourcesGridSWTs() {
 		//initialize available resources list
+		ArrayList<String> listOfAvailableResources = new ArrayList<String>();
+		ArrayList<String> listOfRESTClientResources = new ArrayList<String>();
+		
 		for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
 			if(this.oRESTfulServiceCIM.getHasResources().get(i).isIsAlgorithmic() == true){
 				if(this.oRESTClientResourcesArray[this.getAlgoResourceIndexByName(this.oRESTfulServiceCIM.getHasResources().get(i).getName())] == false){
-					this.listAvailableResources.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
+					listOfAvailableResources.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
 				}
 				else{
-					this.listRESTClientResources.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
+					listOfRESTClientResources.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
 				}
 			}
+		}
+		
+		java.util.Collections.sort(listOfAvailableResources, Collator.getInstance());
+		Iterator<String> iterator = listOfAvailableResources.iterator();
+		
+		while(iterator.hasNext()){
+			this.listAvailableResources.add(iterator.next());
+		}
+		
+		java.util.Collections.sort(listOfRESTClientResources, Collator.getInstance());
+		Iterator<String> iteratorREST = listOfRESTClientResources.iterator();
+		
+		while(iteratorREST.hasNext()){
+			this.listRESTClientResources.add(iteratorREST.next());
 		}
 		
 	}

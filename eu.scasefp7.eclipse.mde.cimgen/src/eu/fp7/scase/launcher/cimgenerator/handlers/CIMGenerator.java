@@ -330,7 +330,7 @@ public class CIMGenerator extends AbstractHandler{
 			}
 		}
 		else{
-			this.oExternalServiceLayerCIM = null;
+			this.oMdeDBMigratorCIM = null;
 		}
 	}
 
