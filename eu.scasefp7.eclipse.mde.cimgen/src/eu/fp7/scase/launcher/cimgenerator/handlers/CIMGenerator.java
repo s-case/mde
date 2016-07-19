@@ -45,6 +45,7 @@ import eu.fp7.scase.extcompositions.ExternalCompositionInputParser;
 import eu.fp7.scase.extcompositions.ExternalCompositionWizard;
 import MDEMigratorCIMMetamodel.AnnotationModel;
 import MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelFactory;
+import MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelPackage;
 import eu.fp7.scase.DBMigratorWizard.DBMigrationWizard;
 
 /**
@@ -133,6 +134,13 @@ public class CIMGenerator extends AbstractHandler{
 		if(event.getParameter("ExternalComposition").equalsIgnoreCase("yes")){
 			//extract an External Service layer CIM backup
 			this.oExternalCompositionWizard.exportExternalServiceLayerCIMBackUp();
+		}
+		
+		//if the database migration flag is true
+		if(event.getParameter("DBMigration").equalsIgnoreCase("yes")){
+			//extract a Migration Database layer CIM backup
+
+			this.oDBMigrationWizard.exportDBMigrationModelBackUp();
 		}
 	}
 
@@ -702,9 +710,36 @@ public class CIMGenerator extends AbstractHandler{
 	    return oAnnotationModel;
 	}
 	
-	private AnnotationModel loadDBMigrationLayerCIM(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	private AnnotationModel loadDBMigrationLayerCIM(String strDBMigrationBackUpPath) {
+		
+		ResourceSet oResourceSet;
+		URI oURI;
+		
+		MDEMigratorCIMMetamodelPackage.eINSTANCE.getClass();
+		
+		// Create a resource set.
+		oResourceSet = new ResourceSetImpl();
+
+		// Register the default resource factory -- only needed for stand-alone!
+		oResourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(org.eclipse.emf.ecore.resource.Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+		
+		// Get the URI of the model file.
+		oURI = URI.createFileURI(new File(strDBMigrationBackUpPath).getAbsolutePath());
+		out.println(oURI.devicePath());
+
+	    // Get the resource
+	    Resource resource = oResourceSet.getResource(oURI, true);
+	    
+	    try {
+			resource.load(null);
+		} catch (IOException e) {
+			Activator.log("Could not load DB Migration CIM file", e);
+		}
+	    
+	    // Get the first model element and cast it to the right type, in my
+	    // example everything is hierarchical included in this first node
+	    MDEMigratorCIMMetamodel.AnnotationModel oAnnotationModel = (MDEMigratorCIMMetamodel.AnnotationModel) resource.getContents().get(0);
+	    return oAnnotationModel;
 	}
 	
 	private static MessageConsole findConsole(String name) {

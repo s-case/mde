@@ -47,9 +47,9 @@ public class DBMigrationWizard extends Wizard{
 		oEcoreXMIDBMigrationExtractor.exportEcoreXMI(oMDEMigratorCIM);
 	}
 	
-	public void exportAuthenticationModelBackUp(){
+	public void exportDBMigrationModelBackUp(){
 		//export also to a backup file to support 2nd run logic
-//		EcoreXMIAuthenticationExtractor oEcoreXMIAuthenticationExtractor = new EcoreXMIAuthenticationExtractor(this.strOutputFolder + "/CIMModels/BackUp/" + this.oRESTfulServiceCIM.getName() + "AuthenticationCIMBackUp.xmi", this.oRESTfulServiceCIM.getName());
-//		oEcoreXMIAuthenticationExtractor.exportEcoreXMI(oAuthenticationCIM);
+		EcoreXMIDBMigrationExtractor oEcoreXMIDBMigrationExtractor = new EcoreXMIDBMigrationExtractor(this.strOutputFolder + "/CIMModels/BackUp/" + this.oRESTfulServiceCIM.getName() + "MDEDBMigrationCIMBackUp.xmi", this.oRESTfulServiceCIM.getName());
+		oEcoreXMIDBMigrationExtractor.exportEcoreXMI(oMDEMigratorCIM);
 	}
 }

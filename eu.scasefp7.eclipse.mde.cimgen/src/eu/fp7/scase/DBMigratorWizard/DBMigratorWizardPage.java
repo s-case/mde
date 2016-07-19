@@ -233,30 +233,174 @@ public class DBMigratorWizardPage extends WizardPage{
 		  populateTargetRelationsList();
 		  
 		  //TODO remove default values
-		  this.oMdeDBMigratorCIM.setStrDBURL("localhost:3306");
-		  this.oSourceDBURL.setText("localhost:3306");
-		  this.oMdeDBMigratorCIM.setStrDBType("MySQL");
-		  this.oSourceDBType.setSelection(0);
-		  this.oMdeDBMigratorCIM.setStrDBName("wsat");
-		  this.oDBName.setText("wsat");
-		  this.oMdeDBMigratorCIM.setStrDBUsername("postgres");
-		  this.oSourceDBUsername.setText("postgres");
-		  this.oMdeDBMigratorCIM.setStrDBPassword("fp7s-case");
-		  this.oSourceDBPassword.setText("fp7s-case");
+//		  this.oMdeDBMigratorCIM.setStrDBURL("localhost:3306");
+//		  this.oSourceDBURL.setText("localhost:3306");
+//		  this.oMdeDBMigratorCIM.setStrDBType("MySQL");
+//		  this.oSourceDBType.setSelection(0);
+//		  this.oMdeDBMigratorCIM.setStrDBName("wsat");
+//		  this.oDBName.setText("wsat");
+//		  this.oMdeDBMigratorCIM.setStrDBUsername("postgres");
+//		  this.oSourceDBUsername.setText("postgres");
+//		  this.oMdeDBMigratorCIM.setStrDBPassword("fp7s-case");
+//		  this.oSourceDBPassword.setText("fp7s-case");
 		  
 		  if(!this.bReloadExistingModels){
 			  this.updateWidgetStatus();
 			  this.setPageComplete(isPageCompleted());
 		  }
 		  else{
-			  //TODO add reload UI code
+			  if(restoreDBMigrationWizardPage() == false){
+				  this.setPageComplete(false);
+				  this.bReloadExistingModels = false;
+			  }
 			  this.updateWidgetStatus();
 			  this.setPageComplete(isPageCompleted());
 		  }
 	  }
-	  
 
-	  
+	private boolean restoreDBMigrationWizardPage() {
+		if(sourceDBConnectionDetailsAreValid() == false){
+			return false;
+		}
+		else{
+			reloadDBConnectionDetails();
+		}
+		
+		
+		if(loadValidRelationResourceMappings() == false){
+			return false;
+		}
+		else{
+			this.cleanUpMappingSchedulingAttributes();
+			populateRelationMappingList();
+		}
+		
+		return true;
+	}
+
+	private void reloadDBConnectionDetails() {
+		  this.oSourceDBURL.setText(this.oMdeDBMigratorCIM.getStrDBURL());
+		  this.oSourceDBType.setSelection(this.oSourceDBType.indexOf(this.oMdeDBMigratorCIM.getStrDBType()));
+		  this.oDBName.setText(this.oMdeDBMigratorCIM.getStrDBName());
+		  this.oSourceDBUsername.setText(this.oMdeDBMigratorCIM.getStrDBUsername());
+		  this.oSourceDBPassword.setText(this.oMdeDBMigratorCIM.getStrDBPassword());
+	}
+
+	private boolean loadValidRelationResourceMappings() {
+		boolean bFoundValidResourceMapping = false;
+		
+		for(int n = 0; n < this.oMdeDBMigratorCIM.getHasAnnotation().size(); n++){
+			if(this.oMdeDBMigratorCIM.getHasAnnotation().get(n) instanceof TargetRelation){
+				TargetRelation oTargetRelation = (TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n);
+				if(hasValidRelationAndResource(oTargetRelation) == false){
+					this.oMdeDBMigratorCIM.getHasAnnotation().remove(n);
+					continue;
+				}
+				else{
+					deleteInvalidColumnMappings(oTargetRelation);
+					bFoundValidResourceMapping = true;
+				}
+			}
+		}
+		
+		return bFoundValidResourceMapping;
+	}
+
+	private void deleteInvalidColumnMappings(TargetRelation oTargetRelation) {
+		for(int n = 0; n < oTargetRelation.getHasTargetColumn().size(); n++){
+			if(isInvalidColumnPropertyMapping(oTargetRelation, n) == true){
+				oTargetRelation.getHasTargetColumn().remove(n);
+			}
+		}
+	}
+
+	private boolean isInvalidColumnPropertyMapping(TargetRelation oTargetRelation, int iColumnPropertyIndex) {
+		//check if source relation column of same type still exists
+		boolean bHasValidSourceColumn = hasValidSourceColumn(oTargetRelation, iColumnPropertyIndex);
+		
+		//check if target property column of the same type still exists
+		boolean bHasValidTargetProperty = hasValidTargetProperty(oTargetRelation, iColumnPropertyIndex);
+		
+		return !(bHasValidSourceColumn && bHasValidTargetProperty);
+	}
+
+	private boolean hasValidSourceColumn(TargetRelation oTargetRelation, int iColumnPropertyIndex) {
+		for(int n = 0; n < this.oDBSchemaLoader.getSourceDatabase().getRelation().size(); n++){
+			if(this.oDBSchemaLoader.getSourceDatabase().getRelation().get(n).getName().equalsIgnoreCase(oTargetRelation.getIsMappedFromRelation().getName())){
+				for(int i = 0; i < this.oDBSchemaLoader.getSourceDatabase().getRelation().get(n).getHasColumns().size(); i++){
+					if(this.oDBSchemaLoader.getSourceDatabase().getRelation().get(n).getHasColumns().get(i).getName().equalsIgnoreCase(oTargetRelation.getHasTargetColumn().get(iColumnPropertyIndex).getIsMappedFromColumn().getName()) &&
+					   this.oDBSchemaLoader.getSourceDatabase().getRelation().get(n).getHasColumns().get(i).getType().equalsIgnoreCase(oTargetRelation.getHasTargetColumn().get(iColumnPropertyIndex).getIsMappedFromColumn().getType())){
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+
+	private boolean hasValidTargetProperty(TargetRelation oTargetRelation, int iColumnPropertyIndex) {
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(this.oRESTfulServiceCIM.getHasResources().get(n).getName().equalsIgnoreCase(oTargetRelation.getIsTargetRelationResource().getName())){
+				for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().size(); i++){
+					if( this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getName().equalsIgnoreCase(oTargetRelation.getHasTargetColumn().get(iColumnPropertyIndex).getIsAnnotatedProperty().getName())   &&
+						this.oRESTfulServiceCIM.getHasResources().get(n).getHasProperty().get(i).getType().equalsIgnoreCase(oTargetRelation.getHasTargetColumn().get(iColumnPropertyIndex).getIsAnnotatedProperty().getType())){
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+
+	private boolean hasValidRelationAndResource(TargetRelation oTargetRelation) {
+		//check if source relation exists in database
+		boolean bFoundSourceRelation = false;
+		for(int n = 0; n < this.oDBSchemaLoader.getSourceDatabase().getRelation().size(); n++){
+			if(this.oDBSchemaLoader.getSourceDatabase().getRelation().get(n).getName().equalsIgnoreCase(oTargetRelation.getIsMappedFromRelation().getName())){
+				bFoundSourceRelation = true;
+				break;
+			}
+		}
+		
+		//check if target resource exists in CIM
+		boolean bFoundTargetResource = false;
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(this.oRESTfulServiceCIM.getHasResources().get(n).isIsAlgorithmic() == false){
+				if(this.oRESTfulServiceCIM.getHasResources().get(n).getName().equalsIgnoreCase(oTargetRelation.getIsTargetRelationResource().getName())){
+					bFoundTargetResource = true;
+				}
+			}
+		}
+		return (bFoundSourceRelation && bFoundTargetResource);
+	}
+
+	private boolean sourceDBConnectionDetailsAreValid() {
+		
+		if(oMdeDBMigratorCIM.getStrDBName() == null || oMdeDBMigratorCIM.getStrDBName().isEmpty() || 
+		   oMdeDBMigratorCIM.getStrDBPassword() == null || oMdeDBMigratorCIM.getStrDBPassword().isEmpty() ||
+		   oMdeDBMigratorCIM.getStrDBType() == null || oMdeDBMigratorCIM.getStrDBType().isEmpty() ||
+		   oMdeDBMigratorCIM.getStrDBURL() == null || oMdeDBMigratorCIM.getStrDBURL().isEmpty() ||
+		   oMdeDBMigratorCIM.getStrDBUsername() == null || oMdeDBMigratorCIM.getStrDBUsername().isEmpty()
+	       ){
+			
+			return false;
+		}
+		
+		oDBSchemaLoader = new DBSchemaLoader(oMdeDBMigratorCIM.getStrDBType(), oMdeDBMigratorCIM.getStrDBURL(), oMdeDBMigratorCIM.getStrDBName(), oMdeDBMigratorCIM.getStrDBUsername(), oMdeDBMigratorCIM.getStrDBPassword());
+		if(oDBSchemaLoader.connectToDB() == false){
+			setErrorMessage("Failed to connect to database!");
+			return false;
+		}
+		else{
+			System.out.println("Succesfully connected to old source database");
+			oDBSchemaLoader.fetchDBSchema();
+			populateSourceDatabaseRelations();
+			return true;
+		}
+	}
+
 	private void addColumnMappingListListener() {
 		this.oColumnMappingList.addSelectionListener(new SelectionListener(){
 
@@ -741,12 +885,6 @@ public class DBMigratorWizardPage extends WizardPage{
 			return -1;
 		}
 	}
-	
-	private boolean restoreMDEDBMigratorWizardPage() {
-
-		  
-		  return false;
-	  }
 
 	private void updateWidgetStatus() {
 		updateSourceDBConnectionWidgetStatus();
@@ -933,10 +1071,60 @@ public class DBMigratorWizardPage extends WizardPage{
 				return false;
 			}
 			
+			//are the mappings schedulable?
+			if(existsSchedulableMapping() == false){
+				cleanUpMappingSchedulingAttributes();
+				return false;
+			}
+			
 			setErrorMessage(null);
 			return true;
 		}
 	  
+	private boolean existsSchedulableMapping() {
+			
+		//check if there exists a first schedulable mapping
+		int iFirstRelationToLoadIndex = findSuitableFirstRelationToLoad();
+		
+		if(iFirstRelationToLoadIndex == -1){
+			this.setErrorMessage("Invalid Mapping collection. The current mappings are not schedulable. Check that no mapping to a resource exists without a mapping for its parent.");
+			return false;
+		}
+		else{
+			((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(iFirstRelationToLoadIndex)).setBIsScheduledToLoad(true);
+			
+			while(areAllRelationsScheduledToLoad() == false){
+				int iNextRelationToLoadIndex = findSuitableNextRelationToLoad();
+				if(iNextRelationToLoadIndex == -1){
+					this.setErrorMessage("Invalid Mapping collection. The current mappings are not schedulable. Check that no mapping to a resource exists without a mapping for its parent.");
+					return false;
+				}
+				TargetRelation oTargetRelation = ((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(iNextRelationToLoadIndex));
+				oTargetRelation.setBIsScheduledToLoad(true);
+			}
+		}
+			
+		cleanUpMappingSchedulingAttributes();
+		return true;
+	}
+
+	private void cleanUpMappingSchedulingAttributes() {
+		for(int n = 0; n < this.oMdeDBMigratorCIM.getHasAnnotation().size(); n++){
+			if(this.oMdeDBMigratorCIM.getHasAnnotation().get(n) instanceof TargetRelation){
+				TargetRelation oTargetRelation = ((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(n));
+				oTargetRelation.setBIsScheduledToLoad(false);
+				oTargetRelation.setBHasParentMapping(false);
+				removeParentMappings(oTargetRelation);
+			}
+		}
+	}
+
+	private void removeParentMappings(TargetRelation oTargetRelation) {
+		for(int n = 0; n < oTargetRelation.getHasParentMapping().size(); n++){
+			oTargetRelation.getHasParentMapping().remove(n);
+		}
+	}
+
 	private boolean allColumnMappingsHaveValidDataMapping() {
 		for(int i = 0; i < this.oMdeDBMigratorCIM.getHasAnnotation().size(); i++){
 			if(this.oMdeDBMigratorCIM.getHasAnnotation().get(i) instanceof TargetRelation){
