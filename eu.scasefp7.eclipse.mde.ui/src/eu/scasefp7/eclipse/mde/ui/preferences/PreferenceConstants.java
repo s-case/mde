@@ -84,4 +84,9 @@ public final class PreferenceConstants {
     public static final String P_FACET_EXT_COMPOSITIONS = "facetExternalCompositions"; //$NON-NLS-1$
     /** Enable MDE facet External compositions. */
     public static final String C_FACET_EXT_COMPOSITIONS = "ExternalComposition"; //$NON-NLS-1$
+    
+    /** Enable MDE facet Database migrations. */
+    public static final String P_DATABASE_MIGRATION = "facetDatabaseMigration"; //$NON-NLS-1$
+    /** Enable MDE facet Database migrations. */
+    public static final String C_DATABASE_MIGRATION = "DBMigration"; //$NON-NLS-1$
  }

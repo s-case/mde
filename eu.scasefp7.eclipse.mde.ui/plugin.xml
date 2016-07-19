@@ -42,11 +42,11 @@
            class="eu.scasefp7.eclipse.mde.ui.preferences.CodeGenerationPreferencePage"
            id="eu.scasefp7.eclipse.mde.ui.propertyPages.CodeGenerationPreferencePage"
            name="Code generation">
-		 <!--<enabledWhen>
+		 <enabledWhen>
 		     <adapt type="org.eclipse.core.resources.IProject">
-		          <test property="org.eclipse.core.resources.projectNature" value="org.eclipse.jdt.core.javanature"/>
+		          <test property="org.eclipse.core.resources.projectNature" value="eu.scasefp7.eclipse.core.scaseNature"/>
 		     </adapt>         
-         </enabledWhen>-->           
+         </enabledWhen>           
      </page>
   </extension>
   <extension

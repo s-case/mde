@@ -66,6 +66,7 @@ public class Utils
         String searching = (store.getBoolean(PreferenceConstants.P_FACET_SEARCH) ? "yes" : "no");
         String extComposition = (store.getBoolean(PreferenceConstants.P_FACET_EXT_COMPOSITIONS) ? "yes" : "no");
         String importMaven = (store.getBoolean(PreferenceConstants.P_AUTO_IMPORT_GENERATED_CODE) ? "yes" : "no");
+        String dbMigration = (store.getBoolean(PreferenceConstants.P_DATABASE_MIGRATION) ? "yes" : "no");
 
         // Figure out service name
         Boolean useProjectName = (store.getBoolean(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME));
@@ -103,19 +104,20 @@ public class Utils
             }
         }
 
-        codegenPreferences.put("YamlFilePath", yamlFilePath);
-        codegenPreferences.put("WebServiceName", wsName);
-        codegenPreferences.put("MDEOutputFolder", outputFolder);
-        codegenPreferences.put("DatabaseIP", dbAddress);
-        codegenPreferences.put("DatabasePort", dbPort);
-        codegenPreferences.put("DatabaseUsername", dbUsername);
-        codegenPreferences.put("DatabasePassword", dbPassword);
-        codegenPreferences.put("DatabaseType", dbType);
-        codegenPreferences.put("Authentication", authentication);
-        codegenPreferences.put("Authorization", authorization);
-        codegenPreferences.put("DatabaseSearching", searching);
-        codegenPreferences.put("ExternalComposition", extComposition);
-        codegenPreferences.put("ImportGeneratedProject", importMaven);
+        codegenPreferences.put(PreferenceConstants.C_INPUT_FILE, yamlFilePath);
+        codegenPreferences.put(PreferenceConstants.C_SERVICE_NAME, wsName);
+        codegenPreferences.put(PreferenceConstants.C_OUTPUT_PATH, outputFolder);
+        codegenPreferences.put(PreferenceConstants.C_DATABASE_ADDRESS, dbAddress);
+        codegenPreferences.put(PreferenceConstants.C_DATABASE_PORT, dbPort);
+        codegenPreferences.put(PreferenceConstants.C_DATABASE_USER, dbUsername);
+        codegenPreferences.put(PreferenceConstants.C_DATABASE_PASSWORD, dbPassword);
+        codegenPreferences.put(PreferenceConstants.C_DATABASE_TYPE, dbType);
+        codegenPreferences.put(PreferenceConstants.C_FACET_BASIC_AUTHENTICATION, authentication);
+        codegenPreferences.put(PreferenceConstants.C_FACET_ABAC_AUTHORIZATION, authorization);
+        codegenPreferences.put(PreferenceConstants.C_FACET_SEARCH, searching);
+        codegenPreferences.put(PreferenceConstants.C_FACET_EXT_COMPOSITIONS, extComposition);
+        codegenPreferences.put(PreferenceConstants.C_AUTO_IMPORT_GENERATED_CODE, importMaven);
+        codegenPreferences.put(PreferenceConstants.C_DATABASE_MIGRATION, dbMigration);
 
         return codegenPreferences;
     }

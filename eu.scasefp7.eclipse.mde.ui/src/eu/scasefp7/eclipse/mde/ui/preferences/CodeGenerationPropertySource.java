@@ -54,18 +54,20 @@ class CodeGenerationPropertySource extends ResourcePropertySource {
             	PropertyDescriptor pd9 =  new PropertyDescriptor(PreferenceConstants.C_DATABASE_PORT, "Database server port");
             	PropertyDescriptor pd10 =  new PropertyDescriptor(PreferenceConstants.C_DATABASE_USER, "Database user name");
             	PropertyDescriptor pd11 =  new PropertyDescriptor(PreferenceConstants.C_DATABASE_PASSWORD, "Database password");
-            	pd7.setCategory("Database");
+                PropertyDescriptor pd12 =  new PropertyDescriptor(PreferenceConstants.C_DATABASE_MIGRATION, "Database migration");            	
+                pd7.setCategory("Database");
                 pd8.setCategory("Database");
                 pd9.setCategory("Database");
                 pd10.setCategory("Database");
                 pd11.setCategory("Database");
+                pd12.setCategory("Database");
                 
-            	PropertyDescriptor pd12 =  new PropertyDescriptor(PreferenceConstants.C_AUTO_IMPORT_GENERATED_CODE, "Import generated project to workspace");
-            	PropertyDescriptor pd13 =  new PropertyDescriptor(PreferenceConstants.C_OUTPUT_PATH, "Output path");
-            	pd12.setCategory("Output");
-                pd13.setCategory("Output");
+            	PropertyDescriptor pd13 =  new PropertyDescriptor(PreferenceConstants.C_AUTO_IMPORT_GENERATED_CODE, "Import generated project to workspace");
+            	PropertyDescriptor pd14 =  new PropertyDescriptor(PreferenceConstants.C_OUTPUT_PATH, "Output path");
+            	pd13.setCategory("Output");
+                pd14.setCategory("Output");
 
-          		IPropertyDescriptor[] array = {pd1,pd2,pd3,pd4,pd5,pd6,pd7,pd8,pd9,pd10,pd11,pd12,pd13};
+          		IPropertyDescriptor[] array = {pd1,pd2,pd3,pd4,pd5,pd6,pd7,pd8,pd9,pd10,pd11,pd12,pd13,pd14};
                 arrayList.addAll(Arrays.asList(array));
     		}
     	} catch (CoreException e) {

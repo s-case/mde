@@ -35,6 +35,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	    store.setDefault(PreferenceConstants.P_DATABASE_USER, "postgres"); //$NON-NLS-1$
 	    store.setDefault(PreferenceConstants.P_DATABASE_PASSWORD, "fp7s-case"); //$NON-NLS-1$
 	    store.setDefault(PreferenceConstants.P_DATABASE_TYPE, "PostgreSQL"); //$NON-NLS-1$
+        store.setDefault(PreferenceConstants.P_DATABASE_MIGRATION, "true"); //$NON-NLS-1$
         
 	    store.setDefault(PreferenceConstants.P_FACET_BASIC_AUTHENTICATION, false); //$NON-NLS-1$
 	    store.setDefault(PreferenceConstants.P_FACET_ABAC_AUTHORIZATION, false); //$NON-NLS-1$
