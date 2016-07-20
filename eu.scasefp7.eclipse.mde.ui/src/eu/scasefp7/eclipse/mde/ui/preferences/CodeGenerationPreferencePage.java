@@ -51,8 +51,8 @@ public class CodeGenerationPreferencePage extends FieldEditorOverlayPage impleme
         addField(new IntegerFieldEditor(PreferenceConstants.P_DATABASE_PORT, "Database server &port:", getFieldEditorParent(), 5));
         addField(new StringFieldEditor(PreferenceConstants.P_DATABASE_USER, "Database &user name:", getFieldEditorParent()));
         addField(new StringFieldEditor(PreferenceConstants.P_DATABASE_PASSWORD, "Database pass&word:", getFieldEditorParent()));
-        addField(new BooleanFieldEditor(PreferenceConstants.P_DATABASE_MIGRATION, "Database &migration:", getFieldEditorParent()));
         
+        addField(new BooleanFieldEditor(PreferenceConstants.P_DATABASE_MIGRATION, "Database &migration", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(PreferenceConstants.P_FACET_BASIC_AUTHENTICATION, "Add &Basic authentication", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(PreferenceConstants.P_FACET_ABAC_AUTHORIZATION, "Add &ABAC authorization", getFieldEditorParent()));
 		addField(new BooleanFieldEditor(PreferenceConstants.P_FACET_SEARCH, "Add database &searching", getFieldEditorParent()));
