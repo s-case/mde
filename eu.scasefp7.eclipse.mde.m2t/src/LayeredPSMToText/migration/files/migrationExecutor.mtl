@@ -144,6 +144,9 @@ public class MigrationPerformer{
 				System.out.println("Successfully completed the [targetRelation.relationMappingName/] migration.");
 			}
 		[/for]
+
+		System.out.println("Migration completed successfully");
+		[if (anAnnotationStack.bHasSearchLayer)]System.out.println("Do not forget to copy the generated indexes at folder {output}/[anAnnotationStack.hasCorePSM.name + 'DBMigrator/webapps/' + anAnnotationStack.hasCorePSM.name + 'LuceneIndexes'/] to your deployment directory alongside you service WAR file!");[/if]
 	}
 
 	[for (targetRelation : TargetRelation | anAnnotationStack.getTargetRelationAnnotations()->sortedBy(migrationOrderIndex)) separator('\n')]
@@ -184,6 +187,7 @@ public class MigrationPerformer{
 							o[targetRelation.isTargetRelationJavaResourceModel.name/] = oHibernateController.post[targetRelation.isTargetRelationJavaResourceModel.parentName/](o[targetRelation.isTargetRelationJavaResourceModel.name/]);
 							//save the primary mapping between [targetRelation.isMappedFromRelation.name.toUpperFirst()/] relation and [targetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/] resource
 							oHMFrom[targetRelation.isMappedFromRelation.name.toUpperFirst()/]To[targetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/].put(calculateHMKeyFrom[targetRelation.isMappedFromRelation.name.toUpperFirst()/]To[targetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/](rs[targetRelation.isMappedFromRelation.name.toUpperFirst()/]), o[targetRelation.isTargetRelationJavaResourceModel.name/].get[targetRelation.isTargetRelationJavaResourceModel.parentName/]Id());
+							bIsResourceAlreadyCreated = true;
 						}
 						else{
 							o[targetRelation.isTargetRelationJavaResourceModel.name/] = oHibernateController.put[targetRelation.isTargetRelationJavaResourceModel.parentName/](o[targetRelation.isTargetRelationJavaResourceModel.name/]);
@@ -205,6 +209,7 @@ public class MigrationPerformer{
 							o[targetRelation.isTargetRelationJavaResourceModel.name/] = oHibernateController.post[targetRelation.isTargetRelationJavaResourceModel.parentName/](o[targetRelation.isTargetRelationJavaResourceModel.name/]);
 							//save the primary mapping between [targetRelation.isMappedFromRelation.name.toUpperFirst()/] relation and [targetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/] resource
 							oHMFrom[targetRelation.isMappedFromRelation.name.toUpperFirst()/]To[targetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/].put(calculateHMKeyFrom[targetRelation.isMappedFromRelation.name.toUpperFirst()/]To[targetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/](rs[targetRelation.isMappedFromRelation.name.toUpperFirst()/]), o[targetRelation.isTargetRelationJavaResourceModel.name/].get[targetRelation.isTargetRelationJavaResourceModel.parentName/]Id());
+							bIsResourceAlreadyCreated = true;
 						}
 						else{
 							o[targetRelation.isTargetRelationJavaResourceModel.name/] = oHibernateController.put[targetRelation.isTargetRelationJavaResourceModel.parentName/](o[targetRelation.isTargetRelationJavaResourceModel.name/]);
@@ -226,6 +231,7 @@ public class MigrationPerformer{
 						o[targetRelation.isTargetRelationJavaResourceModel.name/] = oHibernateController.post[targetRelation.isTargetRelationJavaResourceModel.parentName/](o[targetRelation.isTargetRelationJavaResourceModel.name/]);
 						//save the primary mapping between [targetRelation.isMappedFromRelation.name.toUpperFirst()/] relation and [targetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/] resource
 						oHMFrom[targetRelation.isMappedFromRelation.name.toUpperFirst()/]To[targetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/].put(calculateHMKeyFrom[targetRelation.isMappedFromRelation.name.toUpperFirst()/]To[targetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/](rs[targetRelation.isMappedFromRelation.name.toUpperFirst()/]), o[targetRelation.isTargetRelationJavaResourceModel.name/].get[targetRelation.isTargetRelationJavaResourceModel.parentName/]Id());
+						bIsResourceAlreadyCreated = true;
 					}
 					else{
 						o[targetRelation.isTargetRelationJavaResourceModel.name/] = oHibernateController.put[targetRelation.isTargetRelationJavaResourceModel.parentName/](o[targetRelation.isTargetRelationJavaResourceModel.name/]);

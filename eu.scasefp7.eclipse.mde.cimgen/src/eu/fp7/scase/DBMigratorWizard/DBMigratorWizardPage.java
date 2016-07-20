@@ -250,7 +250,6 @@ public class DBMigratorWizardPage extends WizardPage{
 		  }
 		  else{
 			  if(restoreDBMigrationWizardPage() == false){
-				  this.setPageComplete(false);
 				  this.bReloadExistingModels = false;
 			  }
 			  this.updateWidgetStatus();
@@ -271,7 +270,7 @@ public class DBMigratorWizardPage extends WizardPage{
 			return false;
 		}
 		else{
-			this.cleanUpMappingSchedulingAttributes();
+			cleanUpMappingSchedulingAttributes();
 			populateRelationMappingList();
 		}
 		
@@ -1087,20 +1086,24 @@ public class DBMigratorWizardPage extends WizardPage{
 		int iFirstRelationToLoadIndex = findSuitableFirstRelationToLoad();
 		
 		if(iFirstRelationToLoadIndex == -1){
-			this.setErrorMessage("Invalid Mapping collection. The current mappings are not schedulable. Check that no mapping to a resource exists without a mapping for its parent.");
+			this.setErrorMessage("Cannot find a relation to be scheduled 1st. The current mappings are not schedulable. Check that no mapping to a resource exists without a mapping for its parent.");
 			return false;
 		}
 		else{
 			((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(iFirstRelationToLoadIndex)).setBIsScheduledToLoad(true);
-			
+
 			while(areAllRelationsScheduledToLoad() == false){
 				int iNextRelationToLoadIndex = findSuitableNextRelationToLoad();
 				if(iNextRelationToLoadIndex == -1){
-					this.setErrorMessage("Invalid Mapping collection. The current mappings are not schedulable. Check that no mapping to a resource exists without a mapping for its parent.");
+					this.setErrorMessage("Cannot find a relation to be scheduled next. The current mappings are not schedulable. Check that no mapping to a resource exists without a mapping for its parent.");
 					return false;
 				}
 				TargetRelation oTargetRelation = ((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(iNextRelationToLoadIndex));
 				oTargetRelation.setBIsScheduledToLoad(true);
+				if(requiresParentMapping(oTargetRelation) == true && targetRelationHasParentMapping(oTargetRelation) == false){
+					this.setErrorMessage("The current mappings are not schedulable. Mapping " + oTargetRelation.getRelationMappingName() + " requires a parent mapping.");
+					return false;
+				}
 			}
 		}
 			
@@ -1237,7 +1240,7 @@ public class DBMigratorWizardPage extends WizardPage{
 	private void createTargetRelationParentMapping(TargetRelation oTargetRelation) {
 		for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
 			Resource oResource = this.oRESTfulServiceCIM.getHasResources().get(i);
-			if(oResource.getHasRelatedResource().contains(oTargetRelation.getIsTargetRelationResource())){ //if this oResource has as related resource the target resource
+			if(isParentResourceOf(oResource.getName(), oTargetRelation.getIsTargetRelationResource().getName())){ //if this oResource has as related resource the target resource
 				//and there exists also relation mapping that has as target resource the oResource one
 				for(int n = 0; n < this.oMdeDBMigratorCIM.getHasAnnotation().size(); n++){
 					if(this.oMdeDBMigratorCIM.getHasAnnotation().get(n) instanceof TargetRelation){
@@ -1290,16 +1293,45 @@ public class DBMigratorWizardPage extends WizardPage{
 	private boolean targetRelationHasParentMapping(TargetRelation oTargetRelation) {
 		for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
 			Resource oResource = this.oRESTfulServiceCIM.getHasResources().get(i);
-			if(oResource.getHasRelatedResource().contains(oTargetRelation.getIsTargetRelationResource())){ //if this oResource has as related resource the target resource
+			if(isParentResourceOf(oResource.getName(), oTargetRelation.getIsTargetRelationResource().getName())){ //if this oResource has as related resource the target resource
+				System.out.println("Resource " + oResource.getName() + " has as related resource the " + oTargetRelation.getIsTargetRelationResource().getName());
 				//and there exists also relation mapping that has as target resource the oResource one
 				for(int n = 0; n < this.oMdeDBMigratorCIM.getHasAnnotation().size(); n++){
 					if(this.oMdeDBMigratorCIM.getHasAnnotation().get(n) instanceof TargetRelation){
 						if(((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsTargetRelationResource().getName().equalsIgnoreCase(oResource.getName())){
+							System.out.println("Mapping " + ((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getRelationMappingName() + " has as target resource the " + oResource.getName());
 							//and this relation mapping's source relation is also parent of the source relation of the oTargetRelation
 							if(this.oDBSchemaLoader.isRelationParentOf(((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsMappedFromRelation().getName(), oTargetRelation.getIsMappedFromRelation().getName())){
+								System.out.println("Source relation " + ((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsMappedFromRelation().getName() + " is truly parent of relation " + oTargetRelation.getIsMappedFromRelation().getName());
 								return true;
 							}
 						}
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean requiresParentMapping(TargetRelation oTargetRelation){
+		for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
+			if(isParentResourceOf(this.oRESTfulServiceCIM.getHasResources().get(i).getName(), oTargetRelation.getIsTargetRelationResource().getName()) == true){
+				System.out.println("Mapping " + oTargetRelation.getRelationMappingName() + " requires parent mapping");
+				return true;
+			}
+		}
+		
+		System.out.println("Mapping " + oTargetRelation.getRelationMappingName() + " does not require parent mapping");
+		return false;
+	}
+	
+	private boolean isParentResourceOf(String strPossibleParentName, String strPossibleChildName){
+		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
+			if(this.oRESTfulServiceCIM.getHasResources().get(n).getName().equalsIgnoreCase(strPossibleParentName)){
+				for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().size(); i++){
+					if(this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().get(i).getName().equalsIgnoreCase(strPossibleChildName)){
+						return true;
 					}
 				}
 			}
@@ -1353,7 +1385,7 @@ public class DBMigratorWizardPage extends WizardPage{
 
 	private boolean isThisRelationParentOfPossibleNext(TargetRelation oTargetRelation, TargetRelation oPossibleNextRelation) {
 		for(int i = 0; i < oTargetRelation.getIsTargetRelationResource().getHasRelatedResource().size(); i++){
-			if(oTargetRelation.getIsTargetRelationResource().getHasRelatedResource().contains(oPossibleNextRelation.getIsTargetRelationResource())){
+			if(isParentResourceOf(oTargetRelation.getIsTargetRelationResource().getName(), oPossibleNextRelation.getIsTargetRelationResource().getName())){
 				//is it self relation?
 				if(oTargetRelation.getIsTargetRelationResource().getName().equalsIgnoreCase(oPossibleNextRelation.getIsTargetRelationResource().getName())){
 					System.out.println("Relation " + oTargetRelation.getIsTargetRelationResource().getName() + " is self relation of " + oPossibleNextRelation.getIsTargetRelationResource().getName() + " hence not a parent");
@@ -1397,12 +1429,8 @@ public class DBMigratorWizardPage extends WizardPage{
 
 	private boolean coreCIMResourceHasParent(TargetRelation oTargetRelation) {
 		for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
-			if(this.oRESTfulServiceCIM.getHasResources().get(i).getName().equalsIgnoreCase(oTargetRelation.getIsTargetRelationResource().getName())){
-				for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
-					if(this.oRESTfulServiceCIM.getHasResources().get(n).getHasRelatedResource().contains(oTargetRelation.getIsTargetRelationResource())){
-						return true;
-					}
-				}
+			if(isParentResourceOf(this.oRESTfulServiceCIM.getHasResources().get(i).getName(), oTargetRelation.getIsTargetRelationResource().getName())){
+				return true;
 			}
 		}
 		
