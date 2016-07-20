@@ -19,7 +19,8 @@
          <commandParameter id="DatabasePort" name="Database port"/>
          <commandParameter id="DatabaseUsername" name="Database username"/>
          <commandParameter id="DatabasePassword" name="Database password"/>
-         <commandParameter id="DatabaseType" name="Database type" optional="PostgreSQL"/>
+         <commandParameter id="DatabaseType" name="Database type"/>
+	     <commandParameter id="DBMigration" name="Migrate database"/>
          <commandParameter id="Authentication" name="Generate authentication"/>
          <commandParameter id="Authorization" name="Generate authorization"/>
          <commandParameter id="DatabaseSearching" name="Generate searching"/>
