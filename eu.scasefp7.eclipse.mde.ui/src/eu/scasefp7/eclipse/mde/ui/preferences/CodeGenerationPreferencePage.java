@@ -8,6 +8,7 @@ import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
+import eu.scasefp7.eclipse.core.ui.preferences.FieldEditorOverlayPage;
 import eu.scasefp7.eclipse.mde.ui.Activator;
 
 /**
@@ -89,5 +90,10 @@ public class CodeGenerationPreferencePage extends FieldEditorOverlayPage impleme
     @Override
     protected String getPageId() {
         return PAGE_ID;
+    }
+
+    @Override
+    protected String getPreferenceQualifier() {      
+        return Activator.PLUGIN_ID;
     }
 }
