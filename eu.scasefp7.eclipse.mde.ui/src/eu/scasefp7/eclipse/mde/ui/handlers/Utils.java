@@ -6,19 +6,16 @@ import java.util.Map;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
+import eu.scasefp7.eclipse.core.builder.ProjectUtils;
 import eu.scasefp7.eclipse.mde.ui.Activator;
 import eu.scasefp7.eclipse.mde.ui.preferences.PreferenceConstants;
-
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.QualifiedName;
 
 /**
  * Utility class for code generation.
@@ -39,19 +36,8 @@ public class Utils
         Map<String, String> codegenPreferences = new HashMap<String, String>();
 
         // Get preferences
-        String modelsFolderLocation = null;
-        try {
-            modelsFolderLocation = project.getPersistentProperty(new QualifiedName("",
-                    "eu.scasefp7.eclipse.core.ui.modelsFolder"));
-        } catch (CoreException e) {
-            Activator.log("Error retrieving project property (models folder location)", e);
-        }
-        IContainer container = project;
-        if (modelsFolderLocation != null) {
-		    IResource modelsFolder = project.findMember(new Path(modelsFolderLocation)); 
-			if (modelsFolder != null && modelsFolder.exists())
-				container = (IContainer) modelsFolder;
-        }
+        IContainer container = ProjectUtils.getProjectModelsFolder(project);
+
         IFile file = container.getFile(new Path("service.yml"));
         String yamlFilePath = file.getLocation().toPortableString();
         String wsName = store.getString(PreferenceConstants.P_SERVICE_NAME);
@@ -71,36 +57,20 @@ public class Utils
         // Figure out service name
         Boolean useProjectName = (store.getBoolean(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME));
         if (useProjectName) {
-            wsName = project.getName() + "Api";
+            wsName = project.getName() + "Service";
         }
 
         // Figure out output folder
         Boolean useProjectOutputFolder = (store.getBoolean(PreferenceConstants.P_USE_PROJECT_OUTPUT_FOLDER));
         if (useProjectOutputFolder) {
-            String out = null;
-            try {
-                out = project.getPersistentProperty(new QualifiedName("", "eu.scasefp7.eclipse.core.ui.outputFolder"));
-            } catch (CoreException e) {
-                Activator.log("Unable to get project property.", e);
-            } finally {
-                if (out != null) {
-                    IResource res = project.findMember(out); // Search in project first
-                    if (res == null) {
-                        res = project.getWorkspace().getRoot().findMember(out); // If not found in project, look in
-                                                                                // workspace
-                    }
-                    if (res != null) {
-                        outputFolder = res.getLocation().toPortableString();
-                    } else {
-                        StringBuilder sb = new StringBuilder();
-                        sb.append("Project output path \"");
-                        sb.append(out);
-                        sb.append("\" not found, using default \"");
-                        sb.append(outputFolder);
-                        sb.append(".");
-                        Activator.log(sb.toString(), new Exception());
-                    }
-                }
+            IContainer folder = ProjectUtils.getProjectOutputFolder(project);
+            if (folder != null) {
+                outputFolder = folder.getLocation().toPortableString();
+            } else {
+                StringBuilder sb = new StringBuilder();
+                sb.append("Project \"").append(project.getName()).append("\" output path not found, using default \"");
+                sb.append(outputFolder).append("\".");
+                Activator.log(sb.toString(), new Exception());
             }
         }
 
