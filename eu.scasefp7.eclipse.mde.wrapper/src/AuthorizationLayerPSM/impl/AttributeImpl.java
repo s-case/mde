@@ -28,13 +28,13 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.impl.AttributeImpl#getAttributeCategory <em>Attribute Category</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.AttributeImpl#getValue <em>Value</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.AttributeImpl#getIsAttributeExistingProperty <em>Is Attribute Existing Property</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.AttributeImpl#getIsAttributeNewProperty <em>Is Attribute New Property</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

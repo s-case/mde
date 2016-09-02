@@ -30,13 +30,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientControllerImpl#getHasJavaRESTClientHTTPActivity <em>Has Java REST Client HTTP Activity</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientControllerImpl#getIsJavaRESTClientController <em>Is Java REST Client Controller</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientControllerImpl#getHasAssociatedModel <em>Has Associated Model</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientControllerImpl#getHasComplexTypes <em>Has Complex Types</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

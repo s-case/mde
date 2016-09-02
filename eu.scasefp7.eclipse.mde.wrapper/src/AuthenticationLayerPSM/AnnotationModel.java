@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthenticationLayerPSM.AnnotationModel#getName <em>Name</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.AnnotationModel#getHasAnnotatedElement <em>Has Annotated Element</em>}</li>
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link AuthenticationLayerPSM.AnnotationModel#getAnnotatesRESTfulServicePSM <em>Annotates RES Tful Service PSM</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.AnnotationModel#getAnnotationType <em>Annotation Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthenticationLayerPSM.AuthenticationLayerPSMPackage#getAnnotationModel()
  * @model

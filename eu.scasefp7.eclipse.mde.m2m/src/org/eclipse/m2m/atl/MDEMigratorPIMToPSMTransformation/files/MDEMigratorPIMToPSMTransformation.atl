@@ -69,7 +69,11 @@ unique lazy rule createParentMapping{
 		PSMParentMapping : DBMIGRATIONPSMOUT!ParentMapping(
 			sourceRelationFKMappingName <- PIMParentMapping.sourceRelationFKMappingName,
 			hasForeignKeyColumn <- PIMParentMapping.hasForeignKeyColumn->collect(FKColumn | thisModule.createSourceColumn(FKColumn)),
-			hasParentTargetRelation <- thisModule.createTargetRelation(PIMParentMapping.hasParentTargetRelation)
+			hasParentTargetRelation <- thisModule.createTargetRelation(PIMParentMapping.hasParentTargetRelation),
+			requiresJoinTable <- PIMParentMapping.requiresJoinTable,
+			joinTableName <- PIMParentMapping.joinTableName,
+			hasJoinFKToSourceRelation <- PIMParentMapping.hasJoinFKToSourceRelation->collect(FKColumn | thisModule.createJoinColumn(FKColumn)),
+			hasJoinFKToParentSourceRelation <- PIMParentMapping.hasJoinFKToParentSourceRelation->collect(FKColumn | thisModule.createJoinColumn(FKColumn))
 		)
 }
 
@@ -101,6 +105,20 @@ unique lazy rule createSourceColumn{
 	to
 		PSMSourceColumn : DBMIGRATIONPSMOUT!SourceColumn(
 			name <- PIMSourceColumn.name,
-			type <- PIMSourceColumn.type
+			type <- PIMSourceColumn.type,
+			hasPkOrder <- PIMSourceColumn.hasPkOrder,
+			hasFKOrder <- PIMSourceColumn.hasFKOrder
+		)
+}
+
+unique lazy rule createJoinColumn{
+	from 
+		PIMJoinColumn : DBMIGRATIONPIMIN!JoinColumn
+	to
+		PSMJoinColumn : DBMIGRATIONPSMOUT!JoinColumn(
+			name <- PIMJoinColumn.name,
+			type <- PIMJoinColumn.type,
+			hasPkOrder <- PIMJoinColumn.hasPkOrder,
+			hasFKOrder <- PIMJoinColumn.hasFKOrder
 		)
 }

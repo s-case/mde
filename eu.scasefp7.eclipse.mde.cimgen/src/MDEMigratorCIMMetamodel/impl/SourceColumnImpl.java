@@ -18,11 +18,13 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorCIMMetamodel.impl.SourceColumnImpl#getName <em>Name</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.impl.SourceColumnImpl#getType <em>Type</em>}</li>
+ *   <li>{@link MDEMigratorCIMMetamodel.impl.SourceColumnImpl#getHasPkOrder <em>Has Pk Order</em>}</li>
+ *   <li>{@link MDEMigratorCIMMetamodel.impl.SourceColumnImpl#getHasFKOrder <em>Has FK Order</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -66,6 +68,46 @@ public class SourceColumnImpl extends MinimalEObjectImpl.Container implements So
 	 * @ordered
 	 */
 	protected String type = TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getHasPkOrder() <em>Has Pk Order</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHasPkOrder()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int HAS_PK_ORDER_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getHasPkOrder() <em>Has Pk Order</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHasPkOrder()
+	 * @generated
+	 * @ordered
+	 */
+	protected int hasPkOrder = HAS_PK_ORDER_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getHasFKOrder() <em>Has FK Order</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHasFKOrder()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int HAS_FK_ORDER_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getHasFKOrder() <em>Has FK Order</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHasFKOrder()
+	 * @generated
+	 * @ordered
+	 */
+	protected int hasFKOrder = HAS_FK_ORDER_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -133,6 +175,48 @@ public class SourceColumnImpl extends MinimalEObjectImpl.Container implements So
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getHasPkOrder() {
+		return hasPkOrder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHasPkOrder(int newHasPkOrder) {
+		int oldHasPkOrder = hasPkOrder;
+		hasPkOrder = newHasPkOrder;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__HAS_PK_ORDER, oldHasPkOrder, hasPkOrder));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getHasFKOrder() {
+		return hasFKOrder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHasFKOrder(int newHasFKOrder) {
+		int oldHasFKOrder = hasFKOrder;
+		hasFKOrder = newHasFKOrder;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__HAS_FK_ORDER, oldHasFKOrder, hasFKOrder));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -140,6 +224,10 @@ public class SourceColumnImpl extends MinimalEObjectImpl.Container implements So
 				return getName();
 			case MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__TYPE:
 				return getType();
+			case MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__HAS_PK_ORDER:
+				return getHasPkOrder();
+			case MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__HAS_FK_ORDER:
+				return getHasFKOrder();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -157,6 +245,12 @@ public class SourceColumnImpl extends MinimalEObjectImpl.Container implements So
 				return;
 			case MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__TYPE:
 				setType((String)newValue);
+				return;
+			case MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__HAS_PK_ORDER:
+				setHasPkOrder((Integer)newValue);
+				return;
+			case MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__HAS_FK_ORDER:
+				setHasFKOrder((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -176,6 +270,12 @@ public class SourceColumnImpl extends MinimalEObjectImpl.Container implements So
 			case MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
+			case MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__HAS_PK_ORDER:
+				setHasPkOrder(HAS_PK_ORDER_EDEFAULT);
+				return;
+			case MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__HAS_FK_ORDER:
+				setHasFKOrder(HAS_FK_ORDER_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -192,6 +292,10 @@ public class SourceColumnImpl extends MinimalEObjectImpl.Container implements So
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+			case MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__HAS_PK_ORDER:
+				return hasPkOrder != HAS_PK_ORDER_EDEFAULT;
+			case MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN__HAS_FK_ORDER:
+				return hasFKOrder != HAS_FK_ORDER_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -210,6 +314,10 @@ public class SourceColumnImpl extends MinimalEObjectImpl.Container implements So
 		result.append(name);
 		result.append(", type: ");
 		result.append(type);
+		result.append(", hasPkOrder: ");
+		result.append(hasPkOrder);
+		result.append(", hasFKOrder: ");
+		result.append(hasFKOrder);
 		result.append(')');
 		return result.toString();
 	}

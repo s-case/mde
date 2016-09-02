@@ -11,10 +11,10 @@ import RESTfulServicePSM.HTTPActivity;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthenticationLayerPSM.AnnHTTPActivity#getAnnotatesHTTPActivity <em>Annotates HTTP Activity</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthenticationLayerPSM.AuthenticationLayerPSMPackage#getAnnHTTPActivity()
  * @model

@@ -21,12 +21,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorPSMMetamodel.impl.TargetColumnImpl#getColumnMappingName <em>Column Mapping Name</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.impl.TargetColumnImpl#getIsMappedFromColumn <em>Is Mapped From Column</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.impl.TargetColumnImpl#getIsAnnotatedPSMComponentProperty <em>Is Annotated PSM Component Property</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

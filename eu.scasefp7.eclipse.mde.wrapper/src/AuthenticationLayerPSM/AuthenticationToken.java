@@ -11,12 +11,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthenticationLayerPSM.AuthenticationToken#getName <em>Name</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.AuthenticationToken#getType <em>Type</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.AuthenticationToken#isBIsUnique <em>BIs Unique</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthenticationLayerPSM.AuthenticationLayerPSMPackage#getAuthenticationToken()
  * @model

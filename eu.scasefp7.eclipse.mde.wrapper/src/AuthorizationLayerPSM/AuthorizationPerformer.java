@@ -11,11 +11,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.AuthorizationPerformer#getUsesAuthorizationPolicyEvaluator <em>Uses Authorization Policy Evaluator</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.AuthorizationPerformer#getIsAuthorizationPerformer <em>Is Authorization Performer</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthorizationLayerPSM.AuthorizationLayerPSMPackage#getAuthorizationPerformer()
  * @model

@@ -10,13 +10,13 @@ package AuthorizationLayerPSM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.NewProperty#getName <em>Name</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.NewProperty#getType <em>Type</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.NewProperty#isBIsUnique <em>BIs Unique</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.NewProperty#getBelongsToResource <em>Belongs To Resource</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthorizationLayerPSM.AuthorizationLayerPSMPackage#getNewProperty()
  * @model

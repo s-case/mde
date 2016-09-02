@@ -172,6 +172,33 @@ public class DatabaseMetamodelPackageImpl extends EPackageImpl implements Databa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getRelation_IsJoinTable() {
+		return (EAttribute)relationEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRelation_ReferencesRelation() {
+		return (EReference)relationEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRelation_IsSelfJoinTable() {
+		return (EAttribute)relationEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getColumn() {
 		return columnEClass;
 	}
@@ -217,6 +244,24 @@ public class DatabaseMetamodelPackageImpl extends EPackageImpl implements Databa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getColumn_HasPKOrder() {
+		return (EAttribute)columnEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getColumn_HasFKOrder() {
+		return (EAttribute)columnEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public DatabaseMetamodelFactory getDatabaseMetamodelFactory() {
 		return (DatabaseMetamodelFactory)getEFactoryInstance();
 	}
@@ -248,12 +293,17 @@ public class DatabaseMetamodelPackageImpl extends EPackageImpl implements Databa
 		createEReference(relationEClass, RELATION__HAS_PRIMARY_KEY);
 		createEReference(relationEClass, RELATION__HAS_FOREIGN_KEY);
 		createEAttribute(relationEClass, RELATION__NAME);
+		createEAttribute(relationEClass, RELATION__IS_JOIN_TABLE);
+		createEReference(relationEClass, RELATION__REFERENCES_RELATION);
+		createEAttribute(relationEClass, RELATION__IS_SELF_JOIN_TABLE);
 
 		columnEClass = createEClass(COLUMN);
 		createEReference(columnEClass, COLUMN__IS_FOREIN_KEY_TO_COLUMN);
 		createEReference(columnEClass, COLUMN__IS_FOREIGN_KEY_TO_RELATION);
 		createEAttribute(columnEClass, COLUMN__NAME);
 		createEAttribute(columnEClass, COLUMN__TYPE);
+		createEAttribute(columnEClass, COLUMN__HAS_PK_ORDER);
+		createEAttribute(columnEClass, COLUMN__HAS_FK_ORDER);
 	}
 
 	/**
@@ -294,12 +344,17 @@ public class DatabaseMetamodelPackageImpl extends EPackageImpl implements Databa
 		initEReference(getRelation_HasPrimaryKey(), this.getColumn(), null, "hasPrimaryKey", null, 1, -1, Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRelation_HasForeignKey(), this.getColumn(), null, "hasForeignKey", null, 0, -1, Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRelation_Name(), ecorePackage.getEString(), "name", null, 1, 1, Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRelation_IsJoinTable(), ecorePackage.getEBoolean(), "isJoinTable", null, 1, 1, Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRelation_ReferencesRelation(), this.getRelation(), null, "referencesRelation", null, 0, 2, Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRelation_IsSelfJoinTable(), ecorePackage.getEBoolean(), "isSelfJoinTable", null, 1, 1, Relation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(columnEClass, Column.class, "Column", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getColumn_IsForeinKeyToColumn(), this.getColumn(), null, "isForeinKeyToColumn", null, 0, -1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getColumn_IsForeignKeyToRelation(), this.getRelation(), null, "isForeignKeyToRelation", null, 0, -1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getColumn_Name(), ecorePackage.getEString(), "name", null, 1, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getColumn_Type(), ecorePackage.getEString(), "type", "", 1, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_HasPKOrder(), ecorePackage.getEInt(), "hasPKOrder", null, 1, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_HasFKOrder(), ecorePackage.getEInt(), "hasFKOrder", null, 0, -1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

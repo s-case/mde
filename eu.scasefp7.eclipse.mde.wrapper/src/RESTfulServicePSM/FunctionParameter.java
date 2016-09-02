@@ -11,13 +11,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.FunctionParameter#getName <em>Name</em>}</li>
  *   <li>{@link RESTfulServicePSM.FunctionParameter#getType <em>Type</em>}</li>
  *   <li>{@link RESTfulServicePSM.FunctionParameter#isBIsUnique <em>BIs Unique</em>}</li>
  *   <li>{@link RESTfulServicePSM.FunctionParameter#isBIsReturnParameter <em>BIs Return Parameter</em>}</li>
  * </ul>
- * </p>
  *
  * @see RESTfulServicePSM.RESTfulServicePSMPackage#getFunctionParameter()
  * @model

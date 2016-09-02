@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientHTTPActivityHandlerImpl#getIsJavaRESTClientHTTPActivityHandler <em>Is Java REST Client HTTP Activity Handler</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientHTTPActivityHandlerImpl#getTargetServiceURL <em>Target Service URL</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientHTTPActivityHandlerImpl#getHTTPVerb <em>HTTP Verb</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

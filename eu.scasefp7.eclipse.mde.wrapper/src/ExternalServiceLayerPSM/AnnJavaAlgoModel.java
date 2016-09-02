@@ -11,10 +11,10 @@ import RESTfulServicePSM.JavaAlgoResourceModel;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.AnnJavaAlgoModel#getAnnotatesJavaAlgoModel <em>Annotates Java Algo Model</em>}</li>
  * </ul>
- * </p>
  *
  * @see ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage#getAnnJavaAlgoModel()
  * @model

@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.JavaResourceControllerManager#getJavaRCManagerHasJAXRSAnnotation <em>Java RC Manager Has JAXRS Annotation</em>}</li>
  *   <li>{@link RESTfulServicePSM.JavaResourceControllerManager#getJavaRCManagerHasHTTPActivity <em>Java RC Manager Has HTTP Activity</em>}</li>
@@ -21,7 +22,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link RESTfulServicePSM.JavaResourceControllerManager#getControllerURI <em>Controller URI</em>}</li>
  *   <li>{@link RESTfulServicePSM.JavaResourceControllerManager#getParentName <em>Parent Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see RESTfulServicePSM.RESTfulServicePSMPackage#getJavaResourceControllerManager()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='controllerURIPathAnnotation RCManagerNotAllowedHTTPActivityVerbs RCManagerActivitiesHaveJAXRSAnnotations JRCManagerPostActivityAddsPostHypermediaLinkToSelf JRCManagerGetActivityAddsPostHypermediaLinkToSelf JRCManagerPostActivityAddsGetHypermediaLinkToSelf'"

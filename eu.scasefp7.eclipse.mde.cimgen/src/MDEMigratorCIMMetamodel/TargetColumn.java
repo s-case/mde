@@ -11,12 +11,12 @@ import ServiceCIM.Property;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorCIMMetamodel.TargetColumn#getColumnMappingName <em>Column Mapping Name</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.TargetColumn#getIsMappedFromColumn <em>Is Mapped From Column</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.TargetColumn#getIsAnnotatedProperty <em>Is Annotated Property</em>}</li>
  * </ul>
- * </p>
  *
  * @see MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelPackage#getTargetColumn()
  * @model

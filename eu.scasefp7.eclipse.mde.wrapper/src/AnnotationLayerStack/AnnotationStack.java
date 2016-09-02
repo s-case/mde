@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AnnotationLayerStack.AnnotationStack#getHasAuthenticationLayer <em>Has Authentication Layer</em>}</li>
  *   <li>{@link AnnotationLayerStack.AnnotationStack#isBHasAuthenticationAnnotation <em>BHas Authentication Annotation</em>}</li>
@@ -28,7 +29,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link AnnotationLayerStack.AnnotationStack#getHasDBMigrationLayer <em>Has DB Migration Layer</em>}</li>
  *   <li>{@link AnnotationLayerStack.AnnotationStack#isBHasDBMigrationLayer <em>BHas DB Migration Layer</em>}</li>
  * </ul>
- * </p>
  *
  * @see AnnotationLayerStack.AnnotationLayerStackPackage#getAnnotationStack()
  * @model

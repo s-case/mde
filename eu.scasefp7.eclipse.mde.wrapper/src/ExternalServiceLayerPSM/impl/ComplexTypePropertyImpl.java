@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.impl.ComplexTypePropertyImpl#getName <em>Name</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.ComplexTypePropertyImpl#isIsUnique <em>Is Unique</em>}</li>
@@ -27,7 +28,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link ExternalServiceLayerPSM.impl.ComplexTypePropertyImpl#isHasPrimitiveType <em>Has Primitive Type</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.ComplexTypePropertyImpl#getPropertyHasComplexType <em>Property Has Complex Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

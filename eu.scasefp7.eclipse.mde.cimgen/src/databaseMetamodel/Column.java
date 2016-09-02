@@ -13,13 +13,15 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link databaseMetamodel.Column#getIsForeinKeyToColumn <em>Is Forein Key To Column</em>}</li>
  *   <li>{@link databaseMetamodel.Column#getIsForeignKeyToRelation <em>Is Foreign Key To Relation</em>}</li>
  *   <li>{@link databaseMetamodel.Column#getName <em>Name</em>}</li>
  *   <li>{@link databaseMetamodel.Column#getType <em>Type</em>}</li>
+ *   <li>{@link databaseMetamodel.Column#getHasPKOrder <em>Has PK Order</em>}</li>
+ *   <li>{@link databaseMetamodel.Column#getHasFKOrder <em>Has FK Order</em>}</li>
  * </ul>
- * </p>
  *
  * @see databaseMetamodel.DatabaseMetamodelPackage#getColumn()
  * @model
@@ -110,5 +112,47 @@ public interface Column extends EObject {
 	 * @generated
 	 */
 	void setType(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Has PK Order</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Has PK Order</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Has PK Order</em>' attribute.
+	 * @see #setHasPKOrder(int)
+	 * @see databaseMetamodel.DatabaseMetamodelPackage#getColumn_HasPKOrder()
+	 * @model required="true"
+	 * @generated
+	 */
+	int getHasPKOrder();
+
+	/**
+	 * Sets the value of the '{@link databaseMetamodel.Column#getHasPKOrder <em>Has PK Order</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Has PK Order</em>' attribute.
+	 * @see #getHasPKOrder()
+	 * @generated
+	 */
+	void setHasPKOrder(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Has FK Order</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.Integer}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Has FK Order</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Has FK Order</em>' attribute list.
+	 * @see databaseMetamodel.DatabaseMetamodelPackage#getColumn_HasFKOrder()
+	 * @model
+	 * @generated
+	 */
+	EList<Integer> getHasFKOrder();
 
 } // Column

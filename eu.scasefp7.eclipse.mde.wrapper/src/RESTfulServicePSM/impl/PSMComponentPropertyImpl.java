@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.PSMComponentPropertyImpl#getPropertyHasHibernateAnnotation <em>Property Has Hibernate Annotation</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.PSMComponentPropertyImpl#getName <em>Name</em>}</li>
@@ -36,7 +37,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link RESTfulServicePSM.impl.PSMComponentPropertyImpl#isBIsNamingProperty <em>BIs Naming Property</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.PSMComponentPropertyImpl#isBIsPrimaryIdentifier <em>BIs Primary Identifier</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
@@ -25,13 +26,15 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link databaseMetamodel.impl.ColumnImpl#getIsForeinKeyToColumn <em>Is Forein Key To Column</em>}</li>
  *   <li>{@link databaseMetamodel.impl.ColumnImpl#getIsForeignKeyToRelation <em>Is Foreign Key To Relation</em>}</li>
  *   <li>{@link databaseMetamodel.impl.ColumnImpl#getName <em>Name</em>}</li>
  *   <li>{@link databaseMetamodel.impl.ColumnImpl#getType <em>Type</em>}</li>
+ *   <li>{@link databaseMetamodel.impl.ColumnImpl#getHasPKOrder <em>Has PK Order</em>}</li>
+ *   <li>{@link databaseMetamodel.impl.ColumnImpl#getHasFKOrder <em>Has FK Order</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -95,6 +98,36 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 	 * @ordered
 	 */
 	protected String type = TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getHasPKOrder() <em>Has PK Order</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHasPKOrder()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int HAS_PK_ORDER_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getHasPKOrder() <em>Has PK Order</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHasPKOrder()
+	 * @generated
+	 * @ordered
+	 */
+	protected int hasPKOrder = HAS_PK_ORDER_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getHasFKOrder() <em>Has FK Order</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHasFKOrder()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Integer> hasFKOrder;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -186,6 +219,39 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getHasPKOrder() {
+		return hasPKOrder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHasPKOrder(int newHasPKOrder) {
+		int oldHasPKOrder = hasPKOrder;
+		hasPKOrder = newHasPKOrder;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatabaseMetamodelPackage.COLUMN__HAS_PK_ORDER, oldHasPKOrder, hasPKOrder));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Integer> getHasFKOrder() {
+		if (hasFKOrder == null) {
+			hasFKOrder = new EDataTypeUniqueEList<Integer>(Integer.class, this, DatabaseMetamodelPackage.COLUMN__HAS_FK_ORDER);
+		}
+		return hasFKOrder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -197,6 +263,10 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 				return getName();
 			case DatabaseMetamodelPackage.COLUMN__TYPE:
 				return getType();
+			case DatabaseMetamodelPackage.COLUMN__HAS_PK_ORDER:
+				return getHasPKOrder();
+			case DatabaseMetamodelPackage.COLUMN__HAS_FK_ORDER:
+				return getHasFKOrder();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -224,6 +294,13 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 			case DatabaseMetamodelPackage.COLUMN__TYPE:
 				setType((String)newValue);
 				return;
+			case DatabaseMetamodelPackage.COLUMN__HAS_PK_ORDER:
+				setHasPKOrder((Integer)newValue);
+				return;
+			case DatabaseMetamodelPackage.COLUMN__HAS_FK_ORDER:
+				getHasFKOrder().clear();
+				getHasFKOrder().addAll((Collection<? extends Integer>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -248,6 +325,12 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 			case DatabaseMetamodelPackage.COLUMN__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
+			case DatabaseMetamodelPackage.COLUMN__HAS_PK_ORDER:
+				setHasPKOrder(HAS_PK_ORDER_EDEFAULT);
+				return;
+			case DatabaseMetamodelPackage.COLUMN__HAS_FK_ORDER:
+				getHasFKOrder().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -268,6 +351,10 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case DatabaseMetamodelPackage.COLUMN__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+			case DatabaseMetamodelPackage.COLUMN__HAS_PK_ORDER:
+				return hasPKOrder != HAS_PK_ORDER_EDEFAULT;
+			case DatabaseMetamodelPackage.COLUMN__HAS_FK_ORDER:
+				return hasFKOrder != null && !hasFKOrder.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -286,6 +373,10 @@ public class ColumnImpl extends MinimalEObjectImpl.Container implements Column {
 		result.append(name);
 		result.append(", type: ");
 		result.append(type);
+		result.append(", hasPKOrder: ");
+		result.append(hasPKOrder);
+		result.append(", hasFKOrder: ");
+		result.append(hasFKOrder);
 		result.append(')');
 		return result.toString();
 	}

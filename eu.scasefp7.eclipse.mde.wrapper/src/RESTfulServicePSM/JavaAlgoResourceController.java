@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.JavaAlgoResourceController#getHasAssociatedAlgoModel <em>Has Associated Algo Model</em>}</li>
  *   <li>{@link RESTfulServicePSM.JavaAlgoResourceController#getJavaAlgoRControllerHasHTTPActivity <em>Java Algo RController Has HTTP Activity</em>}</li>
@@ -19,7 +20,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link RESTfulServicePSM.JavaAlgoResourceController#getParentName <em>Parent Name</em>}</li>
  *   <li>{@link RESTfulServicePSM.JavaAlgoResourceController#getAlgoControllerHasJAXRSAnnotation <em>Algo Controller Has JAXRS Annotation</em>}</li>
  * </ul>
- * </p>
  *
  * @see RESTfulServicePSM.RESTfulServicePSMPackage#getJavaAlgoResourceController()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='controllerURIPathAnnotation AlgoControllerHasUniqueProperHTTPActivity AlgoControllerActivitiesHaveJAXRSAnnotations algoControllerActivityAddsHypermediaLinkToSelf'"

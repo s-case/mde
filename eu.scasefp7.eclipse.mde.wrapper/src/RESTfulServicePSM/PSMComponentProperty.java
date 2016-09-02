@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.PSMComponentProperty#getPropertyHasHibernateAnnotation <em>Property Has Hibernate Annotation</em>}</li>
  *   <li>{@link RESTfulServicePSM.PSMComponentProperty#getName <em>Name</em>}</li>
@@ -21,7 +22,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link RESTfulServicePSM.PSMComponentProperty#isBIsNamingProperty <em>BIs Naming Property</em>}</li>
  *   <li>{@link RESTfulServicePSM.PSMComponentProperty#isBIsPrimaryIdentifier <em>BIs Primary Identifier</em>}</li>
  * </ul>
- * </p>
  *
  * @see RESTfulServicePSM.RESTfulServicePSMPackage#getPSMComponentProperty()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='primaryIdentifierHasProperAnnotations'"

@@ -18,12 +18,12 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthenticationLayerPSM.impl.AuthenticationTokenImpl#getName <em>Name</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.impl.AuthenticationTokenImpl#getType <em>Type</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.impl.AuthenticationTokenImpl#isBIsUnique <em>BIs Unique</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

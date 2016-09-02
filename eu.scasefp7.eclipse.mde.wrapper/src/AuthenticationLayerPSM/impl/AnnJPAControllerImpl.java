@@ -20,10 +20,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthenticationLayerPSM.impl.AnnJPAControllerImpl#getAnnotatesJPAController <em>Annotates JPA Controller</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -31,13 +31,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link SearchLayerPSM.impl.AnnotationModelImpl#getHasAnnotatedElement <em>Has Annotated Element</em>}</li>
  *   <li>{@link SearchLayerPSM.impl.AnnotationModelImpl#getHasAnnotation <em>Has Annotation</em>}</li>
  *   <li>{@link SearchLayerPSM.impl.AnnotationModelImpl#getName <em>Name</em>}</li>
  *   <li>{@link SearchLayerPSM.impl.AnnotationModelImpl#getAnnotatesRESTfulServicePSM <em>Annotates RES Tful Service PSM</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

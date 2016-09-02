@@ -21,11 +21,11 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthenticationLayerPSM.impl.AuthenticationModeImpl#getHTTPActivityHandlerHasAuthenticationMode <em>HTTP Activity Handler Has Authentication Mode</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.impl.AuthenticationModeImpl#getHTTPActivityHasAuthenticationMode <em>HTTP Activity Has Authentication Mode</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -15,13 +15,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link SearchLayerPSM.AnnotationModel#getHasAnnotatedElement <em>Has Annotated Element</em>}</li>
  *   <li>{@link SearchLayerPSM.AnnotationModel#getHasAnnotation <em>Has Annotation</em>}</li>
  *   <li>{@link SearchLayerPSM.AnnotationModel#getName <em>Name</em>}</li>
  *   <li>{@link SearchLayerPSM.AnnotationModel#getAnnotatesRESTfulServicePSM <em>Annotates RES Tful Service PSM</em>}</li>
  * </ul>
- * </p>
  *
  * @see SearchLayerPSM.SearchLayerPSMPackage#getAnnotationModel()
  * @model

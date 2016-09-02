@@ -25,12 +25,13 @@
 
 package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jRC.parentName/];
 
-
+import java.util.List;
+import java.util.Arrays;
 import javax.ws.rs.core.UriInfo;
-[if (anAnnotationStack.bHasAuthenticationAnnotation)]
-[if (anAnnotationStack.hasGuestMode(jPRM.parentName, jRC.parentName) = false)]
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+[if (anAnnotationStack.bHasAuthenticationAnnotation)]
+[if (anAnnotationStack.hasGuestMode(jPRM.parentName, jRC.parentName) = false)]
 import com.sun.jersey.core.util.Base64;
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelName/];
 [/if]
@@ -56,6 +57,13 @@ public class Put[jPRM.parentName/][jRC.parentName/]Handler{
 	private String strResourcePath; //relative path to the current resource
     private [jRC.hasAssociatedJavaRModel.name/] o[jRC.hasAssociatedJavaRModel.name/];
     private [jPRM.name/] o[if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.name/];
+    private String strOptionalUpdateRelations;
+    private String strOptionalUpdateParent;
+    private String strOptionalRelationName;
+    private Integer iOptionalResourceId;
+    private String strOptionalAddRelation;
+    private final List<String> listOfParentResources = Arrays.asList("[jPRM.parentName/]");
+    private final List<String> listOfChildrenResources = Arrays.asList([for (jCRM : JavaResourceModel | jRC.hasAssociatedJavaRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel) separator(', ')]"[jCRM.parentName/]"[/for]);
 	[if (anAnnotationStack.bHasAuthenticationAnnotation)]
 	[if (anAnnotationStack.hasGuestMode(jPRM.parentName, jRC.parentName) = false)]
 	private String authHeader;
@@ -68,7 +76,7 @@ public class Put[jPRM.parentName/][jRC.parentName/]Handler{
 	[/if]
 
 
-    public Put[jPRM.parentName/][jRC.parentName/]Handler([if (anAnnotationStack.bHasAuthenticationAnnotation)][if (anAnnotationStack.hasGuestMode(jPRM.parentName, jRC.parentName) = false)]String authHeader, [/if][/if]int [if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.parentName/]Id, int [jRC.parentName/]Id, [jRC.hasAssociatedJavaRModel.name/] o[jRC.hasAssociatedJavaRModel.name/], UriInfo oApplicationUri){
+    public Put[jPRM.parentName/][jRC.parentName/]Handler([if (anAnnotationStack.bHasAuthenticationAnnotation)][if (anAnnotationStack.hasGuestMode(jPRM.parentName, jRC.parentName) = false)]String authHeader, [/if][/if]int [if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.parentName/]Id, int [jRC.parentName/]Id, [jRC.hasAssociatedJavaRModel.name/] o[jRC.hasAssociatedJavaRModel.name/], UriInfo oApplicationUri, String strOptionalUpdateRelations, String strOptionalUpdateParent, String strOptionalRelationName, String strOptionalAddRelation, Integer iOptionalResourceId){
         this.o[jRC.hasAssociatedJavaRModel.name/] = o[jRC.hasAssociatedJavaRModel.name/];
         this.o[jRC.hasAssociatedJavaRModel.name/].set[jRC.parentName/]Id([jRC.parentName/]Id);
         this.oHibernateController = HibernateController.getHibernateControllerHandle();
@@ -76,7 +84,7 @@ public class Put[jPRM.parentName/][jRC.parentName/]Handler{
 		this.strResourcePath = calculateProperResourcePath();
         o[if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.name/] = new [jPRM.name/]();
         o[if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.name/].set[jPRM.parentName/]Id([if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.parentName/]Id);
-        o[jRC.hasAssociatedJavaRModel.name/].set[jPRM.parentName/](this.o[if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.name/]);
+        o[jRC.hasAssociatedJavaRModel.name/].getSetOfParent[jPRM.name/]().add(this.o[if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.name/]);
 		[if (anAnnotationStack.bHasAuthenticationAnnotation)]
 		[if (anAnnotationStack.hasGuestMode(jPRM.parentName, jRC.parentName) = false)]
 		this.authHeader = authHeader;
@@ -86,6 +94,15 @@ public class Put[jPRM.parentName/][jRC.parentName/]Handler{
 		[if (anAnnotationStack.bHasAuthorizationLayer and anAnnotationStack.isParentAuhtorizableResource(jRC))]
 		this.pdp = new AzPDP();
 		[/if]
+        this.strOptionalUpdateRelations = strOptionalUpdateRelations;
+        this.strOptionalUpdateParent = strOptionalUpdateParent;
+        this.strOptionalRelationName = strOptionalRelationName;
+        this.iOptionalResourceId = iOptionalResourceId;
+        this.strOptionalAddRelation = strOptionalAddRelation;
+        
+        if(this.strOptionalUpdateRelations != null && this.strOptionalUpdateRelations.equalsIgnoreCase("true")){
+            checkRelationUpdateInfo();
+        }
     }
 
 	public String calculateProperResourcePath(){
@@ -96,6 +113,68 @@ public class Put[jPRM.parentName/][jRC.parentName/]Handler{
         	return this.oApplicationUri.getPath();
     	}
 	}
+
+    private boolean hasParent(String strPossibleParentName){
+        for(int i = 0; i < this.listOfParentResources.size(); i++){
+            if(this.listOfParentResources.get(i).equalsIgnoreCase(strPossibleParentName)){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean hasChild(String strPossibleChildName){
+        for(int i = 0; i < this.listOfChildrenResources.size(); i++){
+            if(this.listOfChildrenResources.get(i).equalsIgnoreCase(strPossibleChildName)){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private void checkRelationUpdateInfo(){
+        
+        //check if the request is about updating relations to parent resources
+        if(this.strOptionalUpdateParent != null && this.strOptionalUpdateParent.equalsIgnoreCase("true")){
+            //check if the request is to update relations to a valid parent resource
+            if(this.strOptionalRelationName != null && hasParent(this.strOptionalRelationName)){
+                if(this.strOptionalAddRelation != null && (this.strOptionalAddRelation.equalsIgnoreCase("true") || this.strOptionalAddRelation.equalsIgnoreCase("false"))
+                   && (this.iOptionalResourceId != null && this.iOptionalResourceId > 0) ){
+                    //then this is a valid request and should be processed
+                    return;
+                }
+                else{ //else it is an invalid request
+                    throw new WebApplicationException(Response.Status.BAD_REQUEST);
+                }
+            }
+            else{ //else the selected parent resource is an invalid parent and this is a bad request
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }
+        //of if it is about updating relations to children resources
+        else if(this.strOptionalUpdateParent != null && this.strOptionalUpdateParent.equalsIgnoreCase("false")){
+            //check if the request is to update relations to a valid child resource
+            if(this.strOptionalRelationName != null && hasChild(this.strOptionalRelationName)){
+                if(this.strOptionalAddRelation != null && (this.strOptionalAddRelation.equalsIgnoreCase("true") || this.strOptionalAddRelation.equalsIgnoreCase("false"))
+                   && (this.iOptionalResourceId != null && this.iOptionalResourceId > 0) ){
+                    //then this is a valid request and should be processed
+                    return;
+                }
+                else{ //else it is an invalid request
+                    throw new WebApplicationException(Response.Status.BAD_REQUEST);
+                }
+            }
+            else{ //else the selected parent resource is an invalid parent and this is a bad request
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            }
+        }
+        else{ //otherwise this is a bad request
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+        }
+    }
+
 
     public [jRC.hasAssociatedJavaRModel.name/] put[jRC.hasAssociatedJavaRModel.name/](){
 
@@ -110,12 +189,12 @@ public class Put[jPRM.parentName/][jRC.parentName/]Handler{
 		[if (anAnnotationStack.bHasAuthorizationLayer and anAnnotationStack.isParentAuhtorizableResource(jRC))]
 	    	if (pdp.getPermission("[jRC.hasAssociatedJavaRModel.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jRC.parentName/]Id()), o[jRC.hasAssociatedJavaRModel.name/], Action.[httpVerb/])
 					.equals(AuthorizationResultCode.PERMIT)){
-	        	return createHypermedia(oHibernateController.put[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/]));
+	        	return createHypermedia(oHibernateController.put[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/], this.strOptionalUpdateRelations, this.strOptionalUpdateParent, this.strOptionalRelationName, this.strOptionalAddRelation, this.iOptionalResourceId));
 	    	}else{
 	    		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 	    	}			
 			[else]
-			return createHypermedia(oHibernateController.put[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/]));
+			return createHypermedia(oHibernateController.put[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/], this.strOptionalUpdateRelations, this.strOptionalUpdateParent, this.strOptionalRelationName, this.strOptionalAddRelation, this.iOptionalResourceId));
 			[/if]
 		}
 		[/if]
@@ -141,20 +220,20 @@ public class Put[jPRM.parentName/][jRC.parentName/]Handler{
 		[if (anAnnotationStack.hasGuestMode(jPRM.parentName,jRC.parentName) = false)]	
 		if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[jRC.hasAssociatedJavaRModel.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jRC.parentName/]Id()), o[jRC.hasAssociatedJavaRModel.name/], Action.[httpVerb/])
 				.equals(AuthorizationResultCode.PERMIT)){
-        	return createHypermedia(oHibernateController.put[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/]));
+        	return createHypermedia(oHibernateController.put[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/], this.strOptionalUpdateRelations, this.strOptionalUpdateParent, this.strOptionalRelationName, this.strOptionalAddRelation, this.iOptionalResourceId));
     	}else{
     		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
     	}		
 		[else]
 		if (pdp.getPermission("[jRC.hasAssociatedJavaRModel.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jRC.parentName/]Id()), o[jRC.hasAssociatedJavaRModel.name/], Action.[httpVerb/])
 				.equals(AuthorizationResultCode.PERMIT)){
-        	return createHypermedia(oHibernateController.put[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/]));
+        	return createHypermedia(oHibernateController.put[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/], this.strOptionalUpdateRelations, this.strOptionalUpdateParent, this.strOptionalRelationName, this.strOptionalAddRelation, this.iOptionalResourceId));
     	}else{
     		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
     	}	
 		[/if]    	
 		[else]
-		return createHypermedia(oHibernateController.put[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/]));
+		return createHypermedia(oHibernateController.put[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/], this.strOptionalUpdateRelations, this.strOptionalUpdateParent, this.strOptionalRelationName, this.strOptionalAddRelation, this.iOptionalResourceId));
 		[/if]
     }
 

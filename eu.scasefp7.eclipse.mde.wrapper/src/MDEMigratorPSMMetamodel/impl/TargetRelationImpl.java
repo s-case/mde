@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorPSMMetamodel.impl.TargetRelationImpl#getRelationMappingName <em>Relation Mapping Name</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.impl.TargetRelationImpl#isBIsScheduledToLoad <em>BIs Scheduled To Load</em>}</li>
@@ -41,7 +42,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link MDEMigratorPSMMetamodel.impl.TargetRelationImpl#isBHasParentMapping <em>BHas Parent Mapping</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.impl.TargetRelationImpl#getHasParentMapping <em>Has Parent Mapping</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

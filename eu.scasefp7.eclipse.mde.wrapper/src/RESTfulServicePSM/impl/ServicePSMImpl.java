@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.ServicePSMImpl#getHasJavaRModel <em>Has Java RModel</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.ServicePSMImpl#getHasJavaRController <em>Has Java RController</em>}</li>
@@ -50,7 +51,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link RESTfulServicePSM.impl.ServicePSMImpl#getServiceDatabasePassword <em>Service Database Password</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.ServicePSMImpl#getServiceDatabaseType <em>Service Database Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

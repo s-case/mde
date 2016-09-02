@@ -19,10 +19,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link SearchLayerPSM.impl.SearchablePropertyImpl#getIsSearchableProperty <em>Is Searchable Property</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

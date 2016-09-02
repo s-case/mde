@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.JavaAlgoResourceModel#getJavaAlgoModelHasJAXBAnnotation <em>Java Algo Model Has JAXB Annotation</em>}</li>
  *   <li>{@link RESTfulServicePSM.JavaAlgoResourceModel#getJavaAlgoModelHasProperty <em>Java Algo Model Has Property</em>}</li>
@@ -23,7 +24,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link RESTfulServicePSM.JavaAlgoResourceModel#getHasRelatedAlgoModel <em>Has Related Algo Model</em>}</li>
  *   <li>{@link RESTfulServicePSM.JavaAlgoResourceModel#getIsRelatedAlgoModel <em>Is Related Algo Model</em>}</li>
  * </ul>
- * </p>
  *
  * @see RESTfulServicePSM.RESTfulServicePSMPackage#getJavaAlgoResourceModel()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='uniqueXMLRootElementAnnotation uniqueSetterForEveryProeprty uniqueGetterForEveryProeprty uniqueLinkListProperty'"

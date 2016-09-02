@@ -29,11 +29,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaInputDataModelImpl#getHasInputProperty <em>Has Input Property</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaInputDataModelImpl#getHasInputRepresentation <em>Has Input Representation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

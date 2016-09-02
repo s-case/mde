@@ -85,6 +85,15 @@ public interface MDEMigratorCIMMetamodelFactory extends EFactory {
 	ParentMapping createParentMapping();
 
 	/**
+	 * Returns a new object of class '<em>Join Column</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Join Column</em>'.
+	 * @generated
+	 */
+	JoinColumn createJoinColumn();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

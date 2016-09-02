@@ -10,10 +10,10 @@ package SearchLayerPSM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link SearchLayerPSM.SearchHTTPActivity#getIsSearchHTTPActivity <em>Is Search HTTP Activity</em>}</li>
  * </ul>
- * </p>
  *
  * @see SearchLayerPSM.SearchLayerPSMPackage#getSearchHTTPActivity()
  * @model

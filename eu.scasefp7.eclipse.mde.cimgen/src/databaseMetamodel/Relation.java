@@ -13,13 +13,16 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link databaseMetamodel.Relation#getHasColumns <em>Has Columns</em>}</li>
  *   <li>{@link databaseMetamodel.Relation#getHasPrimaryKey <em>Has Primary Key</em>}</li>
  *   <li>{@link databaseMetamodel.Relation#getHasForeignKey <em>Has Foreign Key</em>}</li>
  *   <li>{@link databaseMetamodel.Relation#getName <em>Name</em>}</li>
+ *   <li>{@link databaseMetamodel.Relation#isIsJoinTable <em>Is Join Table</em>}</li>
+ *   <li>{@link databaseMetamodel.Relation#getReferencesRelation <em>References Relation</em>}</li>
+ *   <li>{@link databaseMetamodel.Relation#isIsSelfJoinTable <em>Is Self Join Table</em>}</li>
  * </ul>
- * </p>
  *
  * @see databaseMetamodel.DatabaseMetamodelPackage#getRelation()
  * @model
@@ -99,5 +102,73 @@ public interface Relation extends EObject {
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Is Join Table</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Is Join Table</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Is Join Table</em>' attribute.
+	 * @see #setIsJoinTable(boolean)
+	 * @see databaseMetamodel.DatabaseMetamodelPackage#getRelation_IsJoinTable()
+	 * @model required="true"
+	 * @generated
+	 */
+	boolean isIsJoinTable();
+
+	/**
+	 * Sets the value of the '{@link databaseMetamodel.Relation#isIsJoinTable <em>Is Join Table</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Is Join Table</em>' attribute.
+	 * @see #isIsJoinTable()
+	 * @generated
+	 */
+	void setIsJoinTable(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>References Relation</b></em>' reference list.
+	 * The list contents are of type {@link databaseMetamodel.Relation}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>References Relation</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>References Relation</em>' reference list.
+	 * @see databaseMetamodel.DatabaseMetamodelPackage#getRelation_ReferencesRelation()
+	 * @model upper="2"
+	 * @generated
+	 */
+	EList<Relation> getReferencesRelation();
+
+	/**
+	 * Returns the value of the '<em><b>Is Self Join Table</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Is Self Join Table</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Is Self Join Table</em>' attribute.
+	 * @see #setIsSelfJoinTable(boolean)
+	 * @see databaseMetamodel.DatabaseMetamodelPackage#getRelation_IsSelfJoinTable()
+	 * @model required="true"
+	 * @generated
+	 */
+	boolean isIsSelfJoinTable();
+
+	/**
+	 * Sets the value of the '{@link databaseMetamodel.Relation#isIsSelfJoinTable <em>Is Self Join Table</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Is Self Join Table</em>' attribute.
+	 * @see #isIsSelfJoinTable()
+	 * @generated
+	 */
+	void setIsSelfJoinTable(boolean value);
 
 } // Relation

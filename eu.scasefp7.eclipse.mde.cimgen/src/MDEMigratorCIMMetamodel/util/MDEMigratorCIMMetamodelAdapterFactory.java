@@ -96,6 +96,10 @@ public class MDEMigratorCIMMetamodelAdapterFactory extends AdapterFactoryImpl {
 				return createParentMappingAdapter();
 			}
 			@Override
+			public Adapter caseJoinColumn(JoinColumn object) {
+				return createJoinColumnAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -210,6 +214,20 @@ public class MDEMigratorCIMMetamodelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createParentMappingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link MDEMigratorCIMMetamodel.JoinColumn <em>Join Column</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see MDEMigratorCIMMetamodel.JoinColumn
+	 * @generated
+	 */
+	public Adapter createJoinColumnAdapter() {
 		return null;
 	}
 

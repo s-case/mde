@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.HibernateControllerImpl#getHasHibernateActivity <em>Has Hibernate Activity</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.HibernateControllerImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

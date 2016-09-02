@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.PSMHypermediaLinkImpl#getHasTargetJavaAlgoController <em>Has Target Java Algo Controller</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.PSMHypermediaLinkImpl#getHasTargetJavaRController <em>Has Target Java RController</em>}</li>
@@ -31,7 +32,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link RESTfulServicePSM.impl.PSMHypermediaLinkImpl#getLinkHTTPVerb <em>Link HTTP Verb</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.PSMHypermediaLinkImpl#getLinkType <em>Link Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

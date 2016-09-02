@@ -22,12 +22,12 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.impl.ConditionImpl#getOperator <em>Operator</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.ConditionImpl#getHasLeftSideOperand <em>Has Left Side Operand</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.ConditionImpl#getHasRightSideOperand <em>Has Right Side Operand</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -29,12 +29,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.impl.AnnotationModelImpl#getHasAnnotation <em>Has Annotation</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.AnnotationModelImpl#getHasAnnotatedElement <em>Has Annotated Element</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.AnnotationModelImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

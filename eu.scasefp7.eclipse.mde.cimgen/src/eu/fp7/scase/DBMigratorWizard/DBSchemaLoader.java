@@ -151,6 +151,214 @@ public class DBSchemaLoader {
 		populateSourceDBRelationColumns();
 		createRelationPrimaryKeys();
 		createRelationForeignKeys();
+		detectJoinTables();
+	}
+
+	private void detectJoinTables() {
+		for(int i = 0; i < this.oSourceDatabase.getRelation().size(); i++){
+			this.oSourceDatabase.getRelation().get(i).setIsSelfJoinTable(false);
+			if(isPossibleJoinTable(i) == true){
+				if(this.oSourceDatabase.getRelation().get(i).isIsSelfJoinTable() == false){
+					System.out.println("Relation " + this.oSourceDatabase.getRelation().get(i).getName() + " is proper JOIN table of " +
+							this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName() + " and " +  
+							this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(1 ).getName() + " relations.");
+					this.oSourceDatabase.getRelation().get(i).setIsJoinTable(true);
+				}
+				else{
+					System.out.println("Relation " + this.oSourceDatabase.getRelation().get(i).getName() + " is proper SELF JOIN table of " +
+							this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName() + " relation.");
+					this.oSourceDatabase.getRelation().get(i).setIsJoinTable(true);
+				}
+			}
+			else{
+				this.oSourceDatabase.getRelation().get(i).setIsJoinTable(false);
+			}
+		}
+	}
+
+	private boolean hasProperForeignKeysTo(int iRelationIndex, Relation referencedRelation) {
+		for(int i = 0; i < referencedRelation.getHasPrimaryKey().size(); i++){
+			//check if the possible join table has a column towards this specific PK column
+			boolean bProperFKFound = false;
+			for(int j = 0; j < this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().size(); j++){
+				if(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(j).getIsForeinKeyToColumn().get(0).getName().equalsIgnoreCase(referencedRelation.getHasPrimaryKey().get(i).getName())){
+					bProperFKFound = true;
+					break;
+				}
+			}
+			if(bProperFKFound == false){
+				System.out.println("Relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " does not have proper FKs to " + referencedRelation.getName());
+				return false;
+			}
+		}
+		
+		System.out.println("Relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " has proper FKs to " + referencedRelation.getName());
+		return true;
+	}
+
+	private boolean isPossibleJoinTable(int iRelationIndex) {
+		
+		System.out.println("Checking if relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " is possible JOIN table");
+
+		if(relationReferencesTwoRelations(iRelationIndex) == true){
+			if(hasProperForeignKeysTo(iRelationIndex, this.oSourceDatabase.getRelation().get(iRelationIndex).getReferencesRelation().get(0)) == true &&
+						hasProperForeignKeysTo(iRelationIndex, this.oSourceDatabase.getRelation().get(iRelationIndex).getReferencesRelation().get(1)) == true){
+				if(hasProperPrimaryKey(iRelationIndex) == true){
+					return true;
+				}
+			}
+		}
+		else{
+/*			this.oSourceDatabase.getRelation().get(iRelationIndex).getReferencesRelation().clear();
+
+			if(relationHasSelfReference(iRelationIndex) == true){
+				if(hasProperForeignKeysTo(iRelationIndex, this.oSourceDatabase.getRelation().get(iRelationIndex).getReferencesRelation().get(0)) == true){
+					if(hasProperPrimaryKey(iRelationIndex) == true){
+						this.oSourceDatabase.getRelation().get(iRelationIndex).setIsSelfJoinTable(true);
+						return true;
+					}	
+				}
+			}*/
+		}
+		
+		this.oSourceDatabase.getRelation().get(iRelationIndex).getReferencesRelation().clear();
+		return false;
+		
+	}
+
+	private boolean relationHasSelfReference(int iRelationIndex) {
+		boolean bFirstReferencedTableFound = false;
+		boolean bSecondReferencedTableFound = false;
+		
+		String strFirstReferencedRelation = "";
+		String strSecondReferencedRelation = "";
+		
+		for(int i = 0; i < this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().size(); i++){
+			if(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().size() != 1){
+				System.out.println("Relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " is NOT possible JOIN table as it has FK " +
+						this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getName() + " that references more or less than one table and in specific "
+						+ this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().size());
+				return false; //in a formal JOIN table each column is foreign key to exactly one relation at all times
+			}
+			else{
+				if(bFirstReferencedTableFound == false){
+					bFirstReferencedTableFound = true;
+					strFirstReferencedRelation = this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0).getName();
+					this.oSourceDatabase.getRelation().get(iRelationIndex).getReferencesRelation().add(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0));
+					System.out.println("(1)Number of referenced relations = " + this.oSourceDatabase.getRelation().get(iRelationIndex).getReferencesRelation().size());
+				}
+				else if(bSecondReferencedTableFound == false){
+					
+					if(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0).getName().equalsIgnoreCase(strFirstReferencedRelation)){
+						bSecondReferencedTableFound = true;
+						strSecondReferencedRelation = this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0).getName();
+						this.oSourceDatabase.getRelation().get(iRelationIndex).getReferencesRelation().add(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0));
+						System.out.println("(2) Number of referenced relations = " + this.oSourceDatabase.getRelation().get(iRelationIndex).getReferencesRelation().size());
+					}
+					else{
+						continue;
+					}
+				}
+				else{
+					if(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0).getName().equalsIgnoreCase(strFirstReferencedRelation) ||
+							this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0).getName().equalsIgnoreCase(strSecondReferencedRelation)){
+						continue;
+					}
+					else{
+						System.out.println("Relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " is NOT possible (self-relation) JOIN table as it references more than 1 table");
+						return false; //if this table references more than two tables then it will not count as a common JOIN table;
+					}
+				}
+			}
+		}
+		
+		if(bFirstReferencedTableFound && bSecondReferencedTableFound){
+			System.out.println("Relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " references exactly two tables.");
+			return true;
+		}
+		else{
+			System.out.println("Relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " is not a possible JOIN table, because two referenced relations could not be found");
+			return false;
+		}
+	}
+
+	private boolean hasProperPrimaryKey(int iRelationIndex) {
+		if(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().size() != this.oSourceDatabase.getRelation().get(iRelationIndex).getHasPrimaryKey().size()){
+			System.out.println("Relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " is not a possible JOIN table because its primary key does not match to its foreign keys");
+			return false;
+		}
+		else{
+			for(int i = 0; i < this.oSourceDatabase.getRelation().get(iRelationIndex).getHasPrimaryKey().size(); i++){
+				boolean bFoundProperPrimaryKeyColumn = false;
+				for(int j = 0; j < this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().size(); j++){
+					if(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasPrimaryKey().get(i).getName().equalsIgnoreCase(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(j).getName())){
+						bFoundProperPrimaryKeyColumn = true;
+					}
+				}
+				if(bFoundProperPrimaryKeyColumn == false){
+					System.out.println("Relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " is not a possible JOIN table because primary key " + 
+							this.oSourceDatabase.getRelation().get(iRelationIndex).getHasPrimaryKey().get(i).getName() + " is not a foreing key as well");
+					return false;
+				}
+			}
+		}
+		
+		System.out.println("Relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " has proper Primary Key");
+		return true;
+	}
+
+	private boolean relationReferencesTwoRelations(int iRelationIndex) {
+		boolean bFirstReferencedTableFound = false;
+		boolean bSecondReferencedTableFound = false;
+		
+		String strFirstReferencedRelation = "";
+		String strSecondReferencedRelation = "";
+		
+		for(int i = 0; i < this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().size(); i++){
+			if(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().size() != 1){
+				System.out.println("Relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " is NOT possible JOIN table as it has FK " +
+						this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getName() + " that references more or less than one table and in specific "
+						+ this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().size());
+				return false; //in a formal JOIN table each column is foreign key to exactly one relation at all times
+			}
+			else{
+				if(bFirstReferencedTableFound == false){
+					bFirstReferencedTableFound = true;
+					strFirstReferencedRelation = this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0).getName();
+					this.oSourceDatabase.getRelation().get(iRelationIndex).getReferencesRelation().add(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0));
+				}
+				else if(bSecondReferencedTableFound == false){
+					
+					if(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0).getName().equalsIgnoreCase(strFirstReferencedRelation)){
+						continue;
+					}
+					else{
+						bSecondReferencedTableFound = true;
+						strSecondReferencedRelation = this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0).getName();
+						this.oSourceDatabase.getRelation().get(iRelationIndex).getReferencesRelation().add(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0));
+					}
+				}
+				else{
+					if(this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0).getName().equalsIgnoreCase(strFirstReferencedRelation) ||
+							this.oSourceDatabase.getRelation().get(iRelationIndex).getHasForeignKey().get(i).getIsForeignKeyToRelation().get(0).getName().equalsIgnoreCase(strSecondReferencedRelation)){
+						continue;
+					}
+					else{
+						System.out.println("Relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " is NOT possible JOIN table as it references more than 2 tables");
+						return false; //if this table references more than two tables then it will not count as a common JOIN table;
+					}
+				}
+			}
+		}
+		
+		if(bFirstReferencedTableFound && bSecondReferencedTableFound){
+			System.out.println("Relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " references exactly two tables.");
+			return true;
+		}
+		else{
+			System.out.println("Relation " + this.oSourceDatabase.getRelation().get(iRelationIndex).getName() + " is not a possible JOIN table, because two referenced relations could not be found");
+			return false;
+		}
 	}
 
 	private boolean createRelationForeignKeys() {
@@ -195,6 +403,7 @@ public class DBSchemaLoader {
 						for(int j = 0; j < this.oSourceDatabase.getRelation().get(n).getHasColumns().size(); j++){
 							if(this.oSourceDatabase.getRelation().get(n).getHasColumns().get(j).getName().equalsIgnoreCase(pkColumnName)){
 								this.oSourceDatabase.getRelation().get(iRelationIndex).getHasColumns().get(i).getIsForeinKeyToColumn().add(this.oSourceDatabase.getRelation().get(n).getHasColumns().get(j));
+								this.oSourceDatabase.getRelation().get(iRelationIndex).getHasColumns().get(i).getHasFKOrder().add(this.oSourceDatabase.getRelation().get(n).getHasColumns().get(j).getHasPKOrder());
 								System.out.println("Added " + this.oSourceDatabase.getRelation().get(n).getHasColumns().get(j).getName() + " as foreign column of foreign key " + fkColumnName);
 								bFKSet = true;
 							}
@@ -214,13 +423,15 @@ public class DBSchemaLoader {
 			try {
 				result = this.oDatabaseMetaData.getPrimaryKeys(null, null,  this.oSourceDatabase.getRelation().get(i).getName());
 				boolean isPrimaryKeyFound = false;
+				int iPKOrder = 1;
 				
 		   		while(result.next()){
 		   			String strPrimaryKeyName = result.getString(4);
 		   			for(int n = 0; n < this.oSourceDatabase.getRelation().get(i).getHasColumns().size(); n++){
 		   				if(this.oSourceDatabase.getRelation().get(i).getHasColumns().get(n).getName().equalsIgnoreCase(strPrimaryKeyName)){
 		   					this.oSourceDatabase.getRelation().get(i).getHasPrimaryKey().add(this.oSourceDatabase.getRelation().get(i).getHasColumns().get(n));
-				   		    System.out.println("Relation name: = " + this.oSourceDatabase.getRelation().get(i).getName() + ": added primary key = " + this.oSourceDatabase.getRelation().get(i).getHasColumns().get(n).getName());
+		   					this.oSourceDatabase.getRelation().get(i).getHasColumns().get(n).setHasPKOrder(iPKOrder++);
+				   		    System.out.println("Relation name: = " + this.oSourceDatabase.getRelation().get(i).getName() + ": added primary key = " + this.oSourceDatabase.getRelation().get(i).getHasColumns().get(n).getName() + "with PK order = " + (iPKOrder - 1));
 				   		    isPrimaryKeyFound = true;
 		   				}
 		   			}
@@ -404,6 +615,7 @@ public class DBSchemaLoader {
 							Column oColumn = this.oDatabaseMetamodelFactory.createColumn();
 							oColumn.setName(oRelation.getHasForeignKey().get(n).getName());
 							oColumn.setType(oRelation.getHasForeignKey().get(n).getType());
+							oColumn.getHasFKOrder().addAll(oRelation.getHasForeignKey().get(n).getHasFKOrder());
 							listOfForeignKeys.add(oColumn);
 					//		}
 						}
@@ -425,11 +637,115 @@ public class DBSchemaLoader {
 					Column pkColumn = this.oDatabaseMetamodelFactory.createColumn();
 					pkColumn.setName(oRelation.getHasPrimaryKey().get(n).getName());
 					pkColumn.setType(oRelation.getHasPrimaryKey().get(n).getType());
+					pkColumn.setHasPKOrder(oRelation.getHasPrimaryKey().get(n).getHasPKOrder());
 					relationPKColumns.add(pkColumn);
 				}
 			}
 		}
 		
 		return relationPKColumns;
+	}
+
+	public boolean isRelationJoinParentOf(String strPossibleParentName, String strPossibleChildName) {
+		for(int i = 0; i < this.oSourceDatabase.getRelation().size(); i++){
+			if(this.oSourceDatabase.getRelation().get(i).isIsJoinTable() == true && this.oSourceDatabase.getRelation().get(i).isIsSelfJoinTable() == false){
+				if((this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strPossibleParentName) &&
+				   this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(1).getName().equalsIgnoreCase(strPossibleChildName))  ||
+				   (this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(1).getName().equalsIgnoreCase(strPossibleParentName) &&
+				    this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strPossibleChildName))){
+					return true;
+				}
+			}
+			else if(this.oSourceDatabase.getRelation().get(i).isIsJoinTable() == true && this.oSourceDatabase.getRelation().get(i).isIsSelfJoinTable() == true){
+				if((this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strPossibleParentName) &&
+					this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strPossibleChildName))){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public String getJoinTableNameOfTo(String strPossibleChildName, String strPossibleParentName) {
+		for(int i = 0; i < this.oSourceDatabase.getRelation().size(); i++){
+			if(this.oSourceDatabase.getRelation().get(i).isIsJoinTable() == true && this.oSourceDatabase.getRelation().get(i).isIsSelfJoinTable() == false){
+				if((this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strPossibleParentName) &&
+				   this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(1).getName().equalsIgnoreCase(strPossibleChildName))  ||
+				   (this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(1).getName().equalsIgnoreCase(strPossibleParentName) &&
+				    this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strPossibleChildName))){
+					return this.oSourceDatabase.getRelation().get(i).getName();
+				}
+			}
+			else if(this.oSourceDatabase.getRelation().get(i).isIsJoinTable() == true && this.oSourceDatabase.getRelation().get(i).isIsSelfJoinTable() == true){
+				if(this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strPossibleParentName) &&
+				   this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strPossibleChildName)){
+					return this.oSourceDatabase.getRelation().get(i).getName();
+				}
+			}
+		}
+		
+		return null;
+	}
+
+	public ArrayList<Column> getJoinFKToSourceRelation(String strChildRelationName, String strParentRelationName) {
+		ArrayList<Column> listOfJoinFKToSourceRelation = new ArrayList<Column>();
+		
+		for(int i = 0; i < this.oSourceDatabase.getRelation().size(); i++){
+			if(this.oSourceDatabase.getRelation().get(i).isIsJoinTable() == true && this.oSourceDatabase.getRelation().get(i).isIsSelfJoinTable() == false){
+				if((this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strParentRelationName) &&
+				   this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(1).getName().equalsIgnoreCase(strChildRelationName))  ||
+				   (this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(1).getName().equalsIgnoreCase(strParentRelationName) &&
+				    this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strChildRelationName))){
+					for(int j = 0; j < this.oSourceDatabase.getRelation().get(i).getHasForeignKey().size(); j++){
+						if(this.oSourceDatabase.getRelation().get(i).getHasForeignKey().get(j).getIsForeignKeyToRelation().get(0).getName().equalsIgnoreCase(strParentRelationName)){
+							listOfJoinFKToSourceRelation.add(this.oSourceDatabase.getRelation().get(i).getHasForeignKey().get(j));
+						}
+					}
+				}
+			}
+			else if(this.oSourceDatabase.getRelation().get(i).isIsJoinTable() == true && this.oSourceDatabase.getRelation().get(i).isIsSelfJoinTable() == true){
+				if((this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strParentRelationName) &&
+					this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strChildRelationName))){
+					for(int j = 0; j < this.oSourceDatabase.getRelation().get(i).getHasForeignKey().size(); j++){
+						if(this.oSourceDatabase.getRelation().get(i).getHasForeignKey().get(j).getIsForeignKeyToRelation().get(0).getName().equalsIgnoreCase(strParentRelationName)){
+							listOfJoinFKToSourceRelation.add(this.oSourceDatabase.getRelation().get(i).getHasForeignKey().get(j));
+						}
+					}
+				}
+			}
+		}
+		
+		return listOfJoinFKToSourceRelation;
+	}
+	
+	public ArrayList<Column> getJoinFKToParentSourceRelation(String strChildRelationName, String strParentRelationName) {
+		ArrayList<Column> listOfJoinFKToSourceRelation = new ArrayList<Column>();
+		
+		for(int i = 0; i < this.oSourceDatabase.getRelation().size(); i++){
+			if(this.oSourceDatabase.getRelation().get(i).isIsJoinTable() == true && this.oSourceDatabase.getRelation().get(i).isIsSelfJoinTable() == false){
+				if((this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strParentRelationName) &&
+				   this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(1).getName().equalsIgnoreCase(strChildRelationName))  ||
+				   (this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(1).getName().equalsIgnoreCase(strParentRelationName) &&
+				    this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strChildRelationName))){
+					for(int j = 0; j < this.oSourceDatabase.getRelation().get(i).getHasForeignKey().size(); j++){
+						if(this.oSourceDatabase.getRelation().get(i).getHasForeignKey().get(j).getIsForeignKeyToRelation().get(0).getName().equalsIgnoreCase(strChildRelationName)){
+							listOfJoinFKToSourceRelation.add(this.oSourceDatabase.getRelation().get(i).getHasForeignKey().get(j));
+						}
+					}
+				}
+			}
+			else if(this.oSourceDatabase.getRelation().get(i).isIsJoinTable() == true && this.oSourceDatabase.getRelation().get(i).isIsSelfJoinTable() == true){
+				if((this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strParentRelationName) &&
+					this.oSourceDatabase.getRelation().get(i).getReferencesRelation().get(0).getName().equalsIgnoreCase(strChildRelationName))){
+					for(int j = 0; j < this.oSourceDatabase.getRelation().get(i).getHasForeignKey().size(); j++){
+						if(this.oSourceDatabase.getRelation().get(i).getHasForeignKey().get(j).getIsForeignKeyToRelation().get(0).getName().equalsIgnoreCase(strChildRelationName)){
+							listOfJoinFKToSourceRelation.add(this.oSourceDatabase.getRelation().get(i).getHasForeignKey().get(j));
+						}
+					}
+				}				
+			}
+		}
+		
+		return listOfJoinFKToSourceRelation;
 	}
 }

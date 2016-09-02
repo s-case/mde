@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.JavaResourceModelImpl#getJavaRModelHasJAXBAnnotation <em>Java RModel Has JAXB Annotation</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.JavaResourceModelImpl#getJavaRModelHasProperty <em>Java RModel Has Property</em>}</li>
@@ -46,7 +47,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link RESTfulServicePSM.impl.JavaResourceModelImpl#getName <em>Name</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.JavaResourceModelImpl#getParentName <em>Parent Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

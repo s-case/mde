@@ -30,12 +30,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.impl.ResourceAccessRuleImpl#getRuleType <em>Rule Type</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.ResourceAccessRuleImpl#getHasMatchCondition <em>Has Match Condition</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.ResourceAccessRuleImpl#getHasAllowedAction <em>Has Allowed Action</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -13,11 +13,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.JavaInputDataModel#getHasInputProperty <em>Has Input Property</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.JavaInputDataModel#getHasInputRepresentation <em>Has Input Representation</em>}</li>
  * </ul>
- * </p>
  *
  * @see ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage#getJavaInputDataModel()
  * @model

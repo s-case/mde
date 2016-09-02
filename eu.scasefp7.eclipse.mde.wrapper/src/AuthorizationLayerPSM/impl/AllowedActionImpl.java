@@ -20,10 +20,10 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.impl.AllowedActionImpl#getIsAllowedAction <em>Is Allowed Action</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

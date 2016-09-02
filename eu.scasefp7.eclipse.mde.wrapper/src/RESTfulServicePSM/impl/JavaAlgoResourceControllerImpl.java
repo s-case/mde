@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.JavaAlgoResourceControllerImpl#getHasAssociatedAlgoModel <em>Has Associated Algo Model</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.JavaAlgoResourceControllerImpl#getJavaAlgoRControllerHasHTTPActivity <em>Java Algo RController Has HTTP Activity</em>}</li>
@@ -31,7 +32,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link RESTfulServicePSM.impl.JavaAlgoResourceControllerImpl#getParentName <em>Parent Name</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.JavaAlgoResourceControllerImpl#getAlgoControllerHasJAXRSAnnotation <em>Algo Controller Has JAXRS Annotation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

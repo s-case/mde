@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorPSMMetamodel.impl.AnnotationModelImpl#getName <em>Name</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.impl.AnnotationModelImpl#getStrDBName <em>Str DB Name</em>}</li>
@@ -37,7 +38,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link MDEMigratorPSMMetamodel.impl.AnnotationModelImpl#getStrDBType <em>Str DB Type</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.impl.AnnotationModelImpl#getHasAnnotation <em>Has Annotation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

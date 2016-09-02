@@ -13,11 +13,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.JavaOutputDataModel#getHasOutputProperty <em>Has Output Property</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.JavaOutputDataModel#getHasOutputRepresentation <em>Has Output Representation</em>}</li>
  * </ul>
- * </p>
  *
  * @see ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage#getJavaOutputDataModel()
  * @model

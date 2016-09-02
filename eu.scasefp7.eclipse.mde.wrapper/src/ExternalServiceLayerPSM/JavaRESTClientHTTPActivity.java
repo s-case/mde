@@ -13,12 +13,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientHTTPActivity#getHasJavaRESTClientHTTPActivityHandler <em>Has Java REST Client HTTP Activity Handler</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientHTTPActivity#getHasQueryParam <em>Has Query Param</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientHTTPActivity#getIsJavaRESTClientHTTPActivity <em>Is Java REST Client HTTP Activity</em>}</li>
  * </ul>
- * </p>
  *
  * @see ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage#getJavaRESTClientHTTPActivity()
  * @model

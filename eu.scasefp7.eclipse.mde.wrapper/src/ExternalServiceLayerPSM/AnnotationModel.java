@@ -13,12 +13,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.AnnotationModel#getHasAnnotatedElement <em>Has Annotated Element</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.AnnotationModel#getHasAnnotation <em>Has Annotation</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.AnnotationModel#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage#getAnnotationModel()
  * @model

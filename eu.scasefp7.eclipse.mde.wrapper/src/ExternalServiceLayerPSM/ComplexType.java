@@ -13,11 +13,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.ComplexType#getComplexTypeName <em>Complex Type Name</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.ComplexType#getHasComplexTypeProperties <em>Has Complex Type Properties</em>}</li>
  * </ul>
- * </p>
  *
  * @see ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage#getComplexType()
  * @model

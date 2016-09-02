@@ -10,6 +10,7 @@ package AuthorizationLayerPSM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.AuthorizableResource#getIsAuthorizableAlgoModel <em>Is Authorizable Algo Model</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.AuthorizableResource#getIsAuthorizableResourceModel <em>Is Authorizable Resource Model</em>}</li>
@@ -18,7 +19,6 @@ package AuthorizationLayerPSM;
  *   <li>{@link AuthorizationLayerPSM.AuthorizableResource#getHasResourceAccessPolicySet <em>Has Resource Access Policy Set</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.AuthorizableResource#isBTrackOwnership <em>BTrack Ownership</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthorizationLayerPSM.AuthorizationLayerPSMPackage#getAuthorizableResource()
  * @model

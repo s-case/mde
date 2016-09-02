@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.HTTPActivityImpl#getIsMappedToHibernateActivity <em>Is Mapped To Hibernate Activity</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.HTTPActivityImpl#getHasHTTPActivityParameter <em>Has HTTP Activity Parameter</em>}</li>
@@ -41,7 +42,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link RESTfulServicePSM.impl.HTTPActivityImpl#getHasHTTPActivityHandler <em>Has HTTP Activity Handler</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.HTTPActivityImpl#getHTTPActivityHasJAXRSAnnotation <em>HTTP Activity Has JAXRS Annotation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

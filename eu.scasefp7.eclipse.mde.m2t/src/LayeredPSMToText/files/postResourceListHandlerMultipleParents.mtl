@@ -75,7 +75,7 @@ public class Post[jPRM.parentName/][jRCManager.parentName/]Handler{
 		this.strResourcePath = calculateProperResourcePath();
         o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/] = new [jPRM.name/]();
         o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].set[jPRM.parentName/]Id([if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.parentName/]Id);
-        o[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.name/].set[jPRM.parentName/](this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/]);
+        o[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.name/].getSetOfParent[jPRM.name/]().add(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/]);
 		[if (anAnnotationStack.bHasAuthenticationAnnotation)]
 		[if (anAnnotationStack.hasGuestMode(jPRM.parentName, jRCManager.parentName) = false)]
 		this.authHeader = authHeader;
@@ -244,15 +244,17 @@ public class Post[jPRM.parentName/][jRCManager.parentName/]Handler{
         Then add hypermedia links for each one of them*/
 		[if (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() > 1)]
         this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/] = HibernateController.getHibernateControllerHandle().get[jPRM.parentName/](this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/]);
+		boolean bFoundRootResource = false;
  			[for (gPModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(grandParentM : JavaResourceModel | grandParentM.hasRelatedJavaRMManager->includes(jPRM.hasRelatedJavaRMManager))) separator('\n        else')]
-		if(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].get[gPModel.parentName/]() != null){
-            oRelativePath = String.format("multi[jPRM.parentName/]/[gPModel.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].get[gPModel.parentName/]().get[gPModel.parentName/]Id(), this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", ""));
+		if(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().isEmpty() == false && bFoundRootResource == false){
+			bFoundRootResource = true;
+            oRelativePath = String.format("multi[jPRM.parentName/]/[gPModel.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", ""));
 		}
 			[/for]
 		[elseif (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() = 1)]
         this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/] = HibernateController.getHibernateControllerHandle().get[jPRM.parentName/](this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/]);
  			[let gPModel : JavaResourceModel = anAnnotationStack.hasCorePSM.hasJavaRModel->select(grandParentM : JavaResourceModel | grandParentM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->at(1)]
-        oRelativePath = String.format("[gPModel.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].get[gPModel.parentName/]().get[gPModel.parentName/]Id(), this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", ""));
+        oRelativePath = String.format("[gPModel.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", ""));
 			[/let]
 		[else]
 		oRelativePath = this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", "");
@@ -266,7 +268,7 @@ public class Post[jPRM.parentName/][jRCManager.parentName/]Handler{
         o[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), oRelativePath).substring(0, iLastSlashIndex), "Get the parent [jPRM.parentName/]", "GET", "Parent"));
 			[/if]
 			[if (jRC.JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::PUT)))]
-        o[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), oRelativePath).substring(0, iLastSlashIndex), "Update the [jPRM.parentName/]", "PUT", "Parent"));
+        o[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), oRelativePath).substring(0, iLastSlashIndex), "Update the parent [jPRM.parentName/]", "PUT", "Parent"));
 			[/if]
 		[/let]
 [/template]
@@ -303,15 +305,17 @@ public class Post[jPRM.parentName/][jRCManager.parentName/]Handler{
         Then add hypermedia links for each one of them*/
 		[if (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() > 1)]
         this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/] = HibernateController.getHibernateControllerHandle().get[jPRM.parentName/](this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/]);
- 		[for (gPModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(grandParentM : JavaResourceModel | grandParentM.hasRelatedJavaRMManager->includes(jPRM.hasRelatedJavaRMManager))) separator('\n        else')]
-		if(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].get[gPModel.parentName/]() != null){
-            oRelativePath = String.format("multi[jPRM.parentName/]/[gPModel.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].get[gPModel.parentName/]().get[gPModel.parentName/]Id(), this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", ""));
+		boolean bFoundRootResource = false;
+ 			[for (gPModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(grandParentM : JavaResourceModel | grandParentM.hasRelatedJavaRMManager->includes(jPRM.hasRelatedJavaRMManager))) separator('\n        else')]
+		if(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().isEmpty() == false && bFoundRootResource == false){
+			bFoundRootResource = true;
+            oRelativePath = String.format("multi[jPRM.parentName/]/[gPModel.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", ""));
 		}
 		[/for]
 		[elseif (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() = 1)]
         this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/] = HibernateController.getHibernateControllerHandle().get[jPRM.parentName/](this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/]);
  		[let gPModel : JavaResourceModel = anAnnotationStack.hasCorePSM.hasJavaRModel->select(grandParentM : JavaResourceModel | grandParentM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->at(1)]
-        oRelativePath = String.format("[gPModel.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].get[gPModel.parentName/]().get[gPModel.parentName/]Id(), this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", ""));
+        oRelativePath = String.format("[gPModel.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", ""));
 		[/let]
 		[else]
 		oRelativePath = this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", "");
@@ -330,7 +334,7 @@ public class Post[jPRM.parentName/][jRCManager.parentName/]Handler{
 		[/if]
 		[if (jRC.JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::PUT)))]
 			[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRM.parentName, 'Put') = false)]
-        o[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), oRelativePath).substring(0, iLastSlashIndex), "Update the [jPRM.parentName/]", "PUT", "Parent"));
+        o[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), oRelativePath).substring(0, iLastSlashIndex), "Update the parent [jPRM.parentName/]", "PUT", "Parent"));
 			[/if]
 		[/if]
 		[/let]

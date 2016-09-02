@@ -29,13 +29,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link databaseMetamodel.impl.RelationImpl#getHasColumns <em>Has Columns</em>}</li>
  *   <li>{@link databaseMetamodel.impl.RelationImpl#getHasPrimaryKey <em>Has Primary Key</em>}</li>
  *   <li>{@link databaseMetamodel.impl.RelationImpl#getHasForeignKey <em>Has Foreign Key</em>}</li>
  *   <li>{@link databaseMetamodel.impl.RelationImpl#getName <em>Name</em>}</li>
+ *   <li>{@link databaseMetamodel.impl.RelationImpl#isIsJoinTable <em>Is Join Table</em>}</li>
+ *   <li>{@link databaseMetamodel.impl.RelationImpl#getReferencesRelation <em>References Relation</em>}</li>
+ *   <li>{@link databaseMetamodel.impl.RelationImpl#isIsSelfJoinTable <em>Is Self Join Table</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -89,6 +92,56 @@ public class RelationImpl extends MinimalEObjectImpl.Container implements Relati
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isIsJoinTable() <em>Is Join Table</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIsJoinTable()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean IS_JOIN_TABLE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isIsJoinTable() <em>Is Join Table</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIsJoinTable()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean isJoinTable = IS_JOIN_TABLE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getReferencesRelation() <em>References Relation</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReferencesRelation()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Relation> referencesRelation;
+
+	/**
+	 * The default value of the '{@link #isIsSelfJoinTable() <em>Is Self Join Table</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIsSelfJoinTable()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean IS_SELF_JOIN_TABLE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isIsSelfJoinTable() <em>Is Self Join Table</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIsSelfJoinTable()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean isSelfJoinTable = IS_SELF_JOIN_TABLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -171,6 +224,60 @@ public class RelationImpl extends MinimalEObjectImpl.Container implements Relati
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isIsJoinTable() {
+		return isJoinTable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIsJoinTable(boolean newIsJoinTable) {
+		boolean oldIsJoinTable = isJoinTable;
+		isJoinTable = newIsJoinTable;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatabaseMetamodelPackage.RELATION__IS_JOIN_TABLE, oldIsJoinTable, isJoinTable));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Relation> getReferencesRelation() {
+		if (referencesRelation == null) {
+			referencesRelation = new EObjectResolvingEList<Relation>(Relation.class, this, DatabaseMetamodelPackage.RELATION__REFERENCES_RELATION);
+		}
+		return referencesRelation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isIsSelfJoinTable() {
+		return isSelfJoinTable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIsSelfJoinTable(boolean newIsSelfJoinTable) {
+		boolean oldIsSelfJoinTable = isSelfJoinTable;
+		isSelfJoinTable = newIsSelfJoinTable;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatabaseMetamodelPackage.RELATION__IS_SELF_JOIN_TABLE, oldIsSelfJoinTable, isSelfJoinTable));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -196,6 +303,12 @@ public class RelationImpl extends MinimalEObjectImpl.Container implements Relati
 				return getHasForeignKey();
 			case DatabaseMetamodelPackage.RELATION__NAME:
 				return getName();
+			case DatabaseMetamodelPackage.RELATION__IS_JOIN_TABLE:
+				return isIsJoinTable();
+			case DatabaseMetamodelPackage.RELATION__REFERENCES_RELATION:
+				return getReferencesRelation();
+			case DatabaseMetamodelPackage.RELATION__IS_SELF_JOIN_TABLE:
+				return isIsSelfJoinTable();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -224,6 +337,16 @@ public class RelationImpl extends MinimalEObjectImpl.Container implements Relati
 			case DatabaseMetamodelPackage.RELATION__NAME:
 				setName((String)newValue);
 				return;
+			case DatabaseMetamodelPackage.RELATION__IS_JOIN_TABLE:
+				setIsJoinTable((Boolean)newValue);
+				return;
+			case DatabaseMetamodelPackage.RELATION__REFERENCES_RELATION:
+				getReferencesRelation().clear();
+				getReferencesRelation().addAll((Collection<? extends Relation>)newValue);
+				return;
+			case DatabaseMetamodelPackage.RELATION__IS_SELF_JOIN_TABLE:
+				setIsSelfJoinTable((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -248,6 +371,15 @@ public class RelationImpl extends MinimalEObjectImpl.Container implements Relati
 			case DatabaseMetamodelPackage.RELATION__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case DatabaseMetamodelPackage.RELATION__IS_JOIN_TABLE:
+				setIsJoinTable(IS_JOIN_TABLE_EDEFAULT);
+				return;
+			case DatabaseMetamodelPackage.RELATION__REFERENCES_RELATION:
+				getReferencesRelation().clear();
+				return;
+			case DatabaseMetamodelPackage.RELATION__IS_SELF_JOIN_TABLE:
+				setIsSelfJoinTable(IS_SELF_JOIN_TABLE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -268,6 +400,12 @@ public class RelationImpl extends MinimalEObjectImpl.Container implements Relati
 				return hasForeignKey != null && !hasForeignKey.isEmpty();
 			case DatabaseMetamodelPackage.RELATION__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case DatabaseMetamodelPackage.RELATION__IS_JOIN_TABLE:
+				return isJoinTable != IS_JOIN_TABLE_EDEFAULT;
+			case DatabaseMetamodelPackage.RELATION__REFERENCES_RELATION:
+				return referencesRelation != null && !referencesRelation.isEmpty();
+			case DatabaseMetamodelPackage.RELATION__IS_SELF_JOIN_TABLE:
+				return isSelfJoinTable != IS_SELF_JOIN_TABLE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -284,6 +422,10 @@ public class RelationImpl extends MinimalEObjectImpl.Container implements Relati
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", isJoinTable: ");
+		result.append(isJoinTable);
+		result.append(", isSelfJoinTable: ");
+		result.append(isSelfJoinTable);
 		result.append(')');
 		return result.toString();
 	}

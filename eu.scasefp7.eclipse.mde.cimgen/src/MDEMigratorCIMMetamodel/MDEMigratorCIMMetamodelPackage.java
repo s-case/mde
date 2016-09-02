@@ -423,13 +423,31 @@ public interface MDEMigratorCIMMetamodelPackage extends EPackage {
 	int SOURCE_COLUMN__TYPE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Has Pk Order</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOURCE_COLUMN__HAS_PK_ORDER = 2;
+
+	/**
+	 * The feature id for the '<em><b>Has FK Order</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOURCE_COLUMN__HAS_FK_ORDER = 3;
+
+	/**
 	 * The number of structural features of the '<em>Source Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SOURCE_COLUMN_FEATURE_COUNT = 2;
+	int SOURCE_COLUMN_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Source Column</em>' class.
@@ -478,13 +496,49 @@ public interface MDEMigratorCIMMetamodelPackage extends EPackage {
 	int PARENT_MAPPING__SOURCE_RELATION_FK_MAPPING_NAME = 2;
 
 	/**
+	 * The feature id for the '<em><b>Requires Join Table</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARENT_MAPPING__REQUIRES_JOIN_TABLE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Has Join FK To Source Relation</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARENT_MAPPING__HAS_JOIN_FK_TO_SOURCE_RELATION = 4;
+
+	/**
+	 * The feature id for the '<em><b>Has Join FK To Parent Source Relation</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARENT_MAPPING__HAS_JOIN_FK_TO_PARENT_SOURCE_RELATION = 5;
+
+	/**
+	 * The feature id for the '<em><b>Join Table Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARENT_MAPPING__JOIN_TABLE_NAME = 6;
+
+	/**
 	 * The number of structural features of the '<em>Parent Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARENT_MAPPING_FEATURE_COUNT = 3;
+	int PARENT_MAPPING_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Parent Mapping</em>' class.
@@ -494,6 +548,70 @@ public interface MDEMigratorCIMMetamodelPackage extends EPackage {
 	 * @ordered
 	 */
 	int PARENT_MAPPING_OPERATION_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link MDEMigratorCIMMetamodel.impl.JoinColumnImpl <em>Join Column</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see MDEMigratorCIMMetamodel.impl.JoinColumnImpl
+	 * @see MDEMigratorCIMMetamodel.impl.MDEMigratorCIMMetamodelPackageImpl#getJoinColumn()
+	 * @generated
+	 */
+	int JOIN_COLUMN = 7;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOIN_COLUMN__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOIN_COLUMN__TYPE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Has Pk Order</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOIN_COLUMN__HAS_PK_ORDER = 2;
+
+	/**
+	 * The feature id for the '<em><b>Has FK Order</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOIN_COLUMN__HAS_FK_ORDER = 3;
+
+	/**
+	 * The number of structural features of the '<em>Join Column</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOIN_COLUMN_FEATURE_COUNT = 4;
+
+	/**
+	 * The number of operations of the '<em>Join Column</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOIN_COLUMN_OPERATION_COUNT = 0;
 
 
 	/**
@@ -821,6 +939,28 @@ public interface MDEMigratorCIMMetamodelPackage extends EPackage {
 	EAttribute getSourceColumn_Type();
 
 	/**
+	 * Returns the meta object for the attribute '{@link MDEMigratorCIMMetamodel.SourceColumn#getHasPkOrder <em>Has Pk Order</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Has Pk Order</em>'.
+	 * @see MDEMigratorCIMMetamodel.SourceColumn#getHasPkOrder()
+	 * @see #getSourceColumn()
+	 * @generated
+	 */
+	EAttribute getSourceColumn_HasPkOrder();
+
+	/**
+	 * Returns the meta object for the attribute '{@link MDEMigratorCIMMetamodel.SourceColumn#getHasFKOrder <em>Has FK Order</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Has FK Order</em>'.
+	 * @see MDEMigratorCIMMetamodel.SourceColumn#getHasFKOrder()
+	 * @see #getSourceColumn()
+	 * @generated
+	 */
+	EAttribute getSourceColumn_HasFKOrder();
+
+	/**
 	 * Returns the meta object for class '{@link MDEMigratorCIMMetamodel.ParentMapping <em>Parent Mapping</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -862,6 +1002,104 @@ public interface MDEMigratorCIMMetamodelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getParentMapping_SourceRelationFKMappingName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link MDEMigratorCIMMetamodel.ParentMapping#isRequiresJoinTable <em>Requires Join Table</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Requires Join Table</em>'.
+	 * @see MDEMigratorCIMMetamodel.ParentMapping#isRequiresJoinTable()
+	 * @see #getParentMapping()
+	 * @generated
+	 */
+	EAttribute getParentMapping_RequiresJoinTable();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link MDEMigratorCIMMetamodel.ParentMapping#getHasJoinFKToSourceRelation <em>Has Join FK To Source Relation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Has Join FK To Source Relation</em>'.
+	 * @see MDEMigratorCIMMetamodel.ParentMapping#getHasJoinFKToSourceRelation()
+	 * @see #getParentMapping()
+	 * @generated
+	 */
+	EReference getParentMapping_HasJoinFKToSourceRelation();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link MDEMigratorCIMMetamodel.ParentMapping#getHasJoinFKToParentSourceRelation <em>Has Join FK To Parent Source Relation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Has Join FK To Parent Source Relation</em>'.
+	 * @see MDEMigratorCIMMetamodel.ParentMapping#getHasJoinFKToParentSourceRelation()
+	 * @see #getParentMapping()
+	 * @generated
+	 */
+	EReference getParentMapping_HasJoinFKToParentSourceRelation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link MDEMigratorCIMMetamodel.ParentMapping#getJoinTableName <em>Join Table Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Join Table Name</em>'.
+	 * @see MDEMigratorCIMMetamodel.ParentMapping#getJoinTableName()
+	 * @see #getParentMapping()
+	 * @generated
+	 */
+	EAttribute getParentMapping_JoinTableName();
+
+	/**
+	 * Returns the meta object for class '{@link MDEMigratorCIMMetamodel.JoinColumn <em>Join Column</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Join Column</em>'.
+	 * @see MDEMigratorCIMMetamodel.JoinColumn
+	 * @generated
+	 */
+	EClass getJoinColumn();
+
+	/**
+	 * Returns the meta object for the attribute '{@link MDEMigratorCIMMetamodel.JoinColumn#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see MDEMigratorCIMMetamodel.JoinColumn#getName()
+	 * @see #getJoinColumn()
+	 * @generated
+	 */
+	EAttribute getJoinColumn_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link MDEMigratorCIMMetamodel.JoinColumn#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see MDEMigratorCIMMetamodel.JoinColumn#getType()
+	 * @see #getJoinColumn()
+	 * @generated
+	 */
+	EAttribute getJoinColumn_Type();
+
+	/**
+	 * Returns the meta object for the attribute '{@link MDEMigratorCIMMetamodel.JoinColumn#getHasPkOrder <em>Has Pk Order</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Has Pk Order</em>'.
+	 * @see MDEMigratorCIMMetamodel.JoinColumn#getHasPkOrder()
+	 * @see #getJoinColumn()
+	 * @generated
+	 */
+	EAttribute getJoinColumn_HasPkOrder();
+
+	/**
+	 * Returns the meta object for the attribute '{@link MDEMigratorCIMMetamodel.JoinColumn#getHasFKOrder <em>Has FK Order</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Has FK Order</em>'.
+	 * @see MDEMigratorCIMMetamodel.JoinColumn#getHasFKOrder()
+	 * @see #getJoinColumn()
+	 * @generated
+	 */
+	EAttribute getJoinColumn_HasFKOrder();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1139,6 +1377,22 @@ public interface MDEMigratorCIMMetamodelPackage extends EPackage {
 		EAttribute SOURCE_COLUMN__TYPE = eINSTANCE.getSourceColumn_Type();
 
 		/**
+		 * The meta object literal for the '<em><b>Has Pk Order</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOURCE_COLUMN__HAS_PK_ORDER = eINSTANCE.getSourceColumn_HasPkOrder();
+
+		/**
+		 * The meta object literal for the '<em><b>Has FK Order</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SOURCE_COLUMN__HAS_FK_ORDER = eINSTANCE.getSourceColumn_HasFKOrder();
+
+		/**
 		 * The meta object literal for the '{@link MDEMigratorCIMMetamodel.impl.ParentMappingImpl <em>Parent Mapping</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1171,6 +1425,80 @@ public interface MDEMigratorCIMMetamodelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PARENT_MAPPING__SOURCE_RELATION_FK_MAPPING_NAME = eINSTANCE.getParentMapping_SourceRelationFKMappingName();
+
+		/**
+		 * The meta object literal for the '<em><b>Requires Join Table</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PARENT_MAPPING__REQUIRES_JOIN_TABLE = eINSTANCE.getParentMapping_RequiresJoinTable();
+
+		/**
+		 * The meta object literal for the '<em><b>Has Join FK To Source Relation</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PARENT_MAPPING__HAS_JOIN_FK_TO_SOURCE_RELATION = eINSTANCE.getParentMapping_HasJoinFKToSourceRelation();
+
+		/**
+		 * The meta object literal for the '<em><b>Has Join FK To Parent Source Relation</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PARENT_MAPPING__HAS_JOIN_FK_TO_PARENT_SOURCE_RELATION = eINSTANCE.getParentMapping_HasJoinFKToParentSourceRelation();
+
+		/**
+		 * The meta object literal for the '<em><b>Join Table Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PARENT_MAPPING__JOIN_TABLE_NAME = eINSTANCE.getParentMapping_JoinTableName();
+
+		/**
+		 * The meta object literal for the '{@link MDEMigratorCIMMetamodel.impl.JoinColumnImpl <em>Join Column</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see MDEMigratorCIMMetamodel.impl.JoinColumnImpl
+		 * @see MDEMigratorCIMMetamodel.impl.MDEMigratorCIMMetamodelPackageImpl#getJoinColumn()
+		 * @generated
+		 */
+		EClass JOIN_COLUMN = eINSTANCE.getJoinColumn();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JOIN_COLUMN__NAME = eINSTANCE.getJoinColumn_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JOIN_COLUMN__TYPE = eINSTANCE.getJoinColumn_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Has Pk Order</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JOIN_COLUMN__HAS_PK_ORDER = eINSTANCE.getJoinColumn_HasPkOrder();
+
+		/**
+		 * The meta object literal for the '<em><b>Has FK Order</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JOIN_COLUMN__HAS_FK_ORDER = eINSTANCE.getJoinColumn_HasFKOrder();
 
 	}
 

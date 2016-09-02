@@ -63,6 +63,7 @@ public class MDEMigratorPSMMetamodelFactoryImpl extends EFactoryImpl implements 
 			case MDEMigratorPSMMetamodelPackage.TARGET_RELATION: return createTargetRelation();
 			case MDEMigratorPSMMetamodelPackage.TARGET_COLUMN: return createTargetColumn();
 			case MDEMigratorPSMMetamodelPackage.PARENT_MAPPING: return createParentMapping();
+			case MDEMigratorPSMMetamodelPackage.JOIN_COLUMN: return createJoinColumn();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -136,6 +137,16 @@ public class MDEMigratorPSMMetamodelFactoryImpl extends EFactoryImpl implements 
 	public ParentMapping createParentMapping() {
 		ParentMappingImpl parentMapping = new ParentMappingImpl();
 		return parentMapping;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JoinColumn createJoinColumn() {
+		JoinColumnImpl joinColumn = new JoinColumnImpl();
+		return joinColumn;
 	}
 
 	/**

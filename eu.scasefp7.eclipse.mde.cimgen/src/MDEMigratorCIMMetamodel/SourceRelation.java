@@ -13,12 +13,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorCIMMetamodel.SourceRelation#getName <em>Name</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.SourceRelation#getHasSourceColumn <em>Has Source Column</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.SourceRelation#getHasPrimaryKeyColumn <em>Has Primary Key Column</em>}</li>
  * </ul>
- * </p>
  *
  * @see MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelPackage#getSourceRelation()
  * @model

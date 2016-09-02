@@ -11,10 +11,10 @@ import RESTfulServicePSM.JavaAlgoResourceController;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.AnnJavaAlgoController#getAnnotatesJavaAlgoController <em>Annotates Java Algo Controller</em>}</li>
  * </ul>
- * </p>
  *
  * @see ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage#getAnnJavaAlgoController()
  * @model

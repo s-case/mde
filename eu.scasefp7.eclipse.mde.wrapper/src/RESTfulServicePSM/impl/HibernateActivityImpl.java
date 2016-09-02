@@ -19,11 +19,11 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.HibernateActivityImpl#getName <em>Name</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.HibernateActivityImpl#getHibernateActivityHTTPVerb <em>Hibernate Activity HTTP Verb</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

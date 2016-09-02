@@ -10,11 +10,11 @@ package RESTfulServicePSM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.JavaSetterFunction#getSetsProperty <em>Sets Property</em>}</li>
  *   <li>{@link RESTfulServicePSM.JavaSetterFunction#getSetterFunctionHasJAXBAnnotation <em>Setter Function Has JAXB Annotation</em>}</li>
  * </ul>
- * </p>
  *
  * @see RESTfulServicePSM.RESTfulServicePSMPackage#getJavaSetterFunction()
  * @model

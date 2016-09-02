@@ -18,13 +18,13 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.FunctionParameterImpl#getName <em>Name</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.FunctionParameterImpl#getType <em>Type</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.FunctionParameterImpl#isBIsUnique <em>BIs Unique</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.FunctionParameterImpl#isBIsReturnParameter <em>BIs Return Parameter</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

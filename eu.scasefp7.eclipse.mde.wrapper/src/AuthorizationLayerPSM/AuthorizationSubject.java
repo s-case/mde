@@ -10,10 +10,10 @@ package AuthorizationLayerPSM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.AuthorizationSubject#getIsAuthorizationSubject <em>Is Authorization Subject</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthorizationLayerPSM.AuthorizationLayerPSMPackage#getAuthorizationSubject()
  * @model

@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthenticationLayerPSM.impl.AnnotationModelImpl#getName <em>Name</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.impl.AnnotationModelImpl#getHasAnnotatedElement <em>Has Annotated Element</em>}</li>
@@ -38,7 +39,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link AuthenticationLayerPSM.impl.AnnotationModelImpl#getAnnotatesRESTfulServicePSM <em>Annotates RES Tful Service PSM</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.impl.AnnotationModelImpl#getAnnotationType <em>Annotation Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

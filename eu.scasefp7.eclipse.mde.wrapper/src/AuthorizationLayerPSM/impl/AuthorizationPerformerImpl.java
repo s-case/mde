@@ -26,11 +26,11 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.impl.AuthorizationPerformerImpl#getUsesAuthorizationPolicyEvaluator <em>Uses Authorization Policy Evaluator</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.AuthorizationPerformerImpl#getIsAuthorizationPerformer <em>Is Authorization Performer</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

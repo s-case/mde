@@ -52,6 +52,7 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities
 
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Iterator;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -140,24 +141,88 @@ public class HibernateController{
 
         /* Insert the new [jRM.parentName/] to database*/
         int [jRM.parentName/]Id = (Integer) hibernateSession.save(o[jRM.name/]);
+		o[jRM.name/].set[jRM.parentName/]Id([jRM.parentName/]Id);
 
         /* Commit and terminate the session*/
         hibernateTransaction.commit();
         hibernateSession.close();
 
         /* Return the [jRM.name/] with updated [jRM.parentName/]Id*/
-        o[jRM.name/].set[jRM.parentName/]Id([jRM.parentName/]Id);
         return o[jRM.name/];
     }
 	
 	[/if]
 	[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(jRController : JavaResourceController | jRController.hasAssociatedJavaRModel->includes(jRM)).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb = HTTPVerb::PUT))]
     /* This function handles the low level hibernate activities so as to update an existing [jRM.parentName/] resource of the service database.*/
-    public [jRM.name/] put[jRM.parentName/]([jRM.name/] o[jRM.name/]){
+    public [jRM.name/] put[jRM.parentName/]([jRM.name/] o[jRM.name/], String strOptionalUpdateRelations, String strOptionalUpdateParent, String strOptionalRelationName, String strOptionalAddRelation, Integer iOptionalResourceId){
 
     	/* Create a new hibernate session and begin the transaction*/
         Session hibernateSession = HibernateUtil.getSessionFactory().openSession();
         Transaction hibernateTransaction = hibernateSession.beginTransaction();
+
+        //if the relations of this resource should also be updated
+        if(strOptionalUpdateRelations != null){
+            if(strOptionalUpdateRelations.equalsIgnoreCase("true")){
+                if(strOptionalUpdateParent.equalsIgnoreCase("true")){//a parent relation must be updated
+					[for (jPRM : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(jParentRM | jParentRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM)))]
+                    if(strOptionalRelationName.equalsIgnoreCase("[jPRM.parentName/]")){//if towards [jPRM.parentName/] is the required parent relation to be updated
+                        if(strOptionalAddRelation.equalsIgnoreCase("true")){ //then a relation must be added
+                            [jRM.name/] oOld[jRM.name/] = ([jRM.name/]) hibernateSession.get([jRM.name/].class, o[jRM.name/].get[jRM.parentName/]Id());
+							[for (jPRModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(jParentRM | jParentRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM)))]
+                            o[jRM.name/].getSetOfParent[jPRModel.name/]().addAll(oOld[jRM.name/].getSetOfParent[jPRModel.name/]());
+							[/for]
+                            hibernateTransaction.commit();
+                            hibernateSession.close();
+                            hibernateSession = HibernateUtil.getSessionFactory().openSession();
+                            hibernateTransaction = hibernateSession.beginTransaction();
+                        }
+                        else{ //else a relation must be deleted
+                            o[jRM.name/].getSetOfParent[jPRM.name/]().clear();
+                            [jRM.name/] oOld[jRM.name/] = ([jRM.name/]) hibernateSession.get([jRM.name/].class, o[jRM.name/].get[jRM.parentName/]Id());
+                            
+                            Iterator<[jPRM.name/]> iterator = oOld[jRM.name/].getSetOfParent[jPRM.name/]().iterator();
+                            while(iterator.hasNext()){
+                                [jPRM.name/] oParent[jPRM.name/] = iterator.next();
+                                if(oParent[jPRM.name/].get[jPRM.parentName/]Id() != iOptionalResourceId){
+                                    o[jRM.name/].getSetOfParent[jPRM.name/]().add(oParent[jPRM.name/]);
+                                }
+                            }
+                            hibernateSession.close();
+                            hibernateSession = HibernateUtil.getSessionFactory().openSession();
+                            hibernateTransaction = hibernateSession.beginTransaction();
+                        }
+                    }
+					[/for]
+                }
+                else{ //else a child relation must be updated
+					[for (jCRM : JavaResourceModel | jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel)]
+                    if(strOptionalRelationName.equalsIgnoreCase("[jCRM.parentName/]")){//if towards [jCRM.parentName/] is the required child relation to be updated
+                        if(strOptionalAddRelation.equalsIgnoreCase("true")){ //then a relation must be added
+                            [jCRM.name/] oChild[jCRM.name/] = ([jCRM.name/]) hibernateSession.get([jCRM.name/].class, iOptionalResourceId);
+                            oChild[jCRM.name/].getSetOfParent[jRM.name/]().add(o[jRM.name/]);
+                            hibernateSession.update(oChild[jCRM.name/]);
+                        }
+                        else{ //else a relation must be deleted
+                            [jCRM.name/] oChild[jCRM.name/] = ([jCRM.name/]) hibernateSession.get([jCRM.name/].class, iOptionalResourceId);
+
+                            Iterator<[jRM.name/]> iterator = oChild[jCRM.name/].getSetOfParent[jRM.name/]().iterator();
+                            while(iterator.hasNext()){
+                                [jRM.name/] oOld[jRM.name/] = iterator.next();
+                                if(oOld[jRM.name/].get[jRM.parentName/]Id() == o[jRM.name/].get[jRM.parentName/]Id()){
+                                    iterator.remove();
+                                }
+                            }
+                            hibernateSession.update(oChild[jCRM.name/]);
+                            hibernateTransaction.commit();
+                            hibernateSession.close();
+                            hibernateSession = HibernateUtil.getSessionFactory().openSession();
+                            hibernateTransaction = hibernateSession.beginTransaction();
+                        }
+                    }
+					[/for]
+                }
+            }
+        }
 
         /* Update the existing [jRM.parentName/] of the database*/
         hibernateSession.update(o[jRM.name/]);
@@ -179,6 +244,9 @@ public class HibernateController{
 
         /* Retrieve the existing [jRM.parentName/] from the database*/
         o[jRM.name/] = ([jRM.name/]) hibernateSession.get([jRM.name/].class, o[jRM.name/].get[jRM.parentName/]Id());
+		[for (jPRM : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(parentRM | parentRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM)))]
+        Hibernate.initialize(o[jRM.name/].getSetOfParent[jPRM.name/]());
+		[/for]
 
         /* Commit and terminate the session*/
         hibernateTransaction.commit();
@@ -198,25 +266,68 @@ public class HibernateController{
         /* Retrieve the existing [jRM.parentName/] from the database*/
         o[jRM.name/] = ([jRM.name/]) hibernateSession.get([jRM.name/].class, o[jRM.name/].get[jRM.parentName/]Id());
 
-		[if (jRM.hasRelatedJavaRMManager->size() > 0 or jRM.JavaRModelHasProperty->select( property : PSMComponentProperty | property.bIsUnique = false)->
+[comment]		[if (jRM.hasRelatedJavaRMManager->size() > 0 or jRM.JavaRModelHasProperty->select( property : PSMComponentProperty | property.bIsUnique = false)->
 														select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->excludes('@Transient')
 																and
 															   property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') = -1
 																and
 															   property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') = -1)->size() > 0)
-		]
-        /* Delete any collection related with the existing [jRM.parentName/] from the database.
-        Note: this is needed because some hibernate versions do not handle correctly cascade delete on collections.*/
-        o[jRM.name/].deleteAllCollections(hibernateSession);
+[/comment]		
+		[if (jRM.hasRelatedJavaRMManager->size() > 0)]
+        /* Delete any child resource related with the existing [jRM.parentName/] from the database.
+        Note: this is needed because hibernate does not cascade delete in the desired way on Many to Many relationships, when a child has multiple parents.*/
+	   	[for (jRCM : JavaResourceModel | jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel)]
+       	Iterator<[jRCM.name/]> iterator[jRCM.parentName.toUpperFirst()/] = o[jRM.name/].getSetOf[jRCM.name/]().iterator();
+        while(iterator[jRCM.parentName.toUpperFirst()/].hasNext()){
+            [jRCM.name/] o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/] = iterator[jRCM.parentName.toUpperFirst()/].next();
+            o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/].getSetOfParent[jRM.name/]().remove(o[jRM.name/]);
+            hibernateSession.update(o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/]);
+			cascadeDelete[jRCM.parentName/](o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/], hibernateSession);
+        }
+		[/for]
 		[/if]
 
         /* Delete the existing [jRM.parentName/] from the database*/
         hibernateSession.delete(o[jRM.name/]);
-
         /* Commit and terminate the session*/
         hibernateTransaction.commit();
         hibernateSession.close();
         return o[jRM.name/];
+    }
+
+    /* This function handles the low level hibernate activities so as to cascade delete any orphan children resources of an existing [jRM.parentName/] resource from the service database.*/
+    private void cascadeDelete[jRM.parentName/]([jRM.name/] o[jRM.name/], Session hibernateSession){
+		
+		//check if this resource has any other parent resources	
+		boolean bHasParents = false;
+
+	   	[for (jRPM : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(jParentModel | jParentModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM)))]
+		if(o[jRM.name/].getSetOfParent[jRPM.name/]().size() > 0 && bHasParents == false){
+			bHasParents = true;
+		}
+
+		[/for]
+		[if (jRM.hasRelatedJavaRMManager->size() > 0)]
+        /* Delete any child resource related with the existing [jRM.parentName/] from the database.
+        Note: this is needed because hibernate does not cascade delete in the desired way on Many to Many relationships, when a child has multiple parents.*/
+		if(bHasParents == false){
+	   	[for (jRCM : JavaResourceModel | jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel)]
+ 	      	Iterator<[jRCM.name/]> iterator[jRCM.parentName.toUpperFirst()/] = o[jRM.name/].getSetOf[jRCM.name/]().iterator();
+    	    while(iterator[jRCM.parentName.toUpperFirst()/].hasNext()){
+        	    [jRCM.name/] o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/] = iterator[jRCM.parentName.toUpperFirst()/].next();
+            	o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/].getSetOfParent[jRM.name/]().remove(o[jRM.name/]);
+            	hibernateSession.update(o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/]);
+				System.out.println("Removed " + o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/].get[jRCM.parentName/]Id() + " [jRCM.parentName/]");
+				cascadeDelete[jRCM.parentName/](o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/], hibernateSession);
+        	}
+		[/for]
+		}
+		[/if]
+
+        /* Delete the existing [jRM.parentName/] from the database*/
+		if(bHasParents == false){
+        	hibernateSession.delete(o[jRM.name/]);
+		}       
     }
 
 	[/if]

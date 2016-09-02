@@ -18,13 +18,13 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.impl.QueryParamImpl#getName <em>Name</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.QueryParamImpl#getType <em>Type</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.QueryParamImpl#isIsAuthToken <em>Is Auth Token</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.QueryParamImpl#getAuthTokenToURL <em>Auth Token To URL</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

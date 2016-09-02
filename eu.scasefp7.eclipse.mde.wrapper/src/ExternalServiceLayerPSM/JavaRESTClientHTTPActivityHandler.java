@@ -11,12 +11,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientHTTPActivityHandler#getIsJavaRESTClientHTTPActivityHandler <em>Is Java REST Client HTTP Activity Handler</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientHTTPActivityHandler#getTargetServiceURL <em>Target Service URL</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientHTTPActivityHandler#getHTTPVerb <em>HTTP Verb</em>}</li>
  * </ul>
- * </p>
  *
  * @see ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage#getJavaRESTClientHTTPActivityHandler()
  * @model

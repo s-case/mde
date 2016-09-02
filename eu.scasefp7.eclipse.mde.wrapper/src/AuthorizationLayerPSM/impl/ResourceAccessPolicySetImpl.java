@@ -29,12 +29,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.impl.ResourceAccessPolicySetImpl#getHasResourceAccessPolicySet <em>Has Resource Access Policy Set</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.ResourceAccessPolicySetImpl#getPolicyCombiningAlgorithm <em>Policy Combining Algorithm</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.ResourceAccessPolicySetImpl#getHasResourceAccessPolicy <em>Has Resource Access Policy</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

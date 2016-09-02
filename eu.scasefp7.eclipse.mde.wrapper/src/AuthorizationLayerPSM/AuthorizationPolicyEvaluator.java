@@ -10,10 +10,10 @@ package AuthorizationLayerPSM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.AuthorizationPolicyEvaluator#getAccesses <em>Accesses</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthorizationLayerPSM.AuthorizationLayerPSMPackage#getAuthorizationPolicyEvaluator()
  * @model

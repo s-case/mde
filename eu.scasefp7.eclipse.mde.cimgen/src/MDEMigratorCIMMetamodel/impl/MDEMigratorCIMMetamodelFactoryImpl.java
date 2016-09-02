@@ -63,6 +63,7 @@ public class MDEMigratorCIMMetamodelFactoryImpl extends EFactoryImpl implements 
 			case MDEMigratorCIMMetamodelPackage.SOURCE_RELATION: return createSourceRelation();
 			case MDEMigratorCIMMetamodelPackage.SOURCE_COLUMN: return createSourceColumn();
 			case MDEMigratorCIMMetamodelPackage.PARENT_MAPPING: return createParentMapping();
+			case MDEMigratorCIMMetamodelPackage.JOIN_COLUMN: return createJoinColumn();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -136,6 +137,16 @@ public class MDEMigratorCIMMetamodelFactoryImpl extends EFactoryImpl implements 
 	public ParentMapping createParentMapping() {
 		ParentMappingImpl parentMapping = new ParentMappingImpl();
 		return parentMapping;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JoinColumn createJoinColumn() {
+		JoinColumnImpl joinColumn = new JoinColumnImpl();
+		return joinColumn;
 	}
 
 	/**

@@ -10,10 +10,10 @@ package AuthorizationLayerPSM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.AuthorizationDataHandler#getIsAuthorizationDataHandler <em>Is Authorization Data Handler</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthorizationLayerPSM.AuthorizationLayerPSMPackage#getAuthorizationDataHandler()
  * @model

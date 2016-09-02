@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorCIMMetamodel.TargetRelation#getRelationMappingName <em>Relation Mapping Name</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.TargetRelation#getHasTargetColumn <em>Has Target Column</em>}</li>
@@ -25,7 +26,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link MDEMigratorCIMMetamodel.TargetRelation#isBHasParentMapping <em>BHas Parent Mapping</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.TargetRelation#getHasParentMapping <em>Has Parent Mapping</em>}</li>
  * </ul>
- * </p>
  *
  * @see MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelPackage#getTargetRelation()
  * @model

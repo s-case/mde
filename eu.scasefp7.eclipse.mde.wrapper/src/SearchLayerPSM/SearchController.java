@@ -10,10 +10,10 @@ package SearchLayerPSM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link SearchLayerPSM.SearchController#getIsSearchController <em>Is Search Controller</em>}</li>
  * </ul>
- * </p>
  *
  * @see SearchLayerPSM.SearchLayerPSMPackage#getSearchController()
  * @model

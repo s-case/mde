@@ -11,10 +11,10 @@ import RESTfulServicePSM.JavaAlgoResourceModel;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.AnnJavaAlgoResourceModel#getAnnotatesJavaLagoResourceModel <em>Annotates Java Lago Resource Model</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthorizationLayerPSM.AuthorizationLayerPSMPackage#getAnnJavaAlgoResourceModel()
  * @model

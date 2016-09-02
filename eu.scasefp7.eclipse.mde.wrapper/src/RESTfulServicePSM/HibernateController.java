@@ -13,11 +13,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.HibernateController#getHasHibernateActivity <em>Has Hibernate Activity</em>}</li>
  *   <li>{@link RESTfulServicePSM.HibernateController#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see RESTfulServicePSM.RESTfulServicePSMPackage#getHibernateController()
  * @model

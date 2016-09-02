@@ -4,6 +4,7 @@ package MDEMigratorCIMMetamodel.impl;
 
 import MDEMigratorCIMMetamodel.Annotation;
 import MDEMigratorCIMMetamodel.AnnotationModel;
+import MDEMigratorCIMMetamodel.JoinColumn;
 import MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelFactory;
 import MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelPackage;
 import MDEMigratorCIMMetamodel.ParentMapping;
@@ -78,6 +79,13 @@ public class MDEMigratorCIMMetamodelPackageImpl extends EPackageImpl implements 
 	 * @generated
 	 */
 	private EClass parentMappingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass joinColumnEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -420,6 +428,24 @@ public class MDEMigratorCIMMetamodelPackageImpl extends EPackageImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getSourceColumn_HasPkOrder() {
+		return (EAttribute)sourceColumnEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSourceColumn_HasFKOrder() {
+		return (EAttribute)sourceColumnEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getParentMapping() {
 		return parentMappingEClass;
 	}
@@ -449,6 +475,87 @@ public class MDEMigratorCIMMetamodelPackageImpl extends EPackageImpl implements 
 	 */
 	public EAttribute getParentMapping_SourceRelationFKMappingName() {
 		return (EAttribute)parentMappingEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getParentMapping_RequiresJoinTable() {
+		return (EAttribute)parentMappingEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getParentMapping_HasJoinFKToSourceRelation() {
+		return (EReference)parentMappingEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getParentMapping_HasJoinFKToParentSourceRelation() {
+		return (EReference)parentMappingEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getParentMapping_JoinTableName() {
+		return (EAttribute)parentMappingEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getJoinColumn() {
+		return joinColumnEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJoinColumn_Name() {
+		return (EAttribute)joinColumnEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJoinColumn_Type() {
+		return (EAttribute)joinColumnEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJoinColumn_HasPkOrder() {
+		return (EAttribute)joinColumnEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJoinColumn_HasFKOrder() {
+		return (EAttribute)joinColumnEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -514,11 +621,23 @@ public class MDEMigratorCIMMetamodelPackageImpl extends EPackageImpl implements 
 		sourceColumnEClass = createEClass(SOURCE_COLUMN);
 		createEAttribute(sourceColumnEClass, SOURCE_COLUMN__NAME);
 		createEAttribute(sourceColumnEClass, SOURCE_COLUMN__TYPE);
+		createEAttribute(sourceColumnEClass, SOURCE_COLUMN__HAS_PK_ORDER);
+		createEAttribute(sourceColumnEClass, SOURCE_COLUMN__HAS_FK_ORDER);
 
 		parentMappingEClass = createEClass(PARENT_MAPPING);
 		createEReference(parentMappingEClass, PARENT_MAPPING__HAS_PARENT_TARGET_RELATION);
 		createEReference(parentMappingEClass, PARENT_MAPPING__HAS_FOREIGN_KEY_COLUMN);
 		createEAttribute(parentMappingEClass, PARENT_MAPPING__SOURCE_RELATION_FK_MAPPING_NAME);
+		createEAttribute(parentMappingEClass, PARENT_MAPPING__REQUIRES_JOIN_TABLE);
+		createEReference(parentMappingEClass, PARENT_MAPPING__HAS_JOIN_FK_TO_SOURCE_RELATION);
+		createEReference(parentMappingEClass, PARENT_MAPPING__HAS_JOIN_FK_TO_PARENT_SOURCE_RELATION);
+		createEAttribute(parentMappingEClass, PARENT_MAPPING__JOIN_TABLE_NAME);
+
+		joinColumnEClass = createEClass(JOIN_COLUMN);
+		createEAttribute(joinColumnEClass, JOIN_COLUMN__NAME);
+		createEAttribute(joinColumnEClass, JOIN_COLUMN__TYPE);
+		createEAttribute(joinColumnEClass, JOIN_COLUMN__HAS_PK_ORDER);
+		createEAttribute(joinColumnEClass, JOIN_COLUMN__HAS_FK_ORDER);
 	}
 
 	/**
@@ -591,11 +710,23 @@ public class MDEMigratorCIMMetamodelPackageImpl extends EPackageImpl implements 
 		initEClass(sourceColumnEClass, SourceColumn.class, "SourceColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSourceColumn_Name(), ecorePackage.getEString(), "name", null, 1, 1, SourceColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSourceColumn_Type(), ecorePackage.getEString(), "type", null, 1, 1, SourceColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSourceColumn_HasPkOrder(), ecorePackage.getEInt(), "hasPkOrder", null, 1, 1, SourceColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSourceColumn_HasFKOrder(), ecorePackage.getEInt(), "hasFKOrder", null, 1, 1, SourceColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(parentMappingEClass, ParentMapping.class, "ParentMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getParentMapping_HasParentTargetRelation(), this.getTargetRelation(), null, "hasParentTargetRelation", null, 1, 1, ParentMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getParentMapping_HasForeignKeyColumn(), this.getSourceColumn(), null, "hasForeignKeyColumn", null, 1, -1, ParentMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getParentMapping_SourceRelationFKMappingName(), ecorePackage.getEString(), "sourceRelationFKMappingName", null, 1, 1, ParentMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getParentMapping_RequiresJoinTable(), ecorePackage.getEBoolean(), "requiresJoinTable", null, 1, 1, ParentMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getParentMapping_HasJoinFKToSourceRelation(), this.getJoinColumn(), null, "hasJoinFKToSourceRelation", null, 0, -1, ParentMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getParentMapping_HasJoinFKToParentSourceRelation(), this.getJoinColumn(), null, "hasJoinFKToParentSourceRelation", null, 0, -1, ParentMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getParentMapping_JoinTableName(), ecorePackage.getEString(), "joinTableName", null, 1, 1, ParentMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(joinColumnEClass, JoinColumn.class, "JoinColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getJoinColumn_Name(), ecorePackage.getEString(), "name", null, 1, 1, JoinColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJoinColumn_Type(), ecorePackage.getEString(), "type", null, 1, 1, JoinColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJoinColumn_HasPkOrder(), ecorePackage.getEInt(), "hasPkOrder", null, 1, 1, JoinColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJoinColumn_HasFKOrder(), ecorePackage.getEInt(), "hasFKOrder", null, 1, 1, JoinColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -11,11 +11,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link SearchLayerPSM.SearchableJavaResourceModel#getHasSearchableProperty <em>Has Searchable Property</em>}</li>
  *   <li>{@link SearchLayerPSM.SearchableJavaResourceModel#getIsSearchableJavaResourceModel <em>Is Searchable Java Resource Model</em>}</li>
  * </ul>
- * </p>
  *
  * @see SearchLayerPSM.SearchLayerPSMPackage#getSearchableJavaResourceModel()
  * @model

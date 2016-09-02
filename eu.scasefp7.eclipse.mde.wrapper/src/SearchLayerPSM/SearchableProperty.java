@@ -10,10 +10,10 @@ package SearchLayerPSM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link SearchLayerPSM.SearchableProperty#getIsSearchableProperty <em>Is Searchable Property</em>}</li>
  * </ul>
- * </p>
  *
  * @see SearchLayerPSM.SearchLayerPSMPackage#getSearchableProperty()
  * @model

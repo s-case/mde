@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.JavaResourceModel#getJavaRModelHasJAXBAnnotation <em>Java RModel Has JAXB Annotation</em>}</li>
  *   <li>{@link RESTfulServicePSM.JavaResourceModel#getJavaRModelHasProperty <em>Java RModel Has Property</em>}</li>
@@ -24,7 +25,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link RESTfulServicePSM.JavaResourceModel#getName <em>Name</em>}</li>
  *   <li>{@link RESTfulServicePSM.JavaResourceModel#getParentName <em>Parent Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see RESTfulServicePSM.RESTfulServicePSMPackage#getJavaResourceModel()
  * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='uniqueXMLRootElementAnnotation uniqueNamingProperty neededRModelHibernateAnnotationsExist uniquePrimaryIdentifier uniqueSetterForEveryProeprty uniqueGetterForEveryProeprty uniqueLinkListProperty properCollectionHibernateAnnotations'"

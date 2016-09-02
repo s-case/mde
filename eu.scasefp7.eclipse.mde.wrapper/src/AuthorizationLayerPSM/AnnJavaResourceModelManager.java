@@ -11,10 +11,10 @@ import RESTfulServicePSM.JavaResourceModelManager;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.AnnJavaResourceModelManager#getAnnotatesJavaResourceModelManager <em>Annotates Java Resource Model Manager</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthorizationLayerPSM.AuthorizationLayerPSMPackage#getAnnJavaResourceModelManager()
  * @model

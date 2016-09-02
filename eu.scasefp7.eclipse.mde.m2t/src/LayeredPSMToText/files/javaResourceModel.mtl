@@ -47,14 +47,20 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+[comment]
 [if (anAnnotationStack.bHasAuthorizationLayer or jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') <> -1)->size() > 0)]
 import javax.persistence.ManyToOne;
 [/if]
 [if (anAnnotationStack.bHasAuthorizationLayer or anAnnotationStack.hasNonUniqueNewProperty(jRModel) or jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') <> -1 or property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ElementCollection') <> -1)->size() > 0 )]
 import javax.persistence.JoinColumn;
 [/if]
+[/comment]
 [if (anAnnotationStack.getAuthorizationSubjectModel() = jRModel or jRModel.JavaRModelHasProperty->select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') <> -1)->size() > 0)]
-import javax.persistence.OneToMany;
+[comment]import javax.persistence.OneToMany;[/comment]
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 [/if]
@@ -156,17 +162,19 @@ public class [jRModel.name/]{
 		[/for]
 		private List<[jRMProperty.type/]> [jRMProperty.name/] = new ArrayList<[jRMProperty.type/]>();
 	[elseif (jRMProperty.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') <> -1)]
-		// This property models the One to Many relationship between two resources as it is defined by the Hibernate syntax below.
+[comment]		// This property models the Many to Many relationship between two resources as it is defined by the Hibernate syntax below (owner side).
 		[for (propertyHibernateAnnotation : HibernateAnnotation | jRMProperty.PropertyHasHibernateAnnotation)]
 		[propertyHibernateAnnotation.HibernateAnnotationText/]
 		[/for]
 		private Set<[jRMProperty.type/]> [jRMProperty.name/] = new HashSet<[jRMProperty.type/]>();
+[/comment]
 	[elseif (jRMProperty.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') <> -1)]
-		// This property models the Many to One relationship between two resources as it is defined by the Hibernate syntax below.
+[comment]		// This property models the Many to One relationship between two resources as it is defined by the Hibernate syntax below.
 		[for (propertyHibernateAnnotation : HibernateAnnotation | jRMProperty.PropertyHasHibernateAnnotation)]
 		[propertyHibernateAnnotation.HibernateAnnotationText/]
 		[/for]
 		private [jRMProperty.type/] [jRMProperty.name/];
+[/comment]
 	[else]
 		[for (propertyHibernateAnnotation : HibernateAnnotation | jRMProperty.PropertyHasHibernateAnnotation)]
 		[propertyHibernateAnnotation.HibernateAnnotationText/]
@@ -190,6 +198,18 @@ public class [jRModel.name/]{
 		private Set<[if (jRMProperty.type.equalsIgnoreCase('int'))]Integer[elseif(jRMProperty.type.equalsIgnoreCase('double'))]Double[elseif(jRMProperty.type.equalsIgnoreCase('float'))]Float[elseif(jRMProperty.type.equalsIgnoreCase('long'))]Long[elseif(jRMProperty.type.equalsIgnoreCase('boolean'))]Boolean[else][jRMProperty.type/][/if]> [jRMProperty.name/] = new HashSet<[if (jRMProperty.type.equalsIgnoreCase('int'))]Integer[elseif(jRMProperty.type.equalsIgnoreCase('double'))]Double[elseif(jRMProperty.type.equalsIgnoreCase('float'))]Float[elseif(jRMProperty.type.equalsIgnoreCase('long'))]Long[elseif(jRMProperty.type.equalsIgnoreCase('boolean'))]Boolean[else][jRMProperty.type/][/if]>();
 		[/if]
 	[/if]
+[/for]
+[for (jPRModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(javaPRModel | javaPRModel.hasRelatedJavaRMManager->exists(hasRelatedJavaRModel.name = jRModel.name))) separator('\n')]
+		@ManyToMany(fetch = FetchType.LAZY)
+		@JoinTable(name = "[jPRModel.parentName.toLowerCase()/]_[jRModel.parentName.toLowerCase()/]", joinColumns = { 
+			@JoinColumn(name = "[jRModel.parentName.toLowerCase()/]id", nullable = false, updatable = false) }, 
+			inverseJoinColumns = { @JoinColumn(name = "[if (jRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRModel))]source[/if][jPRModel.parentName.toLowerCase()/]id", nullable = false, updatable = false) })
+		private Set<[jPRModel.name/]> SetOfParent[jPRModel.name/] = new HashSet<[jPRModel.name/]>();
+[/for]
+
+[for (jCRModel : JavaResourceModel | jRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel) separator('\n')]
+		@ManyToMany(fetch = FetchType.LAZY, mappedBy = "SetOfParent[jRModel.name/]")
+		private Set<[jCRModel.name/]> SetOf[jCRModel.name/] = new HashSet<[jCRModel.name/]>();
 [/for]
 
 [if(anAnnotationStack.bHasAuthorizationLayer)]
@@ -227,8 +247,14 @@ public class [jRModel.name/]{
     /* There follows a list of setter and getter functions.*/
 [for (javaSetterFunction : JavaSetterFunction | jRModel.JavaRModelHasSetter)]
 	[if (javaSetterFunction.SetterFunctionHasJAXBAnnotation.oclIsUndefined() = false)]
+[comment]		[javaSetterFunction.SetterFunctionHasJAXBAnnotation.JAXBAnnotationText/] [/comment]
+	[if ((javaSetterFunction.hasFunctionParameter->at(1).bIsReturnParameter = false) and (javaSetterFunction.hasFunctionParameter->at(1).bIsUnique = false))]
 		[javaSetterFunction.SetterFunctionHasJAXBAnnotation.JAXBAnnotationText/]
+		public void [javaSetterFunction.name/](Set<[if (javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('int'))]Integer[elseif (javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('double'))]Double[elseif(javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('float'))]Float[elseif(javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('long'))]Long[elseif(javaSetterFunction.hasFunctionParameter->at(1).type.equalsIgnoreCase('boolean'))]Boolean[else][javaSetterFunction.hasFunctionParameter->at(1).type/][/if]> [javaSetterFunction.hasFunctionParameter->at(1).name/]){
+        	this.[javaSetterFunction.hasFunctionParameter->at(1).name/] = [javaSetterFunction.hasFunctionParameter->at(1).name/];
+    	}
 	[/if]
+	[else]
 	[if (javaSetterFunction.hasFunctionParameter->at(1).name = 'linklist')]
 	    public void [javaSetterFunction.name/](List<[javaSetterFunction.hasFunctionParameter->at(1).type/]> [javaSetterFunction.hasFunctionParameter->at(1).name/]){
         	this.[javaSetterFunction.hasFunctionParameter->at(1).name/] = [javaSetterFunction.hasFunctionParameter->at(1).name/];
@@ -242,7 +268,14 @@ public class [jRModel.name/]{
         	this.[javaSetterFunction.hasFunctionParameter->at(1).name/] = [javaSetterFunction.hasFunctionParameter->at(1).name/];
     	}
 	[/if]
+	[/if]
 
+[/for]
+[for (jPRModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(javaPRModel | javaPRModel.hasRelatedJavaRMManager->exists(hasRelatedJavaRModel.name = jRModel.name)))]
+		@XmlTransient
+		public void setSetOfParent[jPRModel.name/](Set<[jPRModel.name/]> SetOf[jPRModel.name/]){
+			this.SetOfParent[jPRModel.name/] = SetOf[jPRModel.name/];
+		}
 [/for]
 
 [if(anAnnotationStack.bHasAuthorizationLayer)]
@@ -284,11 +317,18 @@ public class [jRModel.name/]{
         	return this.[javaGetterFunction.hasFunctionParameter->at(1).name/];
     	}
 	[else]
+		[if ((javaGetterFunction.hasFunctionParameter->at(1).bIsReturnParameter = true) and (javaGetterFunction.hasFunctionParameter->at(1).type.contains('Java') = false))]
 	    public [javaGetterFunction.hasFunctionParameter->at(1).type/] [javaGetterFunction.name/](){
         	return this.[javaGetterFunction.hasFunctionParameter->at(1).name/];
     	}
+		[/if]
 	[/if]
 
+[/for]
+[for (jPRModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(javaPRModel | javaPRModel.hasRelatedJavaRMManager->exists(hasRelatedJavaRModel.name = jRModel.name)))]
+		public Set<[jPRModel.name/]> getSetOfParent[jPRModel.name/](){
+			return this.SetOfParent[jPRModel.name/];
+		}
 [/for]
 
 [if(anAnnotationStack.bHasAuthorizationLayer)]
@@ -315,41 +355,6 @@ public class [jRModel.name/]{
 		[/if]
 	 	[/for]
 [/if]
-
-	[if (jRModel.hasRelatedJavaRMManager->size() > 0 or jRModel.JavaRModelHasProperty->select( property : PSMComponentProperty | property.bIsUnique = false)->
-														select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->excludes('@Transient')
-																and
-															   property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') = -1
-																and
-															   property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') = -1)->size() > 0)
-	]
-    /* This function deletes explicitly any collections of this resource that are stored in the database 
-    and iteratively does so for any subsequent related resources.
-    NOTE: this function is needed to handle erroneous handling of cascade delete of some hibernate versions.*/
-    public void deleteAllCollections(Session hibernateSession){
-
-        [for (jRMProperty : PSMComponentProperty | jRModel.JavaRModelHasProperty->select( property : PSMComponentProperty | property.bIsUnique = false)->select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->excludes('@Transient') and property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') = -1 and property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') = -1)) separator('\n')]
-        Query [jRModel.parentName/][jRMProperty.name/]Query = hibernateSession.createSQLQuery(String.format("DELETE FROM %s where %sId = %d","[jRModel.parentName/][jRMProperty.name/]".toLowerCase(),"[jRModel.parentName/]",this.get[jRModel.parentName/]Id()));
-        [jRModel.parentName/][jRMProperty.name/]Query.executeUpdate();
-		[/for]
-
-     	[if (jRModel.hasRelatedJavaRMManager->size() > 0)]
-     		[for (jRRModel : JavaResourceModel | jRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel) separator('\n')]
-     			[if (jRRModel.JavaRModelHasProperty->select( property : PSMComponentProperty | property.bIsUnique = false)->
-					select(property : PSMComponentProperty | property.PropertyHasHibernateAnnotation.HibernateAnnotationText->excludes('@Transient')
-						and
-				   property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@OneToMany') = -1
-						and
-				   property.PropertyHasHibernateAnnotation.HibernateAnnotationText->at(1).index('@ManyToOne') = -1)->size() > 0)]
-        Iterator<[jRRModel.name/]> [jRRModel.name/]Iterator = SetOf[jRRModel.name/].iterator();
-        while([jRRModel.name/]Iterator.hasNext()){
-            [jRRModel.name/]Iterator.next().deleteAllCollections(hibernateSession);
-        }
-        		[/if]
-			[/for]
-		[/if]
-    }
-	[/if]
 }
 [/file]
 [/for]

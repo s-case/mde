@@ -47,7 +47,7 @@ public class MDEMigratorCIMMetamodelSwitch<T> extends Switch<T> {
 	 * Checks whether this is a switch for the given package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @parameter ePackage the package in question.
+	 * @param ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
@@ -107,6 +107,12 @@ public class MDEMigratorCIMMetamodelSwitch<T> extends Switch<T> {
 			case MDEMigratorCIMMetamodelPackage.PARENT_MAPPING: {
 				ParentMapping parentMapping = (ParentMapping)theEObject;
 				T result = caseParentMapping(parentMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case MDEMigratorCIMMetamodelPackage.JOIN_COLUMN: {
+				JoinColumn joinColumn = (JoinColumn)theEObject;
+				T result = caseJoinColumn(joinColumn);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -216,6 +222,21 @@ public class MDEMigratorCIMMetamodelSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseParentMapping(ParentMapping object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Join Column</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Join Column</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJoinColumn(JoinColumn object) {
 		return null;
 	}
 

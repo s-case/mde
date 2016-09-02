@@ -11,12 +11,12 @@ import RESTfulServicePSM.PSMComponentProperty;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorPSMMetamodel.TargetColumn#getColumnMappingName <em>Column Mapping Name</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.TargetColumn#getIsMappedFromColumn <em>Is Mapped From Column</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.TargetColumn#getIsAnnotatedPSMComponentProperty <em>Is Annotated PSM Component Property</em>}</li>
  * </ul>
- * </p>
  *
  * @see MDEMigratorPSMMetamodel.MDEMigratorPSMMetamodelPackage#getTargetColumn()
  * @model

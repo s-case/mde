@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link SearchLayerPSM.impl.SearchHTTPHandlerImpl#getIsHTTPActivityHandler <em>Is HTTP Activity Handler</em>}</li>
  *   <li>{@link SearchLayerPSM.impl.SearchHTTPHandlerImpl#getSearchesJavaResourceModel <em>Searches Java Resource Model</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.impl.ComplexTypeImpl#getComplexTypeName <em>Complex Type Name</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.ComplexTypeImpl#getHasComplexTypeProperties <em>Has Complex Type Properties</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

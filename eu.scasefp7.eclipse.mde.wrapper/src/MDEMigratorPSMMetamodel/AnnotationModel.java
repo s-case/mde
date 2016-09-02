@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorPSMMetamodel.AnnotationModel#getName <em>Name</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.AnnotationModel#getStrDBName <em>Str DB Name</em>}</li>
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link MDEMigratorPSMMetamodel.AnnotationModel#getStrDBType <em>Str DB Type</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.AnnotationModel#getHasAnnotation <em>Has Annotation</em>}</li>
  * </ul>
- * </p>
  *
  * @see MDEMigratorPSMMetamodel.MDEMigratorPSMMetamodelPackage#getAnnotationModel()
  * @model

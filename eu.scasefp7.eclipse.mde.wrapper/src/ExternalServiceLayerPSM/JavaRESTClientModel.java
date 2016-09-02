@@ -10,12 +10,12 @@ package ExternalServiceLayerPSM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientModel#getHasJavaInputModel <em>Has Java Input Model</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientModel#getHasJavaOutputModel <em>Has Java Output Model</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientModel#getIsJavaRESTClientModel <em>Is Java REST Client Model</em>}</li>
  * </ul>
- * </p>
  *
  * @see ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage#getJavaRESTClientModel()
  * @model

@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.PSMHypermediaLink#getHasTargetJavaAlgoController <em>Has Target Java Algo Controller</em>}</li>
  *   <li>{@link RESTfulServicePSM.PSMHypermediaLink#getHasTargetJavaRController <em>Has Target Java RController</em>}</li>
@@ -18,7 +19,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link RESTfulServicePSM.PSMHypermediaLink#getLinkHTTPVerb <em>Link HTTP Verb</em>}</li>
  *   <li>{@link RESTfulServicePSM.PSMHypermediaLink#getLinkType <em>Link Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see RESTfulServicePSM.RESTfulServicePSMPackage#getPSMHypermediaLink()
  * @model

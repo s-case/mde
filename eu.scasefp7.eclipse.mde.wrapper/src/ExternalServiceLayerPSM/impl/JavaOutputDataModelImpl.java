@@ -29,11 +29,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaOutputDataModelImpl#getHasOutputProperty <em>Has Output Property</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaOutputDataModelImpl#getHasOutputRepresentation <em>Has Output Representation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

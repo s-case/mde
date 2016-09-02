@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.JavaFunctionImpl#getHasFunctionParameter <em>Has Function Parameter</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.JavaFunctionImpl#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

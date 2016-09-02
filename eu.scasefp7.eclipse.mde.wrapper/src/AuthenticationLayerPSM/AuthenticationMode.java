@@ -11,11 +11,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthenticationLayerPSM.AuthenticationMode#getHTTPActivityHandlerHasAuthenticationMode <em>HTTP Activity Handler Has Authentication Mode</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.AuthenticationMode#getHTTPActivityHasAuthenticationMode <em>HTTP Activity Has Authentication Mode</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthenticationLayerPSM.AuthenticationLayerPSMPackage#getAuthenticationMode()
  * @model

@@ -19,13 +19,13 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.impl.NewPropertyImpl#getName <em>Name</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.NewPropertyImpl#getType <em>Type</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.NewPropertyImpl#isBIsUnique <em>BIs Unique</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.impl.NewPropertyImpl#getBelongsToResource <em>Belongs To Resource</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

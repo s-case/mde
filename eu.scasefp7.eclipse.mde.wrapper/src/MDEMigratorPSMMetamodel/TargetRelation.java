@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorPSMMetamodel.TargetRelation#getRelationMappingName <em>Relation Mapping Name</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.TargetRelation#isBIsScheduledToLoad <em>BIs Scheduled To Load</em>}</li>
@@ -23,7 +24,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link MDEMigratorPSMMetamodel.TargetRelation#isBHasParentMapping <em>BHas Parent Mapping</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.TargetRelation#getHasParentMapping <em>Has Parent Mapping</em>}</li>
  * </ul>
- * </p>
  *
  * @see MDEMigratorPSMMetamodel.MDEMigratorPSMMetamodelPackage#getTargetRelation()
  * @model

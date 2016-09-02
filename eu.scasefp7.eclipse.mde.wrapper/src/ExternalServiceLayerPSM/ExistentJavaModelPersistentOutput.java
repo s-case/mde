@@ -10,10 +10,10 @@ package ExternalServiceLayerPSM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.ExistentJavaModelPersistentOutput#getIsExistentJavaModelPersistentOutput <em>Is Existent Java Model Persistent Output</em>}</li>
  * </ul>
- * </p>
  *
  * @see ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage#getExistentJavaModelPersistentOutput()
  * @model

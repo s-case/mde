@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.JavaResourceControllerImpl#getJavaRControllerHasJAXRSAnnotation <em>Java RController Has JAXRS Annotation</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.JavaResourceControllerImpl#getJavaRControllerHasHTTPActivity <em>Java RController Has HTTP Activity</em>}</li>
@@ -38,7 +39,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link RESTfulServicePSM.impl.JavaResourceControllerImpl#getControllerURI <em>Controller URI</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.JavaResourceControllerImpl#getParentName <em>Parent Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

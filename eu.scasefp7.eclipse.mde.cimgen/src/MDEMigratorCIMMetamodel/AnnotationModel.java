@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorCIMMetamodel.AnnotationModel#getName <em>Name</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.AnnotationModel#getHasAnnotation <em>Has Annotation</em>}</li>
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link MDEMigratorCIMMetamodel.AnnotationModel#getStrDBUsername <em>Str DB Username</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.AnnotationModel#getStrDBPassword <em>Str DB Password</em>}</li>
  * </ul>
- * </p>
  *
  * @see MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelPackage#getAnnotationModel()
  * @model

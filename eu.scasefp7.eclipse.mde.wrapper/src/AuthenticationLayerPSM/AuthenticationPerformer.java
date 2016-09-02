@@ -11,13 +11,13 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthenticationLayerPSM.AuthenticationPerformer#getHasAuthenticationToken <em>Has Authentication Token</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.AuthenticationPerformer#getIsSystemAuthenticationPerformer <em>Is System Authentication Performer</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.AuthenticationPerformer#getAuthenticationModelName <em>Authentication Model Name</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.AuthenticationPerformer#getAuthenticationModelParentName <em>Authentication Model Parent Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthenticationLayerPSM.AuthenticationLayerPSMPackage#getAuthenticationPerformer()
  * @model

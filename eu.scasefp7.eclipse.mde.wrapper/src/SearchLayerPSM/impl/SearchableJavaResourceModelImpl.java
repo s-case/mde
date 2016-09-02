@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link SearchLayerPSM.impl.SearchableJavaResourceModelImpl#getHasSearchableProperty <em>Has Searchable Property</em>}</li>
  *   <li>{@link SearchLayerPSM.impl.SearchableJavaResourceModelImpl#getIsSearchableJavaResourceModel <em>Is Searchable Java Resource Model</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

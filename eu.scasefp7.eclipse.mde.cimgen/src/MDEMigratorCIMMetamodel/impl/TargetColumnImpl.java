@@ -21,12 +21,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorCIMMetamodel.impl.TargetColumnImpl#getColumnMappingName <em>Column Mapping Name</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.impl.TargetColumnImpl#getIsMappedFromColumn <em>Is Mapped From Column</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.impl.TargetColumnImpl#getIsAnnotatedProperty <em>Is Annotated Property</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

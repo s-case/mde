@@ -13,12 +13,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.ResourceAccessPolicySet#getHasResourceAccessPolicySet <em>Has Resource Access Policy Set</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.ResourceAccessPolicySet#getPolicyCombiningAlgorithm <em>Policy Combining Algorithm</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.ResourceAccessPolicySet#getHasResourceAccessPolicy <em>Has Resource Access Policy</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthorizationLayerPSM.AuthorizationLayerPSMPackage#getResourceAccessPolicySet()
  * @model

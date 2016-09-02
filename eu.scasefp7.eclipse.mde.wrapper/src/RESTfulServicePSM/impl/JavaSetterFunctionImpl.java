@@ -21,11 +21,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.JavaSetterFunctionImpl#getSetsProperty <em>Sets Property</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.JavaSetterFunctionImpl#getSetterFunctionHasJAXBAnnotation <em>Setter Function Has JAXB Annotation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

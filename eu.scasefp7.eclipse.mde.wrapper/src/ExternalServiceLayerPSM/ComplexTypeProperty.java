@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.ComplexTypeProperty#getName <em>Name</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.ComplexTypeProperty#isIsUnique <em>Is Unique</em>}</li>
@@ -18,7 +19,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link ExternalServiceLayerPSM.ComplexTypeProperty#isHasPrimitiveType <em>Has Primitive Type</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.ComplexTypeProperty#getPropertyHasComplexType <em>Property Has Complex Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage#getComplexTypeProperty()
  * @model

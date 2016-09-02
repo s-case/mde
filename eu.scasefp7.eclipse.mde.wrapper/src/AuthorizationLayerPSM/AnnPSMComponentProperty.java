@@ -11,10 +11,10 @@ import RESTfulServicePSM.PSMComponentProperty;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.AnnPSMComponentProperty#getAnnotatesPSMComponentProperty <em>Annotates PSM Component Property</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthorizationLayerPSM.AuthorizationLayerPSMPackage#getAnnPSMComponentProperty()
  * @model

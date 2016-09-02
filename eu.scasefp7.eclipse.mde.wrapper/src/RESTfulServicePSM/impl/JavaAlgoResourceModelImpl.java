@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.JavaAlgoResourceModelImpl#getJavaAlgoModelHasJAXBAnnotation <em>Java Algo Model Has JAXB Annotation</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.JavaAlgoResourceModelImpl#getJavaAlgoModelHasProperty <em>Java Algo Model Has Property</em>}</li>
@@ -40,7 +41,6 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link RESTfulServicePSM.impl.JavaAlgoResourceModelImpl#getHasRelatedAlgoModel <em>Has Related Algo Model</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.JavaAlgoResourceModelImpl#getIsRelatedAlgoModel <em>Is Related Algo Model</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -22,12 +22,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientModelImpl#getHasJavaInputModel <em>Has Java Input Model</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientModelImpl#getHasJavaOutputModel <em>Has Java Output Model</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientModelImpl#getIsJavaRESTClientModel <em>Is Java REST Client Model</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

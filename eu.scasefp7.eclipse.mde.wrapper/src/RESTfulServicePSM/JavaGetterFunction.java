@@ -10,10 +10,10 @@ package RESTfulServicePSM;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.JavaGetterFunction#getGetsProperty <em>Gets Property</em>}</li>
  * </ul>
- * </p>
  *
  * @see RESTfulServicePSM.RESTfulServicePSMPackage#getJavaGetterFunction()
  * @model

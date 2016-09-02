@@ -140,13 +140,40 @@ public interface DatabaseMetamodelPackage extends EPackage {
 	int RELATION__NAME = 3;
 
 	/**
+	 * The feature id for the '<em><b>Is Join Table</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION__IS_JOIN_TABLE = 4;
+
+	/**
+	 * The feature id for the '<em><b>References Relation</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION__REFERENCES_RELATION = 5;
+
+	/**
+	 * The feature id for the '<em><b>Is Self Join Table</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATION__IS_SELF_JOIN_TABLE = 6;
+
+	/**
 	 * The number of structural features of the '<em>Relation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RELATION_FEATURE_COUNT = 4;
+	int RELATION_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Relation</em>' class.
@@ -204,13 +231,31 @@ public interface DatabaseMetamodelPackage extends EPackage {
 	int COLUMN__TYPE = 3;
 
 	/**
+	 * The feature id for the '<em><b>Has PK Order</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__HAS_PK_ORDER = 4;
+
+	/**
+	 * The feature id for the '<em><b>Has FK Order</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__HAS_FK_ORDER = 5;
+
+	/**
 	 * The number of structural features of the '<em>Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 4;
+	int COLUMN_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Column</em>' class.
@@ -298,6 +343,39 @@ public interface DatabaseMetamodelPackage extends EPackage {
 	EAttribute getRelation_Name();
 
 	/**
+	 * Returns the meta object for the attribute '{@link databaseMetamodel.Relation#isIsJoinTable <em>Is Join Table</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Is Join Table</em>'.
+	 * @see databaseMetamodel.Relation#isIsJoinTable()
+	 * @see #getRelation()
+	 * @generated
+	 */
+	EAttribute getRelation_IsJoinTable();
+
+	/**
+	 * Returns the meta object for the reference list '{@link databaseMetamodel.Relation#getReferencesRelation <em>References Relation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>References Relation</em>'.
+	 * @see databaseMetamodel.Relation#getReferencesRelation()
+	 * @see #getRelation()
+	 * @generated
+	 */
+	EReference getRelation_ReferencesRelation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link databaseMetamodel.Relation#isIsSelfJoinTable <em>Is Self Join Table</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Is Self Join Table</em>'.
+	 * @see databaseMetamodel.Relation#isIsSelfJoinTable()
+	 * @see #getRelation()
+	 * @generated
+	 */
+	EAttribute getRelation_IsSelfJoinTable();
+
+	/**
 	 * Returns the meta object for class '{@link databaseMetamodel.Column <em>Column</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -350,6 +428,28 @@ public interface DatabaseMetamodelPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getColumn_Type();
+
+	/**
+	 * Returns the meta object for the attribute '{@link databaseMetamodel.Column#getHasPKOrder <em>Has PK Order</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Has PK Order</em>'.
+	 * @see databaseMetamodel.Column#getHasPKOrder()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_HasPKOrder();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link databaseMetamodel.Column#getHasFKOrder <em>Has FK Order</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Has FK Order</em>'.
+	 * @see databaseMetamodel.Column#getHasFKOrder()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_HasFKOrder();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -435,6 +535,30 @@ public interface DatabaseMetamodelPackage extends EPackage {
 		EAttribute RELATION__NAME = eINSTANCE.getRelation_Name();
 
 		/**
+		 * The meta object literal for the '<em><b>Is Join Table</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RELATION__IS_JOIN_TABLE = eINSTANCE.getRelation_IsJoinTable();
+
+		/**
+		 * The meta object literal for the '<em><b>References Relation</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RELATION__REFERENCES_RELATION = eINSTANCE.getRelation_ReferencesRelation();
+
+		/**
+		 * The meta object literal for the '<em><b>Is Self Join Table</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RELATION__IS_SELF_JOIN_TABLE = eINSTANCE.getRelation_IsSelfJoinTable();
+
+		/**
 		 * The meta object literal for the '{@link databaseMetamodel.impl.ColumnImpl <em>Column</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -475,6 +599,22 @@ public interface DatabaseMetamodelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLUMN__TYPE = eINSTANCE.getColumn_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Has PK Order</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__HAS_PK_ORDER = eINSTANCE.getColumn_HasPKOrder();
+
+		/**
+		 * The meta object literal for the '<em><b>Has FK Order</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__HAS_FK_ORDER = eINSTANCE.getColumn_HasFKOrder();
 
 	}
 

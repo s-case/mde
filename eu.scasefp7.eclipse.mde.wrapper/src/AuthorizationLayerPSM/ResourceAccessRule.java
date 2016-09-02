@@ -13,12 +13,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.ResourceAccessRule#getRuleType <em>Rule Type</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.ResourceAccessRule#getHasMatchCondition <em>Has Match Condition</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.ResourceAccessRule#getHasAllowedAction <em>Has Allowed Action</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthorizationLayerPSM.AuthorizationLayerPSMPackage#getResourceAccessRule()
  * @model

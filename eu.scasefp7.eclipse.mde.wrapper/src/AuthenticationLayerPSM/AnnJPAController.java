@@ -11,10 +11,10 @@ import RESTfulServicePSM.HibernateController;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthenticationLayerPSM.AnnJPAController#getAnnotatesJPAController <em>Annotates JPA Controller</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthenticationLayerPSM.AuthenticationLayerPSMPackage#getAnnJPAController()
  * @model

@@ -27,6 +27,7 @@ import databaseMetamodel.Column;
 import eu.fp7.scase.launcher.cimgenerator.Activator;
 import MDEMigratorCIMMetamodel.Annotation;
 import MDEMigratorCIMMetamodel.AnnotationModel;
+import MDEMigratorCIMMetamodel.JoinColumn;
 import MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelFactory;
 import MDEMigratorCIMMetamodel.ParentMapping;
 import MDEMigratorCIMMetamodel.SourceColumn;
@@ -238,17 +239,19 @@ public class DBMigratorWizardPage extends WizardPage{
 //		  this.oMdeDBMigratorCIM.setStrDBType("MySQL");
 //		  this.oSourceDBType.setSelection(0);
 //		  this.oMdeDBMigratorCIM.setStrDBName("wsat");
-//		  this.oDBName.setText("wsat");
-//		  this.oMdeDBMigratorCIM.setStrDBUsername("postgres");
-//		  this.oSourceDBUsername.setText("postgres");
+	//	  this.oDBName.setText("wsat");
+	//	  this.oMdeDBMigratorCIM.setStrDBUsername("postgres");
+	//	  this.oSourceDBUsername.setText("postgres");
 //		  this.oMdeDBMigratorCIM.setStrDBPassword("fp7s-case");
 //		  this.oSourceDBPassword.setText("fp7s-case");
 		  
 		  if(!this.bReloadExistingModels){
+			  System.out.println("DB Migration Wizard started from scratch!");
 			  this.updateWidgetStatus();
 			  this.setPageComplete(isPageCompleted());
 		  }
 		  else{
+			  System.out.println("Restoring DB Migration Wizard");
 			  if(restoreDBMigrationWizardPage() == false){
 				  this.bReloadExistingModels = false;
 			  }
@@ -675,6 +678,7 @@ public class DBMigratorWizardPage extends WizardPage{
 					SourceColumn oPKSourceColumn = oMdeMigratorCIMMetamodelFactory.createSourceColumn();
 					oPKSourceColumn.setName(oPKColumn.getName());
 					oPKSourceColumn.setType(oPKColumn.getType());
+					oPKSourceColumn.setHasPkOrder(oPKColumn.getHasPKOrder());
 					oSourceRelation.getHasPrimaryKeyColumn().add(oPKSourceColumn);
 				}
 			
@@ -1051,34 +1055,34 @@ public class DBMigratorWizardPage extends WizardPage{
 		  }
 			
 		  return false;
-	  }
+	}
 	  
-		private boolean isValidDBMigratorCIMModel(){
+	private boolean isValidDBMigratorCIMModel(){
 			
-			//is there at least one relation mapping?
-			if(minimumNumberOfRelationNumberExists() == false){
-				return false;
-			}
-			
-			//is there at least on column mapping per relation mapping?
-			if(allRelationMappingsHaveColumnMapping() == false){
-				return false;
-			}
-			
-			//is the datatype mapping of the column mapping valid?
-			if(allColumnMappingsHaveValidDataMapping() == false){
-				return false;
-			}
-			
-			//are the mappings schedulable?
-			if(existsSchedulableMapping() == false){
-				cleanUpMappingSchedulingAttributes();
-				return false;
-			}
-			
-			setErrorMessage(null);
-			return true;
+		//is there at least one relation mapping?
+		if(minimumNumberOfRelationNumberExists() == false){
+			return false;
 		}
+			
+		//is there at least on column mapping per relation mapping?
+		if(allRelationMappingsHaveColumnMapping() == false){
+			return false;
+		}
+			
+		//is the datatype mapping of the column mapping valid?
+		if(allColumnMappingsHaveValidDataMapping() == false){
+			return false;
+		}
+			
+		//are the mappings schedulable?
+		if(existsSchedulableMapping() == false){
+			cleanUpMappingSchedulingAttributes();
+			return false;
+		}
+		
+		setErrorMessage(null);
+		return true;
+	}
 	  
 	private boolean existsSchedulableMapping() {
 			
@@ -1132,6 +1136,9 @@ public class DBMigratorWizardPage extends WizardPage{
 		for(int i = 0; i < this.oMdeDBMigratorCIM.getHasAnnotation().size(); i++){
 			if(this.oMdeDBMigratorCIM.getHasAnnotation().get(i) instanceof TargetRelation){
 				for(int n = 0; n < ((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getHasTargetColumn().size(); n++){
+					if(this.oDBSchemaLoader == null){
+						System.out.println("SchemaLoader is not initialized!");
+					}
 					String strSourceColumnDataType = this.oDBSchemaLoader.fetchRelationColumnDatatype(((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getIsMappedFromRelation().getName(), ((TargetRelation)this.oMdeDBMigratorCIM.getHasAnnotation().get(i)).getHasTargetColumn().get(n).getIsMappedFromColumn().getName());
 					if(strSourceColumnDataType == null){
 						this.setErrorMessage("The data type of column " + 
@@ -1238,17 +1245,22 @@ public class DBMigratorWizardPage extends WizardPage{
 	}
 
 	private void createTargetRelationParentMapping(TargetRelation oTargetRelation) {
+		System.out.println("CREATE PARENT MAPPING FOR " + oTargetRelation.getRelationMappingName());
 		for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
 			Resource oResource = this.oRESTfulServiceCIM.getHasResources().get(i);
+			System.out.println("Checking if " + oResource.getName() + " is parent of " + oTargetRelation.getIsTargetRelationResource().getName());
 			if(isParentResourceOf(oResource.getName(), oTargetRelation.getIsTargetRelationResource().getName())){ //if this oResource has as related resource the target resource
+				System.out.println("Resource" + oResource.getName() + " is parent of " + oTargetRelation.getIsTargetRelationResource().getName());
 				//and there exists also relation mapping that has as target resource the oResource one
 				for(int n = 0; n < this.oMdeDBMigratorCIM.getHasAnnotation().size(); n++){
 					if(this.oMdeDBMigratorCIM.getHasAnnotation().get(n) instanceof TargetRelation){
 						if(((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsTargetRelationResource().getName().equalsIgnoreCase(oResource.getName())){
 							//and this relation mapping's source relation is also parent of the source relation of the oTargetRelation
 							if(this.oDBSchemaLoader.isRelationParentOf(((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsMappedFromRelation().getName(), oTargetRelation.getIsMappedFromRelation().getName())){
+								System.out.println("Creating parent mapping for " + oResource.getName() + " and " + oTargetRelation.getIsTargetRelationResource().getName());
 								ParentMapping oParentMapping = this.oMdeMigratorCIMMetamodelFactory.createParentMapping();
 								oTargetRelation.getHasParentMapping().add(oParentMapping);
+								oParentMapping.setRequiresJoinTable(false);
 								oParentMapping.setHasParentTargetRelation(((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)));
 								oParentMapping.setSourceRelationFKMappingName(oTargetRelation.getIsMappedFromRelation().getName() + " -> " + ((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsMappedFromRelation().getName());
 								ArrayList<Column> listOfForeignkeys = new ArrayList<Column>();
@@ -1258,11 +1270,70 @@ public class DBMigratorWizardPage extends WizardPage{
 									addFKColumnIfNeeded(oTargetRelation, oParentMapping,  fkIterator.next());
 								}
 							}
+							else{
+								System.out.println("Creating parent mapping for " + oResource.getName() + " and " + oTargetRelation.getIsTargetRelationResource().getName());
+								ParentMapping oParentMapping = this.oMdeMigratorCIMMetamodelFactory.createParentMapping();
+								oTargetRelation.getHasParentMapping().add(oParentMapping);
+								oParentMapping.setRequiresJoinTable(true);
+								oParentMapping.setJoinTableName(this.oDBSchemaLoader.getJoinTableNameOfTo(oTargetRelation.getIsMappedFromRelation().getName(), ((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsMappedFromRelation().getName()));
+								oParentMapping.setHasParentTargetRelation(((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)));
+								oParentMapping.setSourceRelationFKMappingName(oTargetRelation.getIsMappedFromRelation().getName() + " -> " + ((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsMappedFromRelation().getName());
+
+								ArrayList<Column> listOfJoinFKToSourceRelation = new ArrayList<Column>();
+								ArrayList<Column> listOfJoinFKToParentSourceRelation = new ArrayList<Column>();
+
+								listOfJoinFKToSourceRelation = this.oDBSchemaLoader.getJoinFKToSourceRelation(oTargetRelation.getIsMappedFromRelation().getName(), ((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsMappedFromRelation().getName());
+								listOfJoinFKToParentSourceRelation = this.oDBSchemaLoader.getJoinFKToParentSourceRelation(oTargetRelation.getIsMappedFromRelation().getName(), ((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsMappedFromRelation().getName());
+								
+								Iterator<Column> fkToSourceRelationIterator = listOfJoinFKToSourceRelation.iterator();
+								while(fkToSourceRelationIterator.hasNext()){
+									System.out.println("Adding FKToSourceRelations of parent mapping for " + oResource.getName() + " and " + oTargetRelation.getIsTargetRelationResource().getName());
+									addJoinFKToSourceRelationColumn(oTargetRelation, oParentMapping,  fkToSourceRelationIterator.next());
+								}
+								
+								Iterator<Column> fkToParentSourceRelationIterator = listOfJoinFKToParentSourceRelation.iterator();
+								while(fkToParentSourceRelationIterator.hasNext()){
+									System.out.println("Adding FKToParentSourceRelations of parent mapping for " + oResource.getName() + " and " + oTargetRelation.getIsTargetRelationResource().getName());
+									addJoinFKToParentSourceRelationColumn(oTargetRelation, oParentMapping,  fkToParentSourceRelationIterator.next());
+								}
+							}
 						}
 					}
 				}
 			}
 		}
+	}
+
+	private void addJoinFKToParentSourceRelationColumn(TargetRelation oTargetRelation, ParentMapping oParentMapping, Column oFKColumn) {
+		
+		//create a new source column
+		JoinColumn oJoinColumn = this.oMdeMigratorCIMMetamodelFactory.createJoinColumn();
+		oJoinColumn.setName(oFKColumn.getName());
+		oJoinColumn.setType(oFKColumn.getType());
+		for(int i = 0; i < oFKColumn.getIsForeignKeyToRelation().size(); i++){
+			if(oFKColumn.getIsForeignKeyToRelation().get(i).getName().equalsIgnoreCase(oTargetRelation.getIsMappedFromRelation().getName())){
+				oJoinColumn.setHasFKOrder(oFKColumn.getHasFKOrder().get(i));
+			}
+		}
+			
+		//then add the reference to the parent mapping
+		oParentMapping.getHasJoinFKToSourceRelation().add(oJoinColumn);
+	}
+
+	private void addJoinFKToSourceRelationColumn(TargetRelation oTargetRelation, ParentMapping oParentMapping, Column oFKColumn) {
+		
+		//create a new source column
+		JoinColumn oJoinColumn = this.oMdeMigratorCIMMetamodelFactory.createJoinColumn();
+		oJoinColumn.setName(oFKColumn.getName());
+		oJoinColumn.setType(oFKColumn.getType());
+		for(int i = 0; i < oFKColumn.getIsForeignKeyToRelation().size(); i++){
+			if(oFKColumn.getIsForeignKeyToRelation().get(i).getName().equalsIgnoreCase(oParentMapping.getHasParentTargetRelation().getIsMappedFromRelation().getName())){
+				oJoinColumn.setHasFKOrder(oFKColumn.getHasFKOrder().get(i));
+			}
+		}
+			
+		//then add the reference to the parent mapping
+		oParentMapping.getHasJoinFKToParentSourceRelation().add(oJoinColumn);
 	}
 
 	private void addFKColumnIfNeeded(TargetRelation oTargetRelation, ParentMapping oParentMapping, Column oFKColumn) {
@@ -1271,6 +1342,11 @@ public class DBMigratorWizardPage extends WizardPage{
 			if(oTargetRelation.getIsMappedFromRelation().getHasSourceColumn().get(i).getName().equalsIgnoreCase(oFKColumn.getName()) &&
 					oTargetRelation.getIsMappedFromRelation().getHasSourceColumn().get(i).getType().equalsIgnoreCase(oFKColumn.getType())){
 				//if the source column of the FK already exists, simply add a reference
+				for(int j = 0; j < oFKColumn.getIsForeignKeyToRelation().size(); j++){
+					if(oFKColumn.getIsForeignKeyToRelation().get(j).getName().equalsIgnoreCase(oParentMapping.getHasParentTargetRelation().getIsMappedFromRelation().getName())){
+						oTargetRelation.getIsMappedFromRelation().getHasSourceColumn().get(i).setHasFKOrder(oFKColumn.getHasFKOrder().get(j));
+					}
+				}
 				oParentMapping.getHasForeignKeyColumn().add(oTargetRelation.getIsMappedFromRelation().getHasSourceColumn().get(i));
 				bFKSourceColumnFound = true;
 			}
@@ -1281,6 +1357,11 @@ public class DBMigratorWizardPage extends WizardPage{
 			SourceColumn oSourceColumn = this.oMdeMigratorCIMMetamodelFactory.createSourceColumn();
 			oSourceColumn.setName(oFKColumn.getName());
 			oSourceColumn.setType(oFKColumn.getType());
+			for(int i = 0; i < oFKColumn.getIsForeignKeyToRelation().size(); i++){
+				if(oFKColumn.getIsForeignKeyToRelation().get(i).getName().equalsIgnoreCase(oParentMapping.getHasParentTargetRelation().getIsMappedFromRelation().getName())){
+					oSourceColumn.setHasFKOrder(oFKColumn.getHasFKOrder().get(i));
+				}
+			}
 			
 			//add it to the corresponding source relation
 			oTargetRelation.getIsMappedFromRelation().getHasSourceColumn().add(oSourceColumn);
@@ -1300,9 +1381,14 @@ public class DBMigratorWizardPage extends WizardPage{
 					if(this.oMdeDBMigratorCIM.getHasAnnotation().get(n) instanceof TargetRelation){
 						if(((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsTargetRelationResource().getName().equalsIgnoreCase(oResource.getName())){
 							System.out.println("Mapping " + ((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getRelationMappingName() + " has as target resource the " + oResource.getName());
-							//and this relation mapping's source relation is also parent of the source relation of the oTargetRelation
+							//and this relation mapping's source relation is also parent of the source relation of the oTargetRelation directly (with FK not JOIN table)
 							if(this.oDBSchemaLoader.isRelationParentOf(((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsMappedFromRelation().getName(), oTargetRelation.getIsMappedFromRelation().getName())){
 								System.out.println("Source relation " + ((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsMappedFromRelation().getName() + " is truly parent of relation " + oTargetRelation.getIsMappedFromRelation().getName());
+								return true;
+							}
+							//or this relation mapping's source relation is also parent of the source relation of the oTargetRelation through a JOIN table.
+							if(this.oDBSchemaLoader.isRelationJoinParentOf(((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsMappedFromRelation().getName(), oTargetRelation.getIsMappedFromRelation().getName())){
+								System.out.println("Source relation " + ((TargetRelation) this.oMdeDBMigratorCIM.getHasAnnotation().get(n)).getIsMappedFromRelation().getName() + " is parent of relation " + oTargetRelation.getIsMappedFromRelation().getName() + " through JOIN table");
 								return true;
 							}
 						}

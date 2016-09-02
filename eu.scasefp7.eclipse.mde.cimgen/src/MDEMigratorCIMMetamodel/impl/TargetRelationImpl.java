@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorCIMMetamodel.impl.TargetRelationImpl#getRelationMappingName <em>Relation Mapping Name</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.impl.TargetRelationImpl#getHasTargetColumn <em>Has Target Column</em>}</li>
@@ -43,7 +44,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link MDEMigratorCIMMetamodel.impl.TargetRelationImpl#isBHasParentMapping <em>BHas Parent Mapping</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.impl.TargetRelationImpl#getHasParentMapping <em>Has Parent Mapping</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

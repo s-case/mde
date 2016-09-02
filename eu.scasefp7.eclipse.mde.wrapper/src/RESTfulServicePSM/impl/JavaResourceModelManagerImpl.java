@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.JavaResourceModelManagerImpl#getJavaRMManagerHasJAXBAnnotation <em>Java RM Manager Has JAXB Annotation</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.JavaResourceModelManagerImpl#getJavaRMManagerHasProperty <em>Java RM Manager Has Property</em>}</li>
@@ -34,7 +35,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link RESTfulServicePSM.impl.JavaResourceModelManagerImpl#getName <em>Name</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.JavaResourceModelManagerImpl#getParentName <em>Parent Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

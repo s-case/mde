@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.HTTPActivity#getIsMappedToHibernateActivity <em>Is Mapped To Hibernate Activity</em>}</li>
  *   <li>{@link RESTfulServicePSM.HTTPActivity#getHasHTTPActivityParameter <em>Has HTTP Activity Parameter</em>}</li>
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link RESTfulServicePSM.HTTPActivity#getHasHTTPActivityHandler <em>Has HTTP Activity Handler</em>}</li>
  *   <li>{@link RESTfulServicePSM.HTTPActivity#getHTTPActivityHasJAXRSAnnotation <em>HTTP Activity Has JAXRS Annotation</em>}</li>
  * </ul>
- * </p>
  *
  * @see RESTfulServicePSM.RESTfulServicePSMPackage#getHTTPActivity()
  * @model

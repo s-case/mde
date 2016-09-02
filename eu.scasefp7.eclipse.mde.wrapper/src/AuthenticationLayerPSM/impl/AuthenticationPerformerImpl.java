@@ -28,13 +28,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthenticationLayerPSM.impl.AuthenticationPerformerImpl#getHasAuthenticationToken <em>Has Authentication Token</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.impl.AuthenticationPerformerImpl#getIsSystemAuthenticationPerformer <em>Is System Authentication Performer</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.impl.AuthenticationPerformerImpl#getAuthenticationModelName <em>Authentication Model Name</em>}</li>
  *   <li>{@link AuthenticationLayerPSM.impl.AuthenticationPerformerImpl#getAuthenticationModelParentName <em>Authentication Model Parent Name</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

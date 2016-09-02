@@ -30,12 +30,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientHTTPActivityImpl#getHasJavaRESTClientHTTPActivityHandler <em>Has Java REST Client HTTP Activity Handler</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientHTTPActivityImpl#getHasQueryParam <em>Has Query Param</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.impl.JavaRESTClientHTTPActivityImpl#getIsJavaRESTClientHTTPActivity <em>Is Java REST Client HTTP Activity</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

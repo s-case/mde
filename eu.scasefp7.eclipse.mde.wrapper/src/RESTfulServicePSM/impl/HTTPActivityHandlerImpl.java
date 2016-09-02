@@ -22,12 +22,12 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.HTTPActivityHandlerImpl#getHasHypermediaFunction <em>Has Hypermedia Function</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.HTTPActivityHandlerImpl#getName <em>Name</em>}</li>
  *   <li>{@link RESTfulServicePSM.impl.HTTPActivityHandlerImpl#getHandlerHTTPVerb <em>Handler HTTP Verb</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

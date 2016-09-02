@@ -11,12 +11,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.HTTPActivityHandler#getHasHypermediaFunction <em>Has Hypermedia Function</em>}</li>
  *   <li>{@link RESTfulServicePSM.HTTPActivityHandler#getName <em>Name</em>}</li>
  *   <li>{@link RESTfulServicePSM.HTTPActivityHandler#getHandlerHTTPVerb <em>Handler HTTP Verb</em>}</li>
  * </ul>
- * </p>
  *
  * @see RESTfulServicePSM.RESTfulServicePSMPackage#getHTTPActivityHandler()
  * @model

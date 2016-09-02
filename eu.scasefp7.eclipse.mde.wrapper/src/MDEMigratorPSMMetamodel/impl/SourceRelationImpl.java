@@ -28,12 +28,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorPSMMetamodel.impl.SourceRelationImpl#getName <em>Name</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.impl.SourceRelationImpl#getHasSourceColumn <em>Has Source Column</em>}</li>
  *   <li>{@link MDEMigratorPSMMetamodel.impl.SourceRelationImpl#getHasPrimaryKeyColumn <em>Has Primary Key Column</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

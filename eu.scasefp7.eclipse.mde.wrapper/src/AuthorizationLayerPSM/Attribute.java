@@ -13,13 +13,13 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.Attribute#getAttributeCategory <em>Attribute Category</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.Attribute#getValue <em>Value</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.Attribute#getIsAttributeExistingProperty <em>Is Attribute Existing Property</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.Attribute#getIsAttributeNewProperty <em>Is Attribute New Property</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthorizationLayerPSM.AuthorizationLayerPSMPackage#getAttribute()
  * @model

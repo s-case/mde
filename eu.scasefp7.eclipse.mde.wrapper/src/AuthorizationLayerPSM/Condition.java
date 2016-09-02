@@ -11,12 +11,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.Condition#getOperator <em>Operator</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.Condition#getHasLeftSideOperand <em>Has Left Side Operand</em>}</li>
  *   <li>{@link AuthorizationLayerPSM.Condition#getHasRightSideOperand <em>Has Right Side Operand</em>}</li>
  * </ul>
- * </p>
  *
  * @see AuthorizationLayerPSM.AuthorizationLayerPSMPackage#getCondition()
  * @model

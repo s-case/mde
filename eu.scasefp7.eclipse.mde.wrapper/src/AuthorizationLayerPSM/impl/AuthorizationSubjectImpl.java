@@ -19,10 +19,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AuthorizationLayerPSM.impl.AuthorizationSubjectImpl#getIsAuthorizationSubject <em>Is Authorization Subject</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

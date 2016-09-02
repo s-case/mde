@@ -11,13 +11,13 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientController#getHasJavaRESTClientHTTPActivity <em>Has Java REST Client HTTP Activity</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientController#getIsJavaRESTClientController <em>Is Java REST Client Controller</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientController#getHasAssociatedModel <em>Has Associated Model</em>}</li>
  *   <li>{@link ExternalServiceLayerPSM.JavaRESTClientController#getHasComplexTypes <em>Has Complex Types</em>}</li>
  * </ul>
- * </p>
  *
  * @see ExternalServiceLayerPSM.ExternalServiceLayerPSMPackage#getJavaRESTClientController()
  * @model

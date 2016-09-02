@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link AnnotationLayerStack.impl.AnnotationStackImpl#getHasAuthenticationLayer <em>Has Authentication Layer</em>}</li>
  *   <li>{@link AnnotationLayerStack.impl.AnnotationStackImpl#isBHasAuthenticationAnnotation <em>BHas Authentication Annotation</em>}</li>
@@ -36,7 +37,6 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link AnnotationLayerStack.impl.AnnotationStackImpl#getHasDBMigrationLayer <em>Has DB Migration Layer</em>}</li>
  *   <li>{@link AnnotationLayerStack.impl.AnnotationStackImpl#isBHasDBMigrationLayer <em>BHas DB Migration Layer</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

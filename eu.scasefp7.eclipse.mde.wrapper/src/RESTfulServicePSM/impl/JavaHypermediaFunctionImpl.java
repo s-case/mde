@@ -26,10 +26,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link RESTfulServicePSM.impl.JavaHypermediaFunctionImpl#getHasPSMHypermediaLink <em>Has PSM Hypermedia Link</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

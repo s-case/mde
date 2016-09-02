@@ -13,12 +13,16 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link MDEMigratorCIMMetamodel.ParentMapping#getHasParentTargetRelation <em>Has Parent Target Relation</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.ParentMapping#getHasForeignKeyColumn <em>Has Foreign Key Column</em>}</li>
  *   <li>{@link MDEMigratorCIMMetamodel.ParentMapping#getSourceRelationFKMappingName <em>Source Relation FK Mapping Name</em>}</li>
+ *   <li>{@link MDEMigratorCIMMetamodel.ParentMapping#isRequiresJoinTable <em>Requires Join Table</em>}</li>
+ *   <li>{@link MDEMigratorCIMMetamodel.ParentMapping#getHasJoinFKToSourceRelation <em>Has Join FK To Source Relation</em>}</li>
+ *   <li>{@link MDEMigratorCIMMetamodel.ParentMapping#getHasJoinFKToParentSourceRelation <em>Has Join FK To Parent Source Relation</em>}</li>
+ *   <li>{@link MDEMigratorCIMMetamodel.ParentMapping#getJoinTableName <em>Join Table Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelPackage#getParentMapping()
  * @model
@@ -92,5 +96,89 @@ public interface ParentMapping extends EObject {
 	 * @generated
 	 */
 	void setSourceRelationFKMappingName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Requires Join Table</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Requires Join Table</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Requires Join Table</em>' attribute.
+	 * @see #setRequiresJoinTable(boolean)
+	 * @see MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelPackage#getParentMapping_RequiresJoinTable()
+	 * @model required="true"
+	 * @generated
+	 */
+	boolean isRequiresJoinTable();
+
+	/**
+	 * Sets the value of the '{@link MDEMigratorCIMMetamodel.ParentMapping#isRequiresJoinTable <em>Requires Join Table</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Requires Join Table</em>' attribute.
+	 * @see #isRequiresJoinTable()
+	 * @generated
+	 */
+	void setRequiresJoinTable(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Has Join FK To Source Relation</b></em>' containment reference list.
+	 * The list contents are of type {@link MDEMigratorCIMMetamodel.JoinColumn}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Has Join FK To Source Relation</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Has Join FK To Source Relation</em>' containment reference list.
+	 * @see MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelPackage#getParentMapping_HasJoinFKToSourceRelation()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<JoinColumn> getHasJoinFKToSourceRelation();
+
+	/**
+	 * Returns the value of the '<em><b>Has Join FK To Parent Source Relation</b></em>' containment reference list.
+	 * The list contents are of type {@link MDEMigratorCIMMetamodel.JoinColumn}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Has Join FK To Parent Source Relation</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Has Join FK To Parent Source Relation</em>' containment reference list.
+	 * @see MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelPackage#getParentMapping_HasJoinFKToParentSourceRelation()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<JoinColumn> getHasJoinFKToParentSourceRelation();
+
+	/**
+	 * Returns the value of the '<em><b>Join Table Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Join Table Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Join Table Name</em>' attribute.
+	 * @see #setJoinTableName(String)
+	 * @see MDEMigratorCIMMetamodel.MDEMigratorCIMMetamodelPackage#getParentMapping_JoinTableName()
+	 * @model required="true"
+	 * @generated
+	 */
+	String getJoinTableName();
+
+	/**
+	 * Sets the value of the '{@link MDEMigratorCIMMetamodel.ParentMapping#getJoinTableName <em>Join Table Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Join Table Name</em>' attribute.
+	 * @see #getJoinTableName()
+	 * @generated
+	 */
+	void setJoinTableName(String value);
 
 } // ParentMapping
