@@ -282,7 +282,9 @@ public class HibernateController{
             [jRCM.name/] o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/] = iterator[jRCM.parentName.toUpperFirst()/].next();
             o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/].getSetOfParent[jRM.name/]().remove(o[jRM.name/]);
             hibernateSession.update(o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/]);
+			[if (anAnnotationStack.hasCorePSM.hasJavaRCManager->select(jRCManager : JavaResourceControllerManager | jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel->includes(jRCM)).JavaRCManagerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb = HTTPVerb::DELETE))]
 			cascadeDelete[jRCM.parentName/](o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/], hibernateSession);
+			[/if]
         }
 		[/for]
 		[/if]
@@ -318,7 +320,9 @@ public class HibernateController{
             	o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/].getSetOfParent[jRM.name/]().remove(o[jRM.name/]);
             	hibernateSession.update(o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/]);
 				System.out.println("Removed " + o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/].get[jRCM.parentName/]Id() + " [jRCM.parentName/]");
+				[if (anAnnotationStack.hasCorePSM.hasJavaRCManager->select(jRCManager : JavaResourceControllerManager | jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel->includes(jRCM)).JavaRCManagerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb = HTTPVerb::DELETE))]
 				cascadeDelete[jRCM.parentName/](o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/], hibernateSession);
+				[/if]
         	}
 		[/for]
 		}
