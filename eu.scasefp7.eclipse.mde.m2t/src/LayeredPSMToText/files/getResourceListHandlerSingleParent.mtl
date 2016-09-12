@@ -213,9 +213,9 @@ public class Get[jRCManager.parentName/]ListHandler{
 		[if (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() > 1)]
 		boolean bFoundRootResource = false;
 		[for (gpRC : JavaResourceController | anAnnotationStack.hasCorePSM.hasJavaRController->select(gParentRC : JavaResourceController | gParentRC.hasAssociatedJavaRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))) separator('\n        else')]
-		if(this.o[jPRM.name/].getSetOfParent[gpRC.name/]().isEmpty() == false && bFoundRootResource == false){
+		if(this.o[jPRM.name/].getSetOfParent[gpRC.hasAssociatedJavaRModel.name/]().isEmpty() == false && bFoundRootResource == false){
 			bFoundRootResource = true;
-        	oRelativePath = String.format("multi[jPRM.parentName/]/[gpRC.parentName/]/%d/%s", this.o[jPRM.name/].getSetOfParent[gpRC.name/]().iterator().next().get[gpRC.parentName/]Id(), this.strResourcePath);
+        	oRelativePath = String.format("multi[jPRM.parentName/]/[gpRC.parentName/]/%d/%s", this.o[jPRM.name/].getSetOfParent[gpRC.hasAssociatedJavaRModel.name/]().iterator().next().get[gpRC.parentName/]Id(), this.strResourcePath);
 		}
 		[/for]
 		[elseif (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() = 1)]
@@ -259,7 +259,7 @@ public class Get[jRCManager.parentName/]ListHandler{
 		[if (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() > 1)]
 		boolean bFoundRootResource = false;
 		[for (gpRC : JavaResourceController | anAnnotationStack.hasCorePSM.hasJavaRController->select(gParentRC : JavaResourceController | gParentRC.hasAssociatedJavaRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))) separator('\n        else')]
-		if(this.o[jPRM.name/].getSetOfParent[gpRC.name/]().isEmpty() == false && bFoundRootResource == false){
+		if(this.o[jPRM.name/].getSetOfParent[gpRC.hasAssociatedJavaRModel.name/]().isEmpty() == false && bFoundRootResource == false){
 			bFoundRootResource = true;
         	oRelativePath = String.format("multi[jPRM.parentName/]/[gpRC.parentName/]/%d/%s", this.o[jPRM.name/].getSetOfParent[gpRC.hasAssociatedJavaRModel.name/]().iterator().next().get[gpRC.parentName/]Id(), this.strResourcePath);
 		}

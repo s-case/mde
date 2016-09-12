@@ -254,7 +254,7 @@ public class Post[jRCManager.parentName/]Handler{
 		[for (gpRC : JavaResourceController | anAnnotationStack.hasCorePSM.hasJavaRController->select(gParentRC : JavaResourceController | gParentRC.hasAssociatedJavaRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))) separator('\n        else')]
 		if(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gpRC.hasAssociatedJavaRModel.name/]().isEmpty() == false && bFoundRootResource == false){
 			bFoundRootResource = true;
-        	oRelativePath = String.format("multi[jPRM.parentName/]/[gpRC.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gpRC.name/]().iterator().next().get[gpRC.parentName/]Id(), this.strResourcePath);
+        	oRelativePath = String.format("multi[jPRM.parentName/]/[gpRC.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gpRC.hasAssociatedJavaRModel.name/]().iterator().next().get[gpRC.parentName/]Id(), this.strResourcePath);
 		}
 		[/for]
 		[else]
