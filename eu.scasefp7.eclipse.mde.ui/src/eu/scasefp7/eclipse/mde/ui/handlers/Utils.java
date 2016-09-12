@@ -57,7 +57,7 @@ public class Utils
         // Figure out service name
         Boolean useProjectName = (store.getBoolean(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME));
         if (useProjectName) {
-            wsName = project.getName() + "Service";
+            wsName = project.getName() + "Api";
         }
 
         // Figure out output folder
