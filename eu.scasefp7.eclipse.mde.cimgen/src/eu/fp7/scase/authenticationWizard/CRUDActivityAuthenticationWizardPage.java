@@ -2,6 +2,7 @@ package eu.fp7.scase.authenticationWizard;
 
 import java.text.Collator;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
@@ -74,6 +75,9 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 	private Composite oApplyDefaultGrid;
 	private List oApplyDefaultAuthenticationModeList;
 	private Label oApplayDefaultLabel;
+	
+	//hashMap between sorted/unsorted resource list
+	private HashMap<Integer,Integer> sortedMap;
 
 	public CRUDActivityAuthenticationWizardPage(String strOutputFolder, RESTfulServiceCIM oRESTfulServiceCIM, AuthenticationLayerCIM.AnnotationModel oAuthenticationCIM, boolean bReloadExistingModels) {
 		  super("Select Authentication Model");
@@ -81,6 +85,7 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 		  this.oRESTfulServiceCIM = oRESTfulServiceCIM;
 		  this.oAuthenticationCIM = oAuthenticationCIM;
 		  this.oAuthenticationModes = new AuthenticationLayerCIM.AuthenticationMode[this.oRESTfulServiceCIM.getHasResources().size()][8];
+		  this.sortedMap = new HashMap<Integer, Integer>();
 		  this.bReloadExistingModels = bReloadExistingModels;
 	}
 
@@ -91,6 +96,8 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 		  this.oWizardPageGrid.setLayout(new GridLayout(1, false));
 		  this.oWizardPageGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		  this.oWizardPageGrid.pack();
+		  
+		  createMapping();
 		  
 		  initializeWizardPagesGrids(parent);
 		  initializeWizardPageWidgets(parent);
@@ -131,17 +138,17 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 			//check if its authentication mode already exists
 			if(authenticationModeExists(iCoreResourceIndex, CRUDVerb.CREATE)){
 				if(authenticationModeIsBothMode(iCoreResourceIndex, CRUDVerb.CREATE)){
-					this.oAuthenticationModes[iCoreResourceIndex][0] = this.oAuthenticationLayerCIMFactory.createBothMode();
-					this.oAuthenticationModes[iCoreResourceIndex][1] = null;
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][0] = this.oAuthenticationLayerCIMFactory.createBothMode();
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][1] = null;
 				}
 				else{
-					this.oAuthenticationModes[iCoreResourceIndex][0] = null;
-					this.oAuthenticationModes[iCoreResourceIndex][1] = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][0] = null;
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][1] = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
 				}
 			}
 			else{
-				this.oAuthenticationModes[iCoreResourceIndex][0] = null;
-				this.oAuthenticationModes[iCoreResourceIndex][1] = null;
+				this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][0] = null;
+				this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][1] = null;
 			}
 		}
 		
@@ -150,17 +157,17 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 			//check if its authentication mode already exists
 			if(authenticationModeExists(iCoreResourceIndex, CRUDVerb.READ)){
 				if(authenticationModeIsBothMode(iCoreResourceIndex, CRUDVerb.READ)){
-					this.oAuthenticationModes[iCoreResourceIndex][2] = this.oAuthenticationLayerCIMFactory.createBothMode();
-					this.oAuthenticationModes[iCoreResourceIndex][3] = null;
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][2] = this.oAuthenticationLayerCIMFactory.createBothMode();
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][3] = null;
 				}
 				else{
-					this.oAuthenticationModes[iCoreResourceIndex][2] = null;
-					this.oAuthenticationModes[iCoreResourceIndex][3] = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][2] = null;
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][3] = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
 				}
 			}
 			else{
-				this.oAuthenticationModes[iCoreResourceIndex][2] = null;
-				this.oAuthenticationModes[iCoreResourceIndex][3] = null;
+				this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][2] = null;
+				this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][3] = null;
 			}			
 		}
 		
@@ -169,17 +176,17 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 			//check if its authentication mode already exists
 			if(authenticationModeExists(iCoreResourceIndex, CRUDVerb.UPDATE)){
 				if(authenticationModeIsBothMode(iCoreResourceIndex, CRUDVerb.UPDATE)){
-					this.oAuthenticationModes[iCoreResourceIndex][4] = this.oAuthenticationLayerCIMFactory.createBothMode();
-					this.oAuthenticationModes[iCoreResourceIndex][5] = null;
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][4] = this.oAuthenticationLayerCIMFactory.createBothMode();
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][5] = null;
 				}
 				else{
-					this.oAuthenticationModes[iCoreResourceIndex][4] = null;
-					this.oAuthenticationModes[iCoreResourceIndex][5] = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][4] = null;
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][5] = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
 				}
 			}
 			else{
-				this.oAuthenticationModes[iCoreResourceIndex][4] = null;
-				this.oAuthenticationModes[iCoreResourceIndex][5] = null;
+				this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][4] = null;
+				this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][5] = null;
 			}			
 		}
 		
@@ -188,17 +195,17 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 			//check if its authentication mode already exists
 			if(authenticationModeExists(iCoreResourceIndex, CRUDVerb.DELETE)){
 				if(authenticationModeIsBothMode(iCoreResourceIndex, CRUDVerb.DELETE)){
-					this.oAuthenticationModes[iCoreResourceIndex][6] = this.oAuthenticationLayerCIMFactory.createBothMode();
-					this.oAuthenticationModes[iCoreResourceIndex][7] = null;
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][6] = this.oAuthenticationLayerCIMFactory.createBothMode();
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][7] = null;
 				}
 				else{
-					this.oAuthenticationModes[iCoreResourceIndex][6] = null;
-					this.oAuthenticationModes[iCoreResourceIndex][7] = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][6] = null;
+					this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][7] = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
 				}
 			}
 			else{
-				this.oAuthenticationModes[iCoreResourceIndex][6] = null;
-				this.oAuthenticationModes[iCoreResourceIndex][7] = null;
+				this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][6] = null;
+				this.oAuthenticationModes[this.sortedMap.get(iCoreResourceIndex)][7] = null;
 			}				
 		}
 		
@@ -311,6 +318,32 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 		this.oResourcePromtList.setLocation(20, 35);
 		addResourcePromtlListListener();
 		this.oResourcePromtGroup.pack();
+	}
+	
+	private void createMapping(){
+		ArrayList<String> listOfStrings = new ArrayList<String>();
+		
+		for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
+			listOfStrings.add(this.oRESTfulServiceCIM.getHasResources().get(i).getName());
+		}
+		
+		java.util.Collections.sort(listOfStrings, Collator.getInstance());
+		Iterator<String> iterator = listOfStrings.iterator();
+		Integer iSortPosition = 0;
+		while(iterator.hasNext()){
+			String strNextResourceName = iterator.next();
+			for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
+				if(this.oRESTfulServiceCIM.getHasResources().get(i).getName().equalsIgnoreCase(strNextResourceName)){
+					this.sortedMap.put(i, iSortPosition);
+					break;
+				}
+			}
+			iSortPosition++;
+		}
+		
+		for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
+			System.out.println("Resource " + this.oRESTfulServiceCIM.getHasResources().get(i).getName() + " should appear at position " + this.sortedMap.get(i));
+		}
 	}
 	
 	private void initializeCRUDActivityAuthModeWidgets(){
@@ -470,14 +503,14 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 	private void setSelectedCRUDActivitiesMode(String strSelectedResourceName){
 		for(int i = 0; i < this.oRESTfulServiceCIM.getHasResources().size(); i++){
 			if(this.oRESTfulServiceCIM.getHasResources().get(i).getName().equalsIgnoreCase(strSelectedResourceName)){
-				this.oCreateActivityAllButton.setSelection((this.oAuthenticationModes[i][0] != null ? true : false)) ;
-				this.oCreateActivityAuthenticatedButton.setSelection((this.oAuthenticationModes[i][1] != null ? true : false)) ;
-				this.oReadActivityAllButton.setSelection((this.oAuthenticationModes[i][2] != null ? true : false)) ;
-				this.oReadActivityAuthenticatedButton.setSelection((this.oAuthenticationModes[i][3] != null ? true : false)) ;
-				this.oUpdateActivityAllButton.setSelection((this.oAuthenticationModes[i][4] != null ? true : false)) ;
-				this.oUpdateActivityAuthenticatedButton.setSelection((this.oAuthenticationModes[i][5] != null ? true : false)) ;
-				this.oDeleteActivityAllButton.setSelection((this.oAuthenticationModes[i][6] != null ? true : false)) ;
-				this.oDeleteActivityAuthenticatedButton.setSelection((this.oAuthenticationModes[i][7] != null ? true : false)) ;
+				this.oCreateActivityAllButton.setSelection((this.oAuthenticationModes[this.sortedMap.get(i)][0] != null ? true : false)) ;
+				this.oCreateActivityAuthenticatedButton.setSelection((this.oAuthenticationModes[this.sortedMap.get(i)][1] != null ? true : false)) ;
+				this.oReadActivityAllButton.setSelection((this.oAuthenticationModes[this.sortedMap.get(i)][2] != null ? true : false)) ;
+				this.oReadActivityAuthenticatedButton.setSelection((this.oAuthenticationModes[this.sortedMap.get(i)][3] != null ? true : false)) ;
+				this.oUpdateActivityAllButton.setSelection((this.oAuthenticationModes[this.sortedMap.get(i)][4] != null ? true : false)) ;
+				this.oUpdateActivityAuthenticatedButton.setSelection((this.oAuthenticationModes[this.sortedMap.get(i)][5] != null ? true : false)) ;
+				this.oDeleteActivityAllButton.setSelection((this.oAuthenticationModes[this.sortedMap.get(i)][6] != null ? true : false)) ;
+				this.oDeleteActivityAuthenticatedButton.setSelection((this.oAuthenticationModes[this.sortedMap.get(i)][7] != null ? true : false)) ;
 			}
 		}
 	}
@@ -608,25 +641,25 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 		//this page is completed if and only if every CRUD activity is assigned an authentication mode;
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			if(hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(n), CRUDVerb.CREATE)){
-				if(this.oAuthenticationModes[n][0] == null && this.oAuthenticationModes[n][1] == null){
+				if(this.oAuthenticationModes[sortedMap.get(n)][0] == null && this.oAuthenticationModes[sortedMap.get(n)][1] == null){
 					return false;
 				}
 			}
 			
 			if(hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(n), CRUDVerb.READ)){
-				if(this.oAuthenticationModes[n][2] == null && this.oAuthenticationModes[n][3] == null){
+				if(this.oAuthenticationModes[sortedMap.get(n)][2] == null && this.oAuthenticationModes[sortedMap.get(n)][3] == null){
 					return false;
 				}
 			}
 			
 			if(hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(n), CRUDVerb.UPDATE)){
-				if(this.oAuthenticationModes[n][4] == null && this.oAuthenticationModes[n][5] == null){
+				if(this.oAuthenticationModes[sortedMap.get(n)][4] == null && this.oAuthenticationModes[sortedMap.get(n)][5] == null){
 					return false;
 				}
 			}
 			
 			if(hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(n), CRUDVerb.DELETE)){
-				if(this.oAuthenticationModes[n][6] == null && this.oAuthenticationModes[n][7] == null){
+				if(this.oAuthenticationModes[sortedMap.get(n)][6] == null && this.oAuthenticationModes[sortedMap.get(n)][7] == null){
 					return false;
 				}
 			}
@@ -639,44 +672,44 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 		for(int n = 0; n < this.oRESTfulServiceCIM.getHasResources().size(); n++){
 			if(oSelectedAuthenticationModeName.equalsIgnoreCase("All")){
 				if(hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(n), CRUDVerb.CREATE)){
-					this.oAuthenticationModes[n][0] = oAuthenticationLayerCIMFactory.createBothMode();
-					this.oAuthenticationModes[n][1] = null;
+					this.oAuthenticationModes[sortedMap.get(n)][0] = oAuthenticationLayerCIMFactory.createBothMode();
+					this.oAuthenticationModes[sortedMap.get(n)][1] = null;
 				}
 				
 				if(hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(n), CRUDVerb.READ)){
-					this.oAuthenticationModes[n][2] = oAuthenticationLayerCIMFactory.createBothMode();
-					this.oAuthenticationModes[n][3] = null;
+					this.oAuthenticationModes[sortedMap.get(n)][2] = oAuthenticationLayerCIMFactory.createBothMode();
+					this.oAuthenticationModes[sortedMap.get(n)][3] = null;
 				}
 				
 				if(hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(n), CRUDVerb.UPDATE)){
-					this.oAuthenticationModes[n][4] = oAuthenticationLayerCIMFactory.createBothMode();
-					this.oAuthenticationModes[n][5] = null;
+					this.oAuthenticationModes[sortedMap.get(n)][4] = oAuthenticationLayerCIMFactory.createBothMode();
+					this.oAuthenticationModes[sortedMap.get(n)][5] = null;
 				}
 				
 				if(hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(n), CRUDVerb.DELETE)){
-					this.oAuthenticationModes[n][6] = oAuthenticationLayerCIMFactory.createBothMode();
-					this.oAuthenticationModes[n][7] = null;
+					this.oAuthenticationModes[sortedMap.get(n)][6] = oAuthenticationLayerCIMFactory.createBothMode();
+					this.oAuthenticationModes[sortedMap.get(n)][7] = null;
 				}
 			}
 			else{ //set everything to authenticated only mode
 				if(hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(n), CRUDVerb.CREATE)){
-					this.oAuthenticationModes[n][0] = null;
-					this.oAuthenticationModes[n][1] = oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
+					this.oAuthenticationModes[sortedMap.get(n)][0] = null;
+					this.oAuthenticationModes[sortedMap.get(n)][1] = oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
 				}
 				
 				if(hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(n), CRUDVerb.READ)){
-					this.oAuthenticationModes[n][2] = null;
-					this.oAuthenticationModes[n][3] = oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
+					this.oAuthenticationModes[sortedMap.get(n)][2] = null;
+					this.oAuthenticationModes[sortedMap.get(n)][3] = oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
 				}
 				
 				if(hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(n), CRUDVerb.UPDATE)){
-					this.oAuthenticationModes[n][4] = null;
-					this.oAuthenticationModes[n][5] = oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
+					this.oAuthenticationModes[sortedMap.get(n)][4] = null;
+					this.oAuthenticationModes[sortedMap.get(n)][5] = oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
 				}
 				
 				if(hasActivityType(this.oRESTfulServiceCIM.getHasResources().get(n), CRUDVerb.DELETE)){
-					this.oAuthenticationModes[n][6] = null;
-					this.oAuthenticationModes[n][7] = oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
+					this.oAuthenticationModes[sortedMap.get(n)][6] = null;
+					this.oAuthenticationModes[sortedMap.get(n)][7] = oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
 				}
 			}
 		}
@@ -703,7 +736,7 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 	}
 	
 	private void addCreateActivityAuthenticationMode(Resource oCIMResource, int iResourceIndex){
-		if(this.oAuthenticationModes[iResourceIndex][1] != null){ //if user selected Only_Authenticated mode
+		if(this.oAuthenticationModes[sortedMap.get(iResourceIndex)][1] != null){ //if user selected Only_Authenticated mode
 			AuthenticationOnlyMode oAuthenticationOnlyMode = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
 			AnnCRUDActivity oAnnCRUDActivity = this.oAuthenticationLayerCIMFactory.createAnnCRUDActivity();
 			oAuthenticationOnlyMode.setCRUDActivityAuthenticationMode(oAnnCRUDActivity);
@@ -726,7 +759,7 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 	}
 	
 	private void addReadActivityAuthenticationMode(Resource oCIMResource, int iResourceIndex){
-		if(this.oAuthenticationModes[iResourceIndex][3] != null){ //if user selected Only_Authenticated mode
+		if(this.oAuthenticationModes[sortedMap.get(iResourceIndex)][3] != null){ //if user selected Only_Authenticated mode
 			AuthenticationOnlyMode oAuthenticationOnlyMode = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
 			AnnCRUDActivity oAnnCRUDActivity = this.oAuthenticationLayerCIMFactory.createAnnCRUDActivity();
 			oAuthenticationOnlyMode.setCRUDActivityAuthenticationMode(oAnnCRUDActivity);
@@ -749,7 +782,7 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 	}
 	
 	private void addUpdateActivityAuthenticationMode(Resource oCIMResource, int iResourceIndex){
-		if(this.oAuthenticationModes[iResourceIndex][5] != null){ //if user selected Only_Authenticated mode
+		if(this.oAuthenticationModes[sortedMap.get(iResourceIndex)][5] != null){ //if user selected Only_Authenticated mode
 			AuthenticationOnlyMode oAuthenticationOnlyMode = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
 			AnnCRUDActivity oAnnCRUDActivity = this.oAuthenticationLayerCIMFactory.createAnnCRUDActivity();
 			oAuthenticationOnlyMode.setCRUDActivityAuthenticationMode(oAnnCRUDActivity);
@@ -772,7 +805,7 @@ public class CRUDActivityAuthenticationWizardPage extends WizardPage {
 	}
 	
 	private void addDeleteActivityAuthenticationMode(Resource oCIMResource, int iResourceIndex){
-		if(this.oAuthenticationModes[iResourceIndex][7] != null){ //if user selected Only_Authenticated mode
+		if(this.oAuthenticationModes[sortedMap.get(iResourceIndex)][7] != null){ //if user selected Only_Authenticated mode
 			AuthenticationOnlyMode oAuthenticationOnlyMode = this.oAuthenticationLayerCIMFactory.createAuthenticationOnlyMode();
 			AnnCRUDActivity oAnnCRUDActivity = this.oAuthenticationLayerCIMFactory.createAnnCRUDActivity();
 			oAuthenticationOnlyMode.setCRUDActivityAuthenticationMode(oAnnCRUDActivity);
