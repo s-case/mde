@@ -169,7 +169,28 @@ public class HibernateController{
                         if(strOptionalAddRelation.equalsIgnoreCase("true")){ //then a relation must be added
                             [jRM.name/] oOld[jRM.name/] = ([jRM.name/]) hibernateSession.get([jRM.name/].class, o[jRM.name/].get[jRM.parentName/]Id());
 							[for (jPRModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(jParentRM | jParentRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM)))]
+                            o[jRM.name/].getSetOfParent[jPRModel.name/]().clear();
                             o[jRM.name/].getSetOfParent[jPRModel.name/]().addAll(oOld[jRM.name/].getSetOfParent[jPRModel.name/]());
+							[if (jPRModel.parentName.equalsIgnoreCase(jPRM.parentName))]
+
+                            [jPRM.name/] oNew[jPRM.name/] = new [jPRM.name/]();
+                            oNew[jPRM.name/].set[jPRM.parentName/]Id(iOptionalResourceId);
+
+							Boolean bRelationAlreadyExists = false;
+							Iterator<[jPRM.name/]> iterator = oOld[jRM.name/].getSetOfParent[jPRM.name/]().iterator();
+
+                            while(iterator.hasNext()){
+                                [jPRM.name/] oParent[jPRM.name/] = iterator.next();
+                                if(oParent[jPRM.name/].get[jPRM.parentName/]Id() == iOptionalResourceId){
+                                    bRelationAlreadyExists = true;
+									break;
+                                }
+                            }
+							
+							if(bRelationAlreadyExists == false){
+                            	o[jRM.name/].getSetOfParent[jPRM.name/]().add(oNew[jPRM.name/]);
+							}
+							[/if]
 							[/for]
                             hibernateTransaction.commit();
                             hibernateSession.close();

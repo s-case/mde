@@ -63,7 +63,7 @@ public class Put[jRC.parentName/]Handler{
     private String strOptionalRelationName;
     private Integer iOptionalResourceId;
     private String strOptionalAddRelation;
-    private final List<String> listOfParentResources = Arrays.asList("[jPRM.parentName/]");
+    private final List<String> listOfParentResources = Arrays.asList([for (jPM : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(jParentRModel | jParentRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRC.hasAssociatedJavaRModel))) separator(', ')]"[jPM.parentName/]"[/for]);
     private final List<String> listOfChildrenResources = Arrays.asList([for (jCRM : JavaResourceModel | jRC.hasAssociatedJavaRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel) separator(', ')]"[jCRM.parentName/]"[/for]);
 	[if (anAnnotationStack.bHasAuthenticationAnnotation)]
 	[if (anAnnotationStack.hasGuestMode(jRC.parentName) = false)]
