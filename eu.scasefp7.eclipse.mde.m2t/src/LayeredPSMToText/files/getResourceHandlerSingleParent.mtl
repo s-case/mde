@@ -26,7 +26,7 @@
 
 package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jRC.parentName/];
 
-
+import java.util.Iterator;
 import javax.ws.rs.core.UriInfo;
 [if (anAnnotationStack.bHasAuthenticationAnnotation)]
 [if (anAnnotationStack.hasGuestMode(jRC.parentName) = false)]
@@ -45,6 +45,10 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities
 
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.HypermediaLink;
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.HibernateController;
+
+[for (CRUDResource : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel)]
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[CRUDResource.parentName.toLowerCase()/].[CRUDResource.name/];
+[/for]
 
 /* This class processes GET requests for [jRC.parentName/] resources and creates the hypermedia to be returned to the client*/
 public class Get[jRC.parentName/]Handler{
@@ -248,6 +252,69 @@ public class Get[jRC.parentName/]Handler{
         o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), this.strResourcePath).substring(0, iLastSlashIndex), "Create a new [jRC.parentName/]", "POST", "Parent"));
         o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), this.strResourcePath).substring(0, iLastSlashIndex), "Get all [jRC.parentName/]s of this [jPRM.parentName/]", "GET", "Parent"));
 
+
+		/*Add any hypermedia link to specific parent resources*/
+		[if (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() > 1)]
+        [jRC.hasAssociatedJavaRModel.name/] oParentsOf[jRC.hasAssociatedJavaRModel.name/] = HibernateController.getHibernateControllerHandle().get[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/]);
+		Iterator<[jPRM.name/]> iteratorOfParent[jPRM.parentName/] = oParentsOf[jRC.hasAssociatedJavaRModel.name/].getSetOfParent[jPRM.name/]().iterator();
+
+		while(iteratorOfParent[jPRM.parentName/].hasNext()){
+			[jPRM.name/] oParent[jPRM.name/] = iteratorOfParent[jPRM.parentName/].next();
+			oParent[jPRM.name/] = HibernateController.getHibernateControllerHandle().get[jPRM.parentName/](oParent[jPRM.name/]);
+
+			[for (gpRC : JavaResourceController | anAnnotationStack.hasCorePSM.hasJavaRController->select(gParentRC : JavaResourceController | gParentRC.hasAssociatedJavaRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))) separator('\n        else')]
+			if(oParent[jPRM.name/].getSetOfParent[gpRC.hasAssociatedJavaRModel.name/]().isEmpty() == false && oParent[jPRM.name/].getSetOfParent[gpRC.hasAssociatedJavaRModel.name/]() != null){
+				[gpRC.hasAssociatedJavaRModel.name/] oGParent[gpRC.hasAssociatedJavaRModel.name/] = oParent[jPRM.name/].getSetOfParent[gpRC.hasAssociatedJavaRModel.name/]().iterator().next();
+				[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::GET)))]
+				o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti%s/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRM.parentName/]", "[gpRC.parentName/]", oGParent[gpRC.hasAssociatedJavaRModel.name/].get[gpRC.parentName/]Id(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "GET", "Parent"));
+				[/if]
+				[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::PUT)))]
+				o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti%s/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRM.parentName/]", "[gpRC.parentName/]", oGParent[gpRC.hasAssociatedJavaRModel.name/].get[gpRC.parentName/]Id(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "PUT", "Parent"));
+				[/if]
+				[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::DELETE)))]
+				o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti%s/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRM.parentName/]", "[gpRC.parentName/]", oGParent[gpRC.hasAssociatedJavaRModel.name/].get[gpRC.parentName/]Id(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "DELETE", "Parent"));
+				[/if]
+			}
+			[/for]
+		}
+		[elseif (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() = 1)]
+		[let gPModel : JavaResourceModel = anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->at(1)]
+        [jRC.hasAssociatedJavaRModel.name/] oParentsOf[jRC.hasAssociatedJavaRModel.name/] = HibernateController.getHibernateControllerHandle().get[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/]);
+		Iterator<[jPRM.name/]> iteratorOfParent[jPRM.parentName/] = oParentsOf[jRC.hasAssociatedJavaRModel.name/].getSetOfParent[jPRM.name/]().iterator();
+
+		while(iteratorOfParent[jPRM.parentName/].hasNext()){
+			[jPRM.name/] oParent[jPRM.name/] = iteratorOfParent[jPRM.parentName/].next();
+			oParent[jPRM.name/] = HibernateController.getHibernateControllerHandle().get[jPRM.parentName/](oParent[jPRM.name/]);
+			[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::GET)))]
+			o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[gPModel.parentName/]", oParent[jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "GET", "Parent"));
+			[/if]
+			[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::PUT)))]
+			o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[gPModel.parentName/]", oParent[jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "PUT", "Parent"));
+			[/if]
+			[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::DELETE)))]
+			o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[gPModel.parentName/]", oParent[jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "DELETE", "Parent"));
+			[/if]
+		}
+		[/let]
+		[else]
+        [jRC.hasAssociatedJavaRModel.name/] oParentsOf[jRC.hasAssociatedJavaRModel.name/] = HibernateController.getHibernateControllerHandle().get[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/]);
+		Iterator<[jPRM.name/]> iteratorOfParent[jPRM.parentName/] = oParentsOf[jRC.hasAssociatedJavaRModel.name/].getSetOfParent[jPRM.name/]().iterator();
+
+		while(iteratorOfParent[jPRM.parentName/].hasNext()){
+			[jPRM.name/] oParent[jPRM.name/] = iteratorOfParent[jPRM.parentName/].next();
+			[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::GET)))]
+			o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "GET", "Parent"));
+			[/if]
+			[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::PUT)))]
+			o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "PUT", "Parent"));
+			[/if]
+			[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::DELETE)))]
+			o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "DELETE", "Parent"));
+			[/if]
+		}
+		[/if]
+
+
 [/template]
 
 [template public createHypermediaBasicAuthChecks(anAnnotationStack : AnnotationStack, httpVerb : HTTPVerb, jRC : JavaResourceController, jPRM : JavaResourceModel)]
@@ -296,6 +363,85 @@ public class Get[jRC.parentName/]Handler{
         o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), this.strResourcePath).substring(0, iLastSlashIndex), "Create a new [jRC.parentName/]", "POST", "Parent"));
 			[/if]
         o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), this.strResourcePath).substring(0, iLastSlashIndex), "Get all [jRC.parentName/]s of this [jPRM.parentName/]", "GET", "Parent"));
+
+		/*Add any hypermedia link to specific parent resources*/
+		[if (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() > 1)]
+        [jRC.hasAssociatedJavaRModel.name/] oParentsOf[jRC.hasAssociatedJavaRModel.name/] = HibernateController.getHibernateControllerHandle().get[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/]);
+		Iterator<[jPRM.name/]> iteratorOfParent[jPRM.parentName/] = oParentsOf[jRC.hasAssociatedJavaRModel.name/].getSetOfParent[jPRM.name/]().iterator();
+
+		while(iteratorOfParent[jPRM.parentName/].hasNext()){
+			[jPRM.name/] oParent[jPRM.name/] = iteratorOfParent[jPRM.parentName/].next();
+			oParent[jPRM.name/] = HibernateController.getHibernateControllerHandle().get[jPRM.parentName/](oParent[jPRM.name/]);
+
+			[for (gpRC : JavaResourceController | anAnnotationStack.hasCorePSM.hasJavaRController->select(gParentRC : JavaResourceController | gParentRC.hasAssociatedJavaRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))) separator('\n        else')]
+			if(oParent[jPRM.name/].getSetOfParent[gpRC.hasAssociatedJavaRModel.name/]().isEmpty() == false && oParent[jPRM.name/].getSetOfParent[gpRC.hasAssociatedJavaRModel.name/]() != null){
+				[gpRC.hasAssociatedJavaRModel.name/] oGParent[gpRC.hasAssociatedJavaRModel.name/] = oParent[jPRM.name/].getSetOfParent[gpRC.hasAssociatedJavaRModel.name/]().iterator().next();
+				[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::GET)))]
+					[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRM.parentName, 'Get') = false)]
+				o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti%s/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRM.parentName/]", "[gpRC.parentName/]", oGParent[gpRC.hasAssociatedJavaRModel.name/].get[gpRC.parentName/]Id(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "GET", "Parent"));
+					[/if]
+				[/if]
+				[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::PUT)))]
+					[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRM.parentName, 'Put') = false)]	
+				o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti%s/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRM.parentName/]", "[gpRC.parentName/]", oGParent[gpRC.hasAssociatedJavaRModel.name/].get[gpRC.parentName/]Id(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "PUT", "Parent"));
+					[/if]
+				[/if]
+				[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::DELETE)))]
+					[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRM.parentName, 'Delete') = false)]
+				o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti%s/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRM.parentName/]", "[gpRC.parentName/]", oGParent[gpRC.hasAssociatedJavaRModel.name/].get[gpRC.parentName/]Id(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "DELETE", "Parent"));
+					[/if]
+				[/if]
+			}
+			[/for]
+		}
+		[elseif (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() = 1)]
+		[let gPModel : JavaResourceModel = anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->at(1)]
+        [jRC.hasAssociatedJavaRModel.name/] oParentsOf[jRC.hasAssociatedJavaRModel.name/] = HibernateController.getHibernateControllerHandle().get[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/]);
+		Iterator<[jPRM.name/]> iteratorOfParent[jPRM.parentName/] = oParentsOf[jRC.hasAssociatedJavaRModel.name/].getSetOfParent[jPRM.name/]().iterator();
+
+		while(iteratorOfParent[jPRM.parentName/].hasNext()){
+			[jPRM.name/] oParent[jPRM.name/] = iteratorOfParent[jPRM.parentName/].next();
+			oParent[jPRM.name/] = HibernateController.getHibernateControllerHandle().get[jPRM.parentName/](oParent[jPRM.name/]);
+			[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::GET)))]
+				[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRM.parentName, 'Get') = false)]
+			o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[gPModel.parentName/]", oParent[jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "GET", "Parent"));
+				[/if]
+			[/if]
+			[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::PUT)))]
+				[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRM.parentName, 'Put') = false)]
+			o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[gPModel.parentName/]", oParent[jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "PUT", "Parent"));
+				[/if]
+			[/if]
+			[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::DELETE)))]
+				[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRM.parentName, 'Delete') = false)]
+			o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[gPModel.parentName/]", oParent[jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "DELETE", "Parent"));
+				[/if]
+			[/if]
+		}
+		[/let]
+		[else]
+        [jRC.hasAssociatedJavaRModel.name/] oParentsOf[jRC.hasAssociatedJavaRModel.name/] = HibernateController.getHibernateControllerHandle().get[jRC.parentName/](o[jRC.hasAssociatedJavaRModel.name/]);
+		Iterator<[jPRM.name/]> iteratorOfParent[jPRM.parentName/] = oParentsOf[jRC.hasAssociatedJavaRModel.name/].getSetOfParent[jPRM.name/]().iterator();
+
+		while(iteratorOfParent[jPRM.parentName/].hasNext()){
+			[jPRM.name/] oParent[jPRM.name/] = iteratorOfParent[jPRM.parentName/].next();
+			[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::GET)))]
+				[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRM.parentName, 'Get') = false)]
+			o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "GET", "Parent"));
+				[/if]
+			[/if]
+			[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::PUT)))]
+				[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRM.parentName, 'Put') = false)]
+			o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "PUT", "Parent"));
+				[/if]
+			[/if]
+			[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(pJRController : JavaResourceController | pJRController.hasAssociatedJavaRModel->includes(jPRM))->at(1).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::DELETE)))]
+				[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRM.parentName, 'Delete') = false)]
+			o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[jPRM.parentName/]", oParent[jPRM.name/].get[jPRM.parentName/]Id()), "[jPRM.parentName/]", "DELETE", "Parent"));
+				[/if]
+			[/if]
+		}
+		[/if]
 
 [/template]
 

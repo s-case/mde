@@ -370,6 +370,11 @@ public class HibernateController{
         /* Find the [jPRModel.parentName/] of which the [jRM.parentName/] resource list is needed*/
         o[jPRModel.name/] = ([jPRModel.name/]) hibernateSession.get([jPRModel.name/].class, o[jPRModel.name/].get[jPRModel.parentName/]Id());
 		Hibernate.initialize(o[jPRModel.name/].getSetOf[jRM.name/]());
+		[if (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRModel))->size() > 1)]
+			    [for (jGPModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(javaGPRModel : JavaResourceModel | javaGPRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRModel)))]
+		Hibernate.initialize(o[jPRModel.name/].getSetOfParent[jGPModel.name/]());	
+				[/for]
+		[/if]
 
         /* Commit and terminate the session*/
         hibernateTransaction.commit();
