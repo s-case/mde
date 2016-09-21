@@ -152,7 +152,7 @@ public class HibernateController{
     }
 	
 	[/if]
-	[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(jRController : JavaResourceController | jRController.hasAssociatedJavaRModel->includes(jRM)).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb = HTTPVerb::PUT))]
+	[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(jRController : JavaResourceController | jRController.hasAssociatedJavaRModel->includes(jRM)).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb = HTTPVerb::PUT) or strDBMigrator.size() > 0)]
     /* This function handles the low level hibernate activities so as to update an existing [jRM.parentName/] resource of the service database.*/
     public [jRM.name/] put[jRM.parentName/]([jRM.name/] o[jRM.name/], String strOptionalUpdateRelations, String strOptionalUpdateParent, String strOptionalRelationName, String strOptionalAddRelation, Integer iOptionalResourceId){
 
