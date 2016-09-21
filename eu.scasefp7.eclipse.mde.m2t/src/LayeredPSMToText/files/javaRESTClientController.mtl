@@ -23,7 +23,7 @@
 */
 
 
-package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoRController.parentName/];
+package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoRController.parentName.toLowerCase()/];
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -42,7 +42,7 @@ import javax.ws.rs.QueryParam;
 
 [if (jAlgoRController.hasNoOutputModel(anAnnotationStack) = false)]
 [if (jAlgoRController.hasExistentCRUDResourceOutputModel(anAnnotationStack))]
-import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoRController.getExistentCRUDResourceOutputModel(anAnnotationStack).isExistentJavaModelPersistentOutput.annotatesJavaResourceModel.parentName/].[jAlgoRController.getExistentCRUDResourceOutputModelAsString(anAnnotationStack)/];
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoRController.getExistentCRUDResourceOutputModel(anAnnotationStack).isExistentJavaModelPersistentOutput.annotatesJavaResourceModel.parentName.toLowerCase()/].[jAlgoRController.getExistentCRUDResourceOutputModelAsString(anAnnotationStack)/];
 [/if]
 [/if]
 

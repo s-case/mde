@@ -3,7 +3,7 @@
 
 
 [template public deleteResourceHandlerMultipleParents(anAnnotationStack : AnnotationStack, httpVerb : HTTPVerb, jRC : JavaResourceController, jPRM : JavaResourceModel)]
-[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jRC.parentName + '/' + 'Delete' + jPRM.parentName + jRC.parentName + 'Handler.java', false, 'UTF-8')]
+[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jRC.parentName.toLowerCase() + '/' + 'Delete' + jPRM.parentName + jRC.parentName + 'Handler.java', false, 'UTF-8')]
 /*
  * ARISTOTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015
@@ -24,7 +24,7 @@
 */
 
 
-package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jRC.parentName/];
+package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jRC.parentName.toLowerCase()/];
 
 
 import javax.ws.rs.core.UriInfo;
@@ -33,7 +33,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import com.sun.jersey.core.util.Base64;
-import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelName/];
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toLowerCase()/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelName/];
 [/if]
 [/if]
 

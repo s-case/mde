@@ -3,7 +3,7 @@
 
 
 [template public javaRESTClientHTTPActivityHandler(anAnnotationStack : AnnotationStack, jAlgoResourceController : JavaAlgoResourceController)]
-[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jAlgoResourceController.parentName + '/' + jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.ActivityHTTPVerb.toString().toLower().toUpperFirst()  + jAlgoResourceController.parentName + 'Handler.java', false, 'UTF-8')]
+[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jAlgoResourceController.parentName.toLowerCase() + '/' + jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.ActivityHTTPVerb.toString().toLower().toUpperFirst()  + jAlgoResourceController.parentName + 'Handler.java', false, 'UTF-8')]
 /*
  * ARISTOTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015
@@ -23,7 +23,7 @@
 * Contact			   : christopherzolotas@issel.ee.auth.gr
 */
 
-package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoResourceController.parentName/];
+package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoResourceController.parentName.toLowerCase()/];
 
 import java.util.Iterator;
 import java.util.List;
@@ -43,7 +43,7 @@ import com.sun.jersey.api.json.JSONConfiguration;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import com.sun.jersey.core.util.Base64;
-import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelName/];
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toLowerCase()/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelName/];
 [/if]
 [/if]
 
@@ -52,7 +52,7 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities
 
 [if (jAlgoResourceController.hasNoOutputModel(anAnnotationStack) = false)]
 [if (jAlgoResourceController.hasExistentCRUDResourceOutputModel(anAnnotationStack))]
-import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoResourceController.getExistentCRUDResourceOutputModel(anAnnotationStack).isExistentJavaModelPersistentOutput.annotatesJavaResourceModel.parentName/].[jAlgoResourceController.getExistentCRUDResourceOutputModelAsString(anAnnotationStack)/];
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoResourceController.getExistentCRUDResourceOutputModel(anAnnotationStack).isExistentJavaModelPersistentOutput.annotatesJavaResourceModel.parentName.toLowerCase()/].[jAlgoResourceController.getExistentCRUDResourceOutputModelAsString(anAnnotationStack)/];
 [/if]
 [/if]
 

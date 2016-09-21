@@ -4,7 +4,7 @@
 [template public javaResourceModel(anAnnotationStack : AnnotationStack, strDBMigrator : String)]
 
 [for (jRModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel)]
-[file (anAnnotationStack.hasCorePSM.name + strDBMigrator + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jRModel.parentName + '/' + jRModel.name + '.java', false, 'UTF-8')]
+[file (anAnnotationStack.hasCorePSM.name + strDBMigrator + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jRModel.parentName.toLowerCase() + '/' + jRModel.name + '.java', false, 'UTF-8')]
 /*
  * ARISTOTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015
@@ -25,7 +25,7 @@
 */
 
 
-package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jRModel.parentName/];
+package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jRModel.parentName.toLowerCase()/];
 
 
 import java.util.ArrayList;
@@ -89,20 +89,20 @@ import org.hibernate.annotations.ForeignKey;
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.HypermediaLink;
 [for (jRRModel : JavaResourceModel | jRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel)]
 [if (jRRModel <> jRModel)]
-import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jRRModel.parentName/].[jRRModel.name/];
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jRRModel.parentName.toLowerCase()/].[jRRModel.name/];
 [/if]
 [/for]
 [if(anAnnotationStack.getAuthorizationSubjectModel() = jRModel)]
 [for(jRRModel : JavaResourceModel | anAnnotationStack.getTrackOwnershipResources(jRModel))]
-import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jRRModel.parentName/].[jRRModel.name/];
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jRRModel.parentName.toLowerCase()/].[jRRModel.name/];
 [/for]
 [/if]
 [if(anAnnotationStack.bHasAuthorizationLayer)]
-import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[anAnnotationStack.getAuthorizationSubjectModel().parentName/].[anAnnotationStack.getAuthorizationSubjectModel().name/];
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[anAnnotationStack.getAuthorizationSubjectModel().parentName.toLowerCase()/].[anAnnotationStack.getAuthorizationSubjectModel().name/];
 [/if]
 [for (jPRModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel)]
 [if (jPRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRModel) and jPRModel <> jRModel)]
-import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jPRModel.parentName/].[jPRModel.name/];
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jPRModel.parentName.toLowerCase()/].[jPRModel.name/];
 [/if]
 [/for]
 

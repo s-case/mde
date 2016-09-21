@@ -8,7 +8,7 @@
 [template public javaAlgoResourceModel(anAnnotationStack : AnnotationStack)]
 
 [for (jAlgoRM : JavaAlgoResourceModel | anAnnotationStack.hasCorePSM.hasJavaAlgoModel)]
-[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jAlgoRM.parentName + '/' + jAlgoRM.name + '.java', false, 'UTF-8')]
+[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jAlgoRM.parentName.toLowerCase() + '/' + jAlgoRM.name + '.java', false, 'UTF-8')]
 [if(anAnnotationStack.bHasExternalServiceLayer)]
 [if(jAlgoRM.isJavaRESTClientModel(anAnnotationStack))]
 [if(jAlgoRM.hasNoOutputModel(anAnnotationStack) = false)]
@@ -54,7 +54,7 @@
 */
 
 
-package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoRM.parentName/];
+package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoRM.parentName.toLowerCase()/];
 
 import java.util.ArrayList;
 import java.util.List;

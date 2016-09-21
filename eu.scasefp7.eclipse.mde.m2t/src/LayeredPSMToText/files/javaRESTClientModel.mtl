@@ -23,7 +23,7 @@
 */
 
 
-package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoRM.parentName/];
+package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoRM.parentName.toLowerCase()/];
 
 import java.util.ArrayList;
 import java.util.List;

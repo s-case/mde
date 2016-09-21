@@ -4,7 +4,7 @@
 
 [template public javaRESTClientOutputModel(anAnnotationStack : AnnotationStack, jAlgoRM : JavaAlgoResourceModel)]
 
-[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jAlgoRM.parentName + '/Java' + jAlgoRM.parentName.toUpperFirst() + 'OutputModel.java', false, 'UTF-8')]
+[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jAlgoRM.parentName.toLowerCase() + '/Java' + jAlgoRM.parentName.toUpperFirst() + 'OutputModel.java', false, 'UTF-8')]
 /*
  * ARISTOTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015
@@ -25,7 +25,7 @@
 */
 
 
-package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoRM.parentName/];
+package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoRM.parentName.toLowerCase()/];
 
 import java.util.ArrayList;
 import java.util.List;

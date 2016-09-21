@@ -5,7 +5,7 @@
 [template public javaResourceControllerManager(anAnnotationStack : AnnotationStack)]
 
 [for (jRCManager : JavaResourceControllerManager | anAnnotationStack.hasCorePSM.hasJavaRCManager)]
-[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jRCManager.parentName + '/' + jRCManager.name + '.java', false, 'UTF-8')]
+[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jRCManager.parentName.toLowerCase() + '/' + jRCManager.name + '.java', false, 'UTF-8')]
 /*
  * ARISTOTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015
@@ -26,7 +26,7 @@
 */
 
 
-package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jRCManager.parentName/];
+package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jRCManager.parentName.toLowerCase()/];
 
 
 import javax.ws.rs.Consumes;

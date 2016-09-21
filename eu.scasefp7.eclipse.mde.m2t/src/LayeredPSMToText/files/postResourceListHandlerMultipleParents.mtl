@@ -2,7 +2,7 @@
 [module postResourceListHandlerMultipleParents('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthorizationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore')]
 
 [template public postResourceListHandlerMultipleParents(anAnnotationStack : AnnotationStack, httpVerb : HTTPVerb, jRCManager : JavaResourceControllerManager, jPRM : JavaResourceModel)]
-[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jRCManager.parentName + '/' + 'Post' + jPRM.parentName + jRCManager.parentName + 'Handler.java', false, 'UTF-8')]
+[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jRCManager.parentName.toLowerCase() + '/' + 'Post' + jPRM.parentName + jRCManager.parentName + 'Handler.java', false, 'UTF-8')]
 /*
  * ARISTOTLE UNIVERSITY OF THESSALONIKI
  * Copyright (C) 2015
@@ -23,7 +23,7 @@
 */
 
 
-package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jRCManager.parentName/];
+package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jRCManager.parentName.toLowerCase()/];
 
 
 import javax.ws.rs.core.UriInfo;
@@ -32,7 +32,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import com.sun.jersey.core.util.Base64;
-import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelName/];
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toLowerCase()/].[anAnnotationStack.getAuthenticationPerformer().authenticationModelName/];
 [/if]
 [/if]
 
@@ -45,7 +45,7 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities
 
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].utilities.HypermediaLink;
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].utilities.HibernateController;
-import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jPRM.parentName/].[jPRM.name/];
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jPRM.parentName.toLowerCase()/].[jPRM.name/];
 
 /* This class processes POST requests for [jRCManager.parentName/] resources and creates the hypermedia to be returned to the client*/
 

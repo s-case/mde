@@ -7,7 +7,7 @@
 [template public javaAlgoResourceController(anAnnotationStack : AnnotationStack)]
 
 [for (jAlgoRController : JavaAlgoResourceController | anAnnotationStack.hasCorePSM.hasJavaAlgoController)]
-[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jAlgoRController.parentName + '/' + jAlgoRController.name + '.java', false, 'UTF-8')]
+[file (anAnnotationStack.hasCorePSM.name + '/src/main/java/eu/fp7/scase/' + anAnnotationStack.hasCorePSM.name.toLowerCase() + '/' + jAlgoRController.parentName.toLowerCase() + '/' + jAlgoRController.name + '.java', false, 'UTF-8')]
 [if(anAnnotationStack.bHasExternalServiceLayer)]
 [if(jAlgoRController.isJavaRESTClientController(anAnnotationStack))]
 [javaRESTClientController(anAnnotationStack, jAlgoRController)/]
@@ -43,7 +43,7 @@
 */
 
 
-package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoRController.parentName/];
+package eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jAlgoRController.parentName.toLowerCase()/];
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;

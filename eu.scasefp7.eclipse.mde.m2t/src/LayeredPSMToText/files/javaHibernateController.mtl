@@ -62,7 +62,7 @@ import org.hibernate.Transaction;
 import com.sun.jersey.core.spi.factory.ResponseBuilderImpl;
 
 [for (jRModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel)]
-import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jRModel.parentName/].[jRModel.name/];
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[jRModel.parentName.toLowerCase()/].[jRModel.name/];
 [/for]
 
 /* HibernateController class is responsible to handle the low level activity between Hibernate and the service database.
