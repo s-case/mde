@@ -409,6 +409,10 @@ try {
 		[/if]
 		listOfPKColumns = Arrays.asList([for (pkColumn : SourceColumn | targetRelation.isMappedFromRelation.hasPrimaryKeyColumn->sortedBy(hasPkOrder)) separator(', ')]"[pkColumn.name/]"[/for]);
 		if(hasValidFKs(rs[targetRelation.isMappedFromRelation.name.toUpperFirst()/], listOfFKColumns)){
+			if(oHMFrom[parentMapping.hasParentTargetRelation.isMappedFromRelation.name.toUpperFirst()/]To[parentMapping.hasParentTargetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/].get(getFKKey(rs[targetRelation.isMappedFromRelation.name.toUpperFirst()/], listOfFKColumns)) == null){
+				System.out.println("Cannot migrate [targetRelation.isMappedFromRelation.name /] with FK key = " + getFKKey(rs[targetRelation.isMappedFromRelation.name.toUpperFirst()/], listOfFKColumns) + " because there is no migrated parent [parentMapping.hasParentTargetRelation.isMappedFromRelation.name.toUpperFirst()/] that has a relation to it.");
+				continue;
+			}
 			[parentMapping.hasParentTargetRelation.isTargetRelationJavaResourceModel.name/] o[parentMapping.hasParentTargetRelation.isTargetRelationJavaResourceModel.name/] = new [parentMapping.hasParentTargetRelation.isTargetRelationJavaResourceModel.name/]();
 			o[parentMapping.hasParentTargetRelation.isTargetRelationJavaResourceModel.name/].set[parentMapping.hasParentTargetRelation.isTargetRelationJavaResourceModel.parentName/]Id(oHMFrom[parentMapping.hasParentTargetRelation.isMappedFromRelation.name.toUpperFirst()/]To[parentMapping.hasParentTargetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/].get(getFKKey(rs[targetRelation.isMappedFromRelation.name.toUpperFirst()/], listOfFKColumns)));
 			o[targetRelation.isTargetRelationJavaResourceModel.name/].getSetOfParent[parentMapping.hasParentTargetRelation.isTargetRelationJavaResourceModel.name/]().add(o[parentMapping.hasParentTargetRelation.isTargetRelationJavaResourceModel.name/]);
@@ -421,6 +425,9 @@ try {
 				o[targetRelation.isTargetRelationJavaResourceModel.name/].set[targetRelation.isTargetRelationJavaResourceModel.parentName/]Id(oHMFrom[targetRelation.isMappedFromRelation.name.toUpperFirst()/]To[targetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/].get(calculateHMKeyFrom[targetRelation.isMappedFromRelation.name.toUpperFirst()/]To[targetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/](rs[targetRelation.isMappedFromRelation.name.toUpperFirst()/])));
 				o[targetRelation.isTargetRelationJavaResourceModel.name/] = oHibernateController.put[targetRelation.isTargetRelationJavaResourceModel.parentName/](o[targetRelation.isTargetRelationJavaResourceModel.name/], "true", "true", "[parentMapping.hasParentTargetRelation.isTargetRelationJavaResourceModel.parentName/]", "true", oHMFrom[parentMapping.hasParentTargetRelation.isMappedFromRelation.name.toUpperFirst()/]To[parentMapping.hasParentTargetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/].get(getFKKey(rs[targetRelation.isMappedFromRelation.name.toUpperFirst()/], listOfFKColumns)));
 			}
+		}
+		else{
+			System.out.println("Skipping [targetRelation.isMappedFromRelation.name.toUpperFirst()/] entry with PK " + calculateHMKeyFrom[targetRelation.isMappedFromRelation.name.toUpperFirst()/]To[targetRelation.isTargetRelationJavaResourceModel.parentName.toUpperFirst()/](rs[targetRelation.isMappedFromRelation.name.toUpperFirst()/]) + " since it has no valid FKs to relation [parentMapping.hasParentTargetRelation.isMappedFromRelation.name.toUpperFirst()/].");
 		}
 
 	}
