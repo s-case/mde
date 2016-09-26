@@ -127,44 +127,62 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 	private void initializeRelationsGrid() {
 		this.oRelationsGrid = new Composite(this.oWizardPageGrid, SWT.None);
 		this.oRelationsGrid.setLayout(new GridLayout(3, false));
-		this.oRelationsGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
+		GridData gd_oRelationsGrid = new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1);
+		gd_oRelationsGrid.heightHint = 120;
+		this.oRelationsGrid.setLayoutData(gd_oRelationsGrid);
 		
 		this.oUnrelatedResourcesLabel = new Label(this.oRelationsGrid, SWT.NULL);
 		this.oUnrelatedResourcesLabel.setText("Selected resource's unrelated resources: ");
-		
-		this.oAddRemoveRelationButtonComposite = new Composite(this.oRelationsGrid, SWT.None);
-		this.oAddRemoveRelationButtonComposite.setLayout(new GridLayout(1, false));
-		this.oAddRemoveRelationButtonComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 2));
-		
-		this.oCreateRelationButton = new Button(this.oAddRemoveRelationButtonComposite, SWT.None);
-		this.oCreateRelationButton.setText("Add relation");
-		this.oCreateRelationButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
-		addCreateRelationButtonListener();
-		
-		this.oDeleteRelationButton = new Button(this.oAddRemoveRelationButtonComposite, SWT.None);
-		this.oDeleteRelationButton.setText("Delete relation");
-		this.oDeleteRelationButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
-		addDeleteRelationButtonListener();
+		new Label(oRelationsGrid, SWT.NONE);
 		
 		this.oRelationsLabel = new Label(this.oRelationsGrid, SWT.NULL);
 		this.oRelationsLabel.setText("Selected resource's related resources: ");
 		
 		this.oUnrelatedResourcesList = new List(this.oRelationsGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
-		this.oUnrelatedResourcesList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		GridData gd_oUnrelatedResourcesList = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		gd_oUnrelatedResourcesList.heightHint = 80;
+		this.oUnrelatedResourcesList.setLayoutData(gd_oUnrelatedResourcesList);
 		addUnrelatedResourceListListener();
+		
+		this.oAddRemoveRelationButtonComposite = new Composite(this.oRelationsGrid, SWT.None);
+		this.oAddRemoveRelationButtonComposite.setLayout(new GridLayout(1, false));
+		GridData gd_oAddRemoveRelationButtonComposite = new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1);
+		gd_oAddRemoveRelationButtonComposite.heightHint = 100;
+		this.oAddRemoveRelationButtonComposite.setLayoutData(gd_oAddRemoveRelationButtonComposite);
+		
+		this.oCreateRelationButton = new Button(this.oAddRemoveRelationButtonComposite, SWT.None);
+		this.oCreateRelationButton.setText("Add relation");
+		GridData gd_oCreateRelationButton = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
+		gd_oCreateRelationButton.heightHint = 20;
+		this.oCreateRelationButton.setLayoutData(gd_oCreateRelationButton);
+		addCreateRelationButtonListener();
+
+		this.oDeleteRelationButton = new Button(this.oAddRemoveRelationButtonComposite, SWT.None);
+		this.oDeleteRelationButton.setText("Delete relation");
+		GridData gd_oDeleteRelationButton = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
+		gd_oDeleteRelationButton.heightHint = 20;
+		this.oDeleteRelationButton.setLayoutData(gd_oDeleteRelationButton);
+		addDeleteRelationButtonListener();
 
 		this.oRelationsList = new List(this.oRelationsGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
-		this.oRelationsList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		GridData gd_oRelationsList = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		gd_oRelationsList.heightHint = 80;
+		this.oRelationsList.setLayoutData(gd_oRelationsList);
 		addRelationsListListener();
 	}
 
 	private void initializePropertiesConfigurationGrid() {
 		this.oPropertyConfigurationGroup = new Group(this.oWizardPageGrid, SWT.NONE);
 		this.oPropertyConfigurationGroup.setLayout(new GridLayout(2, false));
-		this.oPropertyConfigurationGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		GridData gd_oPropertyConfigurationGroup = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
+		gd_oPropertyConfigurationGroup.heightHint = 120;
+		this.oPropertyConfigurationGroup.setLayoutData(gd_oPropertyConfigurationGroup);
 		this.oPropertyConfigurationGroup.setText("Property Configuration: ");
 		
 		this.oUniquePropertyButton = new Button(this.oPropertyConfigurationGroup, SWT.CHECK);
+		GridData gd_oUniquePropertyButton = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_oUniquePropertyButton.heightHint = 20;
+		oUniquePropertyButton.setLayoutData(gd_oUniquePropertyButton);
 		this.oUniquePropertyButton.setText("Collection");
 		addUniquePropertyButtonListener();
 		
@@ -173,18 +191,25 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		
 		this.oNamingPropertyButton = new Button(this.oPropertyConfigurationGroup, SWT.CHECK);
 		this.oNamingPropertyButton.setText("naming property");
+		GridData gd_oNamingPropertyButton = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
+		gd_oNamingPropertyButton.heightHint = 20;
+		this.oNamingPropertyButton.setLayoutData(gd_oNamingPropertyButton);
 		addNamingPropertyButtonListener();
 		
 		this.oTypeList = new List(this.oPropertyConfigurationGroup, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
 		oTypeList.setItems(new String[] {"String", "Integer", "Double", "Float", "Long", "Boolean", "Date"});
-		this.oTypeList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		GridData gd_oTypeList = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		gd_oTypeList.heightHint = 60;
+		this.oTypeList.setLayoutData(gd_oTypeList);
 		addTypeListListener();
 	}
 
 	private void initializePropertiesGrid() {
 		this.oPropertyGrid = new Composite(this.oWizardPageGrid, SWT.None);
 		this.oPropertyGrid.setLayout(new GridLayout(3, false));
-		this.oPropertyGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		GridData gd_oPropertyGrid = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		gd_oPropertyGrid.heightHint = 120;
+		this.oPropertyGrid.setLayoutData(gd_oPropertyGrid);
 		
 		this.oPropertiesLabel = new Label(this.oPropertyGrid, SWT.NULL);
 		this.oPropertiesLabel.setText("Selected resource properties: ");
@@ -192,27 +217,39 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		new Label(oPropertyGrid, SWT.NONE);
 		
 		this.oPropertiesList = new List(this.oPropertyGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
-		this.oPropertiesList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
+		GridData gd_oPropertiesList = new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1);
+		gd_oPropertiesList.heightHint = 80;
+		this.oPropertiesList.setLayoutData(gd_oPropertiesList);
 		addPropertyListListener();
+		
 		this.oCreatePropertyButton = new Button(this.oPropertyGrid, SWT.NONE);
 		this.oCreatePropertyButton.setText("Create");
-		this.oCreatePropertyButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
+		GridData gd_oCreatePropertyButton = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
+		gd_oCreatePropertyButton.heightHint = 20;
+		this.oCreatePropertyButton.setLayoutData(gd_oCreatePropertyButton);
 		addCreatePropertyButtonListener();
 		
 		btnRenameProperty = new Button(oPropertyGrid, SWT.NONE);
+		GridData gd_btnRenameProperty = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_btnRenameProperty.heightHint = 20;
+		btnRenameProperty.setLayoutData(gd_btnRenameProperty);
 		btnRenameProperty.setText("Rename");
 		addRenamePropertyButtonListener();
 		
 		this.oDeletePropertyButton = new Button(this.oPropertyGrid, SWT.None);
 		this.oDeletePropertyButton.setText("Delete");
-		this.oDeletePropertyButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
+		GridData gd_oDeletePropertyButton = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
+		gd_oDeletePropertyButton.heightHint = 20;
+		this.oDeletePropertyButton.setLayoutData(gd_oDeletePropertyButton);
 		addDeletePropertyButtonListener();
 	}
 
 	private void initializeRepresentationsGrid() {
 		this.oRepresentationsGrid = new Composite(this.oWizardPageGrid, SWT.NONE);
 		this.oRepresentationsGrid.setLayout(new GridLayout(1, false));
-		this.oRepresentationsGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		GridData gd_oRepresentationsGrid = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		gd_oRepresentationsGrid.heightHint = 140;
+		this.oRepresentationsGrid.setLayoutData(gd_oRepresentationsGrid);
 		
 		this.oInputRepresentationGroup = new Group(this.oRepresentationsGrid, SWT.None);
 		this.oInputRepresentationGroup.setLayout(new GridLayout(1, false));
@@ -220,11 +257,17 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		this.oInputRepresentationGroup.setText("Input media format: ");
 		
 		this.oInputJSONButton = new Button(this.oInputRepresentationGroup, SWT.RADIO);
+		GridData gd_oInputJSONButton = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_oInputJSONButton.heightHint = 20;
+		oInputJSONButton.setLayoutData(gd_oInputJSONButton);
 		this.oInputJSONButton.setText("Application/JSON");
 		this.oInputJSONButton.setEnabled(false);
 		addInputJSONButtonListener();
 		
 		this.oInputXMLButton = new Button(this.oInputRepresentationGroup, SWT.RADIO);
+		GridData gd_oInputXMLButton = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_oInputXMLButton.heightHint = 20;
+		oInputXMLButton.setLayoutData(gd_oInputXMLButton);
 		this.oInputXMLButton.setText("Application/XML");
 		this.oInputXMLButton.setEnabled(false);
 		addInputXMLButtonListener();
@@ -235,11 +278,17 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		this.oOutputRepresentationGroup.setText("Output media format: ");
 		
 		this.oOutputJSONButton = new Button(this.oOutputRepresentationGroup, SWT.RADIO);
+		GridData gd_oOutputJSONButton = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_oOutputJSONButton.heightHint = 20;
+		oOutputJSONButton.setLayoutData(gd_oOutputJSONButton);
 		this.oOutputJSONButton.setText("Application/JSON");
 		this.oOutputJSONButton.setEnabled(false);
 		addOutputJSONButtonListener();
 	
 		this.oOutputXMLButton = new Button(this.oOutputRepresentationGroup, SWT.RADIO);
+		GridData gd_oOutputXMLButton = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_oOutputXMLButton.heightHint = 20;
+		oOutputXMLButton.setLayoutData(gd_oOutputXMLButton);
 		this.oOutputXMLButton.setText("Application/XML");
 		this.oOutputXMLButton.setEnabled(false);	
 		addOutputXMLButtonListener();
@@ -248,7 +297,9 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 	private void initializeCRUDActivitiesGrid() {
 		this.oCRUDGrid = new Composite(this.oWizardPageGrid, SWT.NONE);
 		this.oCRUDGrid.setLayout(new GridLayout(1, false));
-		this.oCRUDGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		GridData gd_oCRUDGrid = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		gd_oCRUDGrid.heightHint = 140;
+		this.oCRUDGrid.setLayoutData(gd_oCRUDGrid);
 		
 		this.oCRUDActivitiesLabel = new Label(this.oCRUDGrid, SWT.NULL);
 		this.oCRUDActivitiesLabel.setText("CRUD Activities: ");
@@ -256,58 +307,82 @@ public class CoreCIMEditorWizardPage extends WizardPage{
 		
 		this.oCreateButton = new Button(this.oCRUDGrid, SWT.CHECK);
 		this.oCreateButton.setText("CREATE: ");
-		this.oCreateButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		GridData gd_oCreateButton = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		gd_oCreateButton.heightHint = 20;
+		this.oCreateButton.setLayoutData(gd_oCreateButton);
 		addCreateButtonListener();
 		
 		this.oReadButton = new Button(this.oCRUDGrid, SWT.CHECK);
 		this.oReadButton.setText("READ: ");
-		this.oReadButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		GridData gd_oReadButton = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		gd_oReadButton.heightHint = 20;
+		this.oReadButton.setLayoutData(gd_oReadButton);
 		addReadButtonListener();
 
 		this.oUpdateButton = new Button(this.oCRUDGrid, SWT.CHECK);
 		this.oUpdateButton.setText("UPDATE: ");
-		this.oUpdateButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		GridData gd_oUpdateButton = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		gd_oUpdateButton.heightHint = 20;
+		this.oUpdateButton.setLayoutData(gd_oUpdateButton);
 		addUpdateButtonListener();
 
 		this.oDeleteButton = new Button(this.oCRUDGrid, SWT.CHECK);
 		this.oDeleteButton.setText("DELETE: ");
-		this.oDeleteButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		GridData gd_oDeleteButton = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		gd_oDeleteButton.heightHint = 20;
+		this.oDeleteButton.setLayoutData(gd_oDeleteButton);
 		addDeleteButtonListener();
 	}
 
 	private void initializeResourceGrid() {
 		this.oResourceGrid = new Composite(this.oWizardPageGrid, SWT.NONE);
-		this.oResourceGrid.setLayout(new GridLayout(3, false));
-		this.oResourceGrid.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		this.oResourceGrid.setLayout(new GridLayout(3, true));
+		GridData gd_oResourceGrid = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		gd_oResourceGrid.heightHint = 200;
+		this.oResourceGrid.setLayoutData(gd_oResourceGrid);
 		
 		this.oResourceListLabel = new Label(this.oResourceGrid, SWT.NULL);
 		this.oResourceListLabel.setText(this.oRESTfulServiceCIM.getName() + " resources:");
-		this.oResourceListLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false, 3, 1));
+		GridData gd_oResourceListLabel = new GridData(SWT.FILL, SWT.FILL, false, false, 3, 1);
+		gd_oResourceListLabel.heightHint = 15;
+		this.oResourceListLabel.setLayoutData(gd_oResourceListLabel);
 		
 		this.oResourceList = new List(this.oResourceGrid, SWT.SINGLE | SWT.BORDER_SOLID | SWT.V_SCROLL);
-		this.oResourceList.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
+		GridData gd_oResourceList = new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1);
+		gd_oResourceList.heightHint = 120;
+		this.oResourceList.setLayoutData(gd_oResourceList);
 		populateResourceList();
 		addResourceListListener();
 		
 		this.oResourceIsAlgorithmicButton = new Button(this.oResourceGrid, SWT.CHECK);
 		this.oResourceIsAlgorithmicButton.setText("Algorithmic");
-		this.oResourceIsAlgorithmicButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1));
+		GridData gd_oResourceIsAlgorithmicButton = new GridData(SWT.FILL, SWT.FILL, true, false, 3, 1);
+		gd_oResourceIsAlgorithmicButton.heightHint = 20;
+		this.oResourceIsAlgorithmicButton.setLayoutData(gd_oResourceIsAlgorithmicButton);
 		addIsAlgorithmicButtonListener();
 		
 		this.oCreateResourceButton = new Button(this.oResourceGrid, SWT.NONE);
 		this.oCreateResourceButton.setText("Create");
 		GridData gd_oCreateResourceButton = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
+		gd_oCreateResourceButton.heightHint = 20;
 		gd_oCreateResourceButton.widthHint = 92;
 		this.oCreateResourceButton.setLayoutData(gd_oCreateResourceButton);
 		addCreateResourceButtonListener();
 		
 		btnRenameResource = new Button(oResourceGrid, SWT.NONE);
+		GridData gd_btnRenameResource = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
+		gd_btnRenameResource.heightHint = 20;
+		gd_btnRenameResource.widthHint = 92;
+		btnRenameResource.setLayoutData(gd_btnRenameResource);
 		btnRenameResource.setText("Rename");
 		addRenameResourceButtonListener();
 		
 		this.oDeleteResourceButton = new Button(this.oResourceGrid, SWT.NONE);
 		this.oDeleteResourceButton.setText("Delete");
-		this.oDeleteResourceButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1));
+		GridData gd_oDeleteResourceButton = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
+		gd_oDeleteResourceButton.heightHint = 20;
+		gd_oDeleteResourceButton.widthHint = 92;
+		this.oDeleteResourceButton.setLayoutData(gd_oDeleteResourceButton);
 		addDeleteResourceButtonListener();
 	}
 	
