@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="eu.scasefp7.eclipse.mde.feature"
-      label="MDE Code generation"
-      version="1.0.0.qualifier">
+      label="2D MDE Code generation"
+      version="1.0.0.qualifier"
+      provider-name="S-CASE Consortium"
+      plugin="eu.scasefp7.eclipse.mde.ui"
+      image="s-case-feature.png">
+      
 
    <description url="https://github.com/s-case/mde">
       This is the MDE plugin, a tool for the EU-funded project S-CASE
