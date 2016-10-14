@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: eu.scasefp7.eclipse.mde.cimgen
+Bundle-Name: 2D MDE Code generator CIM generator
 Bundle-SymbolicName: eu.scasefp7.eclipse.mde.cimgen;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: eu.fp7.scase.launcher.cimgenerator.Activator
@@ -23,4 +23,5 @@ Bundle-ClassPath: .,
  lib/snakeyaml-1.14.jar,
  lib/mysql-connector-java-5.1.38.jar,
  lib/postgresql-9.3-1100-jdbc4.jar
+Bundle-Vendor: S-CASE Consortium
 

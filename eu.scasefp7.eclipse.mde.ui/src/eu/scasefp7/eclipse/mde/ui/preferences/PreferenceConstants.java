@@ -20,7 +20,7 @@ public final class PreferenceConstants {
     public static final String C_OUTPUT_PATH = "MDEOutputFolder"; //$NON-NLS-1$
 	
 	/** Use project name for the name of the generated web service. */
-    public static final String P_SERVICE_NAME_USE_PROJECT_NAME = "serviceNameFromProjectName"; //$NON-NLS-1$
+    //public static final String P_SERVICE_NAME_USE_PROJECT_NAME = "serviceNameFromProjectName"; //$NON-NLS-1$
     
     /** The name of the generated web service (overriden by P_SERVICE_NAME_USE_PROJECT_NAME).
      * @see PreferenceConstants#P_SERVICE_NAME_USE_PROJECT_NAME

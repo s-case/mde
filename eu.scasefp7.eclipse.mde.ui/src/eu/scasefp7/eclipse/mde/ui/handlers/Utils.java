@@ -7,9 +7,12 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.core.variables.IStringVariableManager;
+import org.eclipse.core.variables.VariablesPlugin;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
@@ -35,6 +38,9 @@ public class Utils
         IPreferenceStore store = getPreferenceStore(project);
         Map<String, String> codegenPreferences = new HashMap<String, String>();
 
+        // Get variable resolver
+        IStringVariableManager varMgr = VariablesPlugin.getDefault().getStringVariableManager();
+        
         // Get preferences
         IContainer container = ProjectUtils.getProjectModelsFolder(project);
 
@@ -55,11 +61,18 @@ public class Utils
         String dbMigration = (store.getBoolean(PreferenceConstants.P_DATABASE_MIGRATION) ? "yes" : "no");
 
         // Figure out service name
-        Boolean useProjectName = (store.getBoolean(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME));
-        if (useProjectName) {
-            wsName = project.getName() + "Api";
-        }
+//        Boolean useProjectName = (store.getBoolean(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME));
+//        if (useProjectName) {
+//            wsName = project.getName() + "Api";
+//        }
 
+        try {
+            wsName = varMgr.performStringSubstitution(wsName);
+//            outputFolder = varMgr.performStringSubstitution(outputFolder);
+        } catch (CoreException e) {
+            Activator.log("Unable to resolve project variables.", e);
+        }
+        
         // Figure out output folder
         Boolean useProjectOutputFolder = (store.getBoolean(PreferenceConstants.P_USE_PROJECT_OUTPUT_FOLDER));
         if (useProjectOutputFolder) {

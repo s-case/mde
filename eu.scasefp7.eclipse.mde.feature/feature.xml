@@ -9,7 +9,7 @@
       
 
    <description url="https://github.com/s-case/mde">
-      This is the MDE plugin, a tool for the EU-funded project S-CASE
+Code generation takes the specification of a web service and turns it into source code that is ready to compile and run.
    </description>
 
    <copyright url="http://www.scasefp7.eu/copyright">

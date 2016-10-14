@@ -104,6 +104,7 @@
           point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
        <propertyTabs contributorId="org.eclipse.ui.navigator.ProjectExplorer">
           <propertyTab
+                afterTab="eu.scasefp7.eclipse.core.ui.properties.projecttab"
                 category="eu.scasefp7.eclipse.category"
                 id="eu.scasefp7.eclipse.mde.ui.properties.codegentab"
                 image="icons/s-case_16.png"

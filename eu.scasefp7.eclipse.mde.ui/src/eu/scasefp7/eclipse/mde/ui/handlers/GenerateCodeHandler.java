@@ -28,6 +28,7 @@ import org.eclipse.core.commands.NotHandledException;
 import org.eclipse.core.commands.Parameterization;
 import org.eclipse.core.commands.ParameterizedCommand;
 import org.eclipse.core.commands.common.NotDefinedException;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.WorkspaceJob;
@@ -46,7 +47,9 @@ import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.progress.WorkbenchJob;
 import org.eclipse.ui.services.IServiceLocator;
 
+import eu.scasefp7.eclipse.core.builder.ProjectUtils;
 import eu.scasefp7.eclipse.mde.ui.Activator;
+import eu.scasefp7.eclipse.mde.ui.preferences.PreferenceConstants;
 
 /**
  * Calls the generate code command sequence,
@@ -94,6 +97,14 @@ public class GenerateCodeHandler extends AbstractHandler {
         @SuppressWarnings("unchecked")
         Map<String, String> mdePreferences = getCoreMDEPreferences(project, event.getParameters());
 
+        // Check if the service name is valid
+        ProjectUtils.clearProjectMarkers(project);
+        String wsName = mdePreferences.get(PreferenceConstants.C_SERVICE_NAME);
+        if(!ProjectUtils.isValidJavaIdentifier(wsName)) {
+            ProjectUtils.setProjectMarker(project, "Configured service name is not a valid Java identifier", IMarker.SEVERITY_ERROR, IMarker.PRIORITY_HIGH, "(configuration)");
+            return null;
+        }
+        
         // Roll the commands
         IServiceLocator serviceLocator = PlatformUI.getWorkbench();
         ICommandService commandService = (ICommandService) serviceLocator.getService(ICommandService.class);

@@ -26,9 +26,9 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		        //.append("MDE_output").toString()); //$NON-NLS-1$ 
 		store.setDefault(PreferenceConstants.P_USE_PROJECT_OUTPUT_FOLDER, "true"); //$NON-NLS-1$
 		// store.setDefault(PreferenceConstants.P_INPUT_FILE, "models/service.yml"); //$NON-NLS-1$
-		store.setDefault(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME, true); //$NON-NLS-1$
+//		store.setDefault(PreferenceConstants.P_SERVICE_NAME_USE_PROJECT_NAME, true); //$NON-NLS-1$
 		store.setDefault(PreferenceConstants.P_AUTO_IMPORT_GENERATED_CODE, "true"); //$NON-NLS-1$
-		store.setDefault(PreferenceConstants.P_SERVICE_NAME, "SampleService"); //$NON-NLS-1$
+		store.setDefault(PreferenceConstants.P_SERVICE_NAME, "${project_name}Api"); //$NON-NLS-1$
 		
 		store.setDefault(PreferenceConstants.P_DATABASE_ADDRESS, "localhost"); //$NON-NLS-1$
 	    store.setDefault(PreferenceConstants.P_DATABASE_PORT, 5432); //$NON-NLS-1$

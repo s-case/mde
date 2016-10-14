@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: MDEModelToTextPlugin
+Bundle-Name: 2D MDE Code generator M2T transformations
 Bundle-SymbolicName: eu.scasefp7.eclipse.mde.m2t;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: eu.scasefp7.eclipse.mde.m2t.Activator
@@ -22,3 +22,4 @@ Export-Package: LayeredPSMToText.files,
  LayeredPSMToText.main,
  eu.scasefp7.eclipse.mde.m2t,
  eu.scasefp7.eclipse.mde.m2t.handlers
+Bundle-Vendor: S-CASE Consortium

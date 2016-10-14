@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: AnnotationStackPopulator
+Bundle-Name: 2D MDE Code generator Annotation stack populator
 Bundle-SymbolicName: eu.scasefp7.eclipse.mde.wrapper;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: annotationstackpopulator.Activator
@@ -29,3 +29,4 @@ Export-Package: AnnotationLayerStack,
  SearchLayerPSM.util,
  annotationstackpopulator,
  annotationstackpopulator.handlers
+Bundle-Vendor: S-CASE Consortium
