@@ -6,10 +6,9 @@
       provider-name="S-CASE Consortium"
       plugin="eu.scasefp7.eclipse.mde.ui"
       image="s-case-feature.png">
-      
 
    <description url="https://github.com/s-case/mde">
-Code generation takes the specification of a web service and turns it into source code that is ready to compile and run.
+      Code generation takes the specification of a web service and turns it into source code that is ready to compile and run.
    </description>
 
    <copyright url="http://www.scasefp7.eu/copyright">
@@ -206,6 +205,44 @@ Code generation takes the specification of a web service and turns it into sourc
 
    END OF TERMS AND CONDITIONS
    </license>
+
+   <url>
+      <discovery label="M2E update site" url="http://download.eclipse.org/technology/m2e/releases/"/>
+      <discovery label="Acceleo update site" url="http://download.eclipse.org/acceleo/updates/releases/"/>
+      <discovery label="ATL update site" url="http: //download.eclipse.org/mmt/atl/updates/releases/" />
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.ui.console" version="3.5.300" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.common"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.m2m.atl.common"/>
+      <import plugin="org.eclipse.m2m.atl.core"/>
+      <import plugin="org.eclipse.m2m.atl.core.emf"/>
+      <import plugin="org.eclipse.m2m.atl.engine.emfvm"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.10.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore.xmi" version="2.10.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ocl" version="3.4.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ocl.ecore" version="3.3.100" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.acceleo.common" version="3.5.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.acceleo.model" version="3.5.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.acceleo.profiler" version="3.5.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.acceleo.engine" version="3.5.1" match="greaterOrEqual"/>
+      <import plugin="com.google.guava" version="15.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.core.jobs"/>
+      <import plugin="org.eclipse.ui.workbench"/>
+      <import plugin="org.eclipse.m2e.core"/>
+      <import plugin="org.eclipse.m2e.core.ui"/>
+      <import plugin="org.eclipse.m2e.maven.runtime"/>
+      <import plugin="org.eclipse.ui.views.properties.tabbed"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="eu.scasefp7.eclipse.core.ui" version="1.2.0" match="compatible"/>
+      <import plugin="org.eclipse.core.variables"/>
+   </requires>
 
    <plugin
          id="eu.scasefp7.eclipse.mde.cimgen"
