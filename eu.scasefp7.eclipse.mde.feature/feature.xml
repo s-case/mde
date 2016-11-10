@@ -11,7 +11,7 @@
       Code generation takes the specification of a web service and turns it into source code that is ready to compile and run.
    </description>
 
-   <copyright url="http://www.scasefp7.eu/copyright">
+   <copyright url="http://s-case.github.io/copyright.html">
       Copyright 2015 S-CASE Consortium
    
       Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
@@ -27,7 +27,7 @@
      limitations under the License.
    </copyright>
 
-   <license url="http://www.scasefp7.eu/licenses/">
+   <license url="http://s-case.github.io/licenses.html">
       Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -207,6 +207,7 @@
    </license>
 
    <url>
+      <update label="S-CASE update site" url="https://eclipse.scasefp7.com/eclipse/s-case_update_site/"/>
       <discovery label="M2E update site" url="http://download.eclipse.org/technology/m2e/releases/"/>
       <discovery label="Acceleo update site" url="http://download.eclipse.org/acceleo/updates/releases/"/>
       <discovery label="ATL update site" url="http: //download.eclipse.org/mmt/atl/updates/releases/" />
