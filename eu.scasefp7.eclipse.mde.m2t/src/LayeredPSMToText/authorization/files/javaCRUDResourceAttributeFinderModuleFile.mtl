@@ -80,7 +80,7 @@ public class [aJavaResourceModel.parentName.toUpperFirst()/]FinderModule extends
 				}
 			}
 
-		[for(childResource : JavaResourceModel | anAnnotationStack.getResourceModelChildren(aJavaResourceModel))]
+[comment]		[for(childResource : JavaResourceModel | anAnnotationStack.getResourceModelChildren(aJavaResourceModel))]
 			if(parentResourceType.equalsIgnoreCase("[childResource.parentName/]")){
 				try{
 					o[aJavaResourceModel.name/] =  get[childResource.parentName.toUpperFirst()/]Parent[aJavaResourceModel.parentName.toUpperFirst()/](new Integer(request.getResourceId()));
@@ -88,6 +88,37 @@ public class [aJavaResourceModel.parentName.toUpperFirst()/]FinderModule extends
 					return new EvaluationResult("Syntax error : Not valid id parameter");
 				}
 			}
+		[/for][/comment]
+
+		[for(childResource : JavaResourceModel | anAnnotationStack.getResourceModelChildren(aJavaResourceModel))]
+			[if(aJavaResourceModel.parentName.equalsIgnoreCase(anAnnotationStack.getAuthorizationSubjectModel().parentName) = false)]
+			if(parentResourceType.equalsIgnoreCase("[childResource.parentName/]")){
+				try{
+					Set<[aJavaResourceModel.name/]> setOf[aJavaResourceModel.name/] =  get[childResource.parentName.toUpperFirst()/]Parent[aJavaResourceModel.parentName.toUpperFirst()/](new Integer(request.getResourceId()));
+                    Set<AttributeValue> oSetOfAttributes = new HashSet<AttributeValue>();
+                    Iterator<[aJavaResourceModel.name/]> i = setOf[aJavaResourceModel.name/].iterator();
+                    while(i.hasNext()){
+                        AttributeValue oAttributeValue = getProperty(attribute, i.next());
+                        if(oAttributeValue == null){
+                            return new EvaluationResult("Syntax error : Property name is not a valid string");
+                        }
+                        oSetOfAttributes.add(oAttributeValue);
+                    }
+                    
+                    return new EvaluationResult(new SetOfAttributes(oSetOfAttributes));
+				}catch(NumberFormatException e){
+					return new EvaluationResult("Syntax error : Not valid id parameter");
+				}
+			}
+			[else]
+			if(parentResourceType.equalsIgnoreCase("[childResource.parentName/]")){
+				try{
+					o[aJavaResourceModel.name/] =  get[childResource.parentName.toUpperFirst()/]Parent[aJavaResourceModel.parentName.toUpperFirst()/](new Integer(request.getResourceId()));
+				}catch(NumberFormatException e){
+					return new EvaluationResult("Syntax error : Not valid id parameter");
+				}
+			}
+			[/if]
 		[/for]
 
 			if (o[aJavaResourceModel.name/] == null){
@@ -205,14 +236,47 @@ public class [aJavaResourceModel.parentName.toUpperFirst()/]FinderModule extends
 	}
 
 [for(childResource : JavaResourceModel | anAnnotationStack.getResourceModelChildren(aJavaResourceModel))]
+	[if(aJavaResourceModel.parentName.equalsIgnoreCase(anAnnotationStack.getAuthorizationSubjectModel().parentName))]
 	private [aJavaResourceModel.name/] get[childResource.parentName.toUpperFirst()/]Parent[aJavaResourceModel.parentName.toUpperFirst()/](Integer id) {
 		HibernateController oHibernateController = HibernateController.getHibernateControllerHandle();
 		[childResource.name/] o[childResource.name/] = new [childResource.name/]();
 		o[childResource.name/].[childResource.getIdSetter().name/](id);
 		o[childResource.name/] = oHibernateController.get[childResource.parentName/](o[childResource.name/]);
-		return o[childResource.name/].get[aJavaResourceModel.parentName/]();	
-	}
 
+		[if(isAuthtorizableResource(anAnnotationStack, childResource) = false)]
+		return o[childResource.name/].getSetOfParent[aJavaResourceModel.name/]().iterator().next();
+		[elseif(aJavaResourceModel.parentName.equalsIgnoreCase(anAnnotationStack.getAuthorizationSubjectModel().parentName) = false)]
+		return o[childResource.name/].getSetOfParent[aJavaResourceModel.name/]().iterator().next();
+		[elseif(aJavaResourceModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(childResource) = true)]
+		[aJavaResourceModel.name/] o[aJavaResourceModel.name/] = new [aJavaResourceModel.name/]();
+		o[aJavaResourceModel.name/].set[aJavaResourceModel.parentName/]Id(o[childResource.name/].get[aJavaResourceModel.parentName/]Id());
+		o[aJavaResourceModel.name/] = oHibernateController.get[aJavaResourceModel.parentName/](o[aJavaResourceModel.name/]);
+		return o[aJavaResourceModel.name/];
+		[else]
+		return o[childResource.name/].get[aJavaResourceModel.parentName/]();
+		[/if]	
+	}
+	[else]
+	private Set<[aJavaResourceModel.name/]> get[childResource.parentName.toUpperFirst()/]Parent[aJavaResourceModel.parentName.toUpperFirst()/](Integer id) {
+		HibernateController oHibernateController = HibernateController.getHibernateControllerHandle();
+		[childResource.name/] o[childResource.name/] = new [childResource.name/]();
+		o[childResource.name/].[childResource.getIdSetter().name/](id);
+		o[childResource.name/] = oHibernateController.get[childResource.parentName/](o[childResource.name/]);
+
+		[if(isAuthtorizableResource(anAnnotationStack, childResource) = false)]
+		return o[childResource.name/].getSetOfParent[aJavaResourceModel.name/]();
+		[elseif(aJavaResourceModel.parentName.equalsIgnoreCase(anAnnotationStack.getAuthorizationSubjectModel().parentName) = false)]
+		return o[childResource.name/].getSetOfParent[aJavaResourceModel.name/]();
+		[elseif(aJavaResourceModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(childResource) = true)]
+		[aJavaResourceModel.name/] o[aJavaResourceModel.name/] = new [aJavaResourceModel.name/]();
+		o[aJavaResourceModel.name/].set[aJavaResourceModel.parentName/]Id(o[childResource.name/].get[aJavaResourceModel.parentName/]Id());
+		o[aJavaResourceModel.name/] = oHibernateController.get[aJavaResourceModel.parentName/](o[aJavaResourceModel.name/]);
+		return o[aJavaResourceModel.name/];
+		[else]
+		return o[childResource.name/].get[aJavaResourceModel.parentName/]();
+		[/if]	
+	}
+	[/if]
 [/for]
 [for(parentResource : JavaResourceModel | anAnnotationStack.getResourceModelParents(aJavaResourceModel))]
 	private Set<[aJavaResourceModel.name/]> get[parentResource.parentName.toUpperFirst()/]Children[aJavaResourceModel.parentName.toUpperFirst()/](Integer id) {
@@ -337,4 +401,13 @@ endif
 
 [query private getAuthorizableResourceModel(anAnnotationStack : AnnotationStack, jRM : JavaResourceModel) : AuthorizableResource =	
 	anAnnotationStack.hasAuthorizationLayer.hasAnnotation->selectByType(AuthorizableResource)->select(authResource | not authResource.isAuthorizableResourceModel.oclIsUndefined())->select(authResource | authResource.isAuthorizableResourceModel.annotatesJavaResourceModel = jRM)->first()
+/]
+
+[query private getAuthorizationSubjectModel(anAnnotationStack : AnnotationStack) : JavaResourceModel =
+if anAnnotationStack.bHasAuthorizationLayer and anAnnotationStack.bHasAuthenticationAnnotation
+then	
+	anAnnotationStack.hasAuthorizationLayer.hasAnnotation->selectByType(AuthorizationSubject)->first().isAuthorizationSubject.annotatesJavaResourceModel
+else
+	null
+endif	
 /]

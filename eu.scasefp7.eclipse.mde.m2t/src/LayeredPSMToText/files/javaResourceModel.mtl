@@ -48,6 +48,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.JoinTable;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
@@ -215,18 +217,28 @@ public class [jRModel.name/]{
 [if(anAnnotationStack.bHasAuthorizationLayer)]
 [if(jRModel = anAnnotationStack.getAuthorizationSubjectModel())]
 [for(jRM : JavaResourceModel | anAnnotationStack.getTrackOwnershipResources(jRModel))]
-		@OneToMany(fetch = FetchType.LAZY, mappedBy="[jRModel.parentName/]",orphanRemoval=true)
-		@OnDelete(action=OnDeleteAction.CASCADE)
+		@OneToMany(fetch = FetchType.LAZY, mappedBy="[jRModel.parentName/]")
 		private Set<[jRM.name/]> SetOf[jRM.name/] = new HashSet<[jRM.name/]>();
 
 [/for]
 [elseif(anAnnotationStack.getTrackOwnershipResources(anAnnotationStack.getAuthorizationSubjectModel())->exists(r|r=jRModel))]
 		@ManyToOne(fetch = FetchType.EAGER)
-		@JoinColumn(name="[anAnnotationStack.getAuthorizationSubjectModel().parentName/]Id")
+		@JoinColumn(name="[anAnnotationStack.getAuthorizationSubjectModel().parentName/]Id", updatable=false)
 		@ForeignKey(name = "fk_[anAnnotationStack.getAuthorizationSubjectModel().parentName/]_[jRModel.parentName/]")
 		private [anAnnotationStack.getAuthorizationSubjectModel().name/] [anAnnotationStack.getAuthorizationSubjectModel().parentName/];
 
+[elseif(anAnnotationStack.rTracksOwnership(jRModel))]
+		@Column(name = "\"[anAnnotationStack.getAuthorizationSubjectModel().parentName.toLower()/]id\"", updatable=false)
+		private int [anAnnotationStack.getAuthorizationSubjectModel().parentName/]Id;
+
 [/if]	
+[comment][for(jRM : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(model | model.parentName.equalsIgnoreCase(jRModel.parentName) = false
+																							and model.parentName.equalsIgnoreCase(anAnnotationStack.getAuthorizationSubjectModel().parentName) = false
+																							and model.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRModel)))]
+		@Column(name = "\"[jRM.parentName.toLower()/]id\"")
+		private int [jRM.parentName/]Id;
+[/for]
+[/comment]
 [for(aNewProperty : NewProperty | anAnnotationStack.getNewProperties(jRModel))]	
 		[if(aNewProperty.bIsUnique)]
 		@Column(name = "[aNewProperty.name/]")
@@ -293,7 +305,22 @@ public class [jRModel.name/]{
 	    	this.[anAnnotationStack.getAuthorizationSubjectModel().parentName/] = [anAnnotationStack.getAuthorizationSubjectModel().parentName/];
 		}
 
+[elseif(anAnnotationStack.rTracksOwnership(jRModel))]
+		public void set[anAnnotationStack.getAuthorizationSubjectModel().parentName/]Id(int [anAnnotationStack.getAuthorizationSubjectModel().parentName/]Id){
+			this.[anAnnotationStack.getAuthorizationSubjectModel().parentName/]Id = [anAnnotationStack.getAuthorizationSubjectModel().parentName/]Id;
+		}
+
 [/if]	
+[comment]
+[for(jRM : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(model | model.parentName.equalsIgnoreCase(jRModel.parentName) = false
+																							and model.parentName.equalsIgnoreCase(anAnnotationStack.getAuthorizationSubjectModel().parentName) = false
+																							and model.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRModel)))]
+		public void set[jRM.parentName/]Id(int [jRM.parentName/]Id){
+	    	this.[jRM.parentName/]Id = [jRM.parentName/]Id;
+		}
+
+[/for]
+[/comment]
 [for(aNewProperty : NewProperty | anAnnotationStack.getNewProperties(jRModel))]
 		[if(aNewProperty.bIsUnique)]
 		public void set[aNewProperty.name/]([aNewProperty.type/] [aNewProperty.name/]){
@@ -342,7 +369,22 @@ public class [jRModel.name/]{
 		public [anAnnotationStack.getAuthorizationSubjectModel().name/] get[anAnnotationStack.getAuthorizationSubjectModel().parentName/](){
 	    	return [anAnnotationStack.getAuthorizationSubjectModel().parentName/];
 		}
+[elseif(anAnnotationStack.rTracksOwnership(jRModel))]
+		public int get[anAnnotationStack.getAuthorizationSubjectModel().parentName/]Id(){
+			return this.[anAnnotationStack.getAuthorizationSubjectModel().parentName/]Id;
+		}
+
 [/if]	
+
+[comment][for(jRM : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(model | model.parentName.equalsIgnoreCase(jRModel.parentName) = false
+																							and model.parentName.equalsIgnoreCase(anAnnotationStack.getAuthorizationSubjectModel().parentName) = false
+																							and model.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRModel)))]
+		public int get[jRM.parentName/]Id(){
+	    	return this.[jRM.parentName/]Id;
+		}
+
+[/for]
+[/comment]
 		[for(aNewProperty : NewProperty | anAnnotationStack.getNewProperties(jRModel))]
 		[if(aNewProperty.bIsUnique)]
 		public [aNewProperty.type/] get[aNewProperty.name/](){
@@ -397,8 +439,7 @@ endif
 let children : Set(JavaResourceModel) = jRModel.hasRelatedJavaRMManager -> collect(jrmm | jrmm.hasRelatedJavaRModel) -> asSet() 
 in	
 anAnnotationStack.hasCorePSM.hasJavaRModel 
--> select (jrm | not children -> one(r | r=jrm) 
-			and not (jrm = jRModel) 
+-> select (jrm | not children -> one(r | r=jrm) and not (jrm = jRModel) 
 			and rTracksOwnership(jrm))
 /]
 

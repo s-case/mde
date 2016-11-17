@@ -268,6 +268,9 @@ public class HibernateController{
 		[for (jPRM : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(parentRM | parentRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM)))]
         Hibernate.initialize(o[jRM.name/].getSetOfParent[jPRM.name/]());
 		[/for]
+		[for (jCRM : JavaResourceModel | jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel)]
+		Hibernate.initialize(o[jRM.name/].getSetOf[jCRM.name/]());
+		[/for]
 
         /* Commit and terminate the session*/
         hibernateTransaction.commit();
@@ -303,7 +306,7 @@ public class HibernateController{
             [jRCM.name/] o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/] = iterator[jRCM.parentName.toUpperFirst()/].next();
             o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/].getSetOfParent[jRM.name/]().remove(o[jRM.name/]);
             hibernateSession.update(o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/]);
-			[if (anAnnotationStack.hasCorePSM.hasJavaRCManager->select(jRCManager : JavaResourceControllerManager | jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel->includes(jRCM)).JavaRCManagerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb = HTTPVerb::DELETE))]
+			[if (anAnnotationStack.hasCorePSM.hasJavaRController->select(jRC : JavaResourceController | jRC.hasAssociatedJavaRModel->includes(jRCM)).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb = HTTPVerb::DELETE))]
 			cascadeDelete[jRCM.parentName/](o[if (jRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jRM))]Source[/if][jRCM.name/], hibernateSession);
 			[/if]
         }

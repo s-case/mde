@@ -527,9 +527,15 @@ unique lazy rule createHTTPActivity{
 														else Sequence{}
 														endif
 													else -- if it is a READ @ ResourceController
-														thisModule.createHTTPActivityParameter(if CRUDActivity.isSelfRelated 
+														if CRUDActivity.hasParentResource
+														then Sequence{thisModule.createHTTPActivityParameter(CRUDActivity.getParentModelIdentifierName, 'int'),
+															          thisModule.createHTTPActivityParameter(if CRUDActivity.isSelfRelated 
+																							  				 then 'target' + CRUDActivity.getModelIdentifierName 
+																							   				 else CRUDActivity.getModelIdentifierName endif , 'int')}
+														else thisModule.createHTTPActivityParameter(if CRUDActivity.isSelfRelated 
 																							   then 'target' + CRUDActivity.getModelIdentifierName 
 																							   else CRUDActivity.getModelIdentifierName endif , 'int')
+														endif
 													endif
 												else
 													if CRUDActivity.crudVerb = #UPDATE -- if this is an UPDATE CRUDActivity
@@ -544,9 +550,15 @@ unique lazy rule createHTTPActivity{
 																	  thisModule.createHTTPActivityParameter('oJava' + CRUDActivity.getModelName, 'Java' + CRUDActivity.getModelName)}
 														endif
 													else -- else it is  a #DELETE CRUDActivity
-														thisModule.createHTTPActivityParameter(if CRUDActivity.isSelfRelated 
+														if CRUDActivity.hasParentResource
+														then Sequence{thisModule.createHTTPActivityParameter(CRUDActivity.getParentModelIdentifierName, 'int'),
+															          thisModule.createHTTPActivityParameter(if CRUDActivity.isSelfRelated 
+																							  				 then 'target' + CRUDActivity.getModelIdentifierName 
+																							   				 else CRUDActivity.getModelIdentifierName endif , 'int')}
+														else thisModule.createHTTPActivityParameter(if CRUDActivity.isSelfRelated 
 																							   then 'target' + CRUDActivity.getModelIdentifierName 
 																							   else CRUDActivity.getModelIdentifierName endif , 'int')
+														endif
 													endif
 												endif
 											endif

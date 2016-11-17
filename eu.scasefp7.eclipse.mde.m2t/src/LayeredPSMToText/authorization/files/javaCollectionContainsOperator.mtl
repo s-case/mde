@@ -11,6 +11,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.authorization.attr.AttributeValue;
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.authorization.attr.CollectionOfAttributes;
@@ -29,23 +31,25 @@ public class CollectionContainsOperator extends Operator {
 		if (inputs.size() != 2){
 			return new EvaluationResult("Wrong Number of inputs : " + inputs.size() + " instead of 2");
 		}
-		Collection<AttributeValue> col1;
-		Collection<AttributeValue> col2;
+		Collection<String> col1 = new ArrayList<String>();
+		Collection<String> col2 = new ArrayList<String>();
 
 		if (inputs.get(0).isCollection()){
-			col1 = ((CollectionOfAttributes)inputs.get(0)).getValue();
+			Iterator<AttributeValue> leftOperandIterator = ((CollectionOfAttributes)inputs.get(0)).getValue().iterator();
+			while(leftOperandIterator.hasNext()){
+				col1.add(leftOperandIterator.next().getValue().toString());
+			}
 		}else{
-			Set<AttributeValue> set1 = new HashSet<AttributeValue>();
-			set1.add(inputs.get(0));
-			col1 = set1;			
+			col1.add(inputs.get(0).getValue().toString());			
 		}
 
 		if (inputs.get(1).isCollection()){
-			col2 = ((CollectionOfAttributes)inputs.get(1)).getValue();
+			Iterator<AttributeValue> rightOperandIterator = ((CollectionOfAttributes)inputs.get(1)).getValue().iterator();
+			while(rightOperandIterator.hasNext()){
+				col2.add(rightOperandIterator.next().getValue().toString());
+			}
 		}else{
-			Set<AttributeValue> set2 = new HashSet<AttributeValue>();
-			set2.add(inputs.get(1));
-			col2 = set2;	
+			col2.add(inputs.get(1).getValue().toString());				
 		}
 		
 		switch (operatorId){

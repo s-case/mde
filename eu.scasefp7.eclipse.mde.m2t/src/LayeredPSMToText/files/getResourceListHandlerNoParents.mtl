@@ -77,7 +77,7 @@ public class Get[jRCManager.parentName/]ListHandler{
 		this.oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/] = new [anAnnotationStack.getAuthenticationPerformer().authenticationModelName/](); 
 		[/if] 
 		[/if]
-		[if (anAnnotationStack.bHasAuthorizationLayer)]
+		[if (anAnnotationStack.bHasAuthorizationLayer and anAnnotationStack.isParentAuhtorizableResource(jRCManager))]		
 		this.pdp = new AzPDP();
 		[/if]
     }

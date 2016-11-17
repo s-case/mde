@@ -237,7 +237,7 @@ public class Delete[jRC.parentName/]Handler{
     /* Since both this resource and the related of it are deleted, there are created hypermedia links only towards the resources of which this one is related.*/
     	int iLastSlashIndex = String.format("%s%s", oApplicationUri.getBaseUri(), this.strResourcePath).lastIndexOf("/");
 	   
-		if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[jRC.hasAssociatedJavaRModel.parentName/]", null, null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
+		if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[jRC.hasAssociatedJavaRModel.parentName/]", "[jRC.parentName/]", null, null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
     		o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath)).substring(0, iLastSlashIndex), "Create a new [jRC.parentName/]", "POST", "Parent"));
 		}
     	o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath)).substring(0, iLastSlashIndex), "Get all [jRC.parentName/]", "GET", "Parent"));
@@ -248,7 +248,7 @@ public class Delete[jRC.parentName/]Handler{
     	int iLastSlashIndex = String.format("%s%s", oApplicationUri.getBaseUri(), this.strResourcePath).lastIndexOf("/");
 
 		[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jRC.parentName, 'Post') = false)]
-        if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[jRC.hasAssociatedJavaRModel.parentName/]", null, null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
+        if (pdp.getPermission("[jRC.hasAssociatedJavaRModel.parentName/]", null, null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
     		o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath)).substring(0, iLastSlashIndex), "Create a new [jRC.parentName/]", "POST", "Parent"));
 		}
 		[/if]

@@ -1,5 +1,5 @@
 [comment encoding = UTF-8 /]
-[module generateSearchHTTPHandler('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore')]
+[module generateSearchHTTPHandler('platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AnnotationLayerStack.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthorizationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/AuthenticationPSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/PSMMetamodel.ecore', 'platform:/plugin/eu.scasefp7.eclipse.mde.m2m/Metamodels/SearchLayerPSMMetamodel.ecore')]
 
 
 [template public generateSearchHTTPHandler(anAnnotationStack : AnnotationStack, jAlgoResourceController : JavaAlgoResourceController)]
@@ -48,6 +48,13 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName.toLowerCase()/].[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/];
 [/for]
 
+[if (anAnnotationStack.bHasAuthorizationLayer)]
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.authorization.core.AzPDP;
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.authorization.core.AzRequest;
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.authorization.enums.Action;
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.authorization.enums.AuthorizationResultCode;
+[/if]
+
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
 import org.hibernate.search.query.dsl.QueryBuilder;
@@ -71,6 +78,10 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
 	private [anAnnotationStack.getAuthenticationPerformer().authenticationModelName/] oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/];
 	[/if]
 	[/if]
+	[if (anAnnotationStack.bHasAuthorizationLayer)]
+	private AzPDP pdp;
+	[/if]
+	private Boolean bIsClientAuthenticated = false;
 
     public [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTPActivityHandler.name/]([if (anAnnotationStack.bHasAuthenticationAnnotation)][if (anAnnotationStack.hasGuestMode(jAlgoResourceController.parentName) = false)]String authHeader, [/if][/if]String searchKeyword, [for (aSearchableResource : SearchableJavaResourceModel | jAlgoResourceController.getSearchableResources(anAnnotationStack)) separator(', ')][for (aSearchableProperty : SearchableProperty | aSearchableResource.hasSearchableProperty) separator(', ')]String search[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName.toUpperFirst()/][aSearchableProperty.isSearchableProperty.annotatesPSMComponentProperty.name.toUpperFirst()/][/for][/for], UriInfo oApplicationUri){
         o[jAlgoResourceController.hasAssociatedAlgoModel.name/] = new [jAlgoResourceController.hasAssociatedAlgoModel.name/]();
@@ -88,6 +99,9 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
 		[/for]
 		[/for]
 		this.searchKeyword = searchKeyword;
+		[if (anAnnotationStack.bHasAuthorizationLayer)]
+		this.pdp = new AzPDP();
+		[/if]
     }
 
     public [jAlgoResourceController.hasAssociatedAlgoModel.name/] [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTPActivityHandler.HandlerHTTPVerb.toString().toLower()/][jAlgoResourceController.parentName.toLower()/](){
@@ -117,6 +131,9 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
 			if(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/] == null){
         		throw new WebApplicationException(Response.Status.UNAUTHORIZED);
         	}
+			else{
+				this.bIsClientAuthenticated = true;
+			}
 		}
 		[/if] 
 		[/if]
@@ -196,19 +213,154 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
     	List<[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/]> [aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/]List =(List<[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/]>) oJpaQuery.getResultList();
 
     	Iterator<[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/]> iteratorOf[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/]List = [aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/]List.iterator();
+
     	while(iteratorOf[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/]List.hasNext())
     	{
     		[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/] o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/] = iteratorOf[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/]List.next();
 			[if (aSearchableResource.hasSingleParent(anAnnotationStack))]
+			[if (anAnnotationStack.bHasAuthenticationAnnotation)]
+				[if (anAnnotationStack.hasAuthenticationOnlyMode(aSearchableResource.getUniqueParentName(anAnnotationStack)))]
+					[if (anAnnotationStack.bHasAuthorizationLayer and anAnnotationStack.isParentAuhtorizableResource(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel))]
+       		if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]", Integer.toString(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].get[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]Id()), null, Action.GET).equals(AuthorizationResultCode.PERMIT)){
+    			o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getUniqueParentName(anAnnotationStack)/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParentJava[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Model().iterator().next().get[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+			}
+					[else]
     		o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getUniqueParentName(anAnnotationStack)/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParentJava[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Model().iterator().next().get[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
-			[elseif(aSearchableResource.getNumberOfParents(anAnnotationStack) > 0)]
+					[/if]
+				[else]
+					[if (anAnnotationStack.bHasAuthorizationLayer and anAnnotationStack.isParentAuhtorizableResource(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel))]
+			if (this.bIsClientAuthenticated == true){ //if the user is authenticated apply ABAC checks
+       			if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]", Integer.toString(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].get[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]Id()), null, Action.GET).equals(AuthorizationResultCode.PERMIT)){
+    				o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getUniqueParentName(anAnnotationStack)/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParentJava[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Model().iterator().next().get[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+				}
+			}
+			else{ //otherwise apply first Basic Authentication checks and then ABAC
+ 			[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName, 'Get') = false)]
+       			if (pdp.getPermission("[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]", Integer.toString(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].get[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]Id()), null, Action.GET).equals(AuthorizationResultCode.PERMIT)){
+    				o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getUniqueParentName(anAnnotationStack)/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParentJava[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Model().iterator().next().get[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+				}
+			[/if]
+			}
+					[else]
+			if (this.bIsClientAuthenticated == true){ //if the user is authenticated provide all the hypermedia links
+    			o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getUniqueParentName(anAnnotationStack)/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParentJava[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Model().iterator().next().get[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+			}
+			else{ //otherwise provide only hypermedia links accessible by guests
+		[if (aSearchableResource.getModelRC(anAnnotationStack).JavaRControllerHasHTTPActivity->exists(httpActivity : HTTPActivity | httpActivity.ActivityHTTPVerb->includes(HTTPVerb::GET)))]
+ 			[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(aSearchableResource.getModelRC(anAnnotationStack).parentName, 'Get') = false)]
+    			o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getUniqueParentName(anAnnotationStack)/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParentJava[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Model().iterator().next().get[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+			[/if]
+		[/if]
+			}
+					[/if]
+				[/if]
+			[else]
+    		o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getUniqueParentName(anAnnotationStack)/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParentJava[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Model().iterator().next().get[aSearchableResource.getUniqueParentName(anAnnotationStack)/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+		[/if]
+		[elseif(aSearchableResource.getNumberOfParents(anAnnotationStack) > 0)]
+		[if (anAnnotationStack.bHasAuthenticationAnnotation)]
+			[if (anAnnotationStack.hasAuthenticationOnlyMode(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName))]
+				[if (anAnnotationStack.bHasAuthorizationLayer and anAnnotationStack.isParentAuhtorizableResource(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel))]
+					[for (jPRModel : JavaResourceModel | aSearchableResource.getMultipleParents(anAnnotationStack))]
+			if(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]() != null && o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().isEmpty() == false){
+				if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]", Integer.toString(oNext[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].get[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]Id()), null, Action.GET).equals(AuthorizationResultCode.PERMIT)){
+					o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRModel.parentName/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().iterator().next().get[jPRModel.parentName/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+				}
+			}
+					[/for]
+				[else]
+			[for (jPRModel : JavaResourceModel | aSearchableResource.getMultipleParents(anAnnotationStack))]
+		if(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]() != null && o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().isEmpty() == false){
+			o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRModel.parentName/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().iterator().next().get[jPRModel.parentName/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+		}
+			[/for]
+				[/if]
+			[else]
+				[if (anAnnotationStack.bHasAuthorizationLayer and anAnnotationStack.isParentAuhtorizableResource(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel))]
+		if (this.bIsClientAuthenticated == true){ //if the user is authenticated apply ABAC checks
+					[for (jPRModel : JavaResourceModel | aSearchableResource.getMultipleParents(anAnnotationStack))]
+			if(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]() != null && o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().isEmpty() == false){
+				if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]", Integer.toString(oNext[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].get[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]Id()), null, Action.GET).equals(AuthorizationResultCode.PERMIT)){
+					o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRModel.parentName/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().iterator().next().get[jPRModel.parentName/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+				}
+			}
+					[/for]
+		}
+		else{ //otherwise apply first Basic Authentication checks and then ABAC
+					[for (jPRModel : JavaResourceModel | aSearchableResource.getMultipleParents(anAnnotationStack))]
+ 						[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRModel.parentName, aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName, 'Get') = false)]
+			if(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]() != null && o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().isEmpty() == false){
+				if (pdp.getPermission("[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]", Integer.toString(oNext[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].get[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]Id()), null, Action.GET).equals(AuthorizationResultCode.PERMIT)){
+					o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRModel.parentName/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().iterator().next().get[jPRModel.parentName/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+				}
+			}
+						[/if]
+					[/for]
+		}
+				[else]
+		if (this.bIsClientAuthenticated == true){ //if the user is authenticated provide all the hypermedia links
 			[for (jPRModel : JavaResourceModel | aSearchableResource.getMultipleParents(anAnnotationStack))]
 			if(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]() != null && o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().isEmpty() == false){
 				o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRModel.parentName/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().iterator().next().get[jPRModel.parentName/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
 			}
 			[/for]
+		}
+		else{ //otherwise provide only hypermedia links accessible by guests
+			[for (jPRModel : JavaResourceModel | aSearchableResource.getMultipleParents(anAnnotationStack))]
+ 			[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRModel.parentName, aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName, 'Get') = false)]
+			if(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]() != null && o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().isEmpty() == false){
+				o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRModel.parentName/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().iterator().next().get[jPRModel.parentName/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+			}
+			[/if]
+			[/for]
+		}
+				[/if]
+			[/if]
+		[else]
+			[for (jPRModel : JavaResourceModel | aSearchableResource.getMultipleParents(anAnnotationStack))]
+			if(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]() != null && o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().isEmpty() == false){
+				o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%smulti[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]/%s/%d/%s/%d", oApplicationUri.getBaseUri(), "[jPRModel.parentName/]", o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].getSetOfParent[jPRModel.name/]().iterator().next().get[jPRModel.parentName/]Id(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+			}
+			[/for]
+		[/if]
 			[else]
+		[if (anAnnotationStack.bHasAuthenticationAnnotation)]
+			[if (anAnnotationStack.hasAuthenticationOnlyMode(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName))]
+				[if (anAnnotationStack.bHasAuthorizationLayer and anAnnotationStack.isParentAuhtorizableResource(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel))]
+        if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]", Integer.toString(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].get[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]Id()), null, Action.GET).equals(AuthorizationResultCode.PERMIT)){
 			o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+		}
+				[else]
+		o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+				[/if]
+			[else]
+				[if (anAnnotationStack.bHasAuthorizationLayer and anAnnotationStack.isParentAuhtorizableResource(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel))]
+		if (this.bIsClientAuthenticated == true){ //if the user is authenticated apply ABAC checks
+        	if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]", Integer.toString(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].get[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]Id()), null, Action.GET).equals(AuthorizationResultCode.PERMIT)){
+				o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+			}
+		}
+		else{ //otherwise apply first Basic Authentication checks and then ABAC
+			[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName, 'Get') = false)]
+        	if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]", Integer.toString(o[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.name/].get[aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName/]Id()), null, Action.GET).equals(AuthorizationResultCode.PERMIT)){
+				o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+			}
+			[/if]
+		}
+				[else]
+		if (this.bIsClientAuthenticated == true){ //if the user is authenticated provide all the hypermedia links
+			o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+		}
+		else{ //otherwise provide only hypermedia links accessible by guests
+			[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName, 'Get') = false)]
+				o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+			[/if]
+		}
+				[/if]
+			[/if]
+		[else]
+			o[jAlgoResourceController.hasAssociatedAlgoModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%d", oApplicationUri.getBaseUri(), "[aSearchableResource.getResourceName()/]", o[aSearchableResource.getResourceModelName()/].get[aSearchableResource.getResourceName()/]Id()), "Search result", "GET", "[aSearchableResource.getResourceName()/]"));
+		[/if]
 			[/if]
     	}
     	
@@ -246,8 +398,20 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
 [/file]
 [/template]
 
+[query private hasBothModeAuthentication(anAnnotationStack : AnnotationStack, parentsName : String, resourceName : String) : Boolean =
+	getAuthenticationLayerBothModeAnnotations(anAnnotationStack)->exists(bothModeAnnotation | bothModeAnnotation.HTTPActivityHandlerHasAuthenticationMode->exists(annHTTPActivityHandler | annHTTPActivityHandler.annotatesHTTPActivityHandler.name = 'Get' + parentsName + resourceName + 'Handler'))
+/]
+
+[query private hasAuthenticationOnlyMode(anAnnotationStack : AnnotationStack, parentsName : String, resourceName : String) : Boolean =
+	getAuthenticationLayerAuthenticationOnlyModeAnnotations(anAnnotationStack)->exists(authenticationOnlyMode | authenticationOnlyMode.HTTPActivityHandlerHasAuthenticationMode->exists(annHTTPActivityHandler | annHTTPActivityHandler.annotatesHTTPActivityHandler.name = 'Get' + parentsName + resourceName + 'Handler'))
+/]
+
 [query private hasBothModeAuthentication(anAnnotationStack : AnnotationStack, resourceName : String) : Boolean =
 	getAuthenticationLayerBothModeAnnotations(anAnnotationStack)->exists(bothModeAnnotation | bothModeAnnotation.HTTPActivityHandlerHasAuthenticationMode->exists(annHTTPActivityHandler | annHTTPActivityHandler.annotatesHTTPActivityHandler.name.toLower() = annHTTPActivityHandler.annotatesHTTPActivityHandler.HandlerHTTPVerb.toString().toLower() + resourceName.toLower() + 'Handler'.toLower()))
+/]
+
+[query private hasBothModeAuthentication(anAnnotationStack : AnnotationStack, resourceName : String, httpVerb : String, nullString : String) : Boolean =
+	getAuthenticationLayerBothModeAnnotations(anAnnotationStack)->exists(bothModeAnnotation | bothModeAnnotation.HTTPActivityHandlerHasAuthenticationMode->exists(annHTTPActivityHandler | annHTTPActivityHandler.annotatesHTTPActivityHandler.name.toLower() = httpVerb + resourceName.toLower() + 'Handler'.toLower()))
 /]
 
 [query private getAuthenticationLayerBothModeAnnotations(anAnnotationStack : AnnotationStack) : Sequence(BothMode) =
@@ -255,7 +419,7 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
 /]
 
 [query private hasAuthenticationOnlyMode(anAnnotationStack : AnnotationStack, resourceName : String) : Boolean =
-	getAuthenticationLayerAuthenticationOnlyModeAnnotations(anAnnotationStack)->exists(authenticationOnlyMode | authenticationOnlyMode.HTTPActivityHandlerHasAuthenticationMode->exists(annHTTPActivityHandler | annHTTPActivityHandler.annotatesHTTPActivityHandler.name.toLower() = annHTTPActivityHandler.annotatesHTTPActivityHandler.HandlerHTTPVerb.toString().toLower() + resourceName.toLower() + 'Handler'.toLower()))
+	getAuthenticationLayerAuthenticationOnlyModeAnnotations(anAnnotationStack)->exists(authenticationOnlyMode | authenticationOnlyMode.HTTPActivityHandlerHasAuthenticationMode->exists(annHTTPActivityHandler | annHTTPActivityHandler.annotatesHTTPActivityHandler.name.toLower() = 'Get' + resourceName.toLower() + 'Handler'.toLower()))
 /]
 
 [query private getAuthenticationLayerAuthenticationOnlyModeAnnotations(anAnnotationStack : AnnotationStack) : Sequence(AuthenticationOnlyMode) =
@@ -263,7 +427,7 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
 /]
 
 [query private hasGuestMode(anAnnotationStack : AnnotationStack, resourceName : String) : Boolean =
-	getAuthenticationLayerGuestModeAnnotations(anAnnotationStack)->exists(guestMode | guestMode.HTTPActivityHandlerHasAuthenticationMode->exists(annHTTPActivityHandler | annHTTPActivityHandler.annotatesHTTPActivityHandler.name.toLower() = annHTTPActivityHandler.annotatesHTTPActivityHandler.HandlerHTTPVerb.toString().toLower() + resourceName.toLower() + 'Handler'.toLower()))
+	getAuthenticationLayerGuestModeAnnotations(anAnnotationStack)->exists(guestMode | guestMode.HTTPActivityHandlerHasAuthenticationMode->exists(annHTTPActivityHandler | annHTTPActivityHandler.annotatesHTTPActivityHandler.name.toLower() = 'Get' + resourceName.toLower() + 'Handler'.toLower()))
 /]
 
 [query private getAuthenticationLayerGuestModeAnnotations(anAnnotationStack : AnnotationStack) : Sequence(GuestMode) =
@@ -302,6 +466,14 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
 	anAnnotationStack.hasCorePSM.hasJavaRModel->select(jPRModel | jPRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel))->at(1).parentName
 /]
 
+[query private getUniqueParent(aSearchableResource : SearchableJavaResourceModel, anAnnotationStack : AnnotationStack) : JavaResourceModel =
+	anAnnotationStack.hasCorePSM.hasJavaRModel->select(jPRModel | jPRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel))->at(1)
+/]
+
+[query private getModelRC(aSearchableResource : SearchableJavaResourceModel, anAnnotationStack : AnnotationStack) : JavaResourceController =
+	anAnnotationStack.hasCorePSM.hasJavaRController->select(jRC | jRC.hasAssociatedJavaRModel->includes(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel))->at(1)
+/]
+
 [query private getResourceName(aSearchableResource : SearchableJavaResourceModel) : String =
 	aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel.parentName
 /]
@@ -316,4 +488,20 @@ public class [jAlgoResourceController.JavaAlgoRControllerHasHTTPActivity.hasHTTP
 
 [query private getMultipleParents(aSearchableResource : SearchableJavaResourceModel, anAnnotationStack : AnnotationStack) : Sequence(JavaResourceModel) =
 	anAnnotationStack.hasCorePSM.hasJavaRModel->select(jPRModel | jPRModel.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(aSearchableResource.isSearchableJavaResourceModel.annotatesJavaResourceModel))->asSequence()
+/]
+
+[query private isParentAuhtorizableResource(anAnnotationStack : AnnotationStack, jRM : JavaResourceModel) : Boolean =
+	anAnnotationStack.hasAuthorizationLayer.hasAnnotation->selectByType(AuthorizableResource)->select(authResource | not authResource.isAuthorizableResourceModel.oclIsUndefined())->one(authResource | authResource.isAuthorizableResourceModel.annotatesJavaResourceModel = jRM)
+/]
+
+[query private isParentAuhtorizableResource(anAnnotationStack : AnnotationStack, jRC : JavaResourceController) : Boolean =
+	anAnnotationStack.hasAuthorizationLayer.hasAnnotation->selectByType(AuthorizableResource)->select(authResource | not authResource.isAuthorizableResourceModel.oclIsUndefined())->one(authResource | authResource.isAuthorizableResourceModel.annotatesJavaResourceModel = jRC.hasAssociatedJavaRModel)
+/]
+
+[query private hasAuthenticationOnlyModeCRUDVerbActivity(anAnnotationStack : AnnotationStack, resourceName : String, httpVerb : String) : Boolean =
+	getAuthenticationLayerAuthenticationOnlyModeAnnotations(anAnnotationStack)->exists(authenticationOnlyMode | authenticationOnlyMode.HTTPActivityHandlerHasAuthenticationMode->exists(annHTTPActivityHandler | annHTTPActivityHandler.annotatesHTTPActivityHandler.name = httpVerb + resourceName + 'Handler'))
+/]
+
+[query private hasAuthenticationOnlyModeCRUDVerbActivity(anAnnotationStack : AnnotationStack, parentsName : String, resourceName : String, httpVerb : String) : Boolean =
+	getAuthenticationLayerAuthenticationOnlyModeAnnotations(anAnnotationStack)->exists(authenticationOnlyMode | authenticationOnlyMode.HTTPActivityHandlerHasAuthenticationMode->exists(annHTTPActivityHandler | annHTTPActivityHandler.annotatesHTTPActivityHandler.name = httpVerb + parentsName + resourceName + 'Handler'))
 /]

@@ -68,7 +68,7 @@ public class [jRController.name/]{
 	[activityJAXRSAnnotation.JAXRSAnnotationText/]
 	[/for]
     public [jRController.hasAssociatedJavaRModel.name/] [httpActivity.name.toLowerFirst()/]([if (anAnnotationStack.bHasAuthenticationAnnotation)][if (httpActivity.hasBothModeAuthentication(anAnnotationStack))]@DefaultValue("guest") @HeaderParam("authorization") String authHeader, [elseif (httpActivity.hasAuthenticationOnlyMode(anAnnotationStack))]@HeaderParam("authorization") String authHeader, [/if][/if][for (httpActivityParam : HTTPActivityFunctionParameter | httpActivity.hasHTTPActivityParameter) separator(', ')][httpActivityParam.HTTPFunctionParameterHasJAXRSAnnotation.JAXRSAnnotationText/] [httpActivityParam.type/] [httpActivityParam.name/][/for]){
-        [httpActivity.hasHTTPActivityHandler.name/] o[httpActivity.hasHTTPActivityHandler.name/] = new [httpActivity.hasHTTPActivityHandler.name/]([if (anAnnotationStack.bHasAuthenticationAnnotation)][if(httpActivity.hasGuestMode(anAnnotationStack) = false)]authHeader, [/if][/if][httpActivity.hasHTTPActivityParameter.name/], oApplicationUri);
+        [httpActivity.hasHTTPActivityHandler.name/] o[httpActivity.hasHTTPActivityHandler.name/] = new [httpActivity.hasHTTPActivityHandler.name/]([if (anAnnotationStack.bHasAuthenticationAnnotation)][if(httpActivity.hasGuestMode(anAnnotationStack) = false)]authHeader, [/if][/if][for (httpActivityParam : HTTPActivityFunctionParameter | httpActivity.hasHTTPActivityParameter) separator(', ')][httpActivityParam.name/][/for], oApplicationUri);
         return o[httpActivity.hasHTTPActivityHandler.name/].get[jRController.hasAssociatedJavaRModel.name/]();
     }
 [/for]
@@ -92,7 +92,7 @@ public class [jRController.name/]{
 	[activityJAXRSAnnotation.JAXRSAnnotationText/]
 	[/for]
     public [jRController.hasAssociatedJavaRModel.name/] [httpActivity.name.toLowerFirst()/]([if (anAnnotationStack.bHasAuthenticationAnnotation)][if (httpActivity.hasBothModeAuthentication(anAnnotationStack))]@DefaultValue("guest") @HeaderParam("authorization") String authHeader, [elseif (httpActivity.hasAuthenticationOnlyMode(anAnnotationStack))]@HeaderParam("authorization") String authHeader, [/if][/if][for (httpActivityParam : HTTPActivityFunctionParameter | httpActivity.hasHTTPActivityParameter) separator(', ')][httpActivityParam.HTTPFunctionParameterHasJAXRSAnnotation.JAXRSAnnotationText/] [httpActivityParam.type/] [httpActivityParam.name/][/for]){
-        [httpActivity.hasHTTPActivityHandler.name/] o[httpActivity.hasHTTPActivityHandler.name/] = new [httpActivity.hasHTTPActivityHandler.name/]([if (anAnnotationStack.bHasAuthenticationAnnotation)][if(httpActivity.hasGuestMode(anAnnotationStack) = false)]authHeader, [/if][/if][httpActivity.hasHTTPActivityParameter.name/], oApplicationUri);
+        [httpActivity.hasHTTPActivityHandler.name/] o[httpActivity.hasHTTPActivityHandler.name/] = new [httpActivity.hasHTTPActivityHandler.name/]([if (anAnnotationStack.bHasAuthenticationAnnotation)][if(httpActivity.hasGuestMode(anAnnotationStack) = false)]authHeader, [/if][/if][for (httpActivityParam : HTTPActivityFunctionParameter | httpActivity.hasHTTPActivityParameter) separator(', ')][httpActivityParam.name/][/for], oApplicationUri);
         return o[httpActivity.hasHTTPActivityHandler.name/].delete[jRController.hasAssociatedJavaRModel.name/]();
     }
 [/for]

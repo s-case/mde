@@ -46,6 +46,7 @@ import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities
 
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.HypermediaLink;
 import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLowerCase()/].utilities.HibernateController;
+import eu.fp7.scase.[anAnnotationStack.hasCorePSM.name.toLower()/].[jPRM.parentName.toLowerCase()/].[jPRM.name/];
 
 /* This class processes DELETE requests for [jRC.parentName/] resources and creates the hypermedia to be returned to the client*/
 public class Delete[jPRM.parentName/][jRC.parentName/]Handler{
@@ -55,6 +56,7 @@ public class Delete[jPRM.parentName/][jRC.parentName/]Handler{
     private UriInfo oApplicationUri; //Standard datatype that holds information on the URI info of this request
 	private String strResourcePath; //relative path to the current resource
     private [jRC.hasAssociatedJavaRModel.name/] o[jRC.hasAssociatedJavaRModel.name/];
+    private [jPRM.name/] o[if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.name/];
 	[if (anAnnotationStack.bHasAuthenticationAnnotation)]
 	[if (anAnnotationStack.hasGuestMode(jPRM.parentName, jRC.parentName) = false)]
 	private String authHeader;
@@ -66,12 +68,14 @@ public class Delete[jPRM.parentName/][jRC.parentName/]Handler{
     private AzPDP pdp;
     [/if]
 
-    public Delete[jPRM.parentName/][jRC.parentName/]Handler([if (anAnnotationStack.bHasAuthenticationAnnotation)][if (anAnnotationStack.hasGuestMode(jPRM.parentName, jRC.parentName) = false)]String authHeader, [/if][/if]int [jRC.parentName/]Id, UriInfo oApplicationUri){
+    public Delete[jPRM.parentName/][jRC.parentName/]Handler([if (anAnnotationStack.bHasAuthenticationAnnotation)][if (anAnnotationStack.hasGuestMode(jPRM.parentName, jRC.parentName) = false)]String authHeader, [/if][/if]int [if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.parentName/]Id, int [jRC.parentName/]Id, UriInfo oApplicationUri){
         o[jRC.hasAssociatedJavaRModel.name/] = new [jRC.hasAssociatedJavaRModel.name/]();
         o[jRC.hasAssociatedJavaRModel.name/].set[jRC.parentName/]Id([jRC.parentName/]Id);
         this.oHibernateController = HibernateController.getHibernateControllerHandle();
         this.oApplicationUri = oApplicationUri;
 		this.strResourcePath = calculateProperResourcePath();
+        o[if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.name/] = new [jPRM.name/]();
+        o[if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.name/].set[jPRM.parentName/]Id([if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.parentName/]Id);
 		[if (anAnnotationStack.bHasAuthenticationAnnotation)]
 		[if (anAnnotationStack.hasGuestMode(jPRM.parentName, jRC.parentName) = false)]
 		this.authHeader = authHeader;
@@ -239,7 +243,7 @@ public class Delete[jPRM.parentName/][jRC.parentName/]Handler{
 [template public createHypermediaABACChecks(anAnnotationStack : AnnotationStack, httpVerb : HTTPVerb, jRC : JavaResourceController, jPRM : JavaResourceModel)]
   	   /* Since both this resource and the related of it are deleted, there are created hypermedia links only towards the resources of which this one is related.*/
     	int iLastSlashIndex = String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath).replaceAll("multi[jRC.parentName/]","multi[jRC.parentName/]Manager")).lastIndexOf("/");
-		if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[jRC.hasAssociatedJavaRModel.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jPRM.parentName/]().get[jPRM.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
+		if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[jRC.hasAssociatedJavaRModel.parentName/]", "[jPRM.parentName/]" Integer.toString(o[if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.name/].get[jPRM.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
 	    	o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath).replaceAll("multi[jRC.parentName/]","multi[jRC.parentName/]Manager")).substring(0, iLastSlashIndex), "Create a new [jRC.parentName/]", "POST", "Parent"));
 		}
 	    o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath).replaceAll("multi[jRC.parentName/]","multi[jRC.parentName/]Manager")).substring(0, iLastSlashIndex), "Get all [jRC.parentName/]s of this [jPRM.parentName/]", "GET", "Parent"));
@@ -250,7 +254,7 @@ public class Delete[jPRM.parentName/][jRC.parentName/]Handler{
  	   /* Since both this resource and the related of it are deleted, there are created hypermedia links only towards the resources of which this one is related.*/
     	int iLastSlashIndex = String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath).replaceAll("multi[jRC.parentName/]","multi[jRC.parentName/]Manager")).lastIndexOf("/");
  		[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRM.parentName, jRC.parentName, 'Post') = false)]
-		if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[jRC.hasAssociatedJavaRModel.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jPRM.parentName/]().get[jPRM.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
+		if (pdp.getPermission("[jRC.hasAssociatedJavaRModel.parentName/]", Integer.toString(o[if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.name/].get[jPRM.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
 	    	o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath).replaceAll("multi[jRC.parentName/]","multi[jRC.parentName/]Manager")).substring(0, iLastSlashIndex), "Create a new [jRC.parentName/]", "POST", "Parent"));
 		}
 		[/if]

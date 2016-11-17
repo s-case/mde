@@ -1334,11 +1334,11 @@ public class ABACWizardPage extends WizardPage {
 					boolean bLeftAttributeIsResource = false;
 					if (!hasAttr(oSelectedCondition.getHasLeftSideOperand())) return false;
 					if (oSelectedCondition.getHasLeftSideOperand().getIsAttributeExistingProperty() != null){
-						bLeftAttributeIsUnique = oSelectedCondition.getHasLeftSideOperand().getIsAttributeExistingProperty().getAnnotatesProperty().isIsUnique() && !oSelectedCondition.getHasLeftSideOperand().getAttributeCategory().equals(AttributeCategory.CHILD_RESOURCE);
+						bLeftAttributeIsUnique = oSelectedCondition.getHasLeftSideOperand().getIsAttributeExistingProperty().getAnnotatesProperty().isIsUnique() && !oSelectedCondition.getHasLeftSideOperand().getAttributeCategory().equals(AttributeCategory.CHILD_RESOURCE) && !oSelectedCondition.getHasLeftSideOperand().getAttributeCategory().equals(AttributeCategory.PARENT_RESOURCE);
 						bLeftAttribtueIsString =  oSelectedCondition.getHasLeftSideOperand().getIsAttributeExistingProperty().getAnnotatesProperty().getType().equalsIgnoreCase("string");
 					}
 					if (oSelectedCondition.getHasLeftSideOperand().getIsAttributeNewProperty() != null){
-						bLeftAttributeIsUnique = oSelectedCondition.getHasLeftSideOperand().getIsAttributeNewProperty().isBIsUnique() && !oSelectedCondition.getHasLeftSideOperand().getAttributeCategory().equals(AttributeCategory.CHILD_RESOURCE);
+						bLeftAttributeIsUnique = oSelectedCondition.getHasLeftSideOperand().getIsAttributeNewProperty().isBIsUnique() && !oSelectedCondition.getHasLeftSideOperand().getAttributeCategory().equals(AttributeCategory.CHILD_RESOURCE) && !oSelectedCondition.getHasLeftSideOperand().getAttributeCategory().equals(AttributeCategory.PARENT_RESOURCE);
 						bLeftAttribtueIsString =  oSelectedCondition.getHasLeftSideOperand().getIsAttributeNewProperty().getType().equalsIgnoreCase("string");
 					}
 					if (oSelectedCondition.getHasLeftSideOperand().getIsAttributeResource() != null){
@@ -2653,7 +2653,7 @@ public class ABACWizardPage extends WizardPage {
 				oLeftPropertyComboViewer.setInput(propertyContainer);	
 			}
 			oLeftPropertyComboViewer.setSelection(new StructuredSelection(oSelectedCondition.getHasLeftSideOperand().getIsAttributeExistingProperty().getAnnotatesProperty()));
-			String isSet = (!oSelectedCondition.getHasLeftSideOperand().getIsAttributeExistingProperty().getAnnotatesProperty().isIsUnique()||oSelectedCondition.getHasLeftSideOperand().getAttributeCategory().equals(AttributeCategory.CHILD_RESOURCE))?"(Set)":"" ;
+			String isSet = (!oSelectedCondition.getHasLeftSideOperand().getIsAttributeExistingProperty().getAnnotatesProperty().isIsUnique()||oSelectedCondition.getHasLeftSideOperand().getAttributeCategory().equals(AttributeCategory.CHILD_RESOURCE) ||oSelectedCondition.getHasLeftSideOperand().getAttributeCategory().equals(AttributeCategory.PARENT_RESOURCE))?"(Set)":"" ;
 			oLeftTypeLabel.setText(isSet + oSelectedCondition.getHasLeftSideOperand().getIsAttributeExistingProperty().getAnnotatesProperty().getType());
 		}else if (oSelectedCondition.getHasLeftSideOperand().getIsAttributeNewProperty() != null){
 			//Left attribute is a new property
@@ -2672,7 +2672,7 @@ public class ABACWizardPage extends WizardPage {
 			}
 
 			oLeftPropertyComboViewer.setSelection(new StructuredSelection(oSelectedCondition.getHasLeftSideOperand().getIsAttributeNewProperty()));
-			String isSet = (!oSelectedCondition.getHasLeftSideOperand().getIsAttributeNewProperty().isBIsUnique() ||oSelectedCondition.getHasLeftSideOperand().getAttributeCategory().equals(AttributeCategory.CHILD_RESOURCE))?"(Set)":"" ;
+			String isSet = (!oSelectedCondition.getHasLeftSideOperand().getIsAttributeNewProperty().isBIsUnique() ||oSelectedCondition.getHasLeftSideOperand().getAttributeCategory().equals(AttributeCategory.CHILD_RESOURCE) ||oSelectedCondition.getHasLeftSideOperand().getAttributeCategory().equals(AttributeCategory.PARENT_RESOURCE)) ?"(Set)":"" ;
 			oLeftTypeLabel.setText(isSet + oSelectedCondition.getHasLeftSideOperand().getIsAttributeNewProperty().getType());
 		}else if (oSelectedCondition.getHasLeftSideOperand().getIsAttributeResource() != null){
 			//Left attribute is a resource
@@ -2774,7 +2774,7 @@ public class ABACWizardPage extends WizardPage {
 						}
 					}
 					oRightPropertyComboViewer.setSelection(new StructuredSelection(oSelectedCondition.getHasRightSideOperand().getIsAttributeExistingProperty().getAnnotatesProperty()));
-					String isSet = (!oSelectedCondition.getHasRightSideOperand().getIsAttributeExistingProperty().getAnnotatesProperty().isIsUnique()||oSelectedCondition.getHasRightSideOperand().getAttributeCategory().equals(AttributeCategory.CHILD_RESOURCE))?"(Set)":"" ;
+					String isSet = (!oSelectedCondition.getHasRightSideOperand().getIsAttributeExistingProperty().getAnnotatesProperty().isIsUnique()||oSelectedCondition.getHasRightSideOperand().getAttributeCategory().equals(AttributeCategory.CHILD_RESOURCE) ||oSelectedCondition.getHasRightSideOperand().getAttributeCategory().equals(AttributeCategory.PARENT_RESOURCE))?"(Set)":"" ;
 					oRightTypeLabel.setText(isSet + oSelectedCondition.getHasRightSideOperand().getIsAttributeExistingProperty().getAnnotatesProperty().getType());
 					recursiveSetEnabled(oRightSideResourceValueComposite, true);
 					recursiveSetEnabled(oRightPropertyValuesComposite, true);
@@ -2790,7 +2790,7 @@ public class ABACWizardPage extends WizardPage {
 						}
 					}
 					oRightPropertyComboViewer.setSelection(new StructuredSelection(oSelectedCondition.getHasRightSideOperand().getIsAttributeNewProperty()));
-					String isSet = (!oSelectedCondition.getHasRightSideOperand().getIsAttributeNewProperty().isBIsUnique()||oSelectedCondition.getHasRightSideOperand().getAttributeCategory().equals(AttributeCategory.CHILD_RESOURCE))?"(Set)":"" ;
+					String isSet = (!oSelectedCondition.getHasRightSideOperand().getIsAttributeNewProperty().isBIsUnique()||oSelectedCondition.getHasRightSideOperand().getAttributeCategory().equals(AttributeCategory.CHILD_RESOURCE)||oSelectedCondition.getHasRightSideOperand().getAttributeCategory().equals(AttributeCategory.PARENT_RESOURCE))?"(Set)":"" ;
 					oRightTypeLabel.setText(isSet + oSelectedCondition.getHasRightSideOperand().getIsAttributeNewProperty().getType());
 					recursiveSetEnabled(oRightSideResourceValueComposite, true);
 					recursiveSetEnabled(oRightPropertyValuesComposite, true);					

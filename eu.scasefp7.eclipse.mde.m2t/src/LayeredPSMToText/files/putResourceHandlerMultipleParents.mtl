@@ -409,7 +409,7 @@ public class Put[jPRM.parentName/][jRC.parentName/]Handler{
 		[if (anAnnotationStack.hasCorePSM.hasJavaRModel->select(parentRM : JavaResourceModel | parentRM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(cRM))->size() > 1)]
         o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%s/%s", oApplicationUri.getBaseUri(), "multi[cRM.parentName/]Manager", oRelativePath, "[cRM.parentName/]"), "Get all the [cRM.parentName/]s of this [jRC.parentName/]", "GET", "Child"));
 				[if (anAnnotationStack.isParentAuhtorizableResource(cRM))]
-        if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[cRM.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jRC.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
+        if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[cRM.parentName/]", "[jRC.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jRC.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
 	        o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%s/%s", oApplicationUri.getBaseUri(), "multi[cRM.parentName/]Manager", oRelativePath, "[cRM.parentName/]"), "Create a new [cRM.parentName/] for this [jRC.parentName/]", "POST", "Child"));
 		}
 				[else]
@@ -418,7 +418,7 @@ public class Put[jPRM.parentName/][jRC.parentName/]Handler{
 		[else]
         o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%s", oApplicationUri.getBaseUri(), oRelativePath, "[cRM.parentName/]"), "Get all the [cRM.parentName/]s of this [jRC.parentName/]", "GET", "Child"));
 				[if (anAnnotationStack.isParentAuhtorizableResource(cRM))]
-        if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[cRM.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jRC.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
+        if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[cRM.parentName/]", "[jRC.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jRC.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
 	        o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%s", oApplicationUri.getBaseUri(), oRelativePath, "[cRM.parentName/]"), "Create a new [cRM.parentName/] for this [jRC.parentName/]", "POST", "Child"));
 		}		
 				[else]
@@ -430,7 +430,7 @@ public class Put[jPRM.parentName/][jRC.parentName/]Handler{
         /* Finally, truncate the current URI so as to point to the resource manager of which this resource is related.
         Then create the hypermedia links towards the parent resources.*/
         int iLastSlashIndex = String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath).replaceAll("multi[jRC.parentName/]","multi[jRC.parentName/]Manager")).lastIndexOf("/");
-		if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[jRC.hasAssociatedJavaRModel.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jPRM.parentName/]().get[jPRM.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
+		if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[jRC.hasAssociatedJavaRModel.parentName/]", "[jPRM.parentName/]", Integer.toString(o[if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.name/].get[jPRM.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
 	        o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath).replaceAll("multi[jRC.parentName/]","multi[jRC.parentName/]Manager")).substring(0, iLastSlashIndex), "Create a new [jRC.parentName/]", "POST", "Parent"));
 		}
         o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath).replaceAll("multi[jRC.parentName/]","multi[jRC.parentName/]Manager")).substring(0, iLastSlashIndex), "Get all [jRC.parentName/]s of this [jPRM.parentName/]", "GET", "Parent"));
@@ -496,7 +496,7 @@ public class Put[jPRM.parentName/][jRC.parentName/]Handler{
         Then create the hypermedia links towards the parent resources.*/
         int iLastSlashIndex = String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath).replaceAll("multi[jRC.parentName/]","multi[jRC.parentName/]Manager")).lastIndexOf("/");
  		[if (anAnnotationStack.hasAuthenticationOnlyModeCRUDVerbActivity(jPRM.parentName, jRC.parentName, 'Post') = false)]
-		if (pdp.getPermission("[jRC.hasAssociatedJavaRModel.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jPRM.parentName/]().get[jPRM.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
+		if (pdp.getPermission("[jRC.hasAssociatedJavaRModel.parentName/]", Integer.toString(o[if (jPRM = jRC.hasAssociatedJavaRModel)]Source[/if][jPRM.name/].get[jPRM.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
 	        o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s", oApplicationUri.getBaseUri(), String.format("%s", this.strResourcePath).replaceAll("multi[jRC.parentName/]","multi[jRC.parentName/]Manager")).substring(0, iLastSlashIndex), "Create a new [jRC.parentName/]", "POST", "Parent"));
 		}
 		[/if]

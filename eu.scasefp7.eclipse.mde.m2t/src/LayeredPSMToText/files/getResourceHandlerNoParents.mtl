@@ -324,7 +324,7 @@ public class Get[jRC.parentName/]Handler{
 		//No Authorization check required, since the user will only get hypermedia links of resources he has access to.
         o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%s/%s", oApplicationUri.getBaseUri(), "multi[cRM.parentName/]Manager", oRelativePath, "[cRM.parentName/]"), "Get all the [cRM.parentName/]s of this [jRC.parentName/]", "GET", "Child"));
 				[if (anAnnotationStack.isParentAuhtorizableResource(cRM))]
-        if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[cRM.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jRC.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
+        if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[cRM.parentName/]", "[jRC.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jRC.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
         	o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%s/%s", oApplicationUri.getBaseUri(), "multi[cRM.parentName/]Manager", oRelativePath, "[cRM.parentName/]"), "Create a new [cRM.parentName/] for this [jRC.parentName/]", "POST", "Child"));
 		}
 				[else]
@@ -334,7 +334,7 @@ public class Get[jRC.parentName/]Handler{
 		//No Authorization check required, since the user will only get hypermedia links of resources he has access to.
         o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%s", oApplicationUri.getBaseUri(), oRelativePath, "[cRM.parentName/]"), "Get all the [cRM.parentName/]s of this [jRC.parentName/]", "GET", "Child"));
 				[if (anAnnotationStack.isParentAuhtorizableResource(cRM))]
-        if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[cRM.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jRC.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
+        if (pdp.getPermission(oAuthentication[anAnnotationStack.getAuthenticationPerformer().authenticationModelParentName.toUpperFirst()/], "[cRM.parentName/]", "[jRC.parentName/]", Integer.toString(o[jRC.hasAssociatedJavaRModel.name/].get[jRC.parentName/]Id()), null, Action.POST).equals(AuthorizationResultCode.PERMIT)){
         	o[jRC.hasAssociatedJavaRModel.name/].getlinklist().add(new HypermediaLink(String.format("%s%s/%s", oApplicationUri.getBaseUri(), oRelativePath, "[cRM.parentName/]"), "Create a new [cRM.parentName/] for this [jRC.parentName/]", "POST", "Child"));
 		}
 				[else]
