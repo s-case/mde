@@ -213,8 +213,8 @@ public class Get[jPRM.parentName/][jRCManager.parentName/]ListHandler{
 		[if (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() > 1)]
         this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/] = HibernateController.getHibernateControllerHandle().get[jPRM.parentName/](this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/]);
 		boolean bFoundRootResource = false;
- 		[for (gPModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(grandParentM : JavaResourceModel | grandParentM.hasRelatedJavaRMManager->includes(jPRM.hasRelatedJavaRMManager))) separator('\n        else')]
-		if(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfparent[gPModel.name/]().isEmpty() ==false &&  bFoundRootResource == false){
+ 		[for (gPModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(grandParentM : JavaResourceModel | grandParentM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))) separator('\n        else')]
+		if(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().isEmpty() ==false &&  bFoundRootResource == false && this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]() != null){
 			bFoundRootResource = true;
             oRelativePath = String.format("multi[jPRM.parentName/]/[gPModel.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", ""));
 		}
@@ -260,8 +260,8 @@ public class Get[jPRM.parentName/][jRCManager.parentName/]ListHandler{
 		[if (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() > 1)]
         this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/] = HibernateController.getHibernateControllerHandle().get[jPRM.parentName/](this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/]);
 		boolean bFoundRootResource = false;
- 		[for (gPModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(grandParentM : JavaResourceModel | grandParentM.hasRelatedJavaRMManager->includes(jPRM.hasRelatedJavaRMManager))) separator('\n        else')]
-		if(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfparent[gPModel.name/]().isEmpty() ==false &&  bFoundRootResource == false){
+ 		[for (gPModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(grandParentM : JavaResourceModel | grandParentM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))) separator('\n        else')]
+		if(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().isEmpty() ==false &&  bFoundRootResource == false && this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]() != null){
 			bFoundRootResource = true;
             oRelativePath = String.format("multi[jPRM.parentName/]/[gPModel.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", ""));
 		}
@@ -314,9 +314,8 @@ public class Get[jPRM.parentName/][jRCManager.parentName/]ListHandler{
         /* Finally calculate the relative path towards the resources of which this one is related and add one hypermedia link for each one of them in the Linklist.*/
 		[if (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() > 1)]
         this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/] = HibernateController.getHibernateControllerHandle().get[jPRM.parentName/](this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/]);
- 		[for (gPModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(grandParentM : JavaResourceModel | grandParentM.hasRelatedJavaRMManager->includes(jPRM.hasRelatedJavaRMManager))) separator('\n        else')]
-		if(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.parentName/]() != null && 
-		   this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.parentName/]().isEmpty() == false){
+ 		[for (gPModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(grandParentM : JavaResourceModel | grandParentM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))) separator('\n        else')]
+		if(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().isEmpty() ==false &&  bFoundRootResource == false && this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]() != null){
             oRelativePath = String.format("multi[jPRM.parentName/]/[gPModel.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", ""));
 		}
 		[/for]
@@ -382,9 +381,8 @@ public class Get[jPRM.parentName/][jRCManager.parentName/]ListHandler{
         /* Finally calculate the relative path towards the resources of which this one is related and add one hypermedia link for each one of them in the Linklist.*/
 		[if (anAnnotationStack.hasCorePSM.hasJavaRModel->select(gParent : JavaResourceModel | gParent.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))->size() > 1)]
         this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/] = HibernateController.getHibernateControllerHandle().get[jPRM.parentName/](this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/]);
- 		[for (gPModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(grandParentM : JavaResourceModel | grandParentM.hasRelatedJavaRMManager->includes(jPRM.hasRelatedJavaRMManager))) separator('\n        else')]
-		if(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]() != null && 
-		   this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().isEmpty() == false){
+ 		[for (gPModel : JavaResourceModel | anAnnotationStack.hasCorePSM.hasJavaRModel->select(grandParentM : JavaResourceModel | grandParentM.hasRelatedJavaRMManager.hasRelatedJavaRModel->includes(jPRM))) separator('\n        else')]
+		if(this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().isEmpty() ==false &&  bFoundRootResource == false && this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]() != null){
             oRelativePath = String.format("multi[jPRM.parentName/]/[gPModel.parentName/]/%d/%s", this.o[if (jPRM = jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel)]Source[/if][jPRM.name/].getSetOfParent[gPModel.name/]().iterator().next().get[gPModel.parentName/]Id(), this.strResourcePath.replaceAll("multi[jRCManager.hasAssociatedRMManager.hasRelatedJavaRModel.parentName/]Manager/", ""));
 		}
 		[/for]
